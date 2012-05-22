@@ -1,0 +1,20 @@
+ul.users
+{
+list-style-image:url('C:/Users/bsabouri/Desktop/icons/32x32/user.png');
+}
+
+ul.groups
+{
+list-style-image:url('C:/Users/bsabouri/Desktop/icons/32x32/user_group.png');
+}
+
+li
+{
+padding-top: 10px;
+font-family:"Verdana",sans-serif;
+}
+
+h1
+{
+font-family:"Verdana",sans-serif;
+}
