@@ -23,11 +23,22 @@ h1 {
     background-image: -webkit-gradient(linear, left top, left bottom, from(#B0BCCA), to(#6D859F));
 }
 
-ul {
+ul.apple {
     list-style: none;
     margin: 10px;
     padding: 0;
-	margin-bottom: -5px;
+	margin-bottom: 0px;
+}
+
+ul.apple > li {
+    border: 1px solid #999999;
+	color: #222222;
+    display: block;
+	background-color: #FFFFFF;
+	margin-bottom: -1px;
+
+	font-size: 17px;
+    font-weight: bold;
 }
 
 li.sound {
@@ -66,31 +77,7 @@ li.file {
 	padding-left: 60px;	
 }
 
-li {
-    border: 1px solid #999999;
-	color: #222222;
-    display: block;
-	padding: 12px 10px;
-	background-color: #FFFFFF;
-	margin-bottom: -1px;
-		
-	padding: 20px;
-	font-size: 17px;
-    font-weight: bold;
-}
-
-ul.users li a {
-	color: #222222;
-	text-decoration: none;
-	
-	background-image: url(../icons/48X48/user.png);
-	background-repeat: no-repeat;
-	background-position: 0px 5px;
-	padding: 20px;
-	padding-left: 60px
-}
-
-ul.groups > li {
+li.group {
 	background-image: url(../icons/48X48/user_group.png);
 	background-repeat: no-repeat;
 	background-position: 5px 5px;
@@ -98,12 +85,25 @@ ul.groups > li {
 	padding-left: 60px
 }
 
+li.user {		
+	background-image: url(../icons/48X48/user.png);
+	background-repeat: no-repeat;
+	background-position: 5px 5px;
+	padding: 20px;
+	padding-left: 60px
+}
+
+a {
+	color: #222222;
+	text-decoration: none;
+}
+
 /* Rounds Corners */
-ul li:first-child {
+ul.apple li:first-child {
     -webkit-border-top-left-radius: 8px;
     -webkit-border-top-right-radius: 8px;
 }
-ul li:last-child {
+ul.apple li:last-child {
     -webkit-border-bottom-left-radius: 8px;
     -webkit-border-bottom-right-radius: 8px;
 }
