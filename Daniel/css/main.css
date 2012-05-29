@@ -1,4 +1,4 @@
-/* CSS code modified from 
+/* Some CSS code modified from 
 http://ofps.oreilly.com/titles/9780596805784/index.html
 */
 
@@ -11,6 +11,7 @@ body {
     padding: 0;             /* Amount of negative space around the inside of the body */
 }
 
+/* To keep header fixed at top */
 div#header {
 	position:absolute;
 	top:0;
@@ -19,6 +20,7 @@ div#header {
 	position:fixed;
  }
 
+ /* To have content always below the header */
 div#content {
 	margin-top:57px;
 } 
@@ -36,14 +38,20 @@ h1 {
     text-align: center;
     text-decoration: none;
 	text-shadow: 0px 1px 2px #000000;
-    background-image: -webkit-gradient(linear, left top, left bottom, from(#B0BCCA), to(#6D859F));
+		
+	/* Cross Browser Gradient. */
+	background: #B0BCCA;
+    background: -webkit-gradient(linear, left top, left bottom, from(#B0BCCA), to(#6D859F));
+    background: -moz-linear-gradient(top, #B0BCCA, #6D859F);
+    background: -o-linear-gradient(#B0BCCA, #6D859F);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#B0BCCA', endColorstr='#6D859F');
+    zoom:1;
 }
 
 ul.apple {
     list-style: none;
     margin: 10px;
     padding: 0;
-	margin-bottom: 0px;
 }
 
 ul.apple > li {
@@ -55,6 +63,13 @@ ul.apple > li {
 
 	font-size: 17px;
     font-weight: bold;
+}
+
+/* Embedded lists */
+ul.apple ul.apple {
+	margin-left: -20;
+	margin-right: -10;
+	margin-bottom: -10;
 }
 
 li.sound {
@@ -109,6 +124,7 @@ li.user {
 	padding-left: 60px
 }
 
+/* Remove underline and blue from links */
 a {
 	color: #222222;
 	text-decoration: none;
@@ -118,8 +134,14 @@ a {
 ul.apple li:first-child {
     -webkit-border-top-left-radius: 8px;
     -webkit-border-top-right-radius: 8px;
+	
+	/* Firefox */
+	-moz-border-radius: 8px 8px 0px 0px;
 }
 ul.apple li:last-child {
     -webkit-border-bottom-left-radius: 8px;
     -webkit-border-bottom-right-radius: 8px;
+	
+	/* Firefox */
+	-moz-border-radius: 0px 0px 8px 8px;
 }
