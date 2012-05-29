@@ -132,16 +132,8 @@ a {
 
 /* Rounds Corners */
 ul.apple li:first-child {
-    -webkit-border-top-left-radius: 8px;
-    -webkit-border-top-right-radius: 8px;
-	
-	/* Firefox */
-	-moz-border-radius: 8px 8px 0px 0px;
+	border-radius: 8px 8px 0px 0px;
 }
 ul.apple li:last-child {
-    -webkit-border-bottom-left-radius: 8px;
-    -webkit-border-bottom-right-radius: 8px;
-	
-	/* Firefox */
-	-moz-border-radius: 0px 0px 8px 8px;
+    border-radius: 0px 0px 8px 8px;	
 }
