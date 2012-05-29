@@ -11,13 +11,6 @@ function hide(idString)
 	return;
 }
 
-function hideAll()
-{
-	hide('list1');
-	hide('list2');
-
-}
-
 function addUser2(name, email)
 {
 	var list = document.getElementById('participantList');
@@ -33,4 +26,13 @@ function addUser()
 	var email = document.getElementById("email").value;
 	
 	addUser2(name,email);
+}
+
+function addSubMenu(list)
+{
+	var ul = document.getElementById(list);
+	var newUl = document.createElement("UL");
+	newUl.className = "apple";
+	newUl.innerHTML = "<li class='group'>Edit Group</li><li class='delete'>Delete</li><li class='share'>Share</li><li class='email'>Email</li>";
+	ul.appendChild(newUl);
 }
