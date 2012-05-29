@@ -3,52 +3,47 @@
 
 <head>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
-<title>Default Page</title>
+<title>Login Page</title>
 <style type="text/css">
-.groups {
-	position:absolute;
-	top:500px;
-	left:0;
-}
-
-.participants {
-	position:absolute;
-	left:0;
-	top:0;
-}
-
-.twitterfeed 
-{
-	position:absolute;
-	top:775px;
-	left:300px;
-}
-
-.map 
-{
-	position:absolute;
-	top:100px;
-	left:300px;
-}
-
-.queue
-{
-	position:absolute;
-	top:0;
-	left:300px;
-}
-
-}
+ #container {     
+        display:table;     
+        border-collapse:collapse;   
+        height:500px;   
+        width:100%; 
+        
+    }          
+    #layout {     
+        display:table-row;    
+    }            
+    #content {     
+        display:table-cell;   
+        text-align:center;  
+        vertical-align:middle;     
+    }            
 
 </style>
+
 </head>
 
 <body>
-		<object width="300" height="450" class="groups" type="text/html" data="Daniel/groups.html"></object>
-		<object width="850" height="100" class="queue" data="queue.html" type="text/html"></object>
-		<object width="300" height="500" class="participants" type="text/html" data="Daniel/participants.html"></object>
-		<object width="900" height="800" class="map" type="text/html" data="GoogleMap.html"></object>
-		<object width="800" height="150" class="twitterfeed" type="text/html" data="twitter.html"></object>
+
+    
+<div id="container">     
+    <div id="layout">     
+        <div id="content">
+        	<h2>
+        		Session Login:
+        	</h2>
+            <form action="Main.html">
+				Username: <input type="text" name="username" /><br />
+				Password: <input type="password" name="password" /><br />
+				<input type="submit" value="submit"/>
+			</form>
+        </div>      
+    </div>    
+</div> 
+
+
 
 
 
