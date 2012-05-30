@@ -48,6 +48,24 @@ h1 {
     zoom:1;
 }
 
+div#accordion {
+    border: 1px solid #999999;
+	color: #222222;
+    display: block;
+	background-color: #FFFFFF;
+	margin-bottom: -1px;
+	margin: 10px;
+	padding: 0;
+}
+
+h3 a {
+	font-size: 17px;
+    font-weight: bold;
+	color: #222222;
+    display: block;
+
+}
+
 ul.apple {
     margin: 10px;
     padding: 0;
@@ -95,83 +113,48 @@ ul.apple ul.apple {
 	margin-bottom: -10;
 }
 
-li.sound {
+.icon {
+	background-repeat: no-repeat;
+	background-position: 5px 5px;
+	padding: 20px;
+	padding-left: 60px
+}
+
+.sound {
 	background-image: url(../icons/audio.png);
-	background-repeat: no-repeat;
-	background-position: 5px 5px;
-
-	padding: 20px;
-	padding-left: 60px;
 }
 
-li.delete {
+.delete {
 	background-image: url(../icons/delete.png);
-	background-repeat: no-repeat;
-	background-position: 5px 5px;
-
-	padding: 20px;
-	padding-left: 60px;
 }
 
-li.share {
+.share {
 	background-image: url(../icons/share.png);
-	background-repeat: no-repeat;
-	background-position: 5px 5px;
-
-	padding: 20px;
-	padding-left: 60px;
 }
 
-li.email {
+.email {
 	background-image: url(../icons/email.png);
-	background-repeat: no-repeat;
-	background-position: 5px 5px;
-
-	padding: 20px;
-	padding-left: 60px;
 }
 
-li.image {
+.image {
 	background-image: url(../icons/image.png);
-	background-repeat: no-repeat;
-	background-position: 5px 5px;
-
-	padding: 20px;
-	padding-left: 60px;
 }
 
-li.doc {
+.doc {
 	background-image: url(../icons/document.png);
-	background-repeat: no-repeat;
-	background-position: 5px 5px;
-
-	padding: 20px;
-	padding-left: 60px;	
 }
 
-li.file {
+.file {
 	background-image: url(../icons/file.png);
-	background-repeat: no-repeat;
-	background-position: 5px 5px;
-
-	padding: 20px;
-	padding-left: 60px;	
 }
 
-li.group {
+.group {
 	background-image: url(../icons/48X48/user_group.png);
-	background-repeat: no-repeat;
-	background-position: 5px 5px;
-	padding: 20px;
-	padding-left: 60px
 }
 
-li.user {		
+.user {		
 	background-image: url(../icons/48X48/user.png);
-	background-repeat: no-repeat;
-	background-position: 5px 5px;
-	padding: 20px;
-	padding-left: 60px
+
 }
 
 /* Remove underline and blue from links */
