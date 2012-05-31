@@ -1,6 +1,4 @@
-﻿/* This code is taken from facet-prototyping/TestWebsiteJS.js , but modified so that you can specify the element to show/hide on click */
-
-function hide(idString)
+﻿function hide(idString)
 {
 	var target = document.getElementById(idString);
 	if(target .style.display == "none")
@@ -36,3 +34,4 @@ function addSubMenu(list)
 	newUl.innerHTML = "<li class='group'>Edit Group</li><li class='delete'>Delete</li><li class='share'>Share</li><li class='email'>Email</li>";
 	ul.appendChild(newUl);
 }
+

@@ -14,10 +14,13 @@
 <script src="../jquery-ui-1.8.20.custom/development-bundle/ui/jquery.ui.sortable.js"></script>
 <script src="../jquery-ui-1.8.20.custom/development-bundle/ui/jquery.ui.accordion.js"></script>
 
+
+
+
 <script>
 $(function() {
 		$( "#participantList li" ).draggable({
-			appendTo: "body",
+			/*appendTo: "body",*/
 			helper: "clone"
 		});
 		$( "#nserc" ).droppable({
@@ -27,13 +30,6 @@ $(function() {
 			drop: function( event, ui ) {
 				$( this ).find( ".placeholder" ).remove();
 				$( "<li class='icon user'></li>" ).text( ui.draggable.text() ).appendTo( "#list1");
-			}
-		}).sortable({
-			items: "li:not(.placeholder)",
-			sort: function() {
-				// gets added unintentionally by droppable interacting with sortable
-				// using connectWithSortable fixes this, but doesn't allow you to customize active/hoverClass options
-				$( this ).removeClass( "ui-state-default" );
 			}
 		});
 		
@@ -45,16 +41,27 @@ $(function() {
 				$( this ).find( ".placeholder" ).remove();
 				$( "<li class='icon user'></li>" ).text( ui.draggable.text() ).appendTo( "#list2");
 			}
-		}).sortable({
+		});
+		
+		$( "#nserc, #facet" ).sortable({
 			items: "li:not(.placeholder)",
+			connectWith: ".connectedSortable",
+			distance: 15,
 			sort: function() {
 				// gets added unintentionally by droppable interacting with sortable
 				// using connectWithSortable fixes this, but doesn't allow you to customize active/hoverClass options
 				$( this ).removeClass( "ui-state-default" );
 			}
-		});
+		}).disableSelection();
 	});
+	
+	
 </script>
+
+<!-- https://github.com/furf/jquery-ui-touch-punch
+ UNTESTED
+Hack to get drag and drop to work on touch devices-->
+<script src="javascript/jquery.ui.touch-punch.min.js"></script>
 </head>
 
 <body>
@@ -77,11 +84,13 @@ $(function() {
 </ul>
 </div>
 
-<ul class="apple">
 
+<h1>Groups</h1>
+
+<ul class="apple">
 <li class = "icon group apple">
 
-<div id="nserc">
+<div id="nserc" class="connectedSortable">
 <div onclick="hide('list1')">NSERC</div>
 
 <ul class = "apple" id="list1">
@@ -93,7 +102,7 @@ $(function() {
 
 
 <li class = "icon group">
-<div id="facet">
+<div id="facet" class="connectedSortable">
 <div onclick="hide('list2')">Facet</div>
 <ul class = "apple" id="list2">
 
