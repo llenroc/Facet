@@ -1,25 +1,6 @@
 <html>
-<body>
-
-<!code borrowed from http://www.html5rocks.com/en/tutorials/dnd/basics/!>
-
-<div id="columns">
-  <div class="column" draggable="true"><header>Comment</header></div>
-  <div class="column" draggable="true"><header>Comment</header></div>
-  <div class="column" draggable="true"><header>Poll</header></div>
-  <div class="column" draggable="true"><header>Question</header></div>
-  <div class="column" draggable="true"><header>Video</header></div>
-  <div class="column" draggable="true"><header>Poll Results</header></div>
-</div>
-
+<head>
 <style>
-/* Prevent the text contents of draggable elements from being selectable. */
-[draggable] {
-  -moz-user-select: none;
-  -khtml-user-select: none;
-  -webkit-user-select: none;
-  user-select: none;
-}
 .column {
   height: 75;
   width: 150px;
@@ -61,13 +42,40 @@
 }
 </style>
 
-<style>
-.column.over {
-  border: 2px dashed #000;
-}
-</style>
+<script src="jquery-ui-1.8.20.custom/development-bundle/jquery-1.7.2.js"></script>
+<script src="jquery-ui-1.8.20.custom/development-bundle/ui/jquery.ui.core.js"></script>
+<script src="jquery-ui-1.8.20.custom/development-bundle/ui/jquery.ui.widget.js"></script>
+<script src="jquery-ui-1.8.20.custom/development-bundle/ui/jquery.ui.mouse.js"></script>
+<script src="jquery-ui-1.8.20.custom/development-bundle/ui/jquery.ui.sortable.js"></script>
 
-<script src="queue.js"></script>
+<script>
+	$(function() {
+		$(this).makeDroppable();
+	});
+	
+$.fn.makeDroppable = function() {
+		/* All groups need .group class and .connectedSortable class to join together for sorting */
+		$( "#columns" ).sortable({
+			items: "div:not(.placeholder)",
+			distance: 15,
+		}).disableSelection();
+};
+
+</script>
+</head>
+
+<body>
+
+<!code borrowed from http://www.html5rocks.com/en/tutorials/dnd/basics/!>
+
+<div id="columns">
+  <div class="column" draggable="true"><header>Comment</header></div>
+  <div class="column" draggable="true"><header>Comment</header></div>
+  <div class="column" draggable="true"><header>Poll</header></div>
+  <div class="column" draggable="true"><header>Question</header></div>
+  <div class="column" draggable="true"><header>Video</header></div>
+  <div class="column" draggable="true"><header>Poll Results</header></div>
+</div>
 
 </body>
 </html>
