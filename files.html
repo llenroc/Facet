@@ -3,11 +3,34 @@
 <head>
 <link rel="stylesheet" type="text/css" href="css/main.css" />
 <meta name="viewport" content="user-scalable=no, width=device-width" />
+
+<script src="jquery-ui-1.8.20.custom/development-bundle/jquery-1.7.2.js"></script>
+<script src="jquery-ui-1.8.20.custom/development-bundle/ui/jquery.ui.core.js"></script>
+<script src="jquery-ui-1.8.20.custom/development-bundle/ui/jquery.ui.widget.js"></script>
+<script src="jquery-ui-1.8.20.custom/development-bundle/ui/jquery.ui.mouse.js"></script>
+<script src="jquery-ui-1.8.20.custom/development-bundle/ui/jquery.ui.draggable.js"></script>
+<script src="jquery-ui-1.8.20.custom/development-bundle/ui/jquery.ui.droppable.js"></script>
+<script src="jquery-ui-1.8.20.custom/development-bundle/ui/jquery.ui.sortable.js"></script>
+
+<script>
+$(function() {
+		$(this).makeDroppable();
+	});
+	
+$.fn.makeDroppable = function() {
+		/* All groups need .group class and .connectedSortable class to join together for sorting */
+		$( ".appleCube" ).sortable({
+			items: "li:not(.placeholder)",
+			connectWith: ".connectedSortable",
+			distance: 15,
+		}).disableSelection();
+};
+
+</script>
+
 </head>
 
 <body>
-
-<h1>Workspace</h1>
 
 <ul class = "appleCube">
 <li class = "icon sound">Audio</li>
