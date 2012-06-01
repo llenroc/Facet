@@ -26,6 +26,7 @@ $(function() {
 		$( ".group" ).droppable({
 			accept: ":not(.ui-sortable-helper)",
 			drop: function( event, ui ) {
+				$( this ).find(".apple").show(); /* When a new item is added, the group is expanded */
 				$( this ).find( ".placeholder" ).remove();
 				$( "<li class='icon user'></li>" ).text( ui.draggable.text() ).appendTo( jQuery(".apple",this));
 			}
@@ -41,14 +42,14 @@ $(function() {
 	
 
 $.fn.newGroup = function() {
-	$("#groupList").append("<li class = 'icon group connectedSortable'><div onclick='$(this).hide5();'>New Group</div><ul class = 'apple'></ul></li>");
+	$("#groupList").append("<li class = 'icon group connectedSortable'><div onclick='$(this).hide5();'>New Group</div><ul class = 'apple'><li style='display:none'></li></ul></li>");
 };
 
 $.fn.hide5 = function() {
 
 	$(this).next().toggle();
 };
-	
+
 </script>
 
 <!-- https://github.com/furf/jquery-ui-touch-punch
@@ -85,17 +86,19 @@ Hack to get drag and drop to work on touch devices-->
 <ul class="apple" id = "groupList">
 <li class = "icon group connectedSortable">
 
-<div onclick="$(this).hide5();">NSERC</div>
+<div class = "name" onclick="$(this).hide5();">NSERC</div>
 <ul class = "apple" id="list1">
+<li style='display:none'></li>
 </ul>
 
 </li>
 
 
 <li class = "icon group connectedSortable">
-<div onclick='$(this).hide5();'>Facet</div>
+<div class = "name" onclick='$(this).hide5();'>Facet</div>
 
 <ul class = "apple" id="list2">
+<li style="display:none"></li>
 </ul>
 
 </li>
