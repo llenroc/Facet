@@ -1,15 +1,4 @@
-﻿function hide(idString)
-{
-	var target = document.getElementById(idString);
-	if(target .style.display == "none")
-		target .style.display = "block";
-	else
-		target .style.display = "none";
-
-	return;
-}
-
-function addUser2(name, email)
+﻿function addUser2(name, email)
 {
 	var list = document.getElementById('participantList');
 	var newLi = document.createElement("LI");
@@ -25,3 +14,18 @@ function addUser()
 	
 	addUser2(name,email);
 }
+
+/*
+function addGroup()
+{
+	var groupList = document.getElementById('groupList');
+	var newGroup = document.createElement('LI');
+	var newInnerGroup = document.createElement("UL");
+	newInnerGroup.className = "apple";
+	newGroup.className = "icon group connectedSortable";
+	
+	newGroup.appendChild(newInnerGroup);	
+	groupList.appendChild(newGroup);
+	
+
+}*/

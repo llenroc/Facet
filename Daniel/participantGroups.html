@@ -39,6 +39,15 @@ $(function() {
 		}).disableSelection();
 	});
 	
+
+$.fn.newGroup = function() {
+	$("#groupList").append("<li class = 'icon group connectedSortable'><div onclick='$(this).hide5();'>New Group</div><ul class = 'apple'></ul></li>");
+};
+
+$.fn.hide5 = function() {
+
+	$(this).next().toggle();
+};
 	
 </script>
 
@@ -56,7 +65,7 @@ Hack to get drag and drop to work on touch devices-->
 <div id="content">
 
 <ul class = "apple" id="participantList">
-<li class="user icon"><a href="#">Byron</a></li>
+<li class="user icon"><a href='#'>Byron</a></li>
 <li class="user icon"><a href="mailto:chnewton@hotmail.com">Charles</a></li>
 <li class="user icon"><a href="mailto:chouston@facet.com">Christopher</a></li>
 <li class="user icon"><a href="mailto:sabourid@ucalgary.ca">Daniel</a></li>
@@ -71,11 +80,12 @@ Hack to get drag and drop to work on touch devices-->
 
 <h1>Groups</h1>
 
-<ul class="apple">
+<button onclick="$(this).newGroup();">+</button>
+
+<ul class="apple" id = "groupList">
 <li class = "icon group connectedSortable">
 
-<div onclick="hide('list1')">NSERC</div>
-
+<div onclick="$(this).hide5();">NSERC</div>
 <ul class = "apple" id="list1">
 </ul>
 
@@ -83,12 +93,12 @@ Hack to get drag and drop to work on touch devices-->
 
 
 <li class = "icon group connectedSortable">
-<div onclick="hide('list2')">Facet</div>
+<div onclick='$(this).hide5();'>Facet</div>
+
 <ul class = "apple" id="list2">
-
 </ul>
-</li>
 
+</li>
 </ul>
 
 
