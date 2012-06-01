@@ -21,23 +21,18 @@ $(function() {
 			connectToSortable: "#nserc #facet",
 			opacity: 0.5,
 		});
-		$( "#nserc" ).droppable({
+		
+		/* Everything with the .group class will be droppable, and it'll append it to children with the .apple class */
+		$( ".group" ).droppable({
 			accept: ":not(.ui-sortable-helper)",
 			drop: function( event, ui ) {
 				$( this ).find( ".placeholder" ).remove();
-				$( "<li class='icon user'></li>" ).text( ui.draggable.text() ).appendTo("#list1");
+				$( "<li class='icon user'></li>" ).text( ui.draggable.text() ).appendTo( jQuery(".apple",this));
 			}
 		});
-		
-		$( "#facet" ).droppable({
-			accept: ":not(.ui-sortable-helper)",
-			drop: function( event, ui ) {
-				$( this ).find( ".placeholder" ).remove();
-				$( "<li class='icon user'></li>" ).text( ui.draggable.text() ).appendTo( "#list2");
-			}
-		});
-		
-		$( "#nserc, #facet" ).sortable({
+				
+		/* All groups need .group class and .connectedSortable class to join together for sorting */
+		$( ".group" ).sortable({
 			items: "li:not(.placeholder)",
 			connectWith: ".connectedSortable",
 			distance: 15,
@@ -77,7 +72,7 @@ Hack to get drag and drop to work on touch devices-->
 <h1>Groups</h1>
 
 <ul class="apple">
-<li id = "nserc" class = "icon group apple connectedSortable">
+<li class = "icon group connectedSortable">
 
 <div onclick="hide('list1')">NSERC</div>
 
@@ -87,7 +82,7 @@ Hack to get drag and drop to work on touch devices-->
 </li>
 
 
-<li id="facet" class = "icon group connectedSortable">
+<li class = "icon group connectedSortable">
 <div onclick="hide('list2')">Facet</div>
 <ul class = "apple" id="list2">
 

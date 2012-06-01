@@ -25,13 +25,3 @@ function addUser()
 	
 	addUser2(name,email);
 }
-
-function addSubMenu(list)
-{
-	var ul = document.getElementById(list);
-	var newUl = document.createElement("UL");
-	newUl.className = "apple";
-	newUl.innerHTML = "<li class='group'>Edit Group</li><li class='delete'>Delete</li><li class='share'>Share</li><li class='email'>Email</li>";
-	ul.appendChild(newUl);
-}
-
