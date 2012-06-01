@@ -6,6 +6,15 @@ body {
     background-color: #ddd; /* Background color */
     color: #222;            /* Foreground color used for text */
     font-family: Helvetica;
+	
+	/* Disable text selection */
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+
     font-size: 14px;
     margin: 0;              /* Amount of negative space around the outside of the body */
     padding: 0;             /* Amount of negative space around the inside of the body */

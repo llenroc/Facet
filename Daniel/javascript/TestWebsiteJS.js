@@ -14,18 +14,3 @@ function addUser()
 	
 	addUser2(name,email);
 }
-
-/*
-function addGroup()
-{
-	var groupList = document.getElementById('groupList');
-	var newGroup = document.createElement('LI');
-	var newInnerGroup = document.createElement("UL");
-	newInnerGroup.className = "apple";
-	newGroup.className = "icon group connectedSortable";
-	
-	newGroup.appendChild(newInnerGroup);	
-	groupList.appendChild(newGroup);
-	
-
-}*/
