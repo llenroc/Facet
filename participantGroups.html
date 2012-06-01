@@ -4,13 +4,13 @@
 <link rel="stylesheet" type="text/css" href="css/main.css" />
 <script src="javascript/TestWebsiteJS.js"></script>
 
-<script src="../jquery-ui-1.8.20.custom/development-bundle/jquery-1.7.2.js"></script>
-<script src="../jquery-ui-1.8.20.custom/development-bundle/ui/jquery.ui.core.js"></script>
-<script src="../jquery-ui-1.8.20.custom/development-bundle/ui/jquery.ui.widget.js"></script>
-<script src="../jquery-ui-1.8.20.custom/development-bundle/ui/jquery.ui.mouse.js"></script>
-<script src="../jquery-ui-1.8.20.custom/development-bundle/ui/jquery.ui.draggable.js"></script>
-<script src="../jquery-ui-1.8.20.custom/development-bundle/ui/jquery.ui.droppable.js"></script>
-<script src="../jquery-ui-1.8.20.custom/development-bundle/ui/jquery.ui.sortable.js"></script>
+<script src="jquery-ui-1.8.20.custom/development-bundle/jquery-1.7.2.js"></script>
+<script src="jquery-ui-1.8.20.custom/development-bundle/ui/jquery.ui.core.js"></script>
+<script src="jquery-ui-1.8.20.custom/development-bundle/ui/jquery.ui.widget.js"></script>
+<script src="jquery-ui-1.8.20.custom/development-bundle/ui/jquery.ui.mouse.js"></script>
+<script src="jquery-ui-1.8.20.custom/development-bundle/ui/jquery.ui.draggable.js"></script>
+<script src="jquery-ui-1.8.20.custom/development-bundle/ui/jquery.ui.droppable.js"></script>
+<script src="jquery-ui-1.8.20.custom/development-bundle/ui/jquery.ui.sortable.js"></script>
 
 <script>
 $(function() {
@@ -19,8 +19,8 @@ $(function() {
 	
 
 $.fn.newGroup = function() {
-	$("#groupList").append("<li class = 'icon group connectedSortable'><div onclick='$(this).hide5();'>New Group</div><ul class = 'apple'><li style='display:none'></li></ul></li>");
-	$(this).makeDroppable();
+	$("#groupList").append("<li class = 'icon group connectedSortable'><div onclick='$(this).hide5();'>New Group</div><ul class = 'apple'></ul></li>");
+	$(this).makeDroppable(); /* Makes new group droppable */
 };
 
 $.fn.makeDroppable = function() {
@@ -93,7 +93,6 @@ Hack to get drag and drop to work on touch devices-->
 
 <div class = "name" onclick="$(this).hide5();">NSERC</div>
 <ul class = "apple">
-<li style='display:none'></li>
 </ul>
 
 </li>
@@ -103,7 +102,6 @@ Hack to get drag and drop to work on touch devices-->
 <div class = "name" onclick='$(this).hide5();'>Facet</div>
 
 <ul class = "apple">
-<li style="display:none"></li>
 </ul>
 
 </li>
