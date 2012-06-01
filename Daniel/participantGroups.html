@@ -14,6 +14,16 @@
 
 <script>
 $(function() {
+		$(this).makeDroppable();
+	});
+	
+
+$.fn.newGroup = function() {
+	$("#groupList").append("<li class = 'icon group connectedSortable'><div onclick='$(this).hide5();'>New Group</div><ul class = 'apple'><li style='display:none'></li></ul></li>");
+	$(this).makeDroppable();
+};
+
+$.fn.makeDroppable = function() {
 		$( "#participantList li" ).draggable({
 			/*appendTo: "body",*/
 			helper: "clone",
@@ -38,11 +48,6 @@ $(function() {
 			connectWith: ".connectedSortable",
 			distance: 15,
 		}).disableSelection();
-	});
-	
-
-$.fn.newGroup = function() {
-	$("#groupList").append("<li class = 'icon group connectedSortable'><div onclick='$(this).hide5();'>New Group</div><ul class = 'apple'><li style='display:none'></li></ul></li>");
 };
 
 $.fn.hide5 = function() {
@@ -87,7 +92,7 @@ Hack to get drag and drop to work on touch devices-->
 <li class = "icon group connectedSortable">
 
 <div class = "name" onclick="$(this).hide5();">NSERC</div>
-<ul class = "apple" id="list1">
+<ul class = "apple">
 <li style='display:none'></li>
 </ul>
 
@@ -97,7 +102,7 @@ Hack to get drag and drop to work on touch devices-->
 <li class = "icon group connectedSortable">
 <div class = "name" onclick='$(this).hide5();'>Facet</div>
 
-<ul class = "apple" id="list2">
+<ul class = "apple">
 <li style="display:none"></li>
 </ul>
 
