@@ -48,6 +48,11 @@ $.fn.makeDroppable = function() {
 			connectWith: ".connectedSortable",
 			distance: 15,
 		}).disableSelection();
+		
+		$( "#groupList" ).sortable({
+			items: "li:not(.placeholder)",
+			distance: 15,
+		}).disableSelection();
 };
 
 $.fn.hide5 = function() {
