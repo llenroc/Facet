@@ -13,14 +13,40 @@
 <script src="jquery-ui-1.8.20.custom/development-bundle/ui/jquery.ui.sortable.js"></script>
 
 <script>
+var renaming = false;
+
 $(function() {
 		$(this).makeDroppable();
 	});
 	
 
 $.fn.newGroup = function() {
-	$("#groupList").append("<li class = 'icon group connectedSortable'><div onclick='$(this).hide5();'>New Group</div><ul class = 'apple'></ul></li>");
+	if(renaming == true) {
+		$("#groupList").append("<li class = 'icon group connectedSortable'><div onclick='$(this).hide5();'><textarea>New Group</textarea></div><ul class = 'apple'></ul></li>");
+	} else {
+		$("#groupList").append("<li class = 'icon group connectedSortable'><div onclick='$(this).hide5();'>New Group</div><ul class = 'apple'></ul></li>");	
+	}
 	$(this).makeDroppable(); /* Makes new group droppable */
+};
+
+$.fn.rename = function() {
+
+	if(renaming == false) {
+		$("#groupList li").each(function(index) {
+			var name = $(this).find("div").html();
+			$(this).find("div").html("<textarea>" + name + "</textarea>");
+		});
+		renaming = true;
+	} else if (renaming == true) {
+		$("#groupList li").each(function(index) {
+			var name = $(this).find("textarea").val();
+			$(this).find("div").html(name);		
+		});
+		renaming = false;
+	}
+	
+	
+
 };
 
 $.fn.makeDroppable = function() {
@@ -28,7 +54,6 @@ $.fn.makeDroppable = function() {
 			/*appendTo: "body",*/
 			helper: "clone",
 			cursorAt: { left: 30, top: 30},
-			connectToSortable: "#nserc #facet",
 			opacity: 0.5,
 		});
 		
@@ -91,6 +116,7 @@ Hack to get drag and drop to work on touch devices-->
 <h1>Groups</h1>
 
 <button onclick="$(this).newGroup();">+</button>
+<button onclick="$(this).rename();">Rename</button>
 
 <ul class="apple" id = "groupList">
 <li class = "icon group connectedSortable">
