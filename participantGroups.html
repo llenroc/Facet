@@ -15,11 +15,12 @@
 <script>
 var renaming = false;
 
+/* This is run when the html is finished loading*/
 $(function() {
 		$(this).makeDroppable();
 	});
 	
-
+/* If we are currently renaming, then we make an group with the textarea, else if just create regular text*/
 $.fn.newGroup = function() {
 	if(renaming == true) {
 		$("#groupList").append("<li class = 'icon group connectedSortable'><div onclick='$(this).hide5();'><textarea>New Group</textarea></div><ul class = 'apple'></ul></li>");
@@ -29,24 +30,26 @@ $.fn.newGroup = function() {
 	$(this).makeDroppable(); /* Makes new group droppable */
 };
 
+/* Converts the name to a textarea to start renaming. Converts text area to text when finished */
 $.fn.rename = function() {
-
 	if(renaming == false) {
 		$("#groupList li").each(function(index) {
 			var name = $(this).find("div").html();
 			$(this).find("div").html("<textarea>" + name + "</textarea>");
 		});
 		renaming = true;
-	} else if (renaming == true) {
+		$("#renameButton").html("Done");
+	} else {
 		$("#groupList li").each(function(index) {
 			var name = $(this).find("textarea").val();
+			if(name == "") {
+				name = "New Group";
+			}
 			$(this).find("div").html(name);		
 		});
 		renaming = false;
+		$("#renameButton").html("Rename");
 	}
-	
-	
-
 };
 
 $.fn.makeDroppable = function() {
@@ -61,7 +64,7 @@ $.fn.makeDroppable = function() {
 		$( ".group" ).droppable({
 			accept: ":not(.ui-sortable-helper)",
 			drop: function( event, ui ) {
-				$( this ).find(".apple").show(); /* When a new item is added, the group is expanded */
+				$( this ).find(".apple").show("fast"); /* When a new item is added, the group is expanded */
 				$( this ).find( ".placeholder" ).remove();
 				$( "<li class='icon user'></li>" ).text( ui.draggable.text() ).appendTo( jQuery(".apple",this));
 			}
@@ -72,17 +75,19 @@ $.fn.makeDroppable = function() {
 			items: "li:not(.placeholder)",
 			connectWith: ".connectedSortable",
 			distance: 15,
-		}).disableSelection();
+		});
 		
+		/* Disabling group sorting for now because it is buggy
 		$( "#groupList" ).sortable({
 			items: "li:not(.placeholder)",
 			distance: 15,
 		}).disableSelection();
+		*/
 };
 
 $.fn.hide5 = function() {
 
-	$(this).next().toggle();
+	$(this).next().toggle("fast");
 };
 
 </script>
@@ -115,26 +120,10 @@ Hack to get drag and drop to work on touch devices-->
 
 <h1>Groups</h1>
 
-<button onclick="$(this).newGroup();">+</button>
-<button onclick="$(this).rename();">Rename</button>
+<button onclick="$(this).newGroup();">New Group</button>
+<button id="renameButton" onclick="$(this).rename();">Rename</button>
 
 <ul class="apple" id = "groupList">
-<li class = "icon group connectedSortable">
-
-<div class = "name" onclick="$(this).hide5();">NSERC</div>
-<ul class = "apple">
-</ul>
-
-</li>
-
-
-<li class = "icon group connectedSortable">
-<div class = "name" onclick='$(this).hide5();'>Facet</div>
-
-<ul class = "apple">
-</ul>
-
-</li>
 </ul>
 
 

@@ -178,3 +178,8 @@ ul.apple li:first-child {
 ul.apple li:last-child {
     border-radius: 0px 0px 8px 8px;	
 }
+
+textarea {
+  resize: none;
+  overflow: auto;
+}
