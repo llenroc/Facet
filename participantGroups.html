@@ -14,7 +14,7 @@
 <script src="jquery-ui-1.8.20.custom/development-bundle/ui/jquery.ui.sortable.js"></script>
 
 <script>
-var renaming = false;
+var editing = false;
 
 /* This is run when the html is finished loading*/
 $(function() {
@@ -23,8 +23,8 @@ $(function() {
 	
 /* If we are currently renaming, then we make an group with the textarea, else if just create regular text*/
 $.fn.newGroup = function() {
-	if(renaming == true) {
-		$("#groupList").append("<li class = 'icon group connectedSortable'><div onclick='$(this).hide5();'><textarea>New Group</textarea></div><ul class = 'apple'></ul></li>");
+	if(editing == true) {
+		$("#groupList").append("<li class = 'icon group connectedSortable'><img onclick='$(this).test();' class='delete' src='icons/delete.png'></img><div onclick='$(this).hide5();'><textarea>New Group</textarea></div><ul class = 'apple'></ul></li>");
 	} else {
 		$("#groupList").append("<li class = 'icon group connectedSortable'><div onclick='$(this).hide5();'>New Group</div><ul class = 'apple'></ul></li>");	
 	}
@@ -33,12 +33,17 @@ $.fn.newGroup = function() {
 
 /* Converts the name to a textarea to start renaming. Converts text area to text when finished */
 $.fn.rename = function() {
-	if(renaming == false) {
+	if(editing == false) {
 		$("#groupList li").each(function(index) {
+			/*Renaming*/
 			var name = $(this).find("div").html();
 			$(this).find("div").html("<textarea>" + name + "</textarea>");
+			
+			/*Deleting*/
+			var oldHtml = $(this).html();
+			$(this).html("<img onclick='$(this).test();' class='delete' src='icons/delete.png'></img>" + oldHtml);
 		});
-		renaming = true;
+		editing = true;
 		$("#renameButton").html("Done");
 	} else {
 		$("#groupList li").each(function(index) {
@@ -48,9 +53,15 @@ $.fn.rename = function() {
 			}
 			$(this).find("div").html(name);		
 		});
-		renaming = false;
-		$("#renameButton").html("Rename");
+		
+		$(".delete").remove();
+		editing = false;
+		$("#renameButton").html("Edit");
 	}
+};
+
+$.fn.test = function() {
+	$(this).parent().remove();
 };
 
 $.fn.makeDroppable = function() {
@@ -96,6 +107,7 @@ $.fn.hide5 = function() {
 <!-- https://github.com/furf/jquery-ui-touch-punch
 Hack to get drag and drop to work on touch devices-->
 <script src="javascript/jquery.ui.touch-punch.min.js"></script>
+
 </head>
 
 <body>
@@ -122,11 +134,10 @@ Hack to get drag and drop to work on touch devices-->
 <h1>Groups</h1>
 
 <button onclick="$(this).newGroup();">New Group</button>
-<button id="renameButton" onclick="$(this).rename();">Rename</button>
+<button id="renameButton" onclick="$(this).rename();">Edit</button>
 
 <ul class="apple" id = "groupList">
 </ul>
-
 
 </body>
 
