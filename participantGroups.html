@@ -34,7 +34,7 @@ $.fn.newGroup = function() {
 /* Converts the name to a textarea to start renaming. Converts text area to text when finished */
 $.fn.rename = function() {
 	if(editing == false) {
-		$("#groupList li").each(function(index) {
+		$("#groupList li").not(".trash").each(function(index) {
 			/*Renaming*/
 			var name = $(this).find("div").html();
 			$(this).find("div").html("<textarea>" + name + "</textarea>");
@@ -46,7 +46,7 @@ $.fn.rename = function() {
 		editing = true;
 		$("#renameButton").html("Done");
 	} else {
-		$("#groupList li").each(function(index) {
+		$("#groupList li").not(".trash").each(function(index) {
 			var name = $(this).find("textarea").val();
 			if(name == "") {
 				name = "New Group";
@@ -81,12 +81,22 @@ $.fn.makeDroppable = function() {
 				$( "<li class='icon user'></li>" ).text( ui.draggable.text() ).appendTo( jQuery(".apple",this));
 			}
 		});
+		
 				
 		/* All groups need .group class and .connectedSortable class to join together for sorting */
 		$( ".group" ).sortable({
 			items: "li:not(.placeholder)",
 			connectWith: ".connectedSortable",
 			distance: 15,
+		});
+		
+		$( ".trash" ).sortable({
+			items: "li:not(.placeholder)",
+			connectWith: ".connectedSortable",
+			distance: 15,
+			receive: function(event, ui) {
+				$(this).children().not("div").remove();
+			}
 		});
 		
 		/* Disabling group sorting for now because it is buggy
@@ -137,6 +147,7 @@ Hack to get drag and drop to work on touch devices-->
 <button id="renameButton" onclick="$(this).rename();">Edit</button>
 
 <ul class="apple" id = "groupList">
+<li class = 'icon trash connectedSortable'><div>Trash</div></li>
 </ul>
 
 </body>

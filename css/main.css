@@ -69,6 +69,10 @@ ul.apple {
     padding: 0;
 }
 
+img.delete {
+	margin-left: -40px;
+}
+
 ul.appleCube {
     margin: 10px;
     padding: 0;
@@ -153,7 +157,10 @@ ul.apple ul.apple {
 
 .user {		
 	background-image: url(../icons/user.png);
+}
 
+.trash {
+	background-image: url(../icons/trash.png);
 }
 
 /* Remove underline and blue from links */
@@ -171,6 +178,10 @@ ul.apple li:last-child {
 }
 
 textarea {
-  resize: none;
-  overflow: auto;
+	resize: none;
+	overflow: auto;
+	margin-top: -40px;
+	font-family: Helvetica;
+  	font-size: 17px;
+	font-weight: bold;
 }
