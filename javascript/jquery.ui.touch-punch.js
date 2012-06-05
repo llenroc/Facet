@@ -31,10 +31,8 @@
 
     // Ignore multi-touch events
     if (event.originalEvent.touches.length > 1) {
-      return;
+      event.preventDefault();
     }
-
-    event.preventDefault();
 
     var touch = event.originalEvent.changedTouches[0],
         simulatedEvent = document.createEvent('MouseEvents');
