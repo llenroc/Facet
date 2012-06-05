@@ -30,7 +30,7 @@
   function simulateMouseEvent (event, simulatedType) {
 
     // Ignore multi-touch events
-    if (event.originalEvent.touches.length > 1) {
+    if (event.originalEvent.touches.length <= 1) {
       event.preventDefault();
     }
 
