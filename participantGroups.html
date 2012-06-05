@@ -19,7 +19,24 @@ var editing = false;
 /* This is run when the html is finished loading*/
 $(function() {
 		$(this).makeDroppable();
-	});
+		
+		/*
+		var pressTimer
+
+		$("#participantList li").mouseup(function(e){
+				window.clearTimeout(pressTimer)
+				
+				$(this).trigger(e);
+				$( "#participantList li" ).draggable( "disable");
+				// Clear timeout
+				return false;
+			}).mousedown(function(e){
+				// Set timeout
+				pressTimer = window.setTimeout(function() {$( "#participantList li" ).draggable( "enable");$(this).trigger(e);  },1000)
+				return false; 
+			});
+			*/
+});
 	
 /* If we are currently renaming, then we make an group with the textarea, else if just create regular text*/
 $.fn.newGroup = function() {
@@ -70,6 +87,7 @@ $.fn.makeDroppable = function() {
 			helper: "clone",
 			cursorAt: { left: 30, top: 30},
 			opacity: 0.5,
+			//disabled: true,
 		});
 		
 		/* Everything with the .group class will be droppable, and it'll append it to children with the .apple class */
@@ -116,7 +134,7 @@ $.fn.hide5 = function() {
 
 <!-- https://github.com/furf/jquery-ui-touch-punch
 Hack to get drag and drop to work on touch devices-->
-<script src="javascript/jquery.ui.touch-punch.js"></script>
+<script src="javascript/jquery.ui.touch-punch.min.js"></script>
 
 </head>
 
@@ -124,6 +142,8 @@ Hack to get drag and drop to work on touch devices-->
 
 <div id="header">
 <h1>Participants</h1></div>
+
+
 
 <div id="content">
 
