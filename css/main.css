@@ -185,3 +185,32 @@ textarea {
   	font-size: 17px;
 	font-weight: bold;
 }
+
+div.iPhoneButton {
+    font-weight: bold;
+    text-align: center;
+    line-height: 28px;
+    color: white;
+    text-shadow: rgba(0,0,0,0.6) 0px -1px 0px;
+	white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    border-width: 0 8px 0 14px;
+    -webkit-border-image: url(../icons/button.png) 0 8 0 14;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+div.leftButton {
+    position: absolute;
+    top: 625px;
+    left: 6px; 
+}
+
+div#renameButton {
+    position: absolute;
+    top: 625px;
+    left: 235px;
+}
+
+div.iPhoneButton.clicked {
+    -webkit-border-image: url(../icons/button_clicked.png) 0 8 0 14;
+}
