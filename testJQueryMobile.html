@@ -1,30 +1,103 @@
 <!DOCTYPE html> 
 <html> 
 	<head> 
-	<title>My Page</title> 
+	<title>Participants</title> 
 	<meta name="viewport" content="width=device-width, initial-scale=1"> 
-	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.css" />
-	<script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
-	<script src="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.js"></script>
+	<link rel="stylesheet" href="jquery.mobile-1.1.0/jquery.mobile-1.1.0.min.css" />
+	<script src="jquery-ui-1.8.20.custom/js/jquery-1.7.2.min.js"></script>
+	<script src="jquery.mobile-1.1.0/jquery.mobile-1.1.0.min.js"></script>
+	
+	<script src="jquery-ui-1.8.20.custom/development-bundle/ui/jquery.ui.core.js"></script>
+	<script src="jquery-ui-1.8.20.custom/development-bundle/ui/jquery.ui.widget.js"></script>
+	<script src="jquery-ui-1.8.20.custom/development-bundle/ui/jquery.ui.mouse.js"></script>
+	<script src="jquery-ui-1.8.20.custom/development-bundle/ui/jquery.ui.draggable.js"></script>
+	<script src="jquery-ui-1.8.20.custom/development-bundle/ui/jquery.ui.droppable.js"></script>
+	<script src="jquery-ui-1.8.20.custom/development-bundle/ui/jquery.ui.sortable.js"></script>
+	
+	<script>
+	
+		$(function() {
+				$( "#participantList li" ).not("#participantsHeader").draggable({
+				/*appendTo: "body",*/
+				helper: "clone",
+				cursorAt: { left: 30, top: 20},
+				opacity: 0.5,
+				//disabled: true,
+			});
+		
+			$( ".group" ).droppable({
+				accept: ":not(.ui-sortable-helper)",
+				drop: function( event, ui ) {
+					$( this ).trigger('expand');
+					$( this ).show();
+					$( this ).find( ".placeholder" ).remove();
+					$( "<li></li>" ).text( ui.draggable.text() ).appendTo( jQuery(".groupInner",this));
+				}
+			});
+			
+
+					
+			});
+		
+		$.fn.newGroup = function() {
+			$("#groupList").append("<div data-role='collapsible' class='group'><h3>New Group</h3><ul class='groupInner'></ul></div>");	
+		}
+	
+	</script>
 </head> 
 <body> 
 
 <div data-role="page">
 
 	<div data-role="header">
-		<h1>My Title</h1>
+		<h1>Participants</h1>
 	</div><!-- /header -->
 
 	<div data-role="content">	
+		<ul id="participantList" data-role="listview" data-inset="true" data-filter="true">
+		<li data-role="list-divider" id="participantsHeader">Participants</li>
+		<li><a href='#'><img src="icons/person.png" class="ui-li-icon">Byron</a></li>
+		<li><a href="mailto:chnewton@hotmail.com"><img src="icons/person.png" class="ui-li-icon">Charles</a></li>
+		<li><a href="mailto:chouston@facet.com"><img src="icons/person.png" class="ui-li-icon">Christopher</a></li>
+		<li><a href="mailto:sabourid@ucalgary.ca"><img src="icons/person.png" class="ui-li-icon">Daniel</a></li>
+		<li><a href="mailto:Dhawkins@facet.com"><img src="icons/person.png" class="ui-li-icon">David</a></li>
+		<li><a href="mailto:patrick.f.king@gmail.com"><img src="icons/person.png" class="ui-li-icon">Patrick</a></li>
+		<li><a href="mailto:robert.ag.post@gmail.com"><img src="icons/person.png" class="ui-li-icon">Robert</a></li>
+		<li><a href="mailto:rmelzer@facet.com"><img src="icons/person.png" class="ui-li-icon">Roseline</a></li>
+		<li><a href="mailto:yghanam@gmail.com"><img src="icons/person.png" class="ui-li-icon">Yaser</a></li>
+		</ul>
+		
+		<h1>Groups</h1>
+			
+		<div class="ui-grid-a">
+		<div class="ui-block-a"><a href="#" data-role="button" onclick="$(this).newGroup();">New Group</a></div>
+		<div class="ui-block-b"><a href="#" data-role="button">Edit</a></div>
+		</div>
+		
+		</br>
+		
 		<ul data-role="listview" data-inset="true" data-filter="true">
-		<li><a href="#">Acura</a></li>
-		<li><a href="#">Audi</a></li>
-		<li><a href="#">BMW</a></li>
-		<li><a href="#">Cadillac</a></li>
-		<li><a href="#">Ferrari</a></li>
-		</ul>	
-	</div><!-- /content -->
+		<li data-role="list-divider">Groups</li>
+		<li><img src="icons/group.png" class="ui-li-icon group">NSERC</li>
+		<li><img src="icons/group.png" class="ui-li-icon group">Facet</li>
+		</ul>
+			
+		<div data-role="collapsible-set" id="groupList">
 
+		<div data-role="collapsible" class="group">
+		<h3>NSERC</h3>
+		<ul class="groupInner"></ul>
+		</div>
+	
+		<div data-role="collapsible" class="group">
+		<h3>Facet</h3>
+		<ul class="groupInner"></ul>
+		</div>
+	
+</div>
+
+	</div><!-- /content -->
+	
 </div><!-- /page -->
 
 </body>
