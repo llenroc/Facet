@@ -35,6 +35,22 @@
 				}
 			});
 			
+			$('body').bind( 'taphold', function( e ) {
+				alert( 'You tapped and held!' );
+				e.stopImmediatePropagation();
+				
+				offset = $(this).offset();
+				type   = $.mobile.touchEnabled ? 'touchstart' : 'mousedown';
+				newevent        = $.Event(type);
+				newevent.which  = 1;
+				newevent.target = this;
+				newevent.pageX  = event.pageX ? event.pageX : boxOffset.left;
+				newevent.pageY  = event.pageY ? event.pageX : boxOffset.top;
+
+				$(this).trigger(newevent);
+				return false;
+			});  
+			
 
 					
 			});
@@ -66,23 +82,23 @@
 		<li><a href="mailto:rmelzer@facet.com"><img src="icons/person.png" class="ui-li-icon">Roseline</a></li>
 		<li><a href="mailto:yghanam@gmail.com"><img src="icons/person.png" class="ui-li-icon">Yaser</a></li>
 		</ul>
-		
-		<h1>Groups</h1>
-			
+					
 		<div class="ui-grid-a">
-		<div class="ui-block-a"><a href="#" data-role="button" onclick="$(this).newGroup();">New Group</a></div>
-		<div class="ui-block-b"><a href="#" data-role="button">Edit</a></div>
+		<div class="ui-block-a"><a href="#" data-icon="plus" data-role="button" onclick="$(this).newGroup();">New Group</a></div>
+		<div class="ui-block-b"><a href="#" data-icon="gear" data-role="button">Edit</a></div>
 		</div>
 		
 		</br>
 		
 		<ul data-role="listview" data-inset="true" data-filter="true">
 		<li data-role="list-divider">Groups</li>
-		<li><img src="icons/group.png" class="ui-li-icon group">NSERC</li>
-		<li><img src="icons/group.png" class="ui-li-icon group">Facet</li>
+		<li data-role="list-divider">NSERC</li>
+		<li><img src="icons/person.png" class="ui-li-icon">Yaser</li>
+		<li data-role="list-divider">Facet</li>
 		</ul>
+		
 			
-		<div data-role="collapsible-set" id="groupList">
+<!-- 		<div data-role="collapsible-set" id="groupList">
 
 		<div data-role="collapsible" class="group">
 		<h3>NSERC</h3>
@@ -92,7 +108,7 @@
 		<div data-role="collapsible" class="group">
 		<h3>Facet</h3>
 		<ul class="groupInner"></ul>
-		</div>
+		</div> -->
 	
 </div>
 
