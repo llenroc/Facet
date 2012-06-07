@@ -35,20 +35,14 @@
 				}
 			});
 			
-			$('body').bind( 'taphold', function( e ) {
-				e.stopImmediatePropagation();
-				
-				offset = $(this).offset();
-				type   = $.mobile.touchEnabled ? 'touchstart' : 'mousedown';
-				newevent        = $.Event(type);
-				newevent.which  = 1;
-				newevent.target = this;
-				newevent.pageX  = event.pageX ? event.pageX : boxOffset.left;
-				newevent.pageY  = event.pageY ? event.pageX : boxOffset.top;
-
-				$(this).trigger(newevent);
-				return false;
-			});  
+			$('#participantList li').bind( 'taphold', function( e ) {				
+				$(this).mousedown();
+			});
+			
+			$('body').bind( 'mousedown', function( e ) {				
+				$("p").append("mousedown");
+			}); 			
+			
 			
 
 					
@@ -95,6 +89,8 @@
 		<li><img src="icons/person.png" class="ui-li-icon">Yaser</li>
 		<li data-role="list-divider">Facet</li>
 		</ul>
+		
+		<p> </p>
 		
 			
 <!-- 		<div data-role="collapsible-set" id="groupList">
