@@ -17,22 +17,28 @@
 	<script>
 	
 		$(function() {
-			$( "#participantList li" ).not("#participantsHeader").draggable({
-				/*appendTo: "body",*/
-				helper: "clone",
-				cursorAt: { left: 30, top: 20},
-				opacity: 0.5,
-				connectToSortable: ".group",
-				//disabled: true,
-			}).disableSelection();
-
+			$("body").disableSelection();
+		
 			/* All groups need .group class and to join together for sorting */
 			$( ".group" ).sortable({
 				items: "li:not(.placeholder)",
 				distance: 15,
 			}).disableSelection();
+			
+			$( "#participantList li").bind("taphold", function() {
+				$(this).not("#participantsHeader").draggable({
+					helper: "clone",
+					cursorAt: { left: 30, top: 20},
+					opacity: 0.5,
+					connectToSortable: ".group",
+				
+				});
+			
+			});
 					
 		});
+		
+		
 		
 		$.fn.newGroup = function() {
 			$(".group").append("<li data-role='list-divider'>New Group</li>").listview('refresh');
