@@ -23,15 +23,15 @@
 			$( ".group" ).not(".groupHeader").sortable({
 				items: "li:not(.placeholder)",
 				distance: 15,
-				handle: "img",
+				handle: ".ui-btn",
 			}).disableSelection();
 			
 			$( "#participantList li").not("#participantsHeader").draggable({
 					helper: "clone",
-					cursorAt: { left: 20, top: 20},
+					cursorAt: { right: 20, top: 20},
 					opacity: 0.5,
 					connectToSortable: ".group",
-					handle: "img",
+					handle: ".ui-btn",
 				
 				});
 					
@@ -61,7 +61,7 @@
 
 		<div data-role="content">	
 	
-		<ul id="participantList" data-split-icon="delete" data-role="listview" data-inset="true" data-filter="true">
+		<ul id="participantList" data-split-icon="grid" data-role="listview" data-inset="true" data-filter="true">
 		<li data-role="list-divider" id="participantsHeader">Participants</li>
 		<li><a><img src="icons/person.png" class="ui-li-icon">Byron</a><a onclick="$(this).parent().remove();">Delete</a></li>
 		<li><a><img src="icons/person.png" class="ui-li-icon">Charles</a><a onclick="$(this).parent().remove();">Delete</a></li>
@@ -79,7 +79,7 @@
 		<div class="ui-block-b"><a href="#" data-icon="gear" data-role="button">Edit</a></div>
 		</div>
 			
-		<ul data-role="listview" data-split-icon="delete" data-inset="true" class="group">
+		<ul data-role="listview" data-split-icon="grid" data-inset="true" class="group">
 		<li data-role="list-divider" class="groupHeader">Groups</li>
 		<li data-role="list-divider">NSERC</li>
 		<li><a><img src="icons/person.png" class="ui-li-icon">Yaser</a><a onclick="$(this).parent().remove();">Delete</a></li>
