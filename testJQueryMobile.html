@@ -20,24 +20,20 @@
 			$("body").disableSelection();
 		
 			/* All groups need .group class and to join together for sorting */
-			$( ".group" ).sortable({
+			$( ".group" ).not(".groupHeader").sortable({
 				items: "li:not(.placeholder)",
 				distance: 15,
 			}).disableSelection();
 			
-			$( "#participantList li").bind("taphold", function() {
-				$(this).not("#participantsHeader").draggable({
+			$( "#participantList li").not("#participantsHeader").draggable({
 					helper: "clone",
 					cursorAt: { left: 30, top: 20},
 					opacity: 0.5,
 					connectToSortable: ".group",
 				
 				});
-			
-			});
 					
 		});
-		
 		
 		
 		$.fn.newGroup = function() {
@@ -82,7 +78,7 @@
 		</div>
 			
 		<ul data-role="listview" data-split-icon="delete" data-inset="true" class="group">
-		<li data-role="list-divider">Groups</li>
+		<li data-role="list-divider" class="groupHeader">Groups</li>
 		<li data-role="list-divider">NSERC</li>
 		<li><a><img src="icons/person.png" class="ui-li-icon">Yaser</a><a onclick="$(this).parent().remove();">Delete</a></li>
 		<li data-role="list-divider">Facet</li>
