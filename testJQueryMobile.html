@@ -41,18 +41,23 @@
 			
 			$('body').bind( 'mousedown', function( e ) {				
 				$("p").append("mousedown");
-			}); 			
-			
-			
-
+			}).disableSelection(); 	
 					
 			});
 		
 		$.fn.newGroup = function() {
 			$("#groupList").append("<div data-role='collapsible' class='group'><h3>New Group</h3><ul class='groupInner'></ul></div>");	
 		}
+		
+
 	
 	</script>
+	
+	<!-- https://github.com/furf/jquery-ui-touch-punch
+	Hack to get drag and drop to work on touch devices-->
+	<script src="javascript/jquery.ui.touch-punch.js"></script>
+
+
 </head> 
 <body> 
 
@@ -65,7 +70,7 @@
 	<div data-role="content">	
 		<ul id="participantList" data-role="listview" data-inset="true" data-filter="true">
 		<li data-role="list-divider" id="participantsHeader">Participants</li>
-		<li><img src="icons/person.png" class="ui-li-icon">Byron</li>
+		<li><a><img src="icons/person.png" class="ui-li-icon">Byron</a></li>
 		<li><a><img src="icons/person.png" class="ui-li-icon">Charles</a></li>
 		<li><a><img src="icons/person.png" class="ui-li-icon">Christopher</a></li>
 		<li><a><img src="icons/person.png" class="ui-li-icon">Daniel</a></li>

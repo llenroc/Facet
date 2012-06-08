@@ -40,6 +40,12 @@
         simulatedEvent = document.createEvent('MouseEvents');
     
     // Initialize the simulated mouse event using the touch event's coordinates
+	
+	if(simulatedType == "taphold") {
+		simulatedType = "click";
+	
+	}
+	
     simulatedEvent.initMouseEvent(
       simulatedType,    // type
       true,             // bubbles                    
