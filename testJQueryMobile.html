@@ -23,13 +23,15 @@
 			$( ".group" ).not(".groupHeader").sortable({
 				items: "li:not(.placeholder)",
 				distance: 15,
+				handle: "img",
 			}).disableSelection();
 			
 			$( "#participantList li").not("#participantsHeader").draggable({
 					helper: "clone",
-					cursorAt: { left: 30, top: 20},
+					cursorAt: { left: 20, top: 20},
 					opacity: 0.5,
 					connectToSortable: ".group",
+					handle: "img",
 				
 				});
 					
@@ -44,7 +46,7 @@
 	
 	<!-- https://github.com/furf/jquery-ui-touch-punch
 	Hack to get drag and drop to work on touch devices-->
-	<script src="javascript/jquery.ui.touch-punch.js"></script>
+	<script src="javascript/jquery.ui.touch-punch.min.js"></script>
 
 
 </head> 
