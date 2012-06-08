@@ -33,10 +33,6 @@
     if (event.originalEvent.touches.length > 1) {
       return;
     }
-	
-	if(event.type != "taphold") {
-		return;
-	}
 
     event.preventDefault();
 
@@ -106,7 +102,7 @@
     if (!touchHandled) {
       return;
     }
-
+	
     // Interaction was not a click
     this._touchMoved = true;
 
@@ -141,6 +137,10 @@
     // Unset the flag to allow other widgets to inherit the touch event
     touchHandled = false;
   };
+  
+  mouseProto._tapHold = function(event) {
+	alert('taphold');
+  };
 
   /**
    * A duck punch of the $.ui.mouse _mouseInit method to support touch events.
@@ -154,9 +154,10 @@
 
     // Delegate the touch handlers to the widget's element
     self.element
-      .bind('touchstart', $.proxy(self, '_touchStart'))
-      .bind('touchmove', $.proxy(self, '_touchMove'))
-      .bind('touchend', $.proxy(self, '_touchEnd'));
+    //  .bind('touchstart', $.proxy(self, '_touchStart'))
+    // .bind('touchmove', $.proxy(self, '_touchMove'))
+    //  .bind('touchend', $.proxy(self, '_touchEnd'));
+	  .bind('taphold', $.proxy(self, '_tapHold'));
 
     // Call the original $.ui.mouse init method
     _mouseInit.call(self);

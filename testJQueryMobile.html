@@ -24,13 +24,13 @@
 				opacity: 0.5,
 				connectToSortable: ".group",
 				//disabled: true,
-			});
+			}).disableSelection();
 
 			/* All groups need .group class and to join together for sorting */
 			$( ".group" ).sortable({
 				items: "li:not(.placeholder)",
 				distance: 15,
-			});
+			}).disableSelection();
 					
 		});
 		
