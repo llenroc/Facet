@@ -33,19 +33,18 @@
     if (event.originalEvent.touches.length > 1) {
       return;
     }
+	
+	if(event.type != "taphold") {
+		return;
+	}
 
     event.preventDefault();
 
     var touch = event.originalEvent.changedTouches[0],
         simulatedEvent = document.createEvent('MouseEvents');
     
+	
     // Initialize the simulated mouse event using the touch event's coordinates
-	
-	if(simulatedType == "taphold") {
-		simulatedType = "click";
-	
-	}
-	
     simulatedEvent.initMouseEvent(
       simulatedType,    // type
       true,             // bubbles                    

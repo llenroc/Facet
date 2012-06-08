@@ -17,40 +17,27 @@
 	<script>
 	
 		$(function() {
-				$( "#participantList li" ).not("#participantsHeader").draggable({
+			$( "#participantList li" ).not("#participantsHeader").draggable({
 				/*appendTo: "body",*/
 				helper: "clone",
 				cursorAt: { left: 30, top: 20},
 				opacity: 0.5,
+				connectToSortable: ".group",
 				//disabled: true,
 			});
-		
-			$( ".group" ).droppable({
-				accept: ":not(.ui-sortable-helper)",
-				drop: function( event, ui ) {
-					$( this ).trigger('expand');
-					$( this ).show();
-					$( this ).find( ".placeholder" ).remove();
-					$( "<li></li>" ).text( ui.draggable.text() ).appendTo( jQuery(".groupInner",this));
-				}
+
+			/* All groups need .group class and to join together for sorting */
+			$( ".group" ).sortable({
+				items: "li:not(.placeholder)",
+				distance: 15,
 			});
-			
-			$('#participantList li').bind( 'taphold', function( e ) {				
-				$(this).mousedown();
-			});
-			
-			$('body').bind( 'mousedown', function( e ) {				
-				$("p").append("mousedown");
-			}).disableSelection(); 	
 					
-			});
+		});
 		
 		$.fn.newGroup = function() {
-			$("#groupList").append("<div data-role='collapsible' class='group'><h3>New Group</h3><ul class='groupInner'></ul></div>");	
+			$(".group").append("<li data-role='list-divider'>New Group</li>").listview('refresh');
 		}
 		
-
-	
 	</script>
 	
 	<!-- https://github.com/furf/jquery-ui-touch-punch
@@ -65,51 +52,36 @@
 
 	<div data-role="header">
 		<h1>Participants</h1>
+
 	</div><!-- /header -->
 
-	<div data-role="content">	
-		<ul id="participantList" data-role="listview" data-inset="true" data-filter="true">
+		<div data-role="content">	
+	
+		<ul id="participantList" data-split-icon="delete" data-role="listview" data-inset="true" data-filter="true">
 		<li data-role="list-divider" id="participantsHeader">Participants</li>
-		<li><a><img src="icons/person.png" class="ui-li-icon">Byron</a></li>
-		<li><a><img src="icons/person.png" class="ui-li-icon">Charles</a></li>
-		<li><a><img src="icons/person.png" class="ui-li-icon">Christopher</a></li>
-		<li><a><img src="icons/person.png" class="ui-li-icon">Daniel</a></li>
-		<li><a><img src="icons/person.png" class="ui-li-icon">David</a></li>
-		<li><a><img src="icons/person.png" class="ui-li-icon">Patrick</a></li>
-		<li><a><img src="icons/person.png" class="ui-li-icon">Robert</a></li>
-		<li><a><img src="icons/person.png" class="ui-li-icon">Roseline</a></li>
-		<li><a><img src="icons/person.png" class="ui-li-icon">Yaser</a></li>
+		<li><a><img src="icons/person.png" class="ui-li-icon">Byron</a><a onclick="$(this).parent().remove();">Delete</a></li>
+		<li><a><img src="icons/person.png" class="ui-li-icon">Charles</a><a onclick="$(this).parent().remove();">Delete</a></li>
+		<li><a><img src="icons/person.png" class="ui-li-icon">Christopher</a><a onclick="$(this).parent().remove();">Delete</a></li>
+		<li><a><img src="icons/person.png" class="ui-li-icon">Daniel</a><a onclick="$(this).parent().remove();">Delete</a></li>
+		<li><a><img src="icons/person.png" class="ui-li-icon">David</a><a onclick="$(this).parent().remove();">Delete</a></li>
+		<li><a><img src="icons/person.png" class="ui-li-icon">Patrick</a><a onclick="$(this).parent().remove();">Delete</a></li>
+		<li><a><img src="icons/person.png" class="ui-li-icon">Robert</a><a onclick="$(this).parent().remove();">Delete</a></li>
+		<li><a><img src="icons/person.png" class="ui-li-icon">Roseline</a><a onclick="$(this).parent().remove();">Delete</a></li>
+		<li><a><img src="icons/person.png" class="ui-li-icon">Yaser</a><a onclick="$(this).parent().remove();">Delete</a></li>
 		</ul>
 					
 		<div class="ui-grid-a">
 		<div class="ui-block-a"><a href="#" data-icon="plus" data-role="button" onclick="$(this).newGroup();">New Group</a></div>
 		<div class="ui-block-b"><a href="#" data-icon="gear" data-role="button">Edit</a></div>
 		</div>
-		
-		</br>
-		
-		<ul data-role="listview" data-inset="true" data-filter="true">
+			
+		<ul data-role="listview" data-split-icon="delete" data-inset="true" class="group">
 		<li data-role="list-divider">Groups</li>
 		<li data-role="list-divider">NSERC</li>
-		<li><img src="icons/person.png" class="ui-li-icon">Yaser</li>
+		<li><a><img src="icons/person.png" class="ui-li-icon">Yaser</a><a onclick="$(this).parent().remove();">Delete</a></li>
 		<li data-role="list-divider">Facet</li>
 		</ul>
 		
-		<p> </p>
-		
-			
-<!-- 		<div data-role="collapsible-set" id="groupList">
-
-		<div data-role="collapsible" class="group">
-		<h3>NSERC</h3>
-		<ul class="groupInner"></ul>
-		</div>
-	
-		<div data-role="collapsible" class="group">
-		<h3>Facet</h3>
-		<ul class="groupInner"></ul>
-		</div> -->
-	
 </div>
 
 	</div><!-- /content -->
