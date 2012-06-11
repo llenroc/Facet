@@ -19,23 +19,6 @@ var editing = false;
 /* This is run when the html is finished loading*/
 $(function() {
 		$(this).makeDroppable();
-		
-		/*
-		var pressTimer
-
-		$("#participantList li").mouseup(function(e){
-				window.clearTimeout(pressTimer)
-				
-				$(this).trigger(e);
-				$( "#participantList li" ).draggable( "disable");
-				// Clear timeout
-				return false;
-			}).mousedown(function(e){
-				// Set timeout
-				pressTimer = window.setTimeout(function() {$( "#participantList li" ).draggable( "enable");$(this).trigger(e);  },1000)
-				return false; 
-			});
-			*/
 });
 	
 /* If we are currently renaming, then we make an group with the textarea, else if just create regular text*/
@@ -83,20 +66,24 @@ $.fn.test = function() {
 
 $.fn.makeDroppable = function() {
 		$( "#participantList li" ).draggable({
-			/*appendTo: "body",*/
 			helper: "clone",
-			cursorAt: { left: 30, top: 30},
+			cursorAt: { right: 20, top: 20},
 			opacity: 0.5,
-			//disabled: true,
+			handle: "img.dragHandle",
+			zIndex: 2700,
 		});
 		
 		/* Everything with the .group class will be droppable, and it'll append it to children with the .apple class */
 		$( ".group" ).droppable({
 			accept: ":not(.ui-sortable-helper)",
+			over: function(event,ui) {$(this).css("color","green");},
+			out: function(event,ui) {$(this).css("color", "black");},
 			drop: function( event, ui ) {
-				$( this ).find(".apple").show("fast"); /* When a new item is added, the group is expanded */
+				$( this ).find(".apple").show(); /* When a new item is added, the group is expanded */
 				$( this ).find( ".placeholder" ).remove();
-				$( "<li class='icon user'></li>" ).text( ui.draggable.text() ).appendTo( jQuery(".apple",this));
+				$( this ).css("color","black");
+				
+				$( "<li class='icon user'></li>" ).html( ui.draggable.html() ).appendTo( jQuery(".apple",this));
 			}
 		});
 		
@@ -105,12 +92,19 @@ $.fn.makeDroppable = function() {
 		$( ".group" ).sortable({
 			items: "li:not(.placeholder)",
 			connectWith: ".connectedSortable",
+			over: function(event,ui) {
+				$(this).css("color","green");},
+			out: function(event,ui) {
+				$(this).css("color", "black");},
+			handle: "img.dragHandle",
 			distance: 15,
 		});
 		
 		$( ".trash" ).sortable({
 			items: "li:not(.placeholder)",
 			connectWith: ".connectedSortable",
+			over: function(event,ui) {$(this).css("color","red");},
+			out: function(event,ui) {$(this).css("color", "black");},
 			distance: 15,
 			receive: function(event, ui) {
 				$(this).children().not("div").remove();
@@ -127,7 +121,7 @@ $.fn.makeDroppable = function() {
 
 $.fn.hide5 = function() {
 
-	$(this).next().toggle("fast");
+	$(this).next().toggle();
 };
 
 </script>
@@ -143,23 +137,20 @@ Hack to get drag and drop to work on touch devices-->
 <div id="header">
 <h1>Participants</h1></div>
 
-
-
 <div id="content">
 
 <ul class = "apple" id="participantList">
-<li class="user icon"><a href='#'>Byron</a></li>
-<li class="user icon"><a href="mailto:chnewton@hotmail.com">Charles</a></li>
-<li class="user icon"><a href="mailto:chouston@facet.com">Christopher</a></li>
-<li class="user icon"><a href="mailto:sabourid@ucalgary.ca">Daniel</a></li>
-<li class="user icon"><a href="mailto:Dhawkins@facet.com">David</a></li>
-<li class="user icon"><a href="mailto:patrick.f.king@gmail.com">Patrick</a></li>
-<li class="user icon"><a href="mailto:robert.ag.post@gmail.com">Robert</a></li>
-<li class="user icon"><a href="mailto:rmelzer@facet.com">Roseline</a></li>
-<li class="user icon"><a href="mailto:yghanam@gmail.com">Yaser</a></li>
+<li class="user icon"><a href='#'>Byron</a><img class="dragHandle"></li>
+<li class="user icon"><a href="mailto:chnewton@hotmail.com">Charles</a><img class="dragHandle"></li>
+<li class="user icon"><a href="mailto:chouston@facet.com">Christopher</a><img class="dragHandle"></li>
+<li class="user icon"><a href="mailto:sabourid@ucalgary.ca">Daniel</a><img class="dragHandle"></li>
+<li class="user icon"><a href="mailto:Dhawkins@facet.com">David</a><img class="dragHandle"></li>
+<li class="user icon"><a href="mailto:patrick.f.king@gmail.com">Patrick</a><img class="dragHandle"></li>
+<li class="user icon"><a href="mailto:robert.ag.post@gmail.com">Robert</a><img class="dragHandle"></li>
+<li class="user icon"><a href="mailto:rmelzer@facet.com">Roseline</a><img class="dragHandle"></li>
+<li class="user icon"><a href="mailto:yghanam@gmail.com">Yaser</a><img class="dragHandle"></li>
 </ul>
 </div>
-
 
 <h1>Groups</h1>
 
@@ -167,7 +158,7 @@ Hack to get drag and drop to work on touch devices-->
 <div class="iPhoneButton" id="renameButton" onclick="$(this).rename();">Edit</div>
 
 <ul class="apple" id = "groupList">
-<li class = 'icon trash connectedSortable'><div>Trash</div></li>
+<li class = 'icon trash connectedSortable'>Trash</li>
 </ul>
 
 </body>
