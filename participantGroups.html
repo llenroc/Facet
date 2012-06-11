@@ -67,7 +67,7 @@ $.fn.test = function() {
 $.fn.makeDroppable = function() {
 		$( "#participantList li" ).draggable({
 			helper: "clone",
-			cursorAt: { right: 20, top: 20},
+			cursorAt: { right: 100, top: 25},
 			opacity: 0.5,
 			handle: "img.dragHandle",
 			zIndex: 2700,
@@ -98,6 +98,7 @@ $.fn.makeDroppable = function() {
 				$(this).css("color", "black");},
 			handle: "img.dragHandle",
 			distance: 15,
+			opacity: 0.5,
 		});
 		
 		$( ".trash" ).sortable({
