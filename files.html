@@ -24,6 +24,13 @@ $.fn.makeDroppable = function() {
 		}).disableSelection();
 };
 
+/* 	type = Type of file it is (what icon will be displayed). Can choose file, image, document, survey, audio
+	link = What the text links to */
+$.fn.createItem = function(type, link) {
+	var typeFormatted = type.charAt(0).toUpperCase() + type.slice(1);
+	$(".appleCube").append("<li class = 'icon "+ type +"'><a href='" + link + "'>" + typeFormatted + "</a></li>");
+};
+
 </script>
 
 <!-- https://github.com/furf/jquery-ui-touch-punch
@@ -35,26 +42,32 @@ Hack to get drag and drop to work on touch devices-->
 <body>
 
 <ul class = "appleCube">
-<li class = "icon sound">Audio</li>
+<li class = "icon audio">Audio</li>
 <li class = "icon file">File</li>
 <li class = "icon image">Image</li>
-<li class = "icon doc">Document</li>
+<li class = "icon document">Document</li>
 <li class = "icon file">File</li>
 <li class = "icon file">File</li>
-<li class = "icon sound">Audio</li>
+<li class = "icon audio">Audio</li>
 <li class = "icon image">Image</li>
-<li class = "icon doc">Document</li>
+<li class = "icon document">Document</li>
 <li class = "icon file">File</li>
-<li class = "icon sound">Audio</li>
+<li class = "icon audio">Audio</li>
 <li class = "icon image">Image</li>
 <li class = "icon file">File</li>
-<li class = "icon sound">Audio</li>
+<li class = "icon audio">Audio</li>
 <li class = "icon image">Image</li>
-<li class = "icon doc">Document</li>
+<li class = "icon document">Document</li>
 <li class = "icon file">File</li>
 <li class = "icon file">File</li>
-<li class = "icon sound">Audio</li>
+<li class = "icon audio">Audio</li>
 </ul>
+
+<button onclick="$(this).createItem('audio','#');">Audio</button>
+<button onclick="$(this).createItem('survey','http://facetsurvey.4abyte.com/facetsurvey/252');">Survey</button>
+<button onclick="$(this).createItem('file','#');">File</button>
+<button onclick="$(this).createItem('image','#');">Image</button>
+<button onclick="$(this).createItem('document','#');">Document</button>
 </body>
 
 </html>
