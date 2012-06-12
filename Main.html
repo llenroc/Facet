@@ -1,47 +1,183 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 
-<head>
-<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
-<title>Default Page</title>
-<style type="text/css">
-.participants {
-	position:absolute;
-	left:0;
-	top:0;
-}
 
-.twitterfeed 
-{
-	position:absolute;
-	top:850px;
-	left:300px;
-}
+    <head>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+        <title>Default Page</title>
 
-.workspace 
-{
-	position:absolute;
-	top:100px;
-	left:300px;
-}
+        <style type="text/css">
+            .participants 
+            {
+                position:absolute;
+                left:0;
+                top:0;
+            }
 
-.queue
-{
-	position:absolute;
-	top:0;
-	left:300px;
-}
+            .twitterfeed 
+            {
+                position:absolute;
+                top:850px;
+                left:300px;
+                width:1000px;
+                height:150px;
+            }
 
-}
+            .workspace 
+            {
+                position:absolute;
+                top:100px;
+                left:300px;
+            }
 
-</style>
+            .queue
+            {
+                position:absolute;
+                top:0;
+                left:300px;
+                width:1000px;
+                height:100px;
+            }
+
+            /* style from queue.html*/
+            .column 
+            {
+                height: 75;
+                width: 150px;
+                float: left;
+                border: 2px solid #ccddee;
+                background-color: #cde;
+                margin-right: 5px;
+                -webkit-border-radius: 10px;
+                -ms-border-radius: 10px;
+                -moz-border-radius: 10px;
+                border-radius: 10px;
+                -webkit-box-shadow: inset 0 0 3px #cde;
+                -ms-box-shadow: inset 0 0 3px #cde;
+                box-shadow: inset 0 0 3px #cde;
+                text-align: center;
+                cursor: move;
+            }
+            
+            .column header 
+            {
+                color: #FFF;
+                text-shadow: #000 0 1px;
+                box-shadow: 5px;
+                padding: 5px;
+                background: -moz-linear-gradient(left center, rgb(0,10,20), rgb(79,179,200), rgb(179,200,250));
+                background: -webkit-gradient(linear, left top, right top,
+                color-stop(0, rgb(0,10,20)),
+                color-stop(0.50, rgb(79,179,200)),
+                color-stop(1, rgb(179,200,250)));
+                background: -webkit-linear-gradient(left center, rgb(0,10,20), rgb(79,179,200), rgb(179,200,250));
+                background: -ms-linear-gradient(left center, rgb(0,10,20), rgb(79,179,200), rgb(179,200,250));
+                border-bottom: 1px solid #ddd;
+                -webkit-border-top-left-radius: 10px;
+                -moz-border-radius-topleft: 10px;
+                -ms-border-radius-topleft: 10px;
+                border-top-left-radius: 10px;
+                -webkit-border-top-right-radius: 10px;
+                -ms-border-top-right-radius: 10px;
+                -moz-border-radius-topright: 10px;
+                border-top-right-radius: 10px;
+            }
+
+
+        </style>
+        
+        
+        
+        <!-- scripts from queue.html -->
+        <script src="jquery-ui-1.8.20.custom/development-bundle/jquery-1.7.2.js"></script>
+        <script src="jquery-ui-1.8.20.custom/development-bundle/ui/jquery.ui.core.js"></script>
+        <script src="jquery-ui-1.8.20.custom/development-bundle/ui/jquery.ui.widget.js"></script>
+        <script src="jquery-ui-1.8.20.custom/development-bundle/ui/jquery.ui.mouse.js"></script>
+        <script src="jquery-ui-1.8.20.custom/development-bundle/ui/jquery.ui.sortable.js"></script>
+        
+        <script>
+            $(function() {
+              $(this).makeDroppable();
+              });
+            
+            $.fn.makeDroppable = function() {
+                /* All groups need .group class and .connectedSortable class to join together for sorting */
+                $( "#columns" ).sortable({
+                                         items: "div:not(.placeholder)",
+                                         distance: 15,
+                                         scroll: false,
+                                         }).disableSelection();
+            };
+            
+            </script>
+        
+        <!-- https://github.com/furf/jquery-ui-touch-punch
+         Hack to get drag and drop to work on touch devices-->
+        <script src="javascript/jquery.ui.touch-punch.js"></script>
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
 </head>
 
 <body>
-		<object width="1000" height="100" class="queue" data="queue.html" type="text/html"></object>
-		<object width="300" height="950" class="participants" type="text/html" data="participantGroups.html"></object>
-		<iframe src="workspace.html" width="1000" height="800" class="workspace"></iframe>
-		<object width="1000" height="150" class="twitterfeed" type="text/html" data="twitter.html"></object>
+	
+	<!-- <object width="1000" height="100" class="queue" data="queue.html" type="text/html"></object>
+    -->
+    
+    <div class="queue">
+        <div id="columns">
+            <div class="column" draggable="true"><header>Comment</header></div>
+            <div class="column" draggable="true"><header>Comment</header></div>
+            <div class="column" draggable="true"><header>Poll</header></div>
+            <div class="column" draggable="true"><header>Question</header></div>
+            <div class="column" draggable="true"><header>Video</header></div>
+            <div class="column" draggable="true"><header>Poll Results</header></div>
+        </div>
+
+    </div>
+	
+	<object width="300" height="950" class="participants" type="text/html" data="participantGroups.html"></object>
+	
+	<iframe src="workspace.html" width="1000" height="800" class="workspace"></iframe>
+
+    <!-- <object width="1000" height="150" class="twitterfeed" type="text/html" data="twitter.html"></object> -->
+    
+    <div class="twitterfeed">
+        <script  type="text/javascript" src="http://output98.rssinclude.com/output?type=js&amp;id=480222&amp;hash=1391d15eb641f1db0d6101621db1aa33">
+        </script>
+    </div>
+    
 </body>
 
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

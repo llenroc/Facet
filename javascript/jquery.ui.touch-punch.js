@@ -153,7 +153,7 @@
     self.element
       .bind('touchstart', $.proxy(self, '_touchStart'))
       .bind('touchmove', $.proxy(self, '_touchMove'))
-      .bind('touchend', $.proxy(self, '_touchEnd'));
+      .bind('touchend', $.proxy(self, '_touchEnd'))
 	  .bind('taphold', $.proxy(self, '_tapHold'));
 
     // Call the original $.ui.mouse init method
