@@ -124,7 +124,7 @@ ul.apple ul.apple {
 	padding-left: 60px
 }
 
-.sound {
+.audio {
 	background-image: url(../icons/audio.png);
 }
 
@@ -144,7 +144,11 @@ ul.apple ul.apple {
 	background-image: url(../icons/image.png);
 }
 
-.doc {
+.survey {
+	background-image: url(../icons/survey.png);
+}
+
+.document {
 	background-image: url(../icons/document.png);
 }
 
