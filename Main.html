@@ -1,19 +1,23 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
-
-
+    
+    
     <head>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
         <title>Default Page</title>
-
+        
+        
+        
         <style type="text/css">
             .participants 
             {
                 position:absolute;
                 left:0;
                 top:0;
+                width:300px;
+                height:950px;
             }
-
+            
             .twitterfeed 
             {
                 position:absolute;
@@ -22,14 +26,16 @@
                 width:1000px;
                 height:150px;
             }
-
+            
             .workspace 
             {
                 position:absolute;
                 top:100px;
                 left:300px;
+                width:1000px;
+                height:800px;
             }
-
+            
             .queue
             {
                 position:absolute;
@@ -38,7 +44,14 @@
                 width:1000px;
                 height:100px;
             }
-
+            
+            
+            .files-area
+            {
+                width:900;
+                height:650;
+            }
+            
             /* style from queue.html*/
             .column 
             {
@@ -82,9 +95,25 @@
                 -moz-border-radius-topright: 10px;
                 border-top-right-radius: 10px;
             }
-
-
-        </style>
+            
+            
+            </style>
+        
+        
+        <!-- style from participantGroups.html-->
+        <link rel="stylesheet" type="text/css" href="css/main.css" />
+        
+        <!-- style from workspace.html -->
+        <link rel="stylesheet" href="jquery-ui-1.8.20.custom/development-bundle/themes/base/jquery.ui.all.css" />
+        <link rel="stylesheet" href="jquery-ui-1.8.20.custom/development-bundle/demos/demos.css" />
+        
+        
+        
+        
+        
+        
+        
+        <!-- *** scripts *** -->
         
         
         
@@ -111,10 +140,165 @@
             
             </script>
         
+        
+        
+        
+        
+        
+        
+        
+        <!-- scripts from participantGroups.html-->
+        
+        <script src="javascript/TestWebsiteJS.js"></script>
+        
+        <!-- <script src="jquery-ui-1.8.20.custom/development-bundle/jquery-1.7.2.js"></script>
+         <script src="jquery-ui-1.8.20.custom/development-bundle/ui/jquery.ui.core.js"></script>
+         <script src="jquery-ui-1.8.20.custom/development-bundle/ui/jquery.ui.widget.js"></script>
+         <script src="jquery-ui-1.8.20.custom/development-bundle/ui/jquery.ui.mouse.js"></script>
+         <script src="jquery-ui-1.8.20.custom/development-bundle/ui/jquery.ui.sortable.js"></script> -->
+        <script src="jquery-ui-1.8.20.custom/development-bundle/ui/jquery.ui.draggable.js"></script>
+        <script src="jquery-ui-1.8.20.custom/development-bundle/ui/jquery.ui.droppable.js"></script>
+        
+        <script>
+            var editing = false;
+            
+            /* This is run when the html is finished loading*/
+            $(function() {
+              $(this).makeDroppable();
+              });
+            
+            /* If we are currently renaming, then we make an group with the textarea, else if just create regular text*/
+            $.fn.newGroup = function() {
+                if(editing == true) {
+                    $("#groupList").append("<li class = 'icon group connectedSortable'><img onclick='$(this).test();' class='delete' src='icons/delete.png'></img><div onclick='$(this).hide5();'><textarea>New Group</textarea></div><ul class = 'apple'></ul></li>");
+                } else {
+                    $("#groupList").append("<li class = 'icon group connectedSortable'><div onclick='$(this).hide5();'>New Group</div><ul class = 'apple'></ul></li>");	
+                }
+                $(this).makeDroppable(); /* Makes new group droppable */
+            };
+            
+            /* Converts the name to a textarea to start renaming. Converts text area to text when finished */
+            $.fn.rename = function() {
+                if(editing == false) {
+                    $("#groupList li").not(".trash").each(function(index) {
+                                                          /*Renaming*/
+                                                          var name = $(this).find("div").html();
+                                                          $(this).find("div").html("<textarea>" + name + "</textarea>");
+                                                          
+                                                          /*Deleting*/
+                                                          var oldHtml = $(this).html();
+                                                          $(this).html("<img onclick='$(this).test();' class='delete' src='icons/delete.png'></img>" + oldHtml);
+                                                          });
+                    editing = true;
+                    $("#renameButton").html("Done");
+                } else {
+                    $("#groupList li").not(".trash").each(function(index) {
+                                                          var name = $(this).find("textarea").val();
+                                                          if(name == "") {
+                                                          name = "New Group";
+                                                          }
+                                                          $(this).find("div").html(name);		
+                                                          });
+                    
+                    $(".delete").remove();
+                    editing = false;
+                    $("#renameButton").html("Edit");
+                }
+            };
+            
+            $.fn.test = function() {
+                $(this).parent().remove();
+            };
+            
+            $.fn.makeDroppable = function() {
+                $( "#participantList li" ).draggable({
+                                                     helper: "clone",
+                                                     cursorAt: { right: 20, top: 20},
+                                                     opacity: 0.5,
+                                                     handle: "img.dragHandle",
+                                                     zIndex: 2700,
+                                                     });
+                
+                /* Everything with the .group class will be droppable, and it'll append it to children with the .apple class */
+                $( ".group" ).droppable({
+                                        accept: ":not(.ui-sortable-helper)",
+                                        over: function(event,ui) {$(this).css("color","green");},
+                                        out: function(event,ui) {$(this).css("color", "black");},
+                                        drop: function( event, ui ) {
+                                        $( this ).find(".apple").show(); /* When a new item is added, the group is expanded */
+                                        $( this ).find( ".placeholder" ).remove();
+                                        $( this ).css("color","black");
+                                        
+                                        $( "<li class='icon user'></li>" ).html( ui.draggable.html() ).appendTo( jQuery(".apple",this));
+                                        }
+                                        });
+                
+                
+                /* All groups need .group class and .connectedSortable class to join together for sorting */
+                $( ".group" ).sortable({
+                                       items: "li:not(.placeholder)",
+                                       connectWith: ".connectedSortable",
+                                       over: function(event,ui) {
+                                       $(this).css("color","green");},
+                                       out: function(event,ui) {
+                                       $(this).css("color", "black");},
+                                       handle: "img.dragHandle",
+                                       distance: 15,
+                                       });
+                
+                $( ".trash" ).sortable({
+                                       items: "li:not(.placeholder)",
+                                       connectWith: ".connectedSortable",
+                                       over: function(event,ui) {$(this).css("color","red");},
+                                       out: function(event,ui) {$(this).css("color", "black");},
+                                       distance: 15,
+                                       receive: function(event, ui) {
+                                       $(this).children().not("div").remove();
+                                       }
+                                       });
+                
+                /* Disabling group sorting for now because it is buggy
+                 $( "#groupList" ).sortable({
+                 items: "li:not(.placeholder)",
+                 distance: 15,
+                 }).disableSelection();
+                 */
+            };
+            
+            $.fn.hide5 = function() {
+                
+                $(this).next().toggle();
+            };
+            
+            </script>
+        
+        
+        <!-- scripts from workspace.html -->
+        <!-- <script src="jquery-ui-1.8.20.custom/development-bundle/jquery-1.7.2.js"></script>
+         <script src="jquery-ui-1.8.20.custom/development-bundle/ui/jquery.ui.core.js"></script>
+         <script src="jquery-ui-1.8.20.custom/development-bundle/ui/jquery.ui.widget.js"></script-->
+        <script src="jquery-ui-1.8.20.custom/development-bundle/ui/jquery.ui.tabs.js"></script>
+        <script>
+            $(function() {
+              $( "#tabs" ).tabs();
+              });
+            </script>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         <!-- https://github.com/furf/jquery-ui-touch-punch
          Hack to get drag and drop to work on touch devices-->
         <script src="javascript/jquery.ui.touch-punch.js"></script>
-
         
         
         
@@ -126,38 +310,97 @@
         
         
         
-</head>
-
-<body>
-	
-	<!-- <object width="1000" height="100" class="queue" data="queue.html" type="text/html"></object>
-    -->
+        
+    </head>
     
-    <div class="queue">
-        <div id="columns">
-            <div class="column" draggable="true"><header>Comment</header></div>
-            <div class="column" draggable="true"><header>Comment</header></div>
-            <div class="column" draggable="true"><header>Poll</header></div>
-            <div class="column" draggable="true"><header>Question</header></div>
-            <div class="column" draggable="true"><header>Video</header></div>
-            <div class="column" draggable="true"><header>Poll Results</header></div>
+    <body>
+        
+        <!-- <object width="1000" height="100" class="queue" data="queue.html" type="text/html"></object>
+         -->
+        <div class="queue">
+            <div id="columns">
+                <div class="column" draggable="true"><header>Comment</header></div>
+                <div class="column" draggable="true"><header>Comment</header></div>
+                <div class="column" draggable="true"><header>Poll</header></div>
+                <div class="column" draggable="true"><header>Question</header></div>
+                <div class="column" draggable="true"><header>Video</header></div>
+                <div class="column" draggable="true"><header>Poll Results</header></div>
+            </div>
+            
         </div>
-
-    </div>
-	
-	<object width="300" height="950" class="participants" type="text/html" data="participantGroups.html"></object>
-	
-	<iframe src="workspace.html" width="1000" height="800" class="workspace"></iframe>
-
-    <!-- <object width="1000" height="150" class="twitterfeed" type="text/html" data="twitter.html"></object> -->
+        
+        
+        
+        <!-- <object width="300" height="950" class="participants" type="text/html" data="participantGroups.html"></object> -->
+        <div class="participants"> 
+            <div id="header">
+                <h1>Participants</h1></div>
+            <div id="content" >
+                <ul class = "apple" id="participantList">
+                    <li class="user icon"><a href='#'>Byron</a><img class="dragHandle"></li>
+                    <li class="user icon"><a href="mailto:chnewton@hotmail.com">Charles</a><img class="dragHandle"></li>
+                    <li class="user icon"><a href="mailto:chouston@facet.com">Christopher</a><img class="dragHandle"></li>
+                    <li class="user icon"><a href="mailto:sabourid@ucalgary.ca">Daniel</a><img class="dragHandle"></li>
+                    <li class="user icon"><a href="mailto:Dhawkins@facet.com">David</a><img class="dragHandle"></li>
+                    <li class="user icon"><a href="mailto:patrick.f.king@gmail.com">Patrick</a><img class="dragHandle"></li>
+                    <li class="user icon"><a href="mailto:robert.ag.post@gmail.com">Robert</a><img class="dragHandle"></li>
+                    <li class="user icon"><a href="mailto:rmelzer@facet.com">Roseline</a><img class="dragHandle"></li>
+                    <li class="user icon"><a href="mailto:yghanam@gmail.com">Yaser</a><img class="dragHandle"></li>
+                </ul>
+            </div>
+            <h1>Groups</h1>
+            
+            <div class="leftButton iPhoneButton" onclick="$(this).newGroup();">New</div>
+            <div class="iPhoneButton" id="renameButton" onclick="$(this).rename();">Edit</div>
+            
+            <ul class="apple" id = "groupList">
+                <li class = 'icon trash connectedSortable'>Trash</li>
+            </ul>
+        </div>
+        
+        
+        
+        
+        <!-- <iframe src="workspace.html" width="1000" height="800" class="workspace"></iframe> -->
+        <div class="workspace">
+            <div class="demo">
+                <div id="tabs">
+                    <ul>
+                        <li><a href="#tabs-1">Map</a></li>
+                        <li><a href="#tabs-2">Survey</a></li>
+                        <li><a href="#tabs-3">Workspace</a></li>
+                    </ul>
+                    <div id="tabs-1">
+                        <iframe width="900" height="650" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" 
+                            src="http://maps.google.ca/maps?hl=en&amp;ie=UTF8&amp;ll=49.891235,-97.15369&amp;spn=49.096765,114.169922&amp;t=m&amp;z=4&amp;output=embed">
+                        </iframe>
+                    </div>
+                    <div id="tabs-2">
+                        <object width="900" height="650" class="facetsurvey" type="text/html" data="http://facetsurvey.4abyte.com"></object>
+                    </div>	
+                    <div id="tabs-3">
+                        <!-- <iframe width="900" height="650" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="files.html"></iframe> -->
+                        <div class="files-area">
+                            
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>        
+        </div>
+        
+        
+        
+        <!-- <object width="1000" height="150" class="twitterfeed" type="text/html" data="twitter.html"></object> -->    
+        <div class="twitterfeed">
+            <script  type="text/javascript" src="http://output98.rssinclude.com/output?type=js&amp;id=480222&amp;hash=1391d15eb641f1db0d6101621db1aa33">
+                </script>
+        </div>
+        
+        
+        
+    </body>
     
-    <div class="twitterfeed">
-        <script  type="text/javascript" src="http://output98.rssinclude.com/output?type=js&amp;id=480222&amp;hash=1391d15eb641f1db0d6101621db1aa33">
-        </script>
-    </div>
-    
-</body>
-
 </html>
 
 

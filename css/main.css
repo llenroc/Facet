@@ -2,7 +2,7 @@
 http://ofps.oreilly.com/titles/9780596805784/index.html
 */
 
-body {
+#content {
     background-color: #ddd; /* Background color */
     color: #222;            /* Foreground color used for text */
     font-family: Helvetica;
@@ -22,11 +22,12 @@ body {
 
 /* To keep header fixed at top */
 div#header {
-	position:absolute;
-	top:0;
-	left:0;
-	width:100%;
-	position:fixed;
+	/* position:absolute;
+     top:0;
+     left:0;
+     width:100%;
+     position:fixed;
+     */
  }
 
  /* To have content always below the header */
