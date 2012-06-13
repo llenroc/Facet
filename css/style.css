@@ -57,9 +57,9 @@
 /* style from queue.html*/
 .column 
 {
-    height: 75;
-    width: 150px;
-    float: left;
+    height:75px;
+    width:150px;
+    float:left;
     border: 2px solid #ccddee;
     background-color: #cde;
     margin-right: 5px;
