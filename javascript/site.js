@@ -132,7 +132,12 @@ $.fn.makeFilesDroppable = function() {
 /* 	type = Type of file it is (what icon will be displayed). Can choose file, image, document, survey, audio
 	link = What the text links to */
 $.fn.createItem = function(type, link, name) {
-    $(".appleCube").append("<li class = 'icon "+ type +"'><a href='" + link + "'>" + name + "</a></li>");
+    $(".appleCube").append("<li class = 'icon "+ type +"'><a onclick='$(this).changeTab(3);' href='" + link + "' target='openFile'>" + name + "</a></li>");
+};
+
+$.fn.changeTab = function(number) {
+	$( '#tabs' ).tabs( 'option', 'selected', number );
+
 };
 
 $.fn.updateSurvey = function() {
