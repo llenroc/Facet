@@ -3,6 +3,7 @@ $(function() {
 	$(this).makeParticipantsDroppable();
 	$(this).makeFilesDroppable();
 	$( "#tabs" ).tabs();
+	$.fn.updateSurvey();
 });
   
 
@@ -130,9 +131,8 @@ $.fn.makeFilesDroppable = function() {
 
 /* 	type = Type of file it is (what icon will be displayed). Can choose file, image, document, survey, audio
 	link = What the text links to */
-$.fn.createItem = function(type, link) {
-    var typeFormatted = type.charAt(0).toUpperCase() + type.slice(1);
-    $(".appleCube").append("<li class = 'icon "+ type +"'><a href='" + link + "'>" + typeFormatted + "</a></li>");
+$.fn.createItem = function(type, link, name) {
+    $(".appleCube").append("<li class = 'icon "+ type +"'><a href='" + link + "'>" + name + "</a></li>");
 };
 
 $.fn.updateSurvey = function() {
@@ -140,16 +140,15 @@ $.fn.updateSurvey = function() {
 		type: "GET",
 		url: "test.xml",
 		dataType: "xml",
-		success: function(xml) {
-			alert("hello");
-		}
+		success: parseXml
 	});
 };
 
 function parseXml(xml) {
-	alert("here");
 	$(xml).find("node").each(function()  {
-		alert($(this).find("Title").text());
+		var link = $(this).find("URL").text();
+		var name = $(this).find("Title").text();
+		$(this).createItem('survey', link, name);
 	});
 }
 
