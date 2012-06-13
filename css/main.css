@@ -85,6 +85,10 @@ ul.appleCube > li {
     display: block;
 	background-color: #FFFFFF;
 	
+	white-space: nowrap;
+    overflow: hidden;
+	text-overflow: ellipsis;
+	
 	width: 15%;
 	min-width: 65px;
 	max-width: 100px;
