@@ -15,7 +15,7 @@ http://ofps.oreilly.com/titles/9780596805784/index.html
 }
 
 
-h1 {
+.participants h1 {
     margin: 0;
     padding: 0;
     background-color: #ccc;

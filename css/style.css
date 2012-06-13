@@ -1,4 +1,6 @@
 
+
+
 /* style from participants.html */
 .participants 
 {
@@ -43,6 +45,7 @@
     left:300px;
     width:1000px;
     height:100px;
+    margin:10px
 }
 
 
@@ -96,4 +99,9 @@
     -ms-border-top-right-radius: 10px;
     -moz-border-radius-topright: 10px;
     border-top-right-radius: 10px;
+}
+
+.column header h1
+{
+    font-size:125%;
 }
