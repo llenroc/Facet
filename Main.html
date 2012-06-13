@@ -1,25 +1,17 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
-    
-    
+     
     <head>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
         <title>Default Page</title>
-        
+               
         <link rel="stylesheet" type="text/css" href="css/style.css" />
         <link rel="stylesheet" type="text/css" href="css/main.css" />
         
         <link rel="stylesheet" href="jquery-ui-1.8.20.custom/development-bundle/themes/base/jquery.ui.all.css" />
         <link rel="stylesheet" href="jquery-ui-1.8.20.custom/development-bundle/demos/demos.css" />
         
-        
-        
-        
-        
-        
-        
-        <!-- *** scripts *** -->
-        
+        <!-- *** scripts *** -->       
         <script src="jquery-ui-1.8.20.custom/development-bundle/jquery-1.7.2.js"></script>
         <script src="jquery-ui-1.8.20.custom/development-bundle/ui/jquery.ui.core.js"></script>
         <script src="jquery-ui-1.8.20.custom/development-bundle/ui/jquery.ui.widget.js"></script>
@@ -29,27 +21,16 @@
         <script src="jquery-ui-1.8.20.custom/development-bundle/ui/jquery.ui.droppable.js"></script>
         <script src="jquery-ui-1.8.20.custom/development-bundle/ui/jquery.ui.tabs.js"></script>
         
-        <script src="javascript/TestWebsiteJS.js"></script>
         <script src="javascript/site.js"> </script>
         
         <!-- https://github.com/furf/jquery-ui-touch-punch
          Hack to get drag and drop to work on touch devices-->
         <script src="javascript/jquery.ui.touch-punch.js"></script>
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+            
     </head>
     
     <body>
-        
+
         <div class="queue">
             <div id="columns">
                 <div class="column" draggable="true"><header>Comment</header></div>
@@ -58,12 +39,9 @@
                 <div class="column" draggable="true"><header>Question</header></div>
                 <div class="column" draggable="true"><header>Video</header></div>
                 <div class="column" draggable="true"><header>Poll Results</header></div>
-            </div>
-            
+            </div>           
         </div>
-        
-        
-        
+
         <div class="participants"> 
             <h1>Participants</h1>
             <div id="content" >
@@ -92,9 +70,6 @@
                 <li class = 'icon trash connectedSortable'>Trash</li>
             </ul>
         </div>
-        
-        
-        
         
         <div class="workspace">
             <div class="demo">
@@ -141,6 +116,7 @@
 								<button onclick="$(this).createItem('file','#');">File</button>
 								<button onclick="$(this).createItem('image','#');">Image</button>
 								<button onclick="$(this).createItem('document','#');">Document</button>
+								<button onclick="$(this).updateSurvey();">Update</button>
                          
                         </div>                       
                     </div>
@@ -148,17 +124,13 @@
             </div>        
         </div>
         
-        
-        
         <div class="twitterfeed">
             <script  type="text/javascript" src="http://output98.rssinclude.com/output?type=js&amp;id=480222&amp;hash=1391d15eb641f1db0d6101621db1aa33">
                 </script>
         </div>
         
-        
-        
-    </body>
-    
+      
+    </body>  
 </html>
 
 
