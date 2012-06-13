@@ -22,11 +22,12 @@
 
 .twitterfeed 
 {
-    position:absolute;
+    display:inline-block;
     top:850px;
     left:300px;
     width:1000px;
     height:150px;
+    padding:12px;
 }
 
 .workspace 
