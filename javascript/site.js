@@ -135,3 +135,21 @@ $.fn.createItem = function(type, link) {
     $(".appleCube").append("<li class = 'icon "+ type +"'><a href='" + link + "'>" + typeFormatted + "</a></li>");
 };
 
+$.fn.updateSurvey = function() {
+	$.ajax({
+		type: "GET",
+		url: "test.xml",
+		dataType: "xml",
+		success: function(xml) {
+			alert("hello");
+		}
+	});
+};
+
+function parseXml(xml) {
+	alert("here");
+	$(xml).find("node").each(function()  {
+		alert($(this).find("Title").text());
+	});
+}
+
