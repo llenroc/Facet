@@ -3,9 +3,6 @@ http://ofps.oreilly.com/titles/9780596805784/index.html
 */
 
 #content {
-    background-color: #ddd; /* Background color */
-    color: #222;            /* Foreground color used for text */
-    font-family: Helvetica;
 	
 	/* Disable text selection */
 	-webkit-touch-callout: none;
@@ -15,25 +12,8 @@ http://ofps.oreilly.com/titles/9780596805784/index.html
 	-ms-user-select: none;
 	user-select: none;
 
-    font-size: 14px;
-    margin: 0;              /* Amount of negative space around the outside of the body */
-    padding: 0;             /* Amount of negative space around the inside of the body */
 }
 
-/* To keep header fixed at top */
-div#header {
-	/* position:absolute;
-     top:0;
-     left:0;
-     width:100%;
-     position:fixed;
-     */
- }
-
- /* To have content always below the header */
-div#content {
-	margin-top:57px;
-} 
 
 h1 {
     margin: 0;
@@ -191,24 +171,6 @@ textarea {
 	font-weight: bold;
 }
 
-div.iPhoneButton {
-    font-weight: bold;
-    text-align: center;
-    line-height: 28px;
-    color: white;
-    text-shadow: rgba(0,0,0,0.6) 0px -1px 0px;
-	white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    border-width: 0 8px 0 14px;
-    -webkit-border-image: url(../icons/button.png) 0 8 0 14;
-    -webkit-tap-highlight-color: rgba(0,0,0,0);
-}
-div.leftButton {
-    position: absolute;
-    top: 625px;
-    left: 10px; 
-}
 
 img.dragHandle {
 	background-repeat: no-repeat;
@@ -233,12 +195,33 @@ img.dragHandle2 {
 	
 }
 
-div#renameButton {
-    position: absolute;
-    top: 625px;
-    right: 10px;
+
+/* edit buttons */
+
+.iPhoneButton {
+    font-weight: bold;
+    text-align: center;
+    line-height: 28px;
+    color: white;
+    text-shadow: rgba(0,0,0,0.6) 0px -1px 0px;
+	white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    border-width: 0 8px 0 14px;
+    border-image:url(../icons/button.png) 0 8 0 14 stretch stretch;
+    -moz-border-image:url(../icons/button.png) 0 8 0 14 stretch stretch;
+    -o-border-image:url(../icons/button.png) 0 8 0 14 stretch stretch;
+    -webkit-border-image: url(../icons/button.png) 0 8 0 14;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    
+    margin:5px 0px 5px 0px;
 }
 
+
+
 div.iPhoneButton.clicked {
+    border-image:url(../icons/button_clicked.png.png) 0 8 0 14 stretch stretch;
+    -moz-border-image:url(../icons/button_clicked.png.png) 0 8 0 14 stretch stretch;
+    -o-border-image:url(../icons/button_clicked.png.png) 0 8 0 14 stretch stretch;
     -webkit-border-image: url(../icons/button_clicked.png) 0 8 0 14;
 }

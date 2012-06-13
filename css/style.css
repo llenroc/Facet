@@ -1,10 +1,21 @@
+
+/* style from participants.html */
 .participants 
 {
     position:absolute;
     left:0;
     top:0;
     width:300px;
-    height:950px;
+    
+    
+    background-color: #ddd; /* Background color */
+    color: #222;            /* Foreground color used for text */
+    font-family: Helvetica;
+    font-size: 14px;
+    margin: 0;              /* Amount of negative space around the outside of the body */
+    padding: 0;             /* Amount of negative space around the inside of the body */
+
+    
 }
 
 .twitterfeed 
@@ -40,6 +51,8 @@
     width:900;
     height:650;
 }
+
+
 
 /* style from queue.html*/
 .column 
