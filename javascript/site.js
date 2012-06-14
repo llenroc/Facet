@@ -82,7 +82,7 @@ $.fn.makeParticipantsDroppable = function() {
 			$( this ).find(".apple").show(); /* When a new item is added, the group is expanded */
 			$( this ).find( ".placeholder" ).remove();
 			$( this ).css("color","black");
-                            
+            			
 			$( "<li class='icon user'></li>" ).html( ui.draggable.html() ).appendTo( jQuery(".apple",this));
         }
     }).disableSelection();
@@ -121,10 +121,10 @@ $.fn.hide5 = function() {
 
 //<!-- scripts from files.html -->
 $.fn.makeFilesDroppable = function() {
-    $( ".appleCube" ).sortable({
+	$( ".appleCube" ).sortable({
 		items: "li:not(.placeholder)",
 		distance: 15,
-	}).disableSelection();	
+	}).disableSelection();
 };
 
 /* 	type = Type of file it is (what icon will be displayed). Can choose file, image, document, survey, audio
