@@ -4,6 +4,8 @@ $(function() {
 	$(this).makeFilesDroppable();
 	$( "#tabs" ).tabs();
 	$.fn.updateSurvey();
+	
+	$("body").disableSelection();
 });
   
 
@@ -22,7 +24,7 @@ $.fn.newGroup = function() {
     if(editing == true) {
         $("#groupList").append("<li class = 'icon group connectedSortable'><img onclick='$(this).test();' class='delete' src='icons/delete.png'></img><div onclick='$(this).hide5();'><textarea>New Group</textarea></div><ul class = 'apple'></ul></li>");
     } else {
-        $("#groupList").append("<li class = 'icon group connectedSortable'><div onclick='$(this).hide5();'>New Group</div><ul class = 'apple'></ul></li>");	
+        $("#groupList").append("<li class = 'icon group connectedSortable'><div onclick='$(this).hide5();'>New Group</div><ul class = 'apple' style='display:none'></ul></li>");	
     }
     $(this).makeParticipantsDroppable(); /* Makes new group droppable */
 };
@@ -67,7 +69,7 @@ $.fn.makeParticipantsDroppable = function() {
         opacity: 0.5,
         handle: "img.dragHandle",
         zIndex: 2700,
-	});
+	}).disableSelection();
     
     /* Everything with the .group class will be droppable, and it'll append it to children with the .apple class */
     $( ".group" ).droppable({
@@ -81,7 +83,7 @@ $.fn.makeParticipantsDroppable = function() {
                             
 			$( "<li class='icon user'></li>" ).html( ui.draggable.html() ).appendTo( jQuery(".apple",this));
         }
-    });
+    }).disableSelection();
     
   
     /* All groups need .group class and .connectedSortable class to join together for sorting */
@@ -94,7 +96,7 @@ $.fn.makeParticipantsDroppable = function() {
 			$(this).css("color", "black");},
 		handle: "img.dragHandle",
 		distance: 15,
-    });
+    }).disableSelection();
     
     $( ".trash" ).sortable({
 		items: "li:not(.placeholder)",
@@ -105,14 +107,7 @@ $.fn.makeParticipantsDroppable = function() {
 		receive: function(event, ui) {
 			$(this).children().not("div").remove();
 		}
-	});
-    
-    /* Disabling group sorting for now because it is buggy
-     $( "#groupList" ).sortable({
-     items: "li:not(.placeholder)",
-     distance: 15,
-     }).disableSelection();
-     */
+	}).disableSelection();
 };
 
 $.fn.hide5 = function() {
@@ -126,7 +121,7 @@ $.fn.makeFilesDroppable = function() {
     $( ".appleCube" ).sortable({
 		items: "li:not(.placeholder)",
 		distance: 15,
-	}).disableSelection();
+	}).disableSelection();	
 };
 
 /* 	type = Type of file it is (what icon will be displayed). Can choose file, image, document, survey, audio

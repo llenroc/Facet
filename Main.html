@@ -4,12 +4,12 @@
     <head>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
         <title>Default Page</title>
-               
-        <link rel="stylesheet" type="text/css" href="css/style.css" />
-        <link rel="stylesheet" type="text/css" href="css/main.css" />
-        
+                   
         <link rel="stylesheet" href="jquery-ui-1.8.20.custom/development-bundle/themes/base/jquery.ui.all.css" />
-        <link rel="stylesheet" href="jquery-ui-1.8.20.custom/development-bundle/demos/demos.css" />
+		<link rel="stylesheet" href="jquery-ui-1.8.20.custom/development-bundle/demos/demos.css" />
+	
+		<link rel="stylesheet" type="text/css" href="css/style.css" />
+        <link rel="stylesheet" type="text/css" href="css/main.css" />
         
         <!-- *** scripts *** -->       
         <script src="jquery-ui-1.8.20.custom/development-bundle/jquery-1.7.2.js"></script>
@@ -42,6 +42,7 @@
             </div>           
         </div>
 
+		
         <div class="participants"> 
             <h1>Participants</h1>
             <div id="content" >
@@ -92,7 +93,7 @@
                         <div class="files-area">
                             <ul class = "appleCube">
 
-                                <div>
+                                <div style="margin-bottom:10px">
 									<button onclick="$(this).createItem('audio','#' ,'Audio');">Audio</button>
 									<button onclick="$(this).createItem('survey','http://facetsurvey.4abyte.com/facetsurvey/252', 'Survey');">Survey</button>
 									<button onclick="$(this).createItem('file','#', 'File');">File</button>
