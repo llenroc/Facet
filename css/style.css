@@ -5,7 +5,6 @@
     left:0;
     top:0;
     width:300px;
-       
     background-color: #ddd; /* Background color */
     color: #222;            /* Foreground color used for text */
     font-family: Helvetica;
@@ -61,6 +60,7 @@
     border: 1px solid #999999;
     background-color: #FFFFFF;
     margin-right: 5px;
+	
     border-radius: 8px;
     box-shadow: inset 0 0 3px #cde;
     text-align: center;
