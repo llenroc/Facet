@@ -64,7 +64,9 @@ $.fn.test = function() {
 
 $.fn.makeParticipantsDroppable = function() {
     $( "#participantList li" ).draggable({
-        helper: "clone",
+        helper: function() {
+			var name = $(this).text();
+			return $("<li class='user icon'>" + name + "</li>")[0];},
         cursorAt: { right: 20, top: 20},
         opacity: 0.5,
         handle: "img.dragHandle",
@@ -88,6 +90,7 @@ $.fn.makeParticipantsDroppable = function() {
   
     /* All groups need .group class and .connectedSortable class to join together for sorting */
     $( ".group" ).sortable({
+		opacity: 0.5,
 		items: "li:not(.placeholder)",
 		connectWith: ".connectedSortable",
 		over: function(event,ui) {
