@@ -10,10 +10,45 @@ $(function() {
   
 
 $.fn.makeQueueDroppable = function() {
-    $( "#columns" ).sortable({
+/*    $( "#columns" ).sortable({
 		items: "div:not(.placeholder)",
         distance: 15,
         scroll: false,
+    }).disableSelection();*/
+	
+	$( "#columns div" ).draggable({
+        helper: "original",
+		revert: "invalid",
+		revertDuration: 250,
+        opacity: 0.5,
+        handle: "img.dragHandle",
+        zIndex: 2700,
+	}).disableSelection();
+	
+	$( ".queue" ).droppable({
+        accept: ":not(.ui-sortable-helper) .workspaceItem",
+        drop: function( event, ui ) {
+			$( this ).find( ".placeholder" ).remove();
+			$( "<div class='column'></div>" ).html( "<header><h1>" + ui.draggable.html() + "</h1></header>" ).appendTo("#columns");	
+			$(this).css("box-shadow","inset 0 0 0px green");			
+			$(this).makeQueueDroppable();
+        },
+		over: function(event,ui) {$(this).css("box-shadow","inset 0 0 3px green");},		
+		out: function(event,ui) {$(this).css("box-shadow","inset 0 0 0px green");},
+		
+    }).disableSelection();
+	
+	$( "#tabs-5" ).droppable({
+        accept: ":not(.ui-sortable-helper)",
+        drop: function( event, ui ) {
+			$( this ).find( ".placeholder" ).remove();
+			$("#sharedScreen").attr("src",ui.draggable.find("a").attr("href"));
+			$("#sharedScreen").css("box-shadow","inset 0 0 0px green");
+			$(".trash").append(ui.draggable);
+			$(".trash").children().remove();
+        },
+		over: function(event,ui) {$("#sharedScreen").css("box-shadow","inset 0 0 3px green");},		
+		out: function(event,ui) {$("#sharedScreen").css("box-shadow","inset 0 0 0px green");},
     }).disableSelection();
 };
 
@@ -108,7 +143,7 @@ $.fn.makeParticipantsDroppable = function() {
 		out: function(event,ui) {$(this).css("color", "black");},
 		distance: 15,
 		receive: function(event, ui) {
-			$(this).children().not("div").remove();
+			$(this).children().remove();
 		}
 	}).disableSelection();
 };
@@ -121,9 +156,18 @@ $.fn.hide5 = function() {
 
 //<!-- scripts from files.html -->
 $.fn.makeFilesDroppable = function() {
-	$( ".appleCube" ).sortable({
+/*	$( ".appleCube" ).sortable({
 		items: "li:not(.placeholder)",
 		distance: 15,
+	}).disableSelection();*/
+	
+	$( ".appleCube li" ).draggable({
+        helper: "clone",
+        opacity: 0.5,
+        zIndex: 2700,
+		start: function(event,ui) {
+			$(this).addClass("workspaceItem");
+		}
 	}).disableSelection();
 };
 
@@ -131,6 +175,7 @@ $.fn.makeFilesDroppable = function() {
 	link = What the text links to */
 $.fn.createItem = function(type, link, name) {
     $(".appleCube").append("<li class = 'icon "+ type +"'><a onclick='$(this).changeTab(3);' href='" + link + "' target='openFile'>" + name + "</a></li>");
+	$(this).makeFilesDroppable();
 };
 
 $.fn.changeTab = function(number) {

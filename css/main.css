@@ -221,3 +221,8 @@ div.iPhoneButton.clicked {
     -o-border-image:url(../icons/button_clicked.png.png) 0 8 0 14 stretch stretch;
     -webkit-border-image: url(../icons/button_clicked.png) 0 8 0 14;
 }
+
+h1.a {
+	color: #FFF;
+
+}
