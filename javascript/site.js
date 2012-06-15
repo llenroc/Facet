@@ -1,3 +1,5 @@
+var selected;
+
 $(function() {
 	$(this).makeQueueDroppable();
 	$(this).makeParticipantsDroppable();
@@ -39,17 +41,24 @@ $.fn.makeQueueDroppable = function() {
 		
     }).disableSelection();
 	
-	$( "#tabs-5" ).droppable({
+	$( ".workspace" ).droppable({
         accept: ":not(.ui-sortable-helper) .queueItem",
         drop: function( event, ui ) {
 			$( this ).find( ".placeholder" ).remove();
 			$("#sharedScreen").attr("src",ui.draggable.find("a").attr("href"));
-			$("#sharedScreen").removeClass("hover-border");
+			$("#tabs").removeClass("hover-border");
 			$(".trash").append(ui.draggable);
 			$(".trash").children().remove();
         },
-		over: function(event,ui) {$("#sharedScreen").addClass("hover-border");},		
-		out: function(event,ui) {$("#sharedScreen").removeClass("hover-border");},
+		over: function(event,ui) {
+			$("#tabs").addClass("hover-border");
+			selected = $("#tabs").tabs("option","selected");
+			$(this).changeTab(4);			
+		},		
+		out: function(event,ui) {
+			$("#tabs").removeClass("hover-border");
+			$(this).changeTab(selected);
+		},
     }).disableSelection();
 };
 

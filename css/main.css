@@ -233,9 +233,9 @@ h1 {
 }
 
 .hover-border {
-	box-shadow: 0 0 5px green;
+	box-shadow: 0 0 10px DodgerBlue;
 }
 
 .hover-border-red {
-	box-shadow: 0 0 5px red;
+	box-shadow: 0 0 10px red;
 }
