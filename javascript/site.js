@@ -18,11 +18,12 @@ $.fn.makeQueueDroppable = function() {
 	
 	$( "#columns div" ).draggable({
         helper: "original",
-		revert: "invalid",
+		revert: true,
 		revertDuration: 250,
         opacity: 0.5,
-        handle: "img.dragHandle",
         zIndex: 2700,
+		iframeFix: true,
+		start: function(event,ui) {$(this).addClass("queueItem");}
 	}).disableSelection();
 	
 	$( ".queue" ).droppable({
@@ -30,25 +31,25 @@ $.fn.makeQueueDroppable = function() {
         drop: function( event, ui ) {
 			$( this ).find( ".placeholder" ).remove();
 			$( "<div class='column'></div>" ).html( "<header><h1>" + ui.draggable.html() + "</h1></header>" ).appendTo("#columns");	
-			$(this).css("box-shadow","inset 0 0 0px green");			
+			$(this).css("box-shadow","0 0 0px green");			
 			$(this).makeQueueDroppable();
         },
-		over: function(event,ui) {$(this).css("box-shadow","inset 0 0 3px green");},		
-		out: function(event,ui) {$(this).css("box-shadow","inset 0 0 0px green");},
+		over: function(event,ui) {$(this).css("box-shadow","0 0 5px green");},		
+		out: function(event,ui) {$(this).css("box-shadow","0 0 0px green");},
 		
     }).disableSelection();
 	
 	$( "#tabs-5" ).droppable({
-        accept: ":not(.ui-sortable-helper)",
+        accept: ":not(.ui-sortable-helper) .queueItem",
         drop: function( event, ui ) {
 			$( this ).find( ".placeholder" ).remove();
 			$("#sharedScreen").attr("src",ui.draggable.find("a").attr("href"));
-			$("#sharedScreen").css("box-shadow","inset 0 0 0px green");
+			$("#sharedScreen").css("box-shadow","0 0 0px green");
 			$(".trash").append(ui.draggable);
 			$(".trash").children().remove();
         },
-		over: function(event,ui) {$("#sharedScreen").css("box-shadow","inset 0 0 3px green");},		
-		out: function(event,ui) {$("#sharedScreen").css("box-shadow","inset 0 0 0px green");},
+		over: function(event,ui) {$("#sharedScreen").css("box-shadow","0 0 5px green");},		
+		out: function(event,ui) {$("#sharedScreen").css("box-shadow","0 0 0px green");},
     }).disableSelection();
 };
 
@@ -106,19 +107,33 @@ $.fn.makeParticipantsDroppable = function() {
         opacity: 0.5,
         handle: "img.dragHandle",
         zIndex: 2700,
+		iframeFix: true,
 	}).disableSelection();
     
     /* Everything with the .group class will be droppable, and it'll append it to children with the .apple class */
     $( ".group" ).droppable({
         accept: ":not(.ui-sortable-helper)",
-        over: function(event,ui) {$(this).css("color","green");},
-        out: function(event,ui) {$(this).css("color", "black");},
+		over: function(event,ui) {$(this).css("box-shadow","0 0 5px green");},		
+		out: function(event,ui) {$(this).css("box-shadow","0 0 0px green");},
         drop: function( event, ui ) {
 			$( this ).find(".apple").show(); /* When a new item is added, the group is expanded */
 			$( this ).find( ".placeholder" ).remove();
-			$( this ).css("color","black");
+			$(this).css("box-shadow","0 0 0px green");
             			
 			$( "<li class='icon user'></li>" ).html( ui.draggable.html() ).appendTo( jQuery(".apple",this));
+        }
+    }).disableSelection();
+		
+	$( "#participantList li" ).droppable({
+        accept: ":not(.ui-sortable-helper) .queueItem, .workspaceItem",
+		over: function(event,ui) {$(this).css("box-shadow","0 0 5px green");},		
+		out: function(event,ui) {$(this).css("box-shadow","0 0 0px green");},
+        drop: function( event, ui ) {
+			$( this ).find( ".placeholder" ).remove();
+			$(this).css("box-shadow","0 0 0px green");
+			var name = $(this).text();
+			var item = ui.draggable.text();
+			alert("Send " + item + " to " + name + "?");
         }
     }).disableSelection();
     
@@ -128,10 +143,8 @@ $.fn.makeParticipantsDroppable = function() {
 		opacity: 0.5,
 		items: "li:not(.placeholder)",
 		connectWith: ".connectedSortable",
-		over: function(event,ui) {
-			$(this).css("color","green");},
-		out: function(event,ui) {
-			$(this).css("color", "black");},
+		over: function(event,ui) {$(this).css("box-shadow","0 0 5px green");},		
+		out: function(event,ui) {$(this).css("box-shadow","0 0 0px green");},
 		handle: "img.dragHandle",
 		distance: 15,
     }).disableSelection();
@@ -139,12 +152,10 @@ $.fn.makeParticipantsDroppable = function() {
     $( ".trash" ).sortable({
 		items: "li:not(.placeholder)",
 		connectWith: ".connectedSortable",
-		over: function(event,ui) {$(this).css("color","red");},
-		out: function(event,ui) {$(this).css("color", "black");},
+		over: function(event,ui) {$(this).css("box-shadow","0 0 5px red");},		
+		out: function(event,ui) {$(this).css("box-shadow","0 0 0px green");},
 		distance: 15,
-		receive: function(event, ui) {
-			$(this).children().remove();
-		}
+		receive: function(event, ui) {$(this).children().remove();}
 	}).disableSelection();
 };
 
@@ -165,9 +176,8 @@ $.fn.makeFilesDroppable = function() {
         helper: "clone",
         opacity: 0.5,
         zIndex: 2700,
-		start: function(event,ui) {
-			$(this).addClass("workspaceItem");
-		}
+		iframeFix: true,
+		start: function(event,ui) {$(this).addClass("workspaceItem");}
 	}).disableSelection();
 };
 
