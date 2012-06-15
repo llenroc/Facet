@@ -231,3 +231,11 @@ h1 {
     overflow: hidden;
 	text-overflow: ellipsis;
 }
+
+.hover-border {
+	box-shadow: 0 0 5px green;
+}
+
+.hover-border-red {
+	box-shadow: 0 0 5px red;
+}
