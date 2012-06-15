@@ -31,11 +31,11 @@ $.fn.makeQueueDroppable = function() {
         drop: function( event, ui ) {
 			$( this ).find( ".placeholder" ).remove();
 			$( "<div class='column'></div>" ).html( "<header><h1>" + ui.draggable.html() + "</h1></header>" ).appendTo("#columns");	
-			$(this).css("box-shadow","0 0 0px green");			
+			$(this).removeClass("hover-border");			
 			$(this).makeQueueDroppable();
         },
-		over: function(event,ui) {$(this).css("box-shadow","0 0 5px green");},		
-		out: function(event,ui) {$(this).css("box-shadow","0 0 0px green");},
+		over: function(event,ui) {$(this).addClass("hover-border");},		
+		out: function(event,ui) {$(this).removeClass("hover-border");},
 		
     }).disableSelection();
 	
@@ -44,12 +44,12 @@ $.fn.makeQueueDroppable = function() {
         drop: function( event, ui ) {
 			$( this ).find( ".placeholder" ).remove();
 			$("#sharedScreen").attr("src",ui.draggable.find("a").attr("href"));
-			$("#sharedScreen").css("box-shadow","0 0 0px green");
+			$("#sharedScreen").removeClass("hover-border");
 			$(".trash").append(ui.draggable);
 			$(".trash").children().remove();
         },
-		over: function(event,ui) {$("#sharedScreen").css("box-shadow","0 0 5px green");},		
-		out: function(event,ui) {$("#sharedScreen").css("box-shadow","0 0 0px green");},
+		over: function(event,ui) {$("#sharedScreen").addClass("hover-border");},		
+		out: function(event,ui) {$("#sharedScreen").removeClass("hover-border");},
     }).disableSelection();
 };
 
@@ -113,12 +113,12 @@ $.fn.makeParticipantsDroppable = function() {
     /* Everything with the .group class will be droppable, and it'll append it to children with the .apple class */
     $( ".group" ).droppable({
         accept: ":not(.ui-sortable-helper)",
-		over: function(event,ui) {$(this).css("box-shadow","0 0 5px green");},		
-		out: function(event,ui) {$(this).css("box-shadow","0 0 0px green");},
+		over: function(event,ui) {$(this).addClass("hover-border");},		
+		out: function(event,ui) {$(this).removeClass("hover-border");},
         drop: function( event, ui ) {
 			$( this ).find(".apple").show(); /* When a new item is added, the group is expanded */
 			$( this ).find( ".placeholder" ).remove();
-			$(this).css("box-shadow","0 0 0px green");
+			$(this).removeClass("hover-border");
             			
 			$( "<li class='icon user'></li>" ).html( ui.draggable.html() ).appendTo( jQuery(".apple",this));
         }
@@ -126,11 +126,11 @@ $.fn.makeParticipantsDroppable = function() {
 		
 	$( "#participantList li" ).droppable({
         accept: ":not(.ui-sortable-helper) .queueItem, .workspaceItem",
-		over: function(event,ui) {$(this).css("box-shadow","0 0 5px green");},		
-		out: function(event,ui) {$(this).css("box-shadow","0 0 0px green");},
+		over: function(event,ui) {$(this).addClass("hover-border");},		
+		out: function(event,ui) {$(this).removeClass("hover-border");},
         drop: function( event, ui ) {
 			$( this ).find( ".placeholder" ).remove();
-			$(this).css("box-shadow","0 0 0px green");
+			$(this).removeClass("hover-border");
 			var name = $(this).text();
 			var item = ui.draggable.text();
 			alert("Send " + item + " to " + name + "?");
@@ -143,8 +143,8 @@ $.fn.makeParticipantsDroppable = function() {
 		opacity: 0.5,
 		items: "li:not(.placeholder)",
 		connectWith: ".connectedSortable",
-		over: function(event,ui) {$(this).css("box-shadow","0 0 5px green");},		
-		out: function(event,ui) {$(this).css("box-shadow","0 0 0px green");},
+		over: function(event,ui) {$(this).addClass("hover-border");},		
+		out: function(event,ui) {$(this).removeClass("hover-border");},
 		handle: "img.dragHandle",
 		distance: 15,
     }).disableSelection();
@@ -152,8 +152,8 @@ $.fn.makeParticipantsDroppable = function() {
     $( ".trash" ).sortable({
 		items: "li:not(.placeholder)",
 		connectWith: ".connectedSortable",
-		over: function(event,ui) {$(this).css("box-shadow","0 0 5px red");},		
-		out: function(event,ui) {$(this).css("box-shadow","0 0 0px green");},
+		over: function(event,ui) {$(this).addClass("hover-border-red");},		
+		out: function(event,ui) {$(this).removeClass("hover-border-red");},
 		distance: 15,
 		receive: function(event, ui) {$(this).children().remove();}
 	}).disableSelection();
