@@ -166,6 +166,18 @@ $.fn.makeParticipantsDroppable = function() {
 		distance: 15,
 		receive: function(event, ui) {$(this).children().remove();}
 	}).disableSelection();
+	
+	$( ".trash" ).droppable({
+		items: "li:not(.placeholder)",
+		connectWith: ".connectedSortable",
+		over: function(event,ui) {$(this).addClass("hover-border-red");},		
+		drop: function(event,ui) {
+			$(this).removeClass("hover-border-red");
+			$(".trash").append(ui.draggable);
+			$(".trash").children().remove();},
+		out: function(event,ui) {$(this).removeClass("hover-border-red");},
+		distance: 15,
+	}).disableSelection();
 };
 
 $.fn.hide5 = function() {
