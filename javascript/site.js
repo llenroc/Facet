@@ -53,6 +53,7 @@ $.fn.makeQueueDroppable = function() {
 		over: function(event,ui) {
 			$("#tabs").addClass("hover-border");
 			$(this).changeTab(4);		
+			$("#columns div").draggable( "option", "iframeFix", true );			
 		},		
 		out: function(event,ui) {
 			$("#tabs").removeClass("hover-border");
@@ -192,7 +193,7 @@ $.fn.makeFilesDroppable = function() {
 /* 	type = Type of file it is (what icon will be displayed). Can choose file, image, document, survey, audio
 	link = What the text links to */
 $.fn.createItem = function(type, link, name) {
-    $(".appleCube").append("<li class = 'icon "+ type +"'><a onclick='$(this).changeTab(3);' href='" + link + "' target='openFile'>" + name + "</a></li>");
+    $(".appleCube").append("<li title = '" + name + "' class = 'icon "+ type +"'><a onclick='$(this).changeTab(3);' href='" + link + "' target='openFile'>" + name + "</a></li>");
 	$(this).makeFilesDroppable();
 };
 
