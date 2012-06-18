@@ -19,7 +19,11 @@
         <script src="jquery-ui-1.8.20.custom/development-bundle/ui/jquery.ui.sortable.js"></script>
         <script src="jquery-ui-1.8.20.custom/development-bundle/ui/jquery.ui.draggable.js"></script>
         <script src="jquery-ui-1.8.20.custom/development-bundle/ui/jquery.ui.droppable.js"></script>
-        <script src="jquery-ui-1.8.20.custom/development-bundle/ui/jquery.ui.tabs.js"></script>
+        <script src="jquery-ui-1.8.20.custom/development-bundle/ui/jquery.ui.tabs.js"></script>		
+		<script src="jquery-ui-1.8.20.custom/development-bundle/external/jquery.bgiframe-2.1.2.js"></script>
+		<script src="jquery-ui-1.8.20.custom/development-bundle/ui/jquery.ui.button.js"></script>
+		<script src="jquery-ui-1.8.20.custom/development-bundle/ui/jquery.ui.position.js"></script>
+		<script src="jquery-ui-1.8.20.custom/development-bundle/ui/jquery.ui.dialog.js"></script>
         
         <script src="javascript/site.js"> </script>
         
@@ -30,6 +34,10 @@
     </head>
     
     <body>
+	
+		<div id="dialog-confirm" title="Delete?">
+		<p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span><div id="message"></div></p>
+		</div>
 
         <div class="queue">
             <div id="columns">
