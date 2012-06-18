@@ -25,7 +25,7 @@ $.fn.makeQueueDroppable = function() {
         opacity: 0.5,
         zIndex: 2700,
 		iframeFix: true,
-		start: function(event,ui) {$(this).addClass("queueItem");}
+		start: function(event,ui) {$(this).addClass("queueItem"); selected = $("#tabs").tabs("option","selected");}
 	}).disableSelection();
 	
 	$( ".queue" ).droppable({
@@ -52,8 +52,7 @@ $.fn.makeQueueDroppable = function() {
         },
 		over: function(event,ui) {
 			$("#tabs").addClass("hover-border");
-			selected = $("#tabs").tabs("option","selected");
-			$(this).changeTab(4);			
+			$(this).changeTab(4);		
 		},		
 		out: function(event,ui) {
 			$("#tabs").removeClass("hover-border");
@@ -111,7 +110,7 @@ $.fn.makeParticipantsDroppable = function() {
     $( "#participantList li" ).draggable({
         helper: function() {
 			var name = $(this).text();
-			return $("<li class='user icon'>" + name + "</li>")[0];},
+			return $("<li class='user icon' style='border-top-left-radius: 8px; border-top-right-radius: 8px;'>" + name + "</li>")[0];},
         cursorAt: { right: 20, top: 20},
         opacity: 0.5,
         handle: "img.dragHandle",
@@ -215,7 +214,9 @@ function parseXml(xml) {
 	$(xml).find("node").each(function()  {
 		var link = $(this).find("URL").text();
 		var name = $(this).find("Title").text();
+		var nid = $(this).find("Nid").text();
 		$(this).createItem('survey', link, name);
+		$(this).createItem('results', "http://facetsurvey.4abyte.com/surveymaps/"+nid , name+ " " + "Results");
 	});
 }
 

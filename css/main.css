@@ -123,6 +123,10 @@ ul.apple ul.apple {
 	background-image: url(../icons/survey.png);
 }
 
+.results {
+	background-image: url(../icons/results.png);
+}
+
 .document {
 	background-image: url(../icons/document.png);
 }
