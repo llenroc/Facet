@@ -52,7 +52,7 @@ $.fn.makeQueueDroppable = function() {
         },
 		over: function(event,ui) {
 			$("#tabs").addClass("hover-border");
-			$(this).changeTab(4);			
+			$(this).changeTab(4);		
 		},		
 		out: function(event,ui) {
 			$("#tabs").removeClass("hover-border");
@@ -214,7 +214,9 @@ function parseXml(xml) {
 	$(xml).find("node").each(function()  {
 		var link = $(this).find("URL").text();
 		var name = $(this).find("Title").text();
+		var nid = $(this).find("Nid").text();
 		$(this).createItem('survey', link, name);
+		$(this).createItem('results', "http://facetsurvey.4abyte.com/surveymaps/"+nid , name+ " " + "Results");
 	});
 }
 
