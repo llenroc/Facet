@@ -9,18 +9,12 @@
     color: #222;            /* Foreground color used for text */
     font-family: Helvetica;
     font-size: 14px;
-    margin: 0;              /* Amount of negative space around the outside of the body */
-    padding: 0;             /* Amount of negative space around the inside of the body */   
+	height: 100%
 }
 
 .twitterfeed 
 {
-    display:inline-block;
-    top:850px;
-    left:300px;
-    width:1000px;
-    height:150px;
-    padding:12px;
+    padding-left:12px;
 }
 
 .workspace 
