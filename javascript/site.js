@@ -1,4 +1,5 @@
 var selected;
+var deleteUI;
 
 $(function() {
 	$(this).makeQueueDroppable();
@@ -8,6 +9,25 @@ $(function() {
 	$.fn.updateSurvey();
 	
 	$("body").disableSelection();
+	
+	$( "#dialog-confirm" ).dialog({
+		resizable: false,
+		height:140,
+		modal: true,
+		autoOpen: false,
+		buttons: {
+			"Delete": function() {
+				$(".trash").removeClass("hover-border-red");
+				$(".trash").append(deleteUI.draggable);
+				$(".trash").children().remove();
+				$( this ).dialog( "close" );
+			},
+			Cancel: function() {
+				$( this ).dialog( "close" );
+				$(".trash").removeClass("hover-border-red");
+			}
+		}
+	});
 });
   
 
@@ -158,26 +178,32 @@ $.fn.makeParticipantsDroppable = function() {
 		distance: 15,
     }).disableSelection();
     
-    $( ".trash" ).sortable({
-		items: "li:not(.placeholder)",
-		connectWith: ".connectedSortable",
-		over: function(event,ui) {$(this).addClass("hover-border-red");},		
-		out: function(event,ui) {$(this).removeClass("hover-border-red");},
-		distance: 15,
-		receive: function(event, ui) {$(this).children().remove();}
-	}).disableSelection();
 	
 	$( ".trash" ).droppable({
 		items: "li:not(.placeholder)",
 		connectWith: ".connectedSortable",
 		over: function(event,ui) {$(this).addClass("hover-border-red");},		
 		drop: function(event,ui) {
-			$(this).removeClass("hover-border-red");
-			$(".trash").append(ui.draggable);
-			$(".trash").children().remove();},
+			deleteUI = ui;
+			$("#dialog-confirm #message").text("Are you sure you wish to delete " + ui.draggable.text());
+			$("#dialog-confirm").dialog('open');},
 		out: function(event,ui) {$(this).removeClass("hover-border-red");},
 		distance: 15,
 	}).disableSelection();
+	
+    $( ".trash" ).sortable({
+		items: "li:not(.placeholder)",
+		connectWith: ".connectedSortable",
+		over: function(event,ui) {$(this).addClass("hover-border-red");},		
+		out: function(event,ui) {$(this).removeClass("hover-border-red");},
+		distance: 15,
+		receive: function(event, ui) {
+			deleteUI = ui;
+			$("#dialog-confirm #message").text("Are you sure you wish to delete " + ui.draggable.text());
+			$("#dialog-confirm").dialog('open');
+		}
+	}).disableSelection();
+
 };
 
 $.fn.hide5 = function() {
@@ -211,7 +237,6 @@ $.fn.createItem = function(type, link, name) {
 
 $.fn.changeTab = function(number) {
 	$( '#tabs' ).tabs( 'option', 'selected', number );
-
 };
 
 $.fn.updateSurvey = function() {
