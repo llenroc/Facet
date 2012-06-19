@@ -58,6 +58,7 @@ ul.appleCube > li {
 	/*min-width: 65px;
 	max-width: 100px;*/
     width:95px;
+	cursor: move;
 	
 	margin-bottom: 5px;
 	margin-right: 5px;
@@ -177,6 +178,7 @@ textarea {
 
 img.dragHandle {
 	background-repeat: no-repeat;
+	cursor: move;
 	
 	position:absolute;
 	right:25px;
@@ -184,20 +186,8 @@ img.dragHandle {
 	width:25px; 
 	height:25px;
 	border:0px;	
-}
-
-img.dragHandle2 {
-	background-repeat: no-repeat;
-	
-	position:absolute;
-	right:20px;
-	background-image:url(../icons/handle.png);
-	width:25px; 
-	height:25px;
-	border:0px;
 	
 }
-
 
 /* edit buttons */
 
