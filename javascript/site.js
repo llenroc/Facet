@@ -29,7 +29,12 @@ $(function() {
 	$(this).createItem('file', "empty.html", "File");
 	$(this).createItem('audio', "empty.html", "Audio");
 								
-								
+	var myOptions = {
+		center: new google.maps.LatLng(49.891235,-97.15369),
+		zoom: 4,
+		mapTypeId: google.maps.MapTypeId.ROADMAP
+	};
+	var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);						
 	
 	$("body").disableSelection();
 	
