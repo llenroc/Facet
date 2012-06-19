@@ -152,6 +152,20 @@ $.fn.rename = function() {
     }
 };
 
+function tweet() {
+    	$.ajax({
+        type: "POST",
+        url:  "tweetMessage.php?hashtag=facetmeeting321&action=file%20upload",
+        success: function(){
+            alert("AJAX call Successful");
+        },
+        error: function(){
+            // code
+            alert("AJAX call failed!");
+        }
+    });
+}
+
 $.fn.test = function() {
     $(this).parent().remove();
 };
@@ -214,9 +228,11 @@ $.fn.makeParticipantsDroppable = function() {
 		connectWith: ".connectedSortable",
 		over: function(event,ui) {$(this).addClass("hover-border-red");},		
 		drop: function(event,ui) {
-			deleteUI = ui;
-			$("#dialog-confirm #message").text("Are you sure you wish to delete " + ui.draggable.text());
-			$("#dialog-confirm").dialog('open');},
+			//deleteUI = ui;
+			//$("#dialog-confirm #message").text("Are you sure you wish to delete " + ui.draggable.text());
+			//$("#dialog-confirm").dialog('open');
+			deleteUIItem(ui);	
+			},
 		out: function(event,ui) {$(this).removeClass("hover-border-red");},
 		distance: 15,
 	}).disableSelection();
@@ -228,13 +244,29 @@ $.fn.makeParticipantsDroppable = function() {
 		out: function(event,ui) {$(this).removeClass("hover-border-red");},
 		distance: 15,
 		receive: function(event, ui) {
-			deleteUI = ui;
-			$("#dialog-confirm #message").text("Are you sure you wish to delete " + ui.draggable.text());
-			$("#dialog-confirm").dialog('open');
+			//deleteUI = ui;
+			//$("#dialog-confirm #message").text("Are you sure you wish to delete " + ui.draggable.text());
+			//$("#dialog-confirm").dialog('open');
+			deleteUIItem(ui);
 		}
 	}).disableSelection();
 
 };
+
+function deleteUIItem(ui) {
+	var message = "Are you sure you wish to delete?";
+	var r = confirm(message);
+	if (r==true)
+	{
+		$(".trash").removeClass("hover-border-red");
+		$(".trash").append(ui.draggable);
+		$(".trash").children().remove();
+	}
+	else
+	{
+		$(".trash").removeClass("hover-border-red");
+	}
+}
 
 $.fn.hide5 = function() {
     
