@@ -8,6 +8,29 @@ $(function() {
 	$( "#tabs" ).tabs();
 	$.fn.updateSurvey();
 	
+	//Placeholder to populate workspace
+	$(this).createItem('audio', "empty.html", "Audio");
+	$(this).createItem('file', "empty.html", "File");
+	$(this).createItem('image', "empty.html", "Image");
+	$(this).createItem('document', "empty.html", "Document");
+	$(this).createItem('file', "empty.html", "File");
+	$(this).createItem('file', "empty.html", "File");
+	$(this).createItem('audio', "empty.html", "Audio");
+	$(this).createItem('image', "empty.html", "Image");
+	$(this).createItem('document', "empty.html", "Document");
+	$(this).createItem('file', "empty.html", "File");
+	$(this).createItem('audio', "empty.html", "Audio");
+	$(this).createItem('image', "empty.html", "Image");
+	$(this).createItem('file', "empty.html", "File");
+	$(this).createItem('audio', "empty.html", "Audio");
+	$(this).createItem('image', "empty.html", "Image");
+	$(this).createItem('document', "empty.html", "Document");
+	$(this).createItem('file', "empty.html", "File");
+	$(this).createItem('file', "empty.html", "File");
+	$(this).createItem('audio', "empty.html", "Audio");
+								
+								
+	
 	$("body").disableSelection();
 	
 	$( "#dialog-confirm" ).dialog({
@@ -129,7 +152,7 @@ $.fn.test = function() {
 };
 
 $.fn.makeParticipantsDroppable = function() {
-	$("#participantList li").addClass("hover-border2");
+	$(".dragHandle").addClass("hover-border2");
     $( "#participantList li" ).draggable({
         helper: function() {
 			var name = $(this).text();
