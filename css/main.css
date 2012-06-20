@@ -189,6 +189,12 @@ img.dragHandle {
 	
 }
 
+#toggleSlide {
+	position: absolute;
+	right: 10px;
+
+}
+
 /* edit buttons */
 
 .iPhoneButton {

@@ -57,6 +57,19 @@ $(function() {
 			}
 		}
 	});
+	
+	var slideOpen = true;
+	rightContent
+	
+	$("#toggleSlide").click(function() {	
+		if(slideOpen) {
+			$(".participants").animate({"left":"-=240"},"fast");
+			slideOpen = false;
+		} else {
+			$(".participants").animate({"left":"+=240"},"fast");
+			slideOpen = true;
+		}
+	});
 });
   
 
