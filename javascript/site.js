@@ -80,12 +80,22 @@ $.fn.makeQueueDroppable = function() {
 	$( ".queue" ).droppable({
         accept: ":not(.ui-sortable-helper) .workspaceItem",
         drop: function( event, ui ) {
+			var type = $(ui.draggable).attr("type");
 			$( this ).find( ".placeholder" ).remove();
-			$( "<div class='column'></div>" ).html( "<header><h1>" + ui.draggable.html() + "</h1></header>" ).appendTo("#columns");	
+			$( "<div type='" + type + "' class='column'></div>" ).html( "<header><h1>" + ui.draggable.html() + "</h1></header>" ).appendTo("#columns");	
 			$(this).removeClass("hover-border");			
 			$(this).makeQueueDroppable();
 			
-			tweet("facetmeeting321","shared%20screen","Daniel","video","Awesome%20video");
+			//Just creates a random name because twitter doesn't allow duplicate tweets
+			var chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz";
+			var string_length = 5;
+			var randomstring = '';
+			for (var i=0; i<string_length; i++) {
+				var rnum = Math.floor(Math.random() * chars.length);
+				randomstring += chars.substring(rnum,rnum+1);
+			}
+			
+			tweet("facetmeeting321","queue",randomstring,type, ui.draggable.text() );
         },
 		over: function(event,ui) {$(this).addClass("hover-border");},		
 		out: function(event,ui) {$(this).removeClass("hover-border");},
@@ -100,7 +110,19 @@ $.fn.makeQueueDroppable = function() {
 			$("#tabs").removeClass("hover-border");
 			$(".trash").append(ui.draggable);
 			$(".trash").children().remove();
-			//tweet();
+			
+			var type = $(ui.draggable).attr("type");
+
+			//Just creates a random name because twitter doesn't allow duplicate tweets
+			var chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz";
+			var string_length = 5;
+			var randomstring = '';
+			for (var i=0; i<string_length; i++) {
+				var rnum = Math.floor(Math.random() * chars.length);
+				randomstring += chars.substring(rnum,rnum+1);
+			}
+			
+			tweet("facetmeeting321","shared screen",randomstring,type, ui.draggable.text() );
         },
 		over: function(event,ui) {
 			$("#tabs").addClass("hover-border");
@@ -295,7 +317,7 @@ $.fn.makeFilesDroppable = function() {
 /* 	type = Type of file it is (what icon will be displayed). Can choose file, image, document, survey, audio
 	link = What the text links to */
 $.fn.createItem = function(type, link, name) {
-    $(".appleCube").append("<li title = '" + name + "' class = 'icon "+ type +"'><a onclick='$(this).changeTab(3);' href='" + link + "' target='openFile'>" + name + "</a></li>");
+    $(".appleCube").append("<li type=" + type + " title = '" + name + "' class = 'icon "+ type +"'><a onclick='$(this).changeTab(3);' href='" + link + "' target='openFile'>" + name + "</a></li>");
 	$(this).makeFilesDroppable();
 };
 
