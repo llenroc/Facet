@@ -8,6 +8,7 @@ $(function() {
 	$( "#tabs" ).tabs();
 	$.fn.updateSurvey();
 	
+
 	//Placeholder to populate workspace
 	$(this).createItem('audio', "empty.html", "Audio");
 	$(this).createItem('file', "empty.html", "File");
@@ -182,7 +183,7 @@ function tweet(hashtag,location,name,type,filename) {
 		type: "POST",
 		url:  "tweetMessage.php?hashtag="+hashtag+"&location="+location+"&name="+name+"&type="+type+"&filename="+filename,
 		success: function(){
-			alert("AJAX call Successful");
+
 		},
 		error: function(){
 			// code

@@ -5,7 +5,12 @@
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
 		
 		<meta name="apple-mobile-web-app-capable" content="yes">
-		<link rel="apple-touch-startup-image" href="startup.png" />
+		
+		
+		<!-- iPad Portrait 768x1004 -->
+		<link rel="apple-touch-startup-image" media="(min-device-width: 768px) and (orientation: portrait)" href="spash-1004.png" />
+		<!-- iPad Landscape 1024x748 -->
+		<link rel="apple-touch-startup-image" media="(min-device-width: 768px) and (orientation: landscape)" href="spash-1024.png" />
 		<link rel="apple-touch-icon" href="apple-touch-icon.png" />
 		
 		<meta name="viewport" content="width=device-width" />
@@ -16,9 +21,8 @@
 		<link rel="stylesheet" href="jquery-ui-1.8.20.custom/development-bundle/demos/demos.css" />
 	
 		<link rel="stylesheet" type="text/css" href="css/style.css" />
-        <link rel="stylesheet" type="text/css" href="css/main.css" />
-		
-		<link rel="stylesheet" href="css/monitter.css" />
+        <link rel="stylesheet" type="text/css" href="css/main.css" />		
+		<link rel="stylesheet" type="text/css" href="css/monitter.css" />
         
         <!-- *** scripts *** -->       
         <script src="jquery-ui-1.8.20.custom/development-bundle/jquery-1.7.2.js"></script>
@@ -34,7 +38,7 @@
 		<script src="jquery-ui-1.8.20.custom/development-bundle/ui/jquery.ui.position.js"></script>
 		<script src="jquery-ui-1.8.20.custom/development-bundle/ui/jquery.ui.dialog.js"></script>
         
-        <script src="javascript/site.js"> </script>
+        <script type="text/javascript" src="javascript/site.js"></script>
 		<script type="text/javascript" src="javascript/monitter.min.js"></script>
 		
 		<script type="text/javascript"
@@ -49,9 +53,9 @@
     
     <body>
 	
-		<div id="dialog-confirm" title="Delete?">
+		<!--<div id="dialog-confirm" title="Delete?">
 		<p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span><div id="message"></div></p>
-		</div>
+		</div>-->
 
         <div class="queue">
             <div id="columns">
@@ -79,9 +83,7 @@
                 </ul>
 
 				
-			<ul class="apple">
-                <li class = 'icon trash connectedSortable'>Trash</li>
-            </ul>
+			<ul class="apple"><li class = 'icon trash connectedSortable'>Trash</li></ul>
 			
             <h1>Groups</h1>
             
@@ -89,11 +91,8 @@
                 <div class="iPhoneButton" onclick="$(this).newGroup();">New</div>
                 <div class="iPhoneButton" id="renameButton" onclick="$(this).rename();">Edit</div>                
             </div>
-            
-
-			
-            <ul class="apple" id = "groupList">
-            </ul>
+            		
+            <ul class="apple" id = "groupList"></ul>
         </div>
         
         <div class="workspace">
