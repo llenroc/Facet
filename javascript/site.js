@@ -84,7 +84,8 @@ $.fn.makeQueueDroppable = function() {
 			$( "<div class='column'></div>" ).html( "<header><h1>" + ui.draggable.html() + "</h1></header>" ).appendTo("#columns");	
 			$(this).removeClass("hover-border");			
 			$(this).makeQueueDroppable();
-			tweet();
+			
+			tweet("facetmeeting321","shared%20screen","Daniel","video","Awesome%20video");
         },
 		over: function(event,ui) {$(this).addClass("hover-border");},		
 		out: function(event,ui) {$(this).removeClass("hover-border");},
@@ -99,7 +100,7 @@ $.fn.makeQueueDroppable = function() {
 			$("#tabs").removeClass("hover-border");
 			$(".trash").append(ui.draggable);
 			$(".trash").children().remove();
-			tweet();
+			//tweet();
         },
 		over: function(event,ui) {
 			$("#tabs").addClass("hover-border");
@@ -154,10 +155,10 @@ $.fn.rename = function() {
     }
 };
 
-function tweet() {
+function tweet(hashtag,location,name,type,filename) {
 	$.ajax({
 		type: "POST",
-		url:  "tweetMessage.php?hashtag=facetmeeting321&action=file%20upload",
+		url:  "tweetMessage.php?hashtag="+hashtag+"&location="+location+"&name="+name+"&type="+type+"&filename="+filename,
 		success: function(){
 			alert("AJAX call Successful");
 		},
