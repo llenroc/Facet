@@ -29,6 +29,6 @@
 	float: left;
 	width: 980px;
 	height: 134px;
-	overflow:hidden;
+	overflow-y:scroll;
 	border-radius: 8px;
 }
