@@ -84,6 +84,7 @@ $.fn.makeQueueDroppable = function() {
 			$( "<div class='column'></div>" ).html( "<header><h1>" + ui.draggable.html() + "</h1></header>" ).appendTo("#columns");	
 			$(this).removeClass("hover-border");			
 			$(this).makeQueueDroppable();
+			tweet();
         },
 		over: function(event,ui) {$(this).addClass("hover-border");},		
 		out: function(event,ui) {$(this).removeClass("hover-border");},
@@ -98,6 +99,7 @@ $.fn.makeQueueDroppable = function() {
 			$("#tabs").removeClass("hover-border");
 			$(".trash").append(ui.draggable);
 			$(".trash").children().remove();
+			tweet();
         },
 		over: function(event,ui) {
 			$("#tabs").addClass("hover-border");
@@ -153,16 +155,16 @@ $.fn.rename = function() {
 };
 
 function tweet() {
-    	$.ajax({
-        type: "POST",
-        url:  "tweetMessage.php?hashtag=facetmeeting321&action=file%20upload",
-        success: function(){
-            alert("AJAX call Successful");
-        },
-        error: function(){
-            // code
-            alert("AJAX call failed!");
-        }
+	$.ajax({
+		type: "POST",
+		url:  "tweetMessage.php?hashtag=facetmeeting321&action=file%20upload",
+		success: function(){
+			alert("AJAX call Successful");
+		},
+		error: function(){
+			// code
+			alert("AJAX call failed!");
+		}
     });
 }
 
@@ -250,7 +252,6 @@ $.fn.makeParticipantsDroppable = function() {
 			deleteUIItem(ui);
 		}
 	}).disableSelection();
-
 };
 
 function deleteUIItem(ui) {
@@ -268,8 +269,7 @@ function deleteUIItem(ui) {
 	}
 }
 
-$.fn.hide5 = function() {
-    
+$.fn.hide5 = function() { 
     $(this).next().toggle();
 };
 
@@ -320,4 +320,3 @@ function parseXml(xml) {
 		$(this).createItem('results', "http://facetsurvey.4abyte.com/surveymaps/"+nid , name+ " " + "Results");
 	});
 }
-
