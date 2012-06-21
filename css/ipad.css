@@ -17,17 +17,17 @@
 	overflow-y:scroll;
 }
 
-/*.workspace {
-	width: px;
+.workspace {
+	width: 754px;
 	height: px;
-	
+}
 
-}*/
+.file-area {
+	width:auto;
+}
 
 body {
 	width:1024px;
-
-
 }
 
 .queue
@@ -37,7 +37,11 @@ body {
 }
 
 .column  {
-	width:149px;
+	width:145px;
+}
+
+.monitter {
+	width: 754px;
 
 }
 
