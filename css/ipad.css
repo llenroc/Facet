@@ -7,3 +7,9 @@ a {
 	height: 748px;
 	overflow-y:scroll;
 }
+
+.workspace
+{
+	display:none;
+
+}
