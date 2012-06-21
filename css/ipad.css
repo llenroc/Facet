@@ -1,3 +1,9 @@
 a {
 	font-size: 20px;
 }
+
+.participants 
+{
+	height: 748px;
+	overflow-y:scroll;
+}
