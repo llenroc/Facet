@@ -1,14 +1,16 @@
-a {
-	font-size: 20px;
-}
-
-.participants 
+#participantList
 {
 	height: 748px;
 	overflow-y:scroll;
 }
 
 .workspace
+{
+	display:none;
+
+}
+
+.queue
 {
 	display:none;
 
