@@ -3,7 +3,6 @@
 	height: 281px;
 	position:relative;
 	overflow-y:scroll;
-	border-radius: 8px;
 }
 
 .participants
@@ -16,7 +15,6 @@
 	height: 200px;
 	position:relative;
 	overflow-y:scroll;
-	border-radius: 8px;
 }
 
 .workspace
