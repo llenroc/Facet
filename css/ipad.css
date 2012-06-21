@@ -1,6 +1,6 @@
 #participantList
 {
-	height: 281px;
+	height: 301px;
 	position:relative;
 	overflow-y:scroll;
 }
@@ -12,11 +12,17 @@
 
 #groupList
 {
-	height: 200px;
+	height: 180px;
 	position:relative;
 	overflow-y:scroll;
 }
 
+/*.workspace {
+	width: px;
+	height: px;
+	
+
+}*/
 
 body {
 	width:1024px;
@@ -27,6 +33,11 @@ body {
 .queue
 {
 	width:754px;
+
+}
+
+.column  {
+	width:145px;
 
 }
 
