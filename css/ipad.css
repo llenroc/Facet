@@ -18,8 +18,14 @@
 }
 
 .workspace {
-	width: 754px;
-	height: px;
+	width: 764px;
+	//height: px;
+}
+
+#map_canvas {
+	width: 700px;
+	//height px;
+
 }
 
 .file-area {
