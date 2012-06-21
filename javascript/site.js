@@ -8,9 +8,9 @@ $(function() {
 	$.fn.updateSurvey();
 	
 	$(document).bind('touchmove', false);
-	$("#participantList").unbind('touchmove', false);
-	$("#groupList").unbind('touchmove', false);
-	$("#tweets").unbind('touchmove', false);
+	$("#participantList").bind('touchmove', true);
+	$("#groupList").bind('touchmove', true);
+	$("#tweets").bind('touchmove', true);
 
 	//Placeholder to populate workspace
 	$(this).createItem('audio', "empty.html", "Audio");
