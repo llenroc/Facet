@@ -1,4 +1,3 @@
-var selected;
 var deleteUI;
 
 $(function() {
@@ -43,14 +42,14 @@ $(function() {
 	
 	$("#toggleSlide").click(function() {	
 		if(slideOpen) {
-			$(".participants").animate({"left":"-=240"},"fast");
-			$(".queue").animate({"left":"-=240"},"fast");
-			$(".workspace").animate({"left":"-=240"},"fast");
+			$(".participants").animate({"left":"-=200"},"fast");
+			$(".queue").animate({"left":"-=200"},"fast");
+			$(".workspace").animate({"left":"-=200"},"fast");
 			slideOpen = false;
 		} else {
-			$(".participants").animate({"left":"+=240"},"fast");
-			$(".queue").animate({"left":"+=240"},"fast");
-			$(".workspace").animate({"left":"+=240"},"fast");
+			$(".participants").animate({"left":"+=200"},"fast");
+			$(".queue").animate({"left":"+=200"},"fast");
+			$(".workspace").animate({"left":"+=200"},"fast");
 			slideOpen = true;
 		}
 	});
@@ -71,7 +70,7 @@ $.fn.makeQueueDroppable = function() {
         opacity: 0.5,
         zIndex: 2700,
 		iframeFix: true,
-		start: function(event,ui) {$(this).addClass("queueItem"); selected = $("#tabs").tabs("option","selected");}
+		start: function(event,ui) {$(this).addClass("queueItem");}
 	}).disableSelection();
 	
 	$( ".queue" ).droppable({
@@ -122,13 +121,10 @@ $.fn.makeQueueDroppable = function() {
 			tweet("facetmeeting321","shared screen",randomstring,type, ui.draggable.text() );
         },
 		over: function(event,ui) {
-			$("#tabs").addClass("hover-border");
-			$(this).changeTab(4);		
-			$("#columns div").draggable( "option", "iframeFix", true );			
+			$("#tabs").addClass("hover-border");			
 		},		
 		out: function(event,ui) {
 			$("#tabs").removeClass("hover-border");
-			$(this).changeTab(selected);
 		},
     }).disableSelection();
 };

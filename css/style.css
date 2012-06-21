@@ -4,7 +4,7 @@
     position:absolute;
     left:0;
     top:0;
-    width:300px;
+    width:250px;
     background-color: #ddd; /* Background color */
     color: #222;            /* Foreground color used for text */
     font-family: Helvetica;
@@ -21,8 +21,8 @@
 {
     position:absolute;
     top:95px;
-    left:300px;
-    width:1000px;
+    left:250px;
+    width:774px;
     height:800px;
 }
 
@@ -30,8 +30,8 @@
 {
     position:absolute;
     top:-5px;
-    left:300px;
-    width:984px;
+    left:250px;
+    width:774px;
     height:95px;
     margin:10px;
 	
