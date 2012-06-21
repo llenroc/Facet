@@ -205,6 +205,7 @@ $.fn.makeParticipantsDroppable = function() {
 			return $("<li class='user icon' style='border-top-left-radius: 8px; border-top-right-radius: 8px;'>" + name + "</li>")[0];},
         cursorAt: { right: 20, top: 20},
         opacity: 0.5,
+		scroll: false,
         handle: "img.dragHandle",
         zIndex: 2700,
 		iframeFix: true,
