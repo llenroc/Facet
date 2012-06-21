@@ -8,10 +8,16 @@ $(function() {
 	$.fn.updateSurvey();
 	
 	$(document).bind('touchmove', false);
-	$("#participantList").bind('touchmove', true);
-	$("#groupList").bind('touchmove', true);
-	$("#tweets").bind('touchmove', true);
+	var scrollable = document.getElementById("participantList");
+	new ScrollFix(scrollable);
 
+	var scrollable1 = document.getElementById("groupList");
+	new ScrollFix(scrollable1);
+
+	var scrollable2 = document.getElementById("tweets");
+	new ScrollFix(scrollable2);
+	
+	
 	//Placeholder to populate workspace
 	$(this).createItem('audio', "empty.html", "Audio");
 	$(this).createItem('file', "empty.html", "File");
