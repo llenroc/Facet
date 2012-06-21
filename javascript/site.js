@@ -53,11 +53,13 @@ $(function() {
 		if(slideOpen) {
 			$(".participants").animate({"left":"-=200"},"fast");
 			$(".queue").animate({"left":"-=200"},"fast");
+			$(".queue").animate({"width":"+=200"},"fast");
 			$(".workspace").animate({"left":"-=200"},"fast");
 			slideOpen = false;
 		} else {
 			$(".participants").animate({"left":"+=200"},"fast");
 			$(".queue").animate({"left":"+=200"},"fast");
+			$(".queue").animate({"width":"-=200"},"fast");
 			$(".workspace").animate({"left":"+=200"},"fast");
 			slideOpen = true;
 		}
