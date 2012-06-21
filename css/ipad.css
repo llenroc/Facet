@@ -1,12 +1,17 @@
 #participantList
 {
-	height: 241px;
+	height: 281px;
 	overflow-y:scroll;
+}
+
+.participants
+{
+	height: 748px;
 }
 
 #groupList
 {
-	height: 240px;
+	height: 200px;
 	overflow-y:scroll;
 }
 
