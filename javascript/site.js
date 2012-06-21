@@ -6,9 +6,7 @@ $(function() {
 	$(this).makeFilesDroppable();
 	$( "#tabs" ).tabs();
 	$.fn.updateSurvey();
-	
-	$("body:not(#participantList)").on("touchmove",false);
-	
+		
 	var scrollable = document.getElementById("participantList");
 	new ScrollFix(scrollable);
 

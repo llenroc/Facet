@@ -23,6 +23,12 @@
 
 }
 
+body {
+	width:1024px;
+	height:748px;
+
+}
+
 .queue
 {
 	width:774px;
