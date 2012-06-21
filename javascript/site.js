@@ -209,7 +209,7 @@ $.fn.makeParticipantsDroppable = function() {
         opacity: 0.5,
 		scroll: false,
         handle: "img.dragHandle",
-        zIndex: 9999,
+        zIndex: 2147483647,
 		iframeFix: true,
 	}).disableSelection();
     
