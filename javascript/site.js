@@ -7,6 +7,7 @@ $(function() {
 	$( "#tabs" ).tabs();
 	$.fn.updateSurvey();
 	
+	$(document).bind('touchmove', false);
 
 	//Placeholder to populate workspace
 	$(this).createItem('audio', "empty.html", "Audio");
