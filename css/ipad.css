@@ -1,19 +1,10 @@
 #participantList
 {
 	height: 748px;
+	overflow-y:scroll;
 }
 
-.workspace
-{
-	display:none;
 
-}
-
-.queue
-{
-	width:774px;
-
-}
 
 
 .hover-border2:hover {
