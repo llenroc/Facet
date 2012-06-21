@@ -39,39 +39,22 @@ $(function() {
 	
 	$("body").disableSelection();
 	
-	$( "#dialog-confirm" ).dialog({
-		resizable: false,
-		height:140,
-		modal: true,
-		autoOpen: false,
-		buttons: {
-			"Delete": function() {
-				$(".trash").removeClass("hover-border-red");
-				$(".trash").append(deleteUI.draggable);
-				$(".trash").children().remove();
-				$( this ).dialog( "close" );
-			},
-			Cancel: function() {
-				$( this ).dialog( "close" );
-				$(".trash").removeClass("hover-border-red");
-			}
-		}
-	});
-	
 	var slideOpen = true;
-	rightContent
 	
 	$("#toggleSlide").click(function() {	
 		if(slideOpen) {
 			$(".participants").animate({"left":"-=240"},"fast");
+			$(".queue").animate({"left":"-=240"},"fast");
+			$(".workspace").animate({"left":"-=240"},"fast");
 			slideOpen = false;
 		} else {
 			$(".participants").animate({"left":"+=240"},"fast");
+			$(".queue").animate({"left":"+=240"},"fast");
+			$(".workspace").animate({"left":"+=240"},"fast");
 			slideOpen = true;
 		}
 	});
 });
-  
 
 $.fn.makeQueueDroppable = function() {
 /*    $( "#columns" ).sortable({
