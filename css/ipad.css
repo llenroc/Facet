@@ -1,6 +1,6 @@
-#participantList
+.participants
 {
-	//height: 748px;
+	height: 748px;
 	overflow-y:scroll;
 }
 
