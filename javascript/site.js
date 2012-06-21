@@ -7,7 +7,7 @@ $(function() {
 	$( "#tabs" ).tabs();
 	$.fn.updateSurvey();
 	
-	$(document).on("touchmove",false);
+	$("body:not(#participantList)").on("touchmove",false);
 	
 	var scrollable = document.getElementById("participantList");
 	new ScrollFix(scrollable);
