@@ -51,17 +51,17 @@ $(function() {
 	
 	$("#toggleSlide").click(function() {	
 		if(slideOpen) {
-			$(".queue").animate({"width":"+=200"},"fast");
-			$(".monitter").animate({"width":"+=200"},"fast");
-			$(".workspace").animate({"width":"+=200"},"fast");
+			$(".queue").css("width","+=200");
+			$(".monitter").css("width","+=200");
+			$(".workspace").css("width","+=200");
 			$(".participants").animate({"left":"-=200"},"fast");
 			$(".queue").animate({"left":"-=200"},"fast");
 			$(".workspace").animate({"left":"-=200"},"fast");
 			slideOpen = false;
 		} else {
-			$(".queue").animate({"width":"-=200"},"fast");
-			$(".monitter").animate({"width":"-=200"},"fast");
-			$(".workspace").animate({"width":"-=200"},"fast");
+			$(".queue").css("width","-=200");
+			$(".monitter").css("width","-=200");
+			$(".workspace").css("width","-=200");
 			$(".participants").animate({"left":"+=200"},"fast");
 			$(".queue").animate({"left":"+=200"},"fast");
 			$(".workspace").animate({"left":"+=200"},"fast");
