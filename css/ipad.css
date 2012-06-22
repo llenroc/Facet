@@ -8,6 +8,7 @@
 .participants
 {
 	height: 748px;
+	overflow-y:hidden;
 }
 
 #groupList

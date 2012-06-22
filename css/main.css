@@ -56,14 +56,12 @@ ul.appleCube > li {
     overflow: hidden;
 	text-overflow: ellipsis;
 	
-	/*min-width: 65px;
-	max-width: 100px;*/
-    width:95px;
+    width:148px;
 	cursor: move;
 	
 	margin-bottom: 5px;
 	margin-right: 5px;
-	/*float: left; not anymore ... */
+
 	font-size: 17px;
     font-weight: bold;
 	text-align: center;

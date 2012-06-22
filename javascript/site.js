@@ -143,6 +143,7 @@ $.fn.makeQueueDroppable = function() {
 				randomstring += chars.substring(rnum,rnum+1);
 			}
 			
+			$(this).changeTab(4);
 			tweet("facetmeeting321","shared screen",randomstring,type, ui.draggable.text() );
         },
 		over: function(event,ui) {
