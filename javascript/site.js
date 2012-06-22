@@ -55,10 +55,13 @@ $(function() {
 });
 
 $.fn.slideItems = function() {
+
 	if(slideOpen) {
 		$(".queue").css("width","+=200");
 		$(".monitter").css("width","+=200");
 		$(".workspace").css("width","+=200");
+		$("ul.appleCube > li").css("width","-=66");
+		
 		$(".participants").animate({"left":"-=200"},"fast");
 		$(".queue").animate({"left":"-=200"},"fast");
 		$(".workspace").animate({"left":"-=200"},"fast");
@@ -67,6 +70,8 @@ $.fn.slideItems = function() {
 		$(".queue").css("width","-=200");
 		$(".monitter").css("width","-=200");
 		$(".workspace").css("width","-=200");
+		$("ul.appleCube > li").css("width","+=66");
+		
 		$(".participants").animate({"left":"+=200"},"fast");
 		$(".queue").animate({"left":"+=200"},"fast");
 		$(".workspace").animate({"left":"+=200"},"fast");
