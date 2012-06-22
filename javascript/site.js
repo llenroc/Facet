@@ -57,24 +57,24 @@ $(function() {
 $.fn.slideItems = function() {
 
 	if(slideOpen) {
-		$(".queue").animate({width: '+=200'}, {duration:"fast", queue: false});
-		$(".monitter").animate({width: '+=200'}, {duration:"fast", queue: false});
-		$(".workspace").animate({width: '+=200'}, {duration:"fast", queue: false});
-		$("ul.appleCube > li").animate({width: '-=66'}, {duration:"fast", queue: false});
+		$(".queue").animate({width: '+=200'}, {duration:"slow", queue: false});
+		$(".monitter").animate({width: '+=200'}, {duration:"slow", queue: false});
+		$(".workspace").animate({width: '+=200'}, {duration:"slow", queue: false});
+		$("ul.appleCube > li").animate({width: '-=66'}, {duration:"slow", queue: false});
 		
-		$(".participants").animate({left: '-=200'}, {duration:"fast", queue: false});
-		$(".queue").animate({left: '-=200'}, {duration:"fast", queue: false});
-		$(".workspace").animate({left: '-=200'}, {duration:"fast", queue: false});
+		$(".participants").animate({left: '-=200'}, {duration:"slow", queue: false});
+		$(".queue").animate({left: '-=200'}, {duration:"slow", queue: false});
+		$(".workspace").animate({left: '-=200'}, {duration:"slow", queue: false});
 		slideOpen = false;
 	} else {
-		$(".queue").animate({width: '-=200'}, {duration:"fast", queue: false});
-		$(".monitter").animate({width: '-=200'}, {duration:"fast", queue: false});
-		$(".workspace").animate({width: '-=200'}, {duration:"fast", queue: false});
-		$("ul.appleCube > li").animate({width: '+=66'}, {duration:"fast", queue: false});
+		$(".queue").animate({width: '-=200'}, {duration:"slow", queue: false});
+		$(".monitter").animate({width: '-=200'}, {duration:"slow", queue: false});
+		$(".workspace").animate({width: '-=200'}, {duration:"slow", queue: false});
+		$("ul.appleCube > li").animate({width: '+=66'}, {duration:"slow", queue: false});
 		
-		$(".participants").animate({left: '+=200'}, {duration:"fast", queue: false});
-		$(".queue").animate({left: '+=200'}, {duration:"fast", queue: false});
-		$(".workspace").animate({left: '+=200'}, {duration:"fast", queue: false});
+		$(".participants").animate({left: '+=200'}, {duration:"slow", queue: false});
+		$(".queue").animate({left: '+=200'}, {duration:"slow", queue: false});
+		$(".workspace").animate({left: '+=200'}, {duration:"slow", queue: false});
 
 		slideOpen = true;
 	}
