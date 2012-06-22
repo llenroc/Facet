@@ -30,6 +30,23 @@ body {
 	width:1024px;
 }
 
+#map_canvas {
+	width:704px;
+}
+
+#survey_canvas {
+	width:704px;
+	
+}
+
+#open_canvas {
+	width:704px;
+}
+
+#sharedScreen {
+	width:704px;
+}
+
 .queue
 {
 	width:754px;
