@@ -57,24 +57,30 @@ $(function() {
 $.fn.slideItems = function() {
 
 	if(slideOpen) {
-		$(".queue").animate({width: '+=200'}, {duration:"slow", queue: false});
-		$(".monitter").animate({width: '+=200'}, {duration:"slow", queue: false});
-		$(".workspace").animate({width: '+=200'}, {duration:"slow", queue: false});
+		$(".queue").animate({width: '+=240'}, {duration:"slow", queue: false});
+		$(".monitter").animate({width: '+=240'}, {duration:"slow", queue: false});
+		$(".workspace").animate({width: '+=240'}, {duration:"slow", queue: false});
 		$("ul.appleCube > li").animate({width: '-=66'}, {duration:"slow", queue: false});
 		
-		$(".participants").animate({left: '-=200'}, {duration:"slow", queue: false});
-		$(".queue").animate({left: '-=200'}, {duration:"slow", queue: false});
-		$(".workspace").animate({left: '-=200'}, {duration:"slow", queue: false});
+		$(".participants").animate({left: '-=240'}, {duration:"slow", queue: false});
+		$(".queue").animate({left: '-=240'}, {duration:"slow", queue: false});
+		$(".workspace").animate({left: '-=240'}, {duration:"slow", queue: false});
+		$("#toggleSlide").animate({right: '-=30'}, {duration:"slow", queue: false});
+		
+		$("#toggleSlide").attr("src","icons/right.png");
 		slideOpen = false;
 	} else {
-		$(".queue").animate({width: '-=200'}, {duration:"slow", queue: false});
-		$(".monitter").animate({width: '-=200'}, {duration:"slow", queue: false});
-		$(".workspace").animate({width: '-=200'}, {duration:"slow", queue: false});
+		$(".queue").animate({width: '-=240'}, {duration:"slow", queue: false});
+		$(".monitter").animate({width: '-=240'}, {duration:"slow", queue: false});
+		$(".workspace").animate({width: '-=240'}, {duration:"slow", queue: false});
 		$("ul.appleCube > li").animate({width: '+=66'}, {duration:"slow", queue: false});
 		
-		$(".participants").animate({left: '+=200'}, {duration:"slow", queue: false});
-		$(".queue").animate({left: '+=200'}, {duration:"slow", queue: false});
-		$(".workspace").animate({left: '+=200'}, {duration:"slow", queue: false});
+		$(".participants").animate({left: '+=240'}, {duration:"slow", queue: false});
+		$(".queue").animate({left: '+=240'}, {duration:"slow", queue: false});
+		$(".workspace").animate({left: '+=240'}, {duration:"slow", queue: false});
+		$("#toggleSlide").animate({right: '+=30'}, {duration:"slow", queue: false});
+		
+		$("#toggleSlide").attr("src","icons/left.png");
 
 		slideOpen = true;
 	}
