@@ -19,11 +19,11 @@
 
 .workspace {
 	width: 764px;
-	//height: px;
+	height: 500px;
 }
 
 ul.appleCube > li {
-	//width:147px;
+	width:147px;
 }
 
 body {
@@ -32,19 +32,23 @@ body {
 
 #map_canvas {
 	width:704px;
+	height: 500px;
 }
 
 #survey_canvas {
 	width:704px;
+	height: 500px;
 	
 }
 
 #open_canvas {
 	width:704px;
+	height: 500px;
 }
 
 #sharedScreen {
 	width:704px;
+	height: 500px;
 }
 
 .queue
