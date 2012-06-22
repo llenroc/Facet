@@ -57,24 +57,24 @@ $(function() {
 $.fn.slideItems = function() {
 
 	if(slideOpen) {
-		$(".queue").css("width","+=200");
-		$(".monitter").css("width","+=200");
-		$(".workspace").css("width","+=200");
-		$("ul.appleCube > li").css("width","-=66");
+		$(".queue").animate({width: '+=200'}, {duration:"fast", queue: false});
+		$(".monitter").animate({width: '+=200'}, {duration:"fast", queue: false});
+		$(".workspace").animate({width: '+=200'}, {duration:"fast", queue: false});
+		$("ul.appleCube > li").animate({width: '-=66'}, {duration:"fast", queue: false});
 		
-		$(".participants").animate({"left":"-=200"},"fast");
-		$(".queue").animate({"left":"-=200"},"fast");
-		$(".workspace").animate({"left":"-=200"},"fast");
+		$(".participants").animate({left: '-=200'}, {duration:"fast", queue: false});
+		$(".queue").animate({left: '-=200'}, {duration:"fast", queue: false});
+		$(".workspace").animate({left: '-=200'}, {duration:"fast", queue: false});
 		slideOpen = false;
 	} else {
-		$(".queue").css("width","-=200");
-		$(".monitter").css("width","-=200");
-		$(".workspace").css("width","-=200");
-		$("ul.appleCube > li").css("width","+=66");
+		$(".queue").animate({width: '-=200'}, {duration:"fast", queue: false});
+		$(".monitter").animate({width: '-=200'}, {duration:"fast", queue: false});
+		$(".workspace").animate({width: '-=200'}, {duration:"fast", queue: false});
+		$("ul.appleCube > li").animate({width: '+=66'}, {duration:"fast", queue: false});
 		
-		$(".participants").animate({"left":"+=200"},"fast");
-		$(".queue").animate({"left":"+=200"},"fast");
-		$(".workspace").animate({"left":"+=200"},"fast");
+		$(".participants").animate({left: '+=200'}, {duration:"fast", queue: false});
+		$(".queue").animate({left: '+=200'}, {duration:"fast", queue: false});
+		$(".workspace").animate({left: '+=200'}, {duration:"fast", queue: false});
 
 		slideOpen = true;
 	}
