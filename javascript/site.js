@@ -1,4 +1,5 @@
 var deleteUI;
+var slideOpen = true;
 
 $(function() {
 	$(this).makeQueueDroppable();
@@ -47,29 +48,32 @@ $(function() {
 	
 	$("body").disableSelection();
 	
-	var slideOpen = true;
 	
 	$("#toggleSlide").click(function() {	
-		if(slideOpen) {
-			$(".queue").css("width","+=200");
-			$(".monitter").css("width","+=200");
-			$(".workspace").css("width","+=200");
-			$(".participants").animate({"left":"-=200"},"fast");
-			$(".queue").animate({"left":"-=200"},"fast");
-			$(".workspace").animate({"left":"-=200"},"fast");
-			slideOpen = false;
-		} else {
-			$(".queue").css("width","-=200");
-			$(".monitter").css("width","-=200");
-			$(".workspace").css("width","-=200");
-			$(".participants").animate({"left":"+=200"},"fast");
-			$(".queue").animate({"left":"+=200"},"fast");
-			$(".workspace").animate({"left":"+=200"},"fast");
-
-			slideOpen = true;
-		}
+		$(this).slideItems();
 	});
 });
+
+$.fn.slideItems = function() {
+	if(slideOpen) {
+		$(".queue").css("width","+=200");
+		$(".monitter").css("width","+=200");
+		$(".workspace").css("width","+=200");
+		$(".participants").animate({"left":"-=200"},"fast");
+		$(".queue").animate({"left":"-=200"},"fast");
+		$(".workspace").animate({"left":"-=200"},"fast");
+		slideOpen = false;
+	} else {
+		$(".queue").css("width","-=200");
+		$(".monitter").css("width","-=200");
+		$(".workspace").css("width","-=200");
+		$(".participants").animate({"left":"+=200"},"fast");
+		$(".queue").animate({"left":"+=200"},"fast");
+		$(".workspace").animate({"left":"+=200"},"fast");
+
+		slideOpen = true;
+	}
+};
 
 $.fn.makeQueueDroppable = function() {
 /*    $( "#columns" ).sortable({
