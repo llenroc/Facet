@@ -391,9 +391,18 @@ function parseXml(xml) {
 // JSON based survey updates. requires local PHP mirror for cross site request
 
 $.fn.updateSurvey = function() {
+
+	var serverURL;
+	if( typeof phpServer === 'undefined') {
+		serverURL = "http://localhost:81"
+	}
+	else {
+		serverURL = phpServer;
+	}
+
 	$.ajax({
 		type: "GET",
-		url: "http://localhost:81/curl.php?request=http://facetsurvey.4abyte.com/json-services/",
+		url: serverURL + "/curl.php?request=http://facetsurvey.4abyte.com/json-services/",
 		dataType: "json",
 		success: parseJson
 	});
