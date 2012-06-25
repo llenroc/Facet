@@ -82,3 +82,8 @@
 {
     font-size:125%;
 }
+
+#tabs-3
+{
+	overflow:scroll;
+}
