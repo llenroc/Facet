@@ -41,6 +41,10 @@
 	border-radius: 8px;
 }
 
+#map_canvas {
+	height: 650px;
+}
+
 
 /* style from queue.html*/
 .column 
