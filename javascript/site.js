@@ -20,6 +20,7 @@ $(function() {
 	var scrollable3 = $(".files-area").get(0);
 	new ScrollFix(scrollable3);
 	
+	document.body.addEventListener('touchmove', function(e){ e.preventDefault(); });
 	
 	//Placeholder to populate workspace
 	$(this).createItem('audio', "empty.html", "Audio");
