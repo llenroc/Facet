@@ -318,7 +318,10 @@ $.fn.changeTab = function(number) {
 	$( '#tabs' ).tabs( 'option', 'selected', number );
 };
 
-$.fn.updateSurvey = function() {
+
+// XML based survey updates
+
+/*$.fn.updateSurvey = function() {
 	$.ajax({
 		type: "GET",
 		url: "test.xml",
@@ -335,4 +338,31 @@ function parseXml(xml) {
 		$(this).createItem('survey', link, name);
 		$(this).createItem('results', "http://facetsurvey.4abyte.com/surveymaps/"+nid , name+ " " + "Results");
 	});
+}*/
+
+
+
+// JSON based survey updates. requires local PHP mirror for cross site request
+
+$.fn.updateSurvey = function() {
+	$.ajax({
+		type: "GET",
+		url: "http://localhost:81/curl.php?request=http://facetsurvey.4abyte.com/json-services/",
+		dataType: "json",
+		success: parseJson
+	});
+};
+
+function parseJson(json, textStatus, jqXHR) {
+
+	for (var x in json.nodes) {
+		//console.log(x + " " + json.nodes[x].node.question);
+		$(this).createItem('survey', json.nodes[x].node.urlResponse, json.nodes[x].node.question);
+		$(this).createItem('results', "http://facetsurvey.4abyte.com/surveymaps/" + json.nodes[x].node.idsurvey, json.nodes[x].node.question + " " + "Results");
+	}
+
 }
+
+
+
+
