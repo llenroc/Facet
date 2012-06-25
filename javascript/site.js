@@ -8,7 +8,7 @@ $(function() {
 	$( "#tabs" ).tabs();
 	$.fn.updateSurvey();
 		
-	document.body.addEventListener('touchmove', function(e){ e.preventDefault(); });
+	document.body.addEventListener('touchstart', function(e){ e.preventDefault(); });
 	
 	var scrollable = document.getElementById("participantList");
 	new ScrollFix(scrollable);
@@ -21,10 +21,7 @@ $(function() {
 	
 	var scrollable3 = $(".files-area").get(0);
 	new ScrollFix(scrollable3);
-	
-	
-	$("#participantList").unbind('touchmove');
-	
+		
 	//Placeholder to populate workspace
 	$(this).createItem('audio', "empty.html", "Audio");
 	$(this).createItem('file', "empty.html", "File");
