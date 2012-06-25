@@ -98,6 +98,7 @@ $.fn.makeQueueDroppable = function() {
 	
 	$(".column").addClass("hover-border2");
 	$( "#columns div" ).draggable({
+		appendTo: "body",
         helper: "original",
 		revert: true,
 		revertDuration: 250,
@@ -226,6 +227,7 @@ $.fn.test = function() {
 $.fn.makeParticipantsDroppable = function() {
 	$(".dragHandle").addClass("hover-border2");
     $( "#participantList li" ).draggable({
+		appendTo: "body",
         helper: function() {
 			var name = $(this).text();
 			return $("<li class='user icon' style='border-top-left-radius: 8px; border-top-right-radius: 8px;'>" + name + "</li>")[0];},
@@ -334,6 +336,7 @@ $.fn.makeFilesDroppable = function() {
 	
 	$(".appleCube li").addClass("hover-border2");
 	$( ".appleCube li" ).draggable({
+		appendTo: "body",
         helper: "clone",
         opacity: 0.5,
         zIndex: 2700,
