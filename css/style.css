@@ -37,15 +37,11 @@
     margin:10px;
 	height: 45px;
 		
-	overflow:hidden;
+	overflow-x: scroll;
+	white-space: nowrap
 	border-radius: 8px;
 }
 
-#columns {
-	width: 50000000px;
-	overflow-x:scroll;
-	overflow-y:hidden;	
-}
 
 #map_canvas {
 	height: 650px;

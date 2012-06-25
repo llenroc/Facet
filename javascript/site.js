@@ -20,6 +20,9 @@ $(function() {
 	var scrollable3 = $(".files-area").get(0);
 	new ScrollFix(scrollable3);
 	
+	var scrollable4 = document.getElementById("queue");
+	new ScrollFix(scrollable4);
+	
 
 		
 	//Placeholder to populate workspace
