@@ -20,7 +20,7 @@
 
 .workspace {
 	width: 774px;
-	height: 500px;
+	height: 550px;
 }
 
 ul.appleCube > li {
@@ -32,24 +32,25 @@ body {
 }
 
 .files-area {
-	height: 500px;
+	height: 550px;
+	overflow-y: scroll;
 }
 
 #map_canvas {
-	height: 500px;
+	height: 550px;
 }
 
 #survey_canvas {
-	height: 500px;
+	height: 550px;
 	
 }
 
 #open_canvas {
-	height: 500px;
+	height: 550px;
 }
 
 #sharedScreen {
-	height: 500px;
+	height: 550px;
 }
 
 .queue
