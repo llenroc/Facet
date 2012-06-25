@@ -3,7 +3,6 @@
 	height: 301px;
 	position:relative;
 	overflow-y:scroll;
-	-webkit-overflow-scrolling: touch;
 }
 
 .participants
@@ -17,7 +16,6 @@
 	height: 180px;
 	position:relative;
 	overflow-y:scroll;
-	-webkit-overflow-scrolling: touch;
 }
 
 .workspace {
@@ -36,7 +34,6 @@ body {
 .files-area {
 	height: 550px;
 	overflow-y: scroll;
-	-webkit-overflow-scrolling: touch;
 }
 
 #map_canvas {
@@ -68,7 +65,6 @@ body {
 
 .monitter {
 	width: 754px;
-
 }
 
 
