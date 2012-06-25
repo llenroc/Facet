@@ -19,6 +19,12 @@ $(function() {
 	
 	var scrollable3 = $(".files-area").get(0);
 	new ScrollFix(scrollable3);
+	
+	$("a").click(function (event) {
+		event.preventDefault();
+		var href = $(this).attr("href").text();
+		$("#open_canvas").attr("src", href);
+	});
 		
 	//Placeholder to populate workspace
 	$(this).createItem('audio', "empty.html", "Audio");
@@ -326,6 +332,7 @@ $.fn.hide5 = function() {
 };
 
 
+
 //<!-- scripts from files.html -->
 $.fn.makeFilesDroppable = function() {
 /*	$( ".appleCube" ).sortable({
@@ -347,7 +354,7 @@ $.fn.makeFilesDroppable = function() {
 /* 	type = Type of file it is (what icon will be displayed). Can choose file, image, document, survey, audio
 	link = What the text links to */
 $.fn.createItem = function(type, link, name) {
-    $(".appleCube").append("<li type=" + type + " title = '" + name + "' class = 'icon "+ type +"'><div onclick='$(this).changeTab(3);' href='" + link + "' target='openFile'>" + name + "</div></li>");
+    $(".appleCube").append("<li type=" + type + " title = '" + name + "' class = 'icon "+ type +"'><a onclick='$(this).changeTab(3);' href='" + link + "' target='openFile'>" + name + "</a></li>");
 	$(this).makeFilesDroppable();
 };
 
