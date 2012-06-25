@@ -17,6 +17,7 @@
 	height: 180px;
 	position:relative;
 	overflow-y:scroll;
+	-webkit-overflow-scrolling: touch;
 }
 
 .workspace {
@@ -35,6 +36,7 @@ body {
 .files-area {
 	height: 550px;
 	overflow-y: scroll;
+	-webkit-overflow-scrolling: touch;
 }
 
 #map_canvas {

@@ -31,5 +31,6 @@
 	height: 75px;
 	border-radius: 8px;
 	overflow-y: scroll;
+	-webkit-overflow-scrolling: touch;
 	font-size: 15px;
 }
