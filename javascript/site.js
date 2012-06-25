@@ -102,9 +102,11 @@ $.fn.makeQueueDroppable = function() {
 		appendTo: "body",
         helper: "original",
 		revert: true,
+		handle: "img.dragHandle",
 		revertDuration: 250,
+		zIndex: 2700,
+		scroll: false,
         opacity: 0.5,
-        zIndex: 2700,
 		iframeFix: true,
 		start: function(event,ui) {$(this).addClass("queueItem");}
 	}).disableSelection();
@@ -114,7 +116,7 @@ $.fn.makeQueueDroppable = function() {
         drop: function( event, ui ) {
 			var type = $(ui.draggable).attr("type");
 			$( this ).find( ".placeholder" ).remove();
-			$( "<div type='" + type + "' class='column'></div>" ).html( "<header><h1>" + ui.draggable.html() + "</h1></header>" ).appendTo("#columns");	
+			$( "<div type='" + type + "' class='column'></div>" ).html( "<header><h1>" + ui.draggable.html() + "<img class='dragHandle'></h1></header>" ).appendTo("#columns");	
 			$(this).removeClass("hover-border");			
 			$(this).makeQueueDroppable();
 			
