@@ -20,11 +20,7 @@ $(function() {
 	var scrollable3 = $(".files-area").get(0);
 	new ScrollFix(scrollable3);
 	
-	$("a").click(function (event) {
-		event.preventDefault();
-		var href = $(this).attr("href").text();
-		$("#open_canvas").attr("src", href);
-	});
+
 		
 	//Placeholder to populate workspace
 	$(this).createItem('audio', "empty.html", "Audio");
@@ -349,6 +345,7 @@ $.fn.makeFilesDroppable = function() {
 		iframeFix: true,
 		start: function(event,ui) {$(this).addClass("workspaceItem");}
 	}).disableSelection();
+	
 };
 
 /* 	type = Type of file it is (what icon will be displayed). Can choose file, image, document, survey, audio
