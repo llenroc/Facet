@@ -7,11 +7,9 @@ $(function() {
 	$(this).makeFilesDroppable();
 	$( "#tabs" ).tabs();
 	$.fn.updateSurvey();
-		
-	document.body.addEventListener('touchstart', function(e){ e.preventDefault(); });
-	
-	var scrollable = document.getElementById("participantList");
-	new ScrollFix(scrollable);
+			
+	//var scrollable = document.getElementById("participantList");
+	//new ScrollFix(scrollable);
 
 	var scrollable1 = document.getElementById("groupList");
 	new ScrollFix(scrollable1);
