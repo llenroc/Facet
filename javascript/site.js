@@ -7,7 +7,9 @@ $(function() {
 	$(this).makeFilesDroppable();
 	$( "#tabs" ).tabs();
 	$.fn.updateSurvey();
-					
+			
+
+		
 	//Placeholder to populate workspace
 	$(this).createItem('audio', "empty.html", "Audio");
 	$(this).createItem('file', "empty.html", "File");
