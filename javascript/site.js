@@ -8,7 +8,17 @@ $(function() {
 	$( "#tabs" ).tabs();
 	$.fn.updateSurvey();
 			
+	var scrollable = document.getElementById("participantList");
+	new ScrollFix(scrollable);
 
+	var scrollable1 = document.getElementById("groupList");
+	new ScrollFix(scrollable1);
+
+	var scrollable2 = document.getElementById("tweets");
+	new ScrollFix(scrollable2);
+	
+	var scrollable3 = $(".files-area").get(0);
+	new ScrollFix(scrollable3);
 		
 	//Placeholder to populate workspace
 	$(this).createItem('audio', "empty.html", "Audio");
