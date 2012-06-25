@@ -21,6 +21,7 @@ $(function() {
 	new ScrollFix(scrollable3);
 	
 	document.body.addEventListener('touchmove', function(e){ e.preventDefault(); });
+	$("#participantList").unbind('touchmove');
 	
 	//Placeholder to populate workspace
 	$(this).createItem('audio', "empty.html", "Audio");
