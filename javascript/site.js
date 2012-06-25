@@ -8,6 +8,8 @@ $(function() {
 	$( "#tabs" ).tabs();
 	$.fn.updateSurvey();
 		
+	document.body.addEventListener('touchmove', function(e){ e.preventDefault(); });
+	
 	var scrollable = document.getElementById("participantList");
 	new ScrollFix(scrollable);
 
@@ -20,7 +22,7 @@ $(function() {
 	var scrollable3 = $(".files-area").get(0);
 	new ScrollFix(scrollable3);
 	
-	document.body.addEventListener('touchmove', function(e){ e.preventDefault(); });
+	
 	$("#participantList").unbind('touchmove');
 	
 	//Placeholder to populate workspace
