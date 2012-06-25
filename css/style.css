@@ -37,8 +37,19 @@
     margin:10px;
 	height: 45px;
 		
-	
+	overflow:hidden;
 	border-radius: 8px;
+}
+
+#columns {
+	width: 50000000px;
+	overflow-x:scroll;
+	overflow-y:hidden;
+	
+}
+
+#map_canvas {
+	height: 650px;
 }
 
 
@@ -51,7 +62,6 @@
     margin-right: 5px;	
     border-radius: 8px;
     text-align: center;
-    cursor: move;	
 }
 
 .column header 

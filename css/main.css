@@ -56,14 +56,12 @@ ul.appleCube > li {
     overflow: hidden;
 	text-overflow: ellipsis;
 	
-	/*min-width: 65px;
-	max-width: 100px;*/
-    width:95px;
+    width:148px;
 	cursor: move;
 	
 	margin-bottom: 5px;
 	margin-right: 5px;
-	/*float: left; not anymore ... */
+
 	font-size: 17px;
     font-weight: bold;
 	text-align: center;
@@ -192,8 +190,8 @@ img.dragHandle {
 
 #toggleSlide {
 	position: absolute;
-	right: 10px;
-
+	right: 0px;
+	top: 0px;
 }
 
 /* edit buttons */
@@ -215,13 +213,6 @@ img.dragHandle {
     -webkit-tap-highlight-color: rgba(0,0,0,0);
     
     margin:5px;
-}
-
-div.iPhoneButton.clicked {
-    border-image:url(../icons/button_clicked.png.png) 0 8 0 14 stretch stretch;
-    -moz-border-image:url(../icons/button_clicked.png.png) 0 8 0 14 stretch stretch;
-    -o-border-image:url(../icons/button_clicked.png.png) 0 8 0 14 stretch stretch;
-    -webkit-border-image: url(../icons/button_clicked.png) 0 8 0 14;
 }
 
 .queue #columns .column header h1 a {

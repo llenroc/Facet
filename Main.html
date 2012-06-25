@@ -13,7 +13,7 @@
 		<link rel="apple-touch-startup-image" media="(min-device-width: 768px) and (orientation: landscape)" href="splash-1024.png" />
 		<link rel="apple-touch-icon" href="apple-touch-icon.png" />
 		
-		<meta name="viewport" content="user-scalable=no, width=device-width" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=0" />
 		
 		
         <title>Facet Testing</title>
@@ -24,7 +24,7 @@
 		<link rel="stylesheet" type="text/css" href="css/style.css" />
         <link rel="stylesheet" type="text/css" href="css/main.css" />		
 		<link rel="stylesheet" type="text/css" href="css/monitter.css" />
-		
+				
 		<link rel="stylesheet" media="only screen and (max-device-width: 1024px)" href="css/ipad.css" type="text/css" />
 
         
@@ -43,6 +43,7 @@
 		<script src="jquery-ui-1.8.20.custom/development-bundle/ui/jquery.ui.dialog.js"></script>
         
         <script type="text/javascript" src="javascript/site.js"></script>
+		<script type="text/javascript" src="javascript/scrollfix.js"></script>
 		<script type="text/javascript" src="javascript/monitter.min.js"></script>
 		
 		<script type="text/javascript"
@@ -53,32 +54,24 @@
          Hack to get drag and drop to work on touch devices-->
         <script src="javascript/jquery.ui.touch-punch.js"></script>
 		
-		<script type="text/javascript">
-   function blockMove() {
-      event.preventDefault() ;
-}
-</script>
+
 		         
     </head>
     
-    <body touchstart="blockMove()">
-	
-		<!--<div id="dialog-confirm" title="Delete?">
-		<p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span><div id="message"></div></p>
-		</div>-->
+    <body>
 	
         <div class="participants"> 
-            <h1>Participants<button id="toggleSlide">Slide</button></h1>
+            <h1>Participants<img style="z-index:9999;" src="icons/left.png" id="toggleSlide"></img></h1>
                 <ul class = "apple" id="participantList">
                     <li class="user icon"><a href='#'>Byron</a><img class="dragHandle"></li>
-                    <li class="user icon"><a href="mailto:chnewton@hotmail.com">Charles</a><img class="dragHandle"></li>
-                    <li class="user icon"><a href="mailto:chouston@facet.com">Christopher</a><img class="dragHandle"></li>
-                    <li class="user icon"><a href="mailto:sabourid@ucalgary.ca">Daniel</a><img class="dragHandle"></li>
-                    <li class="user icon"><a href="mailto:Dhawkins@facet.com">David</a><img class="dragHandle"></li>
-                    <li class="user icon"><a href="mailto:patrick.f.king@gmail.com">Patrick</a><img class="dragHandle"></li>
-                    <li class="user icon"><a href="mailto:robert.ag.post@gmail.com">Robert</a><img class="dragHandle"></li>
-                    <li class="user icon"><a href="mailto:rmelzer@facet.com">Roseline</a><img class="dragHandle"></li>
-                    <li class="user icon"><a href="mailto:yghanam@gmail.com">Yaser</a><img class="dragHandle"></li>
+                    <li class="user icon"><a href="#">Charles</a><img class="dragHandle"></li>
+                    <li class="user icon"><a href="#">Christopher</a><img class="dragHandle"></li>
+                    <li class="user icon"><a href="#">Daniel</a><img class="dragHandle"></li>
+                    <li class="user icon"><a href="#">David</a><img class="dragHandle"></li>
+                    <li class="user icon"><a href="#">Patrick</a><img class="dragHandle"></li>
+                    <li class="user icon"><a href="#">Robert</a><img class="dragHandle"></li>
+                    <li class="user icon"><a href="#">Roseline</a><img class="dragHandle"></li>
+                    <li class="user icon"><a href="#">Yaser</a><img class="dragHandle"></li>
                 </ul>
 
 				
@@ -96,11 +89,11 @@
 		
 		<div class="queue">
             <div id="columns">
-                <div class="column"><header><h1>Comment</h1></header></div>
-                <div class="column"><header><h1>Comment</h1></header></div>
-                <div class="column"><header><h1>Survey</h1></header></div>
-                <div class="column"><header><h1>Question</h1></header></div>
-                <div class="column"><header><h1>Video</h1></header></div>
+                <div class="column"><header><h1>Comment<img class="dragHandle"></h1></header></div>
+                <div class="column"><header><h1>Comment<img class="dragHandle"></h1></header></div>
+                <div class="column"><header><h1>Survey<img class="dragHandle"></h1></header></div>
+                <div class="column"><header><h1>Question<img class="dragHandle"></h1></header></div>
+                <div class="column"><header><h1>Video<img class="dragHandle"></h1></header></div>
             </div>           
         </div>
         
@@ -115,13 +108,13 @@
 						<li><a href="#tabs-5">Shared Screen</a></li>
                     </ul>
                     <div id="tabs-1">
-						<div id="map_canvas" style="width: 900px; height: 650px"></div>
+						<div id="map_canvas"></div>
                     </div>
                     <div id="tabs-2">
-                        <object width="900" height="650" class="facetsurvey" type="text/html" data="http://facetsurvey.4abyte.com"></object>
+                        <object id="survey_canvas" width="100%" height="100%" class="facetsurvey" type="text/html" data="http://facetsurvey.4abyte.com"></object>
                     </div>	
                     <div id="tabs-3">
-                        <div class="files-area" style="width: 900px; height: 650px">
+                        <div class="files-area" style="width: 100%;">
                             <ul class = "appleCube">
                                 <div style="margin-bottom:10px">
 									<button class="iPhoneButton" onclick="$(this).createItem('audio','#' ,'Audio');">Audio</button>
@@ -133,23 +126,20 @@
 						
 							</ul>
 
-
                         </div>						
                     </div>
 					<div id="tabs-4">
-						<iframe name="openFile" width="900" height="650" frameborder="0" marginheight="0" marginwidth="0"></iframe>
+						<iframe id="open_canvas" name="openFile" width="100%" height="100%" frameborder="0" marginheight="0" marginwidth="0"></iframe>
 					</div>
 					
 					<div id="tabs-5">
-						<iframe id="sharedScreen" width="900" height="650" frameborder="0" marginheight="0" marginwidth="0"></iframe>
+						<iframe id="sharedScreen" width="100%" height="100%" frameborder="0" marginheight="0" marginwidth="0"></iframe>
 					</div>
                 </div>
             </div> 
             
             
             <div class="twitterfeed">
-               <!-- <script  type="text/javascript" src="http://output98.rssinclude.com/output?type=js&amp;id=480222&amp;hash=1391d15eb641f1db0d6101621db1aa33">
-                    </script>-->
 				<div class="monitter" id="tweets" title="facetmeeting321" lang="en"></div>
             </div>
                        

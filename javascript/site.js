@@ -1,4 +1,5 @@
 var deleteUI;
+var slideOpen = true;
 
 $(function() {
 	$(this).makeQueueDroppable();
@@ -6,8 +7,21 @@ $(function() {
 	$(this).makeFilesDroppable();
 	$( "#tabs" ).tabs();
 	$.fn.updateSurvey();
+			
+	var scrollable = document.getElementById("participantList");
+	new ScrollFix(scrollable);
+
+	var scrollable1 = document.getElementById("groupList");
+	new ScrollFix(scrollable1);
+
+	var scrollable2 = document.getElementById("tweets");
+	new ScrollFix(scrollable2);
+	
+	var scrollable3 = $(".files-area").get(0);
+	new ScrollFix(scrollable3);
 	
 
+		
 	//Placeholder to populate workspace
 	$(this).createItem('audio', "empty.html", "Audio");
 	$(this).createItem('file', "empty.html", "File");
@@ -38,22 +52,43 @@ $(function() {
 	
 	$("body").disableSelection();
 	
-	var slideOpen = true;
 	
 	$("#toggleSlide").click(function() {	
-		if(slideOpen) {
-			$(".participants").animate({"left":"-=200"},"fast");
-			$(".queue").animate({"left":"-=200"},"fast");
-			$(".workspace").animate({"left":"-=200"},"fast");
-			slideOpen = false;
-		} else {
-			$(".participants").animate({"left":"+=200"},"fast");
-			$(".queue").animate({"left":"+=200"},"fast");
-			$(".workspace").animate({"left":"+=200"},"fast");
-			slideOpen = true;
-		}
+		$(this).slideItems();
 	});
 });
+
+$.fn.slideItems = function() {
+
+	if(slideOpen) {
+		$(".queue").animate({width: '+=240'}, {duration:"slow", queue: false});
+		$(".monitter").animate({width: '+=240'}, {duration:"slow", queue: false});
+		$(".workspace").animate({width: '+=240'}, {duration:"slow", queue: false});
+		$("ul.appleCube > li").animate({width: '-=66'}, {duration:"slow", queue: false});
+		
+		$(".participants").animate({left: '-=240'}, {duration:"slow", queue: false});
+		$(".queue").animate({left: '-=240'}, {duration:"slow", queue: false});
+		$(".workspace").animate({left: '-=240'}, {duration:"slow", queue: false});
+		$("#toggleSlide").animate({right: '-=30'}, {duration:"slow", queue: false});
+		
+		$("#toggleSlide").attr("src","icons/right.png");
+		slideOpen = false;
+	} else {
+		$(".queue").animate({width: '-=240'}, {duration:"slow", queue: false});
+		$(".monitter").animate({width: '-=240'}, {duration:"slow", queue: false});
+		$(".workspace").animate({width: '-=240'}, {duration:"slow", queue: false});
+		$("ul.appleCube > li").animate({width: '+=66'}, {duration:"slow", queue: false});
+		
+		$(".participants").animate({left: '+=240'}, {duration:"slow", queue: false});
+		$(".queue").animate({left: '+=240'}, {duration:"slow", queue: false});
+		$(".workspace").animate({left: '+=240'}, {duration:"slow", queue: false});
+		$("#toggleSlide").animate({right: '+=30'}, {duration:"slow", queue: false});
+		
+		$("#toggleSlide").attr("src","icons/left.png");
+
+		slideOpen = true;
+	}
+};
 
 $.fn.makeQueueDroppable = function() {
 /*    $( "#columns" ).sortable({
@@ -64,11 +99,14 @@ $.fn.makeQueueDroppable = function() {
 	
 	$(".column").addClass("hover-border2");
 	$( "#columns div" ).draggable({
+		appendTo: "body",
         helper: "original",
 		revert: true,
+		handle: "img.dragHandle",
 		revertDuration: 250,
+		zIndex: 2700,
+		scroll: false,
         opacity: 0.5,
-        zIndex: 2700,
 		iframeFix: true,
 		start: function(event,ui) {$(this).addClass("queueItem");}
 	}).disableSelection();
@@ -78,7 +116,7 @@ $.fn.makeQueueDroppable = function() {
         drop: function( event, ui ) {
 			var type = $(ui.draggable).attr("type");
 			$( this ).find( ".placeholder" ).remove();
-			$( "<div type='" + type + "' class='column'></div>" ).html( "<header><h1>" + ui.draggable.html() + "</h1></header>" ).appendTo("#columns");	
+			$( "<div type='" + type + "' class='column'></div>" ).html( "<header><h1>" + ui.draggable.html() + "<img class='dragHandle'></h1></header>" ).appendTo("#columns");	
 			$(this).removeClass("hover-border");			
 			$(this).makeQueueDroppable();
 			
@@ -118,6 +156,7 @@ $.fn.makeQueueDroppable = function() {
 				randomstring += chars.substring(rnum,rnum+1);
 			}
 			
+			$(this).changeTab(4);
 			tweet("facetmeeting321","shared screen",randomstring,type, ui.draggable.text() );
         },
 		over: function(event,ui) {
@@ -191,13 +230,14 @@ $.fn.test = function() {
 $.fn.makeParticipantsDroppable = function() {
 	$(".dragHandle").addClass("hover-border2");
     $( "#participantList li" ).draggable({
+		appendTo: "body",
         helper: function() {
 			var name = $(this).text();
 			return $("<li class='user icon' style='border-top-left-radius: 8px; border-top-right-radius: 8px;'>" + name + "</li>")[0];},
         cursorAt: { right: 20, top: 20},
         opacity: 0.5,
+		scroll: false,
         handle: "img.dragHandle",
-        zIndex: 2700,
 		iframeFix: true,
 	}).disableSelection();
     
@@ -290,6 +330,7 @@ $.fn.hide5 = function() {
 };
 
 
+
 //<!-- scripts from files.html -->
 $.fn.makeFilesDroppable = function() {
 /*	$( ".appleCube" ).sortable({
@@ -299,12 +340,14 @@ $.fn.makeFilesDroppable = function() {
 	
 	$(".appleCube li").addClass("hover-border2");
 	$( ".appleCube li" ).draggable({
+		appendTo: "body",
         helper: "clone",
         opacity: 0.5,
         zIndex: 2700,
 		iframeFix: true,
 		start: function(event,ui) {$(this).addClass("workspaceItem");}
 	}).disableSelection();
+	
 };
 
 /* 	type = Type of file it is (what icon will be displayed). Can choose file, image, document, survey, audio

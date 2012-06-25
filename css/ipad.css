@@ -1,6 +1,6 @@
 #participantList
 {
-	height: 281px;
+	height: 301px;
 	position:relative;
 	overflow-y:scroll;
 }
@@ -8,24 +8,63 @@
 .participants
 {
 	height: 748px;
+	overflow-y:hidden;
 }
 
 #groupList
 {
-	height: 200px;
+	height: 180px;
 	position:relative;
 	overflow-y:scroll;
 }
 
-.workspace
-{
-	display:none;
+.workspace {
+	width: 774px;
+	height: 550px;
+}
 
+ul.appleCube > li {
+	width:147px;
+}
+
+body {
+	width:100%;
+}
+
+.files-area {
+	height: 550px;
+	overflow-y: scroll;
+}
+
+#map_canvas {
+	height: 550px;
+}
+
+#survey_canvas {
+	height: 550px;
+	
+}
+
+#open_canvas {
+	height: 550px;
+}
+
+#sharedScreen {
+	height: 550px;
 }
 
 .queue
 {
-	width:774px;
+	width:754px;
+
+}
+
+.column  {
+	width:145px;
+}
+
+.monitter {
+	width: 754px;
 
 }
 
