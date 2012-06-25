@@ -215,13 +215,6 @@ img.dragHandle {
     margin:5px;
 }
 
-div.iPhoneButton.clicked {
-    border-image:url(../icons/button_clicked.png.png) 0 8 0 14 stretch stretch;
-    -moz-border-image:url(../icons/button_clicked.png.png) 0 8 0 14 stretch stretch;
-    -o-border-image:url(../icons/button_clicked.png.png) 0 8 0 14 stretch stretch;
-    -webkit-border-image: url(../icons/button_clicked.png) 0 8 0 14;
-}
-
 .queue #columns .column header h1 a {
 	color: #FFF;
 }
