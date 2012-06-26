@@ -23,7 +23,7 @@ $(function() {
 	var scrollable4 = document.getElementById("queue");
 	new ScrollFix(scrollable4);
 	
-
+	$(this).changeTab(2);
 		
 	//Placeholder to populate workspace
 	$(this).createItem('audio', "empty.html", "Audio");
@@ -94,15 +94,9 @@ $.fn.slideItems = function() {
 	}
 };
 
-$.fn.makeQueueDroppable = function() {
-/*    $( "#columns" ).sortable({
-		items: "div:not(.placeholder)",
-        distance: 15,
-        scroll: false,
-    }).disableSelection();*/
-	
+$.fn.makeQueueDroppable = function() {	
 	$(".column").addClass("hover-border2");
-	$( "#columns div" ).draggable({
+	/*$( "#columns div" ).draggable({
 		appendTo: "body",
         helper: "original",
 		revert: true,
@@ -113,9 +107,29 @@ $.fn.makeQueueDroppable = function() {
         opacity: 0.5,
 		iframeFix: true,
 		start: function(event,ui) {$(this).addClass("queueItem");}
-	}).disableSelection();
+	}).disableSelection();*/
 	
-	$( ".queue" ).droppable({
+	
+	$("#columns").sortable({
+		appendTo: "body",
+        helper: "original",
+		revert: true,
+		//handle: "img.dragHandle",
+		revertDuration: 250,
+		zIndex: 2700,
+		scroll: false,
+        opacity: 0.5,
+		iframeFix: true,
+		
+		receive: function(event,ui) {
+			$(ui.item).removeClass();
+			$(ui.item).addClass("column");
+			var text = $(ui.item).text();
+			$(ui.item).html("<header><h1>"+ text + "</h1></header>");
+		},
+	});
+	
+/*	$( ".queue" ).droppable({
         accept: ":not(.ui-sortable-helper) .workspaceItem",
         drop: function( event, ui ) {
 			var type = $(ui.draggable).attr("type");
@@ -138,7 +152,7 @@ $.fn.makeQueueDroppable = function() {
 		over: function(event,ui) {$(this).addClass("hover-border");},		
 		out: function(event,ui) {$(this).removeClass("hover-border");},
 		
-    }).disableSelection();
+    }).disableSelection();*/
 	
 	$( ".workspace" ).droppable({
         accept: ":not(.ui-sortable-helper) .queueItem",
@@ -278,6 +292,7 @@ $.fn.makeParticipantsDroppable = function() {
 		opacity: 0.5,
 		items: "li:not(.placeholder)",
 		connectWith: ".connectedSortable",
+		receive: doClone,
 		over: function(event,ui) {$(this).addClass("hover-border");},		
 		out: function(event,ui) {$(this).removeClass("hover-border");},
 		handle: "img.dragHandle",
@@ -290,9 +305,6 @@ $.fn.makeParticipantsDroppable = function() {
 		connectWith: ".connectedSortable",
 		over: function(event,ui) {$(this).addClass("hover-border-red");},		
 		drop: function(event,ui) {
-			//deleteUI = ui;
-			//$("#dialog-confirm #message").text("Are you sure you wish to delete " + ui.draggable.text());
-			//$("#dialog-confirm").dialog('open');
 			deleteUIItem(ui);	
 			},
 		out: function(event,ui) {$(this).removeClass("hover-border-red");},
@@ -306,9 +318,6 @@ $.fn.makeParticipantsDroppable = function() {
 		out: function(event,ui) {$(this).removeClass("hover-border-red");},
 		distance: 15,
 		receive: function(event, ui) {
-			//deleteUI = ui;
-			//$("#dialog-confirm #message").text("Are you sure you wish to delete " + ui.draggable.text());
-			//$("#dialog-confirm").dialog('open');
 			deleteUIItem(ui);
 		}
 	}).disableSelection();
@@ -337,22 +346,43 @@ $.fn.hide5 = function() {
 
 //<!-- scripts from files.html -->
 $.fn.makeFilesDroppable = function() {
-/*	$( ".appleCube" ).sortable({
-		items: "li:not(.placeholder)",
-		distance: 15,
-	}).disableSelection();*/
 	
 	$(".appleCube li").addClass("hover-border2");
-	$( ".appleCube li" ).draggable({
+/*	$( ".appleCube li" ).draggable({
 		appendTo: "body",
         helper: "clone",
         opacity: 0.5,
         zIndex: 2700,
 		iframeFix: true,
 		start: function(event,ui) {$(this).addClass("workspaceItem");}
-	}).disableSelection();
+	}).disableSelection();*/
 	
+	$(".appleCube").sortable({
+		forcePlaceholderSize: true, 
+		start: startDrag, 
+		connectWith: "#columns",
+	});
+		
 };
+
+function doClone(event, ui) {
+    if (ui.sender.is('.appleCube')) {
+        // clone and insert where we got it
+        if (itemOriIndex == 0) {
+            ui.item.clone().prependTo('.appleCube');
+        } else {
+            itemOriIndex -= 1;
+            ui.item.clone().insertAfter('.appleCube li:eq(' + itemOriIndex + ')');
+        }
+        
+    }
+}
+
+/* Gets the index of where the dragging item is from */
+var itemOriIndex;
+function startDrag(event, ui) {
+	itemOriIndex = ui.item.index();
+}
 
 /* 	type = Type of file it is (what icon will be displayed). Can choose file, image, document, survey, audio
 	link = What the text links to */

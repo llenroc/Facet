@@ -90,13 +90,13 @@
         </div>
 		
 		<div class="queue">
-            <div id="columns">
-                <div class="column"><header><h1>Comment<img class="dragHandle"></h1></header></div>
-                <div class="column"><header><h1>Comment<img class="dragHandle"></h1></header></div>
-                <div class="column"><header><h1>Survey<img class="dragHandle"></h1></header></div>
-                <div class="column"><header><h1>Question<img class="dragHandle"></h1></header></div>
-                <div class="column"><header><h1>Video<img class="dragHandle"></h1></header></div>
-            </div>           
+            <ul id="columns">
+                <li class="column"><header><h1>Comment<img class="dragHandle"></h1></header></li>
+                <li class="column"><header><h1>Comment<img class="dragHandle"></h1></header></li>
+                <li class="column"><header><h1>Survey<img class="dragHandle"></h1></header></li>
+                <li class="column"><header><h1>Question<img class="dragHandle"></h1></header></li>
+                <li class="column"><header><h1>Video<img class="dragHandle"></h1></header></li>
+            </ul>           
         </div>
         
         <div class="workspace">
@@ -117,17 +117,14 @@
                     </div>	
                     <div id="tabs-3">
                         <div class="files-area" style="width: 100%;">
-                            <ul class = "appleCube">
-                                <div style="margin-bottom:10px">
-									<button class="iPhoneButton" onclick="$(this).createItem('audio','#' ,'Audio');">Audio</button>
-									<button class="iPhoneButton" onclick="$(this).createItem('survey','http://facetsurvey.4abyte.com/facetsurvey/252', 'Survey');">Survey</button>
-									<button class="iPhoneButton" onclick="$(this).createItem('file','#', 'File');">File</button>
-									<button class="iPhoneButton" onclick="$(this).createItem('image','tree.png', 'Image');">Image</button>
-									<button class="iPhoneButton" onclick="$(this).createItem('document','https://docs.google.com/document/d/1CI6nWiu_Z1-pFmAcR8qPTK7S_rOfghr03tMd6aLW6rA/edit', 'Document');">Document</button>
-                                </div>
-						
-							</ul>
-
+							<div style="margin-bottom:10px">
+								<button class="iPhoneButton" onclick="$(this).createItem('audio','#' ,'Audio');">Audio</button>
+								<button class="iPhoneButton" onclick="$(this).createItem('survey','http://facetsurvey.4abyte.com/facetsurvey/252', 'Survey');">Survey</button>
+								<button class="iPhoneButton" onclick="$(this).createItem('file','#', 'File');">File</button>
+								<button class="iPhoneButton" onclick="$(this).createItem('image','tree.png', 'Image');">Image</button>
+								<button class="iPhoneButton" onclick="$(this).createItem('document','https://docs.google.com/document/d/1CI6nWiu_Z1-pFmAcR8qPTK7S_rOfghr03tMd6aLW6rA/edit', 'Document');">Document</button>
+							</div>
+                            <ul class = "appleCube"></ul>
                         </div>						
                     </div>
 					<div id="tabs-4">

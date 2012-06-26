@@ -61,7 +61,9 @@
 
 #columns {
 	width: 9000000px;
-
+	height: 45px;
+	margin-top:0px;
+	margin-left:-40px;
 }
 
 .column header 
