@@ -45,6 +45,10 @@ $(function() {
 	$(this).createItem('file', "empty.html", "File");
 	$(this).createItem('file', "empty.html", "File");
 	$(this).createItem('audio', "empty.html", "Audio");
+	
+	$("#toggleSlide").click(function() {	
+		$(this).slideItems();
+	});
 								
 	var myOptions = {
 		center: new google.maps.LatLng(49.891235,-97.15369),
@@ -55,10 +59,7 @@ $(function() {
 	
 	$("body").disableSelection();
 	
-	
-	$("#toggleSlide").click(function() {	
-		$(this).slideItems();
-	});
+
 });
 
 $.fn.slideItems = function() {
