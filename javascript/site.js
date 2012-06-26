@@ -391,7 +391,7 @@ $.fn.updateSurvey = function() {
 
 	var serverURL;
 	if( typeof phpServer === 'undefined') {
-		serverURL = "http://localhost:81"
+		serverURL = "http://localhost:81/curl.php?request="
 	}
 	else {
 		serverURL = phpServer;
@@ -399,7 +399,7 @@ $.fn.updateSurvey = function() {
 
 	$.ajax({
 		type: "GET",
-		url: serverURL + "/curl.php?request=http://facetsurvey.4abyte.com/json-services/",
+		url: serverURL + "http://facetsurvey.4abyte.com/json-services/",
 		dataType: "json",
 		success: parseJson
 	});
