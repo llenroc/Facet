@@ -10,21 +10,32 @@
 	
 <script>
 $(function() {
-	$("#list1").sortable({
+	$("#list1, #list2").sortable({
 		connectWith: "#list2",
+		forcePlaceholderSize: true, 
+		start: startDrag, 
+		receive: doClone,
+	});
 
-	
-	});
-	
-	$("#list2").sortable({
-	
-		receive: function(event, ui) {
-			
-			$(ui.sender).sortable('cancel');
-			$(this).append(ui.item);
-			
-		}
-	});
+	var itemOriIndex;
+	function startDrag(event, ui) {
+		itemOriIndex = ui.item.index();
+	}
+
+function doClone(event, ui) {
+    if (ui.sender.is('#list1')) {
+     
+        // clone and insert where we got it
+        if (itemOriIndex == 0) {
+            ui.item.clone().prependTo('#list1');
+        } else {
+            itemOriIndex -= 1;
+            ui.item.clone().insertAfter('#list1 li:eq(' + itemOriIndex + ')');
+        }
+        
+    }
+}
+
 
 });
 
