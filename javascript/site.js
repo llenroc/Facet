@@ -399,7 +399,7 @@ $.fn.updateSurvey = function() {
 
 	$.ajax({
 		type: "GET",
-		url: serverURL + "http://facetsurvey.4abyte.com/json-services/",
+		url: serverURL + "facetsurvey.4abyte.com/json-services/",
 		dataType: "json",
 		success: parseJson
 	});
