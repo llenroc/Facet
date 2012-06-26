@@ -1,0 +1,50 @@
+<html>
+<head>
+	<script src="jquery-ui-1.8.20.custom/development-bundle/jquery-1.7.2.js"></script>
+	<script src="jquery-ui-1.8.20.custom/development-bundle/ui/jquery.ui.core.js"></script>
+	<script src="jquery-ui-1.8.20.custom/development-bundle/ui/jquery.ui.widget.js"></script>
+	<script src="jquery-ui-1.8.20.custom/development-bundle/ui/jquery.ui.mouse.js"></script>
+	<script src="jquery-ui-1.8.20.custom/development-bundle/ui/jquery.ui.sortable.js"></script>
+	<script src="jquery-ui-1.8.20.custom/development-bundle/ui/jquery.ui.draggable.js"></script>
+	<script src="jquery-ui-1.8.20.custom/development-bundle/ui/jquery.ui.droppable.js"></script>
+	
+<script>
+$(function() {
+	$("#list1").sortable({
+		connectWith: "#list2",
+
+	
+	});
+	
+	$("#list2").sortable({
+	
+		receive: function(event, ui) {
+			
+			$(ui.sender).sortable('cancel');
+			$(this).append(ui.item);
+			
+		}
+	});
+
+});
+
+</script>
+
+</head>
+<body>
+
+<ul id="list1">
+<li>Earth</li>
+<li>Wind</li>
+<li>Fire</li>
+</ul>
+
+<ul id="list2">
+<li>Sky</li>
+<li>Breeze</li>
+<li>Water</li>
+</ul>
+
+
+</body>
+</html>
