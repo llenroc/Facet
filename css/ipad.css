@@ -39,6 +39,11 @@ body {
 	-webkit-overflow-scrolling: touch;
 }
 
+.monitter 
+{
+	-webkit-overflow-scrolling: touch;
+}
+
 #map_canvas {
 	height: 550px;
 }
@@ -59,6 +64,7 @@ body {
 .queue
 {
 	width:754px;
+	-webkit-overflow-scrolling: touch;
 
 }
 
