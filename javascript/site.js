@@ -73,7 +73,7 @@ $.fn.slideItems = function() {
 		$(".participants").animate({left: '-=240'}, {duration:"slow", queue: false});
 		$(".queue").animate({left: '-=240'}, {duration:"slow", queue: false});
 		$(".workspace").animate({left: '-=240'}, {duration:"slow", queue: false});
-		$("#toggleSlide").animate({right: '-=30'}, {duration:"slow", queue: false});
+		$("#toggleSlide").animate({left: '-=200'}, {duration:"slow", queue: false});
 		
 		$("#toggleSlide").attr("src","icons/right.png");
 		slideOpen = false;
@@ -86,7 +86,7 @@ $.fn.slideItems = function() {
 		$(".participants").animate({left: '+=240'}, {duration:"slow", queue: false});
 		$(".queue").animate({left: '+=240'}, {duration:"slow", queue: false});
 		$(".workspace").animate({left: '+=240'}, {duration:"slow", queue: false});
-		$("#toggleSlide").animate({right: '+=30'}, {duration:"slow", queue: false});
+		$("#toggleSlide").animate({left: '+=200'}, {duration:"slow", queue: false});
 		
 		$("#toggleSlide").attr("src","icons/left.png");
 

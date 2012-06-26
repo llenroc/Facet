@@ -190,7 +190,7 @@ img.dragHandle {
 
 #toggleSlide {
 	position: absolute;
-	right: 0px;
+	left: 200px;
 	top: 0px;
 }
 
