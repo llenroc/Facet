@@ -106,8 +106,7 @@ $.fn.makeQueueDroppable = function() {
 		appendTo: "body",
         helper: "original",
 		revert: true,
-		//handle: "img.dragHandle",
-		delay: 500,
+		handle: "img.dragHandle",
 		revertDuration: 250,
 		zIndex: 2700,
 		scroll: false,
@@ -348,6 +347,7 @@ $.fn.makeFilesDroppable = function() {
 		appendTo: "body",
         helper: "clone",
         opacity: 0.5,
+		distance: 30,
         zIndex: 2700,
 		iframeFix: true,
 		start: function(event,ui) {$(this).addClass("workspaceItem");}
