@@ -45,7 +45,7 @@ $("body").mousedown(function(e) {
 	$("body").bind("longclick", function() {console.log("longclick");});*/
 
 		
-	//Placeholder to populate workspace
+	//Placeholder to populate workspace	
 	$(this).createItem('audio', "empty.html", "Audio");
 	$(this).createItem('file', "empty.html", "File");
 	$(this).createItem('image', "empty.html", "Image");
@@ -55,8 +55,6 @@ $("body").mousedown(function(e) {
 	$(this).createItem('audio', "empty.html", "Audio");
 	$(this).createItem('image', "empty.html", "Image");
 	$(this).createItem('document', "empty.html", "Document");
-	$(this).createItem('file', "empty.html", "File");
-	$(this).createItem('audio', "empty.html", "Audio");
 	$(this).createItem('image', "empty.html", "Image");
 	$(this).createItem('file', "empty.html", "File");
 	$(this).createItem('audio', "empty.html", "Audio");
@@ -430,6 +428,12 @@ $.fn.updateSurvey = function() {
 		success: parseJson
 	});
 };
+
+$.fn.refreshSurvey = function() {
+	$(".appleCube li").remove(".survey, .results");
+	$(this).updateSurvey();
+};
+
 
 function parseJson(json, textStatus, jqXHR) {
 
