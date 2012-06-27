@@ -140,7 +140,7 @@ $.fn.makeQueueDroppable = function() {
         drop: function( event, ui ) {
 			var type = $(ui.draggable).attr("type");
 			$( this ).find( ".placeholder" ).remove();
-			$( "<div type='" + type + "' class='column'></div>" ).html( "<header><h1>" + ui.draggable.html() + "<img class='dragHandle2'></h1></header>" ).appendTo("#columns");	
+			$( "<div type='" + type + "' class='column'></div>" ).html( "<header><h1>" + ui.draggable.html() + "<img src='icons/handle.png' class='dragHandle2'></h1></header>" ).appendTo("#columns");	
 			$(this).removeClass("hover-border");			
 			$(this).makeQueueDroppable();
 			
