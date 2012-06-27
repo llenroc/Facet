@@ -176,12 +176,11 @@ textarea {
 
 
 img.dragHandle {
-	background-repeat: no-repeat;
 	cursor: move;
-	
+	border-radius: 8px;
 	position:absolute;
 	right:25px;
-	background-image:url(../icons/handle.png);
+
 	width:25px; 
 	height:25px;
 	border:0px;	
@@ -189,14 +188,12 @@ img.dragHandle {
 }
 
 img.dragHandle2 {
-	background-repeat: no-repeat;
 	cursor: move;
-	
 	border-radius: 8px;
 	position:absolute;
 	right:0px;
 	top: 0px;
-	background-image:url(../icons/handle.png);
+
 	width:25px; 
 	height:25px;
 	border:0px;	
