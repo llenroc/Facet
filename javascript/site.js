@@ -1,5 +1,8 @@
 var deleteUI;
 var slideOpen = true;
+var pressTimer;
+
+
 
 $(function() {
 	$(this).makeQueueDroppable();
@@ -7,7 +10,7 @@ $(function() {
 	$(this).makeFilesDroppable();
 	$( "#tabs" ).tabs();
 	$.fn.updateSurvey();
-			
+	
 	var scrollable = document.getElementById("participantList");
 	new ScrollFix(scrollable);
 
@@ -23,6 +26,20 @@ $(function() {
 	var scrollable4 = document.getElementById("queue");
 	new ScrollFix(scrollable4);
 	
+	
+$("body").mousedown(function() {
+    // set timeout for this element
+	
+    var timeout = window.setTimeout(function() {alert("longpress"); }, 500);
+    $(this).mouseup(function() {
+        // clear timeout for this element
+        window.clearTimeout(timeout);
+        // reset mouse up event handler
+        $(this).unbind("mouseup");
+        return false;
+    });
+    return false;
+});
 
 		
 	//Placeholder to populate workspace
@@ -58,6 +75,8 @@ $(function() {
 	var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);						
 	
 	$("body").disableSelection();
+	
+
 	
 
 });
@@ -347,7 +366,6 @@ $.fn.makeFilesDroppable = function() {
 		appendTo: "body",
         helper: "clone",
         opacity: 0.5,
-		distance: 70,
         zIndex: 2700,
 		iframeFix: true,
 		start: function(event,ui) {$(this).addClass("workspaceItem");}
