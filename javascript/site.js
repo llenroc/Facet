@@ -251,7 +251,7 @@ $.fn.makeParticipantsDroppable = function() {
 		appendTo: "body",
         helper: function() {
 			var name = $(this).text();
-			return $("<li class='user icon' style='border-top-left-radius: 8px; border-top-right-radius: 8px;'>" + name + "</li>")[0];},
+			return $("<li class='user icon' style='font-weight: bold;font-size: 17px;font-family: Helvetica; list-style-type: none; border-top-left-radius: 8px; border-top-right-radius: 8px;'>" + name + "</li>")[0];},
         cursorAt: { right: 20, top: 20},
         opacity: 0.5,
 		scroll: false,
@@ -358,8 +358,12 @@ $.fn.makeFilesDroppable = function() {
 	}).disableSelection();*/
 	
 	$(".appleCube").sortable({
+		appendTo: "body",
 		forcePlaceholderSize: true, 
 		start: startDrag, 
+        opacity: 0.5,
+        zIndex: 2700,
+		iframeFix: true,
 		connectWith: "#columns",
 	});
 		
