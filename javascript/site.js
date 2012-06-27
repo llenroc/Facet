@@ -126,7 +126,7 @@ $.fn.makeQueueDroppable = function() {
 		appendTo: "body",
         helper: "original",
 		revert: true,
-		handle: "img.dragHandle",
+		handle: "img.dragHandle2",
 		revertDuration: 250,
 		zIndex: 2700,
 		scroll: false,
