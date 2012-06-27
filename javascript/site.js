@@ -347,7 +347,7 @@ $.fn.makeFilesDroppable = function() {
 		appendTo: "body",
         helper: "clone",
         opacity: 0.5,
-		distance: 30,
+		distance: 70,
         zIndex: 2700,
 		iframeFix: true,
 		start: function(event,ui) {$(this).addClass("workspaceItem");}
