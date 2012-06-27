@@ -26,11 +26,11 @@ $(function() {
 	var scrollable4 = document.getElementById("queue");
 	new ScrollFix(scrollable4);
 	
+	$("herp").changeTab(2);
 	
-$("body").mousedown(function() {
+$("body").mousedown(function(e) {
     // set timeout for this element
-	
-    var timeout = window.setTimeout(function() {alert("longpress"); }, 500);
+    var timeout = window.setTimeout(function() { $("body").trigger("longclick");}, 500);
     $(this).mouseup(function() {
         // clear timeout for this element
         window.clearTimeout(timeout);
@@ -40,6 +40,8 @@ $("body").mousedown(function() {
     });
     return false;
 });
+
+	$("body").bind("longclick", function() {console.log("longclick");});
 
 		
 	//Placeholder to populate workspace
