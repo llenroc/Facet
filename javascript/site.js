@@ -100,12 +100,15 @@ $.fn.makeQueueDroppable = function() {
 	$("#columns").sortable({
 		appendTo: "body",
 		revert: true,
+		helper: "clone",
 		//handle: "img.dragHandle",
 		revertDuration: 250,
-		zIndex: 2700,
+		zIndex: 9999,
 		scroll: false,
         opacity: 0.5,
 		connectWith: ".workspace",
+		
+		start: function(event,ui) {$(ui.item).css("background-color","red");},
 		
 		receive: function(event,ui) {
 			doClone(event,ui);
@@ -114,10 +117,11 @@ $.fn.makeQueueDroppable = function() {
 			$(ui.item).addClass("column");
 			var text = $(ui.item).text();
 			var link = ui.item.find("a").attr("href");
-			$(ui.item).html("<header><h1>"+ text + "<img class='dragHandle'></h1></header>");
+			$(ui.item).html("<header><h1><a onclick='$(this).changeTab(3);' href='"+ link + "' target='openFile'>" + text + "</a><img class='dragHandle'></h1></header>");
 			
 			$(this).removeClass("hover-border");			
 			$(this).makeQueueDroppable();
+			
 			
 			//Just creates a random name because twitter doesn't allow duplicate tweets
 			var chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz";
@@ -142,6 +146,7 @@ $.fn.makeQueueDroppable = function() {
 			$(".trash").append(ui.item);
 			$(".trash").children().remove();
 			var type = $(ui.item).attr("type");
+			$("#sharedScreen").attr("src",ui.item.find("a").attr("href"));
 				
 			//Just creates a random name because twitter doesn't allow duplicate tweets
 			var chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz";
@@ -159,16 +164,7 @@ $.fn.makeQueueDroppable = function() {
 		out: function(event,ui) {$("#tabs").removeClass("hover-border");},
 	
 	}).disableSelection();
-	
-	/*$( ".workspace" ).droppable({
-        accept: ":not(.ui-sortable-helper) .queueItem",
-        drop: function( event, ui ) {
-			$( this ).find( ".placeholder" ).remove();
-			$("#sharedScreen").attr("src",ui.draggable.find("a").attr("href"));
-			$("#tabs").removeClass("hover-border");
 
-        },
-    }).disableSelection();*/
 };
 
 var editing = false;
