@@ -95,46 +95,27 @@ $.fn.slideItems = function() {
 };
 
 $.fn.makeQueueDroppable = function() {	
-	$(".column").addClass("hover-border2");
-	/*$( "#columns div" ).draggable({
-		appendTo: "body",
-        helper: "original",
-		revert: true,
-		handle: "img.dragHandle",
-		revertDuration: 250,
-		zIndex: 2700,
-		scroll: false,
-        opacity: 0.5,
-		iframeFix: true,
-		start: function(event,ui) {$(this).addClass("queueItem");}
-	}).disableSelection();*/
-	
+	$(".column").addClass("hover-border2");	
 	
 	$("#columns").sortable({
 		appendTo: "body",
-        helper: "original",
 		revert: true,
 		//handle: "img.dragHandle",
 		revertDuration: 250,
 		zIndex: 2700,
 		scroll: false,
         opacity: 0.5,
-		iframeFix: true,
+		connectWith: ".workspace",
 		
 		receive: function(event,ui) {
+			doClone(event,ui);
+			var type = $(ui.item).attr("type");
 			$(ui.item).removeClass();
 			$(ui.item).addClass("column");
 			var text = $(ui.item).text();
-			$(ui.item).html("<header><h1>"+ text + "</h1></header>");
-		},
-	});
-	
-/*	$( ".queue" ).droppable({
-        accept: ":not(.ui-sortable-helper) .workspaceItem",
-        drop: function( event, ui ) {
-			var type = $(ui.draggable).attr("type");
-			$( this ).find( ".placeholder" ).remove();
-			$( "<div type='" + type + "' class='column'></div>" ).html( "<header><h1>" + ui.draggable.html() + "<img class='dragHandle'></h1></header>" ).appendTo("#columns");	
+			var link = ui.item.find("a").attr("href");
+			$(ui.item).html("<header><h1>"+ text + "<img class='dragHandle'></h1></header>");
+			
 			$(this).removeClass("hover-border");			
 			$(this).makeQueueDroppable();
 			
@@ -147,24 +128,21 @@ $.fn.makeQueueDroppable = function() {
 				randomstring += chars.substring(rnum,rnum+1);
 			}
 			
-			tweet("facetmeeting321","queue",randomstring,type, ui.draggable.text() );
-        },
-		over: function(event,ui) {$(this).addClass("hover-border");},		
-		out: function(event,ui) {$(this).removeClass("hover-border");},
+			tweet("facetmeeting321","queue",randomstring,type, ui.item.text() );
+		},
 		
-    }).disableSelection();*/
-	
-	$( ".workspace" ).droppable({
-        accept: ":not(.ui-sortable-helper) .queueItem",
-        drop: function( event, ui ) {
-			$( this ).find( ".placeholder" ).remove();
-			$("#sharedScreen").attr("src",ui.draggable.find("a").attr("href"));
-			$("#tabs").removeClass("hover-border");
-			$(".trash").append(ui.draggable);
+		over: function(event,ui) {$(".queue").addClass("hover-border");},		
+		out: function(event,ui) {$(".queue").removeClass("hover-border");},
+	}).disableSelection();
+		
+	$(".workspace").sortable({
+		items: "none",
+		
+		receive: function(event,ui) {
+			$(".trash").append(ui.item);
 			$(".trash").children().remove();
-			
-			var type = $(ui.draggable).attr("type");
-
+			var type = $(ui.item).attr("type");
+				
 			//Just creates a random name because twitter doesn't allow duplicate tweets
 			var chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz";
 			var string_length = 5;
@@ -173,17 +151,24 @@ $.fn.makeQueueDroppable = function() {
 				var rnum = Math.floor(Math.random() * chars.length);
 				randomstring += chars.substring(rnum,rnum+1);
 			}
-			
+			tweet("facetmeeting321","shared screen",randomstring,type, ui.item.text() );
 			$(this).changeTab(4);
-			tweet("facetmeeting321","shared screen",randomstring,type, ui.draggable.text() );
-        },
-		over: function(event,ui) {
-			$("#tabs").addClass("hover-border");			
-		},		
-		out: function(event,ui) {
-			$("#tabs").removeClass("hover-border");
 		},
-    }).disableSelection();
+		
+		over: function(event,ui) {$("#tabs").addClass("hover-border");},		
+		out: function(event,ui) {$("#tabs").removeClass("hover-border");},
+	
+	}).disableSelection();
+	
+	/*$( ".workspace" ).droppable({
+        accept: ":not(.ui-sortable-helper) .queueItem",
+        drop: function( event, ui ) {
+			$( this ).find( ".placeholder" ).remove();
+			$("#sharedScreen").attr("src",ui.draggable.find("a").attr("href"));
+			$("#tabs").removeClass("hover-border");
+
+        },
+    }).disableSelection();*/
 };
 
 var editing = false;
@@ -348,24 +333,16 @@ $.fn.hide5 = function() {
 $.fn.makeFilesDroppable = function() {
 	
 	$(".appleCube li").addClass("hover-border2");
-/*	$( ".appleCube li" ).draggable({
-		appendTo: "body",
-        helper: "clone",
-        opacity: 0.5,
-        zIndex: 2700,
-		iframeFix: true,
-		start: function(event,ui) {$(this).addClass("workspaceItem");}
-	}).disableSelection();*/
-	
 	$(".appleCube").sortable({
 		appendTo: "body",
 		forcePlaceholderSize: true, 
-		start: startDrag, 
+		start: function(event,ui) {
+			startDrag(event,ui);
+		},		
         opacity: 0.5,
         zIndex: 2700,
-		iframeFix: true,
 		connectWith: "#columns",
-	});
+	}).disableSelection();
 		
 };
 
