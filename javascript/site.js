@@ -102,7 +102,7 @@ $.fn.makeQueueDroppable = function() {
     }).disableSelection();*/
 	
 	$(".column").addClass("hover-border2");
-	$( "#columns div" ).draggable({
+/*	$( "#columns div" ).draggable({
 		appendTo: "body",
         helper: "original",
 		revert: true,
@@ -114,7 +114,7 @@ $.fn.makeQueueDroppable = function() {
         opacity: 0.5,
 		iframeFix: true,
 		start: function(event,ui) {$(this).addClass("queueItem");}
-	}).disableSelection();
+	}).disableSelection();*/
 	
 	$( ".queue" ).droppable({
         accept: ":not(.ui-sortable-helper) .workspaceItem",
