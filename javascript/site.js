@@ -25,7 +25,8 @@ $(function() {
 	
 	var scrollable4 = document.getElementById("queue");
 	new ScrollFix(scrollable4);
-	
+
+/* // Tap hold stuff
 	$("herp").changeTab(2);
 	
 $("body").mousedown(function(e) {
@@ -41,7 +42,7 @@ $("body").mousedown(function(e) {
     return false;
 });
 
-	$("body").bind("longclick", function() {console.log("longclick");});
+	$("body").bind("longclick", function() {console.log("longclick");});*/
 
 		
 	//Placeholder to populate workspace
