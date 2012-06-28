@@ -57,6 +57,7 @@ ul.appleCube > li {
 	text-overflow: ellipsis;
 	
 	position:relative;
+	-webkit-transform: translate3d(0,0,0);
 	
     width:148px;
 	
@@ -77,6 +78,7 @@ ul.apple > li {
 	background-color: #FFFFFF;
 	margin-bottom: -1px;
 	position:relative;
+	-webkit-transform: translate3d(0,0,0);
 
 	font-size: 17px;
     font-weight: bold;
