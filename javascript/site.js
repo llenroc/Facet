@@ -33,12 +33,12 @@ $(function() {
 	$("#participantList li img.dragHandle2").hover(function(){$(this).parent().addClass("hover-border2");}, function () {$(this).parent().removeClass("hover-border2");});	
 	
 	$("#participantList").scroll(function(){
-    if($(this)[0].scrollHeight - $(this).scrollTop() <= $(this).outerHeight())
+    if($(this)[0].scrollHeight - $(this).scrollTop()-5 <= $(this).outerHeight())
     {
 		// At bottom
 		$("#downArrow").css("visibility", "hidden");
 		
-    } else if($(this)[0].scrollHeight - $(this).scrollTop() > $(this).outerHeight())
+    } else if($(this)[0].scrollHeight - $(this).scrollTop()-5 > $(this).outerHeight())
     {
 		// Not at bottom
 		$("#downArrow").css("visibility", "visible");
