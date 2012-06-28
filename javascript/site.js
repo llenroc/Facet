@@ -94,7 +94,6 @@ $.fn.slideItems = function() {
 		$(".queue").animate({width: '+=240'}, {duration:"slow", queue: false});
 		$(".monitter").animate({width: '+=240'}, {duration:"slow", queue: false});
 		$(".workspace").animate({width: '+=240'}, {duration:"slow", queue: false});
-		$("ul.appleCube > li").animate({width: '-=66'}, {duration:"slow", queue: false});
 		
 		$(".participants").animate({left: '-=240'}, {duration:"slow", queue: false});
 		$(".queue").animate({left: '-=240'}, {duration:"slow", queue: false});
@@ -107,7 +106,6 @@ $.fn.slideItems = function() {
 		$(".queue").animate({width: '-=240'}, {duration:"slow", queue: false});
 		$(".monitter").animate({width: '-=240'}, {duration:"slow", queue: false});
 		$(".workspace").animate({width: '-=240'}, {duration:"slow", queue: false});
-		$("ul.appleCube > li").animate({width: '+=66'}, {duration:"slow", queue: false});
 		
 		$(".participants").animate({left: '+=240'}, {duration:"slow", queue: false});
 		$(".queue").animate({left: '+=240'}, {duration:"slow", queue: false});
