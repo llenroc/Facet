@@ -265,7 +265,7 @@ $.fn.makeParticipantsDroppable = function() {
         cursorAt: { right: 20, top: 20},
         opacity: 0.5,
 		scroll: false,
-        handle: "img.dragHandle",
+        handle: "img.dragHandle2",
 		iframeFix: true,
 	}).disableSelection();
     
