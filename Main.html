@@ -110,14 +110,14 @@
                     <ul>
                         <li><a href="#tabs-1">Map</a></li>
                         <li><a href="#tabs-2">Survey</a></li>
-                        <li><a href="#tabs-3" onclick="$(this).refreshSurvey();">Workspace</a></li>
+                        <li><a href="#tabs-3" onclick="PS.ajax.getSurveys(PS.model.getSurveysCallback);">Workspace</a></li>
 						<li><a href="#tabs-4">File</a></li>
 						<li><a href="#tabs-5">Shared Screen</a></li>
                     </ul>
                     <div id="tabs-1">
 						<div id="map_canvas"></div>
                     </div>
-                    <div id="tabs-2">
+                    <div id="tabs-2" class="minHeightTab">
                         <object id="survey_canvas" width="100%" height="100%" class="facetsurvey" type="text/html" data="http://facetsurvey.4abyte.com"></object>
                     </div>	
                     <div id="tabs-3">
@@ -134,7 +134,7 @@
 
                         </div>						
                     </div>
-					<div id="tabs-4">
+					<div id="tabs-4" class="minHeightTab">
 						<iframe id="open_canvas" name="openFile" width="100%" height="100%" frameborder="0" marginheight="0" marginwidth="0"></iframe>
 					</div>
 					
