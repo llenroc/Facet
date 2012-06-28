@@ -112,7 +112,7 @@ $.fn.makeQueueDroppable = function() {
 		connectWith: ".workspace",
 		
 		start: function(event,ui) {$(ui.item).css("background-color","red");},
-		
+		remove: function(event,ui) {$("#columns").css("width", "-=162px");},
 		receive: function(event,ui) {
 			$("#columns").css("width", "+=162px");
 		
