@@ -27,8 +27,8 @@ $(function() {
 	new ScrollFix(scrollable4);
 	
 	
-	$("#columns .column header h1 img.dragHandle2").hover(function(){$(this).parent().parent().parent().addClass("hover-border");}, function () {$(this).parent().parent().parent().removeClass("hover-border");});
-	$("#participantList li img.dragHandle2").hover(function(){$(this).parent().addClass("hover-border");}, function () {$(this).parent().removeClass("hover-border");});	
+	$("#columns .column header h1 img.dragHandle2").hover(function(){$(this).parent().parent().parent().addClass("hover-border2");}, function () {$(this).parent().parent().parent().removeClass("hover-border2");});
+	$("#participantList li img.dragHandle2").hover(function(){$(this).parent().addClass("hover-border2");}, function () {$(this).parent().removeClass("hover-border2");});	
 	
 		
 	//Placeholder to populate workspace	
@@ -99,7 +99,6 @@ $.fn.slideItems = function() {
 };
 
 $.fn.makeQueueDroppable = function() {	
-	$(".column").addClass("hover-border2");	
 	
 	$("#columns").sortable({
 		appendTo: "body",
@@ -369,7 +368,7 @@ function startDrag(event, ui) {
 $.fn.createItem = function(type, link, name) {
     $(".appleCube").append("<li type=" + type + " title = '" + name + "' class = 'icon "+ type +"'><a onclick='$(this).changeTab(3);' href='" + link + "' target='openFile'>" + name + "</a><img src='icons/handle.png' class='dragHandle2'></li>");
 	$(this).makeFilesDroppable();
-	$(".appleCube").last().find("img.dragHandle2").hover(function(){$(this).parent().addClass("hover-border");}, function () {$(this).parent().removeClass("hover-border");});	
+	$(".appleCube").last().find("img.dragHandle2").hover(function(){$(this).parent().addClass("hover-border2");}, function () {$(this).parent().removeClass("hover-border2");});	
 };
 
 $.fn.changeTab = function(number) {

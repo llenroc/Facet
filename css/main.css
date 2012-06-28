@@ -233,6 +233,10 @@ h1 {
 	box-shadow: 0 0 15px DodgerBlue;
 }
 
+.hover-border2 {
+	box-shadow: 0 0 15px DodgerBlue;
+}
+
 .hover-border-red {
 	box-shadow: 0 0 15px red;
 }
