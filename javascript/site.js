@@ -25,7 +25,13 @@ $(function() {
 	
 	var scrollable4 = document.getElementById("queue");
 	new ScrollFix(scrollable4);
+	
+	
+	$("#columns .column header h1 img.dragHandle2").hover(function(){$(this).parent().parent().parent().addClass("hover-border");}, function () {$(this).parent().parent().parent().removeClass("hover-border");});
+	$("#participantList li img.dragHandle2").hover(function(){$(this).parent().addClass("hover-border");}, function () {$(this).parent().removeClass("hover-border");});	
+	
 
+	
 /* // Tap hold stuff
 	$("herp").changeTab(2);
 	
@@ -121,7 +127,6 @@ $.fn.makeQueueDroppable = function() {
         scroll: false,
     }).disableSelection();*/
 	
-	$(".column").addClass("hover-border2");
 	$( "#columns div" ).draggable({
 		appendTo: "body",
         helper: "original",
@@ -252,7 +257,6 @@ $.fn.test = function() {
 };
 
 $.fn.makeParticipantsDroppable = function() {
-	$(".dragHandle").addClass("hover-border2");
     $( "#participantList li" ).draggable({
 		appendTo: "body",
         helper: function() {
@@ -362,10 +366,10 @@ $.fn.makeFilesDroppable = function() {
 		distance: 15,
 	}).disableSelection();*/
 	
-	$(".appleCube li").addClass("hover-border2");
 	$( ".appleCube li" ).draggable({
 		appendTo: "body",
         helper: "clone",
+		handle: "img.dragHandle2",
         opacity: 0.5,
         zIndex: 2700,
 		iframeFix: true,
@@ -377,8 +381,9 @@ $.fn.makeFilesDroppable = function() {
 /* 	type = Type of file it is (what icon will be displayed). Can choose file, image, document, survey, audio
 	link = What the text links to */
 $.fn.createItem = function(type, link, name) {
-    $(".appleCube").append("<li type=" + type + " title = '" + name + "' class = 'icon "+ type +"'><a onclick='$(this).changeTab(3);' href='" + link + "' target='openFile'>" + name + "</a></li>");
+    $(".appleCube").append("<li type=" + type + " title = '" + name + "' class = 'icon "+ type +"'><a onclick='$(this).changeTab(3);' href='" + link + "' target='openFile'>" + name + "</a><img src='icons/handle.png' class='dragHandle2'></li>");
 	$(this).makeFilesDroppable();
+	$(".appleCube").last().find("img.dragHandle2").hover(function(){$(this).parent().addClass("hover-border");}, function () {$(this).parent().removeClass("hover-border");});	
 };
 
 $.fn.changeTab = function(number) {
