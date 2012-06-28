@@ -57,11 +57,14 @@
     margin-right: 5px;	
     border-radius: 8px;
     text-align: center;
+	position:relative;
+	-webkit-transform: translate3d(0,0,0);
+
 }
 
 #columns {
 	width: 9000000px;
-	//-webkit-transform: translate3d(0,0,0);
+
 
 
 }
