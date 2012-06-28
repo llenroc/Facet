@@ -27,25 +27,11 @@ $(function() {
 	
 	var scrollable4 = document.getElementById("queue");
 	new ScrollFix(scrollable4);
-
-/* // Tap hold stuff
-	$("herp").changeTab(2);
 	
-$("body").mousedown(function(e) {
-    // set timeout for this element
-    var timeout = window.setTimeout(function() { $("body").trigger("longclick");}, 500);
-    $(this).mouseup(function() {
-        // clear timeout for this element
-        window.clearTimeout(timeout);
-        // reset mouse up event handler
-        $(this).unbind("mouseup");
-        return false;
-    });
-    return false;
-});
-
-	$("body").bind("longclick", function() {console.log("longclick");});*/
-
+	
+	$("#columns .column header h1 img.dragHandle2").hover(function(){$(this).parent().parent().parent().addClass("hover-border2");}, function () {$(this).parent().parent().parent().removeClass("hover-border2");});
+	$("#participantList li img.dragHandle2").hover(function(){$(this).parent().addClass("hover-border2");}, function () {$(this).parent().removeClass("hover-border2");});	
+	
 		
 	//Placeholder to populate workspace	
 	$(this).createItem('audio', "empty.html", "Audio");
@@ -90,7 +76,7 @@ $.fn.slideItems = function() {
 		$(".queue").animate({width: '+=240'}, {duration:"slow", queue: false});
 		$(".monitter").animate({width: '+=240'}, {duration:"slow", queue: false});
 		$(".workspace").animate({width: '+=240'}, {duration:"slow", queue: false});
-		$("ul.appleCube > li").animate({width: '-=66'}, {duration:"slow", queue: false});
+		$("#columns").animate({width: '+=240'}, {duration:"slow", queue: false});
 		
 		$(".participants").animate({left: '-=240'}, {duration:"slow", queue: false});
 		$(".queue").animate({left: '-=240'}, {duration:"slow", queue: false});
@@ -103,7 +89,7 @@ $.fn.slideItems = function() {
 		$(".queue").animate({width: '-=240'}, {duration:"slow", queue: false});
 		$(".monitter").animate({width: '-=240'}, {duration:"slow", queue: false});
 		$(".workspace").animate({width: '-=240'}, {duration:"slow", queue: false});
-		$("ul.appleCube > li").animate({width: '+=66'}, {duration:"slow", queue: false});
+		$("#columns").animate({width: '-=240'}, {duration:"slow", queue: false});
 		
 		$(".participants").animate({left: '+=240'}, {duration:"slow", queue: false});
 		$(".queue").animate({left: '+=240'}, {duration:"slow", queue: false});
@@ -116,36 +102,35 @@ $.fn.slideItems = function() {
 	}
 };
 
-$.fn.makeQueueDroppable = function() {
-/*    $( "#columns" ).sortable({
-		items: "div:not(.placeholder)",
-        distance: 15,
-        scroll: false,
-    }).disableSelection();*/
+$.fn.makeQueueDroppable = function() {	
 	
-	$(".column").addClass("hover-border2");
-	$( "#columns div" ).draggable({
+	$("#columns").sortable({
 		appendTo: "body",
-        helper: "original",
 		revert: true,
-		handle: "img.dragHandle",
+		handle: "img.dragHandle2",
+		helper: "clone",
 		revertDuration: 250,
-		zIndex: 2700,
+		zIndex: 9999,
 		scroll: false,
         opacity: 0.5,
-		iframeFix: true,
-		start: function(event,ui) {$(this).addClass("queueItem");}
-	}).disableSelection();
-	
-	$( ".queue" ).droppable({
-        accept: ":not(.ui-sortable-helper) .workspaceItem",
-        drop: function( event, ui ) {
-			var type = $(ui.draggable).attr("type");
-			$( this ).find( ".placeholder" ).remove();
-			$( "<div type='" + type + "' class='column'></div>" ).html( "<header><h1>" + ui.draggable.html() + "<img class='dragHandle'></h1></header>" ).appendTo("#columns");	
+		connectWith: ".workspace",
+		
+		start: function(event,ui) {$(ui.item).css("background-color","red");},
+		remove: function(event,ui) {$("#columns").css("width", "-=162px");},
+		receive: function(event,ui) {
+			$("#columns").css("width", "+=162px");
+		
+			doClone(event,ui);
+			var type = $(ui.item).attr("type");
+			$(ui.item).removeClass();
+			$(ui.item).addClass("column");
+			var text = $(ui.item).text();
+			var link = ui.item.find("a").attr("href");
+			$(ui.item).html("<header><h1><a onclick='$(this).changeTab(3);' href='"+ link + "' target='openFile'>" + text + "</a><img src='icons/handle.png' class='dragHandle2'></h1></header>");
+			
 			$(this).removeClass("hover-border");			
 			$(this).makeQueueDroppable();
-			
+						
 			//Just creates a random name because twitter doesn't allow duplicate tweets
 			var chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz";
 			var string_length = 5;
@@ -155,43 +140,38 @@ $.fn.makeQueueDroppable = function() {
 				randomstring += chars.substring(rnum,rnum+1);
 			}
 			
-			tweet("facetmeeting321","queue",randomstring,type, ui.draggable.text() );
-        },
-		over: function(event,ui) {$(this).addClass("hover-border");},		
-		out: function(event,ui) {$(this).removeClass("hover-border");},
-		
-    }).disableSelection();
-	
-	$( ".workspace" ).droppable({
-        accept: ":not(.ui-sortable-helper) .queueItem",
-        drop: function( event, ui ) {
-			$( this ).find( ".placeholder" ).remove();
-			$("#sharedScreen").attr("src",ui.draggable.find("a").attr("href"));
-			$("#tabs").removeClass("hover-border");
-			$(".trash").append(ui.draggable);
-			$(".trash").children().remove();
-			
-			var type = $(ui.draggable).attr("type");
-
-			//Just creates a random name because twitter doesn't allow duplicate tweets
-			var chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz";
-			var string_length = 5;
-			var randomstring = '';
-			for (var i=0; i<string_length; i++) {
-				var rnum = Math.floor(Math.random() * chars.length);
-				randomstring += chars.substring(rnum,rnum+1);
-			}
-			
-			$(this).changeTab(4);
-			tweet("facetmeeting321","shared screen",randomstring,type, ui.draggable.text() );
-        },
-		over: function(event,ui) {
-			$("#tabs").addClass("hover-border");			
-		},		
-		out: function(event,ui) {
-			$("#tabs").removeClass("hover-border");
+			tweet("facetmeeting321","queue",randomstring,type, ui.item.text() );
 		},
-    }).disableSelection();
+		
+		over: function(event,ui) {$(".queue").addClass("hover-border");},		
+		out: function(event,ui) {$(".queue").removeClass("hover-border");},
+	}).disableSelection();
+		
+	$(".workspace").sortable({
+		items: "none",
+		receive: function(event,ui) {
+			$(".trash").append(ui.item);
+			$(".trash").children().remove();
+			var type = $(ui.item).attr("type");
+			$("#sharedScreen").attr("src",ui.item.find("a").attr("href"));
+						
+			//Just creates a random name because twitter doesn't allow duplicate tweets
+			var chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz";
+			var string_length = 5;
+			var randomstring = '';
+			for (var i=0; i<string_length; i++) {
+				var rnum = Math.floor(Math.random() * chars.length);
+				randomstring += chars.substring(rnum,rnum+1);
+			}
+			tweet("facetmeeting321","shared screen",randomstring,type, ui.item.text() );
+			$(this).changeTab(4);
+		},
+		
+		over: function(event,ui) {$("#tabs").addClass("hover-border");},		
+		out: function(event,ui) {$("#tabs").removeClass("hover-border");},
+	
+	}).disableSelection();
+
 };
 
 var editing = false;
@@ -254,16 +234,15 @@ $.fn.test = function() {
 };
 
 $.fn.makeParticipantsDroppable = function() {
-	$(".dragHandle").addClass("hover-border2");
     $( "#participantList li" ).draggable({
 		appendTo: "body",
         helper: function() {
 			var name = $(this).text();
-			return $("<li class='user icon' style='border-top-left-radius: 8px; border-top-right-radius: 8px;'>" + name + "</li>")[0];},
+			return $("<li class='user icon' style='font-weight: bold;font-size: 17px;font-family: Helvetica; list-style-type: none; border-top-left-radius: 8px; border-top-right-radius: 8px;'>" + name + "</li>")[0];},
         cursorAt: { right: 20, top: 20},
         opacity: 0.5,
 		scroll: false,
-        handle: "img.dragHandle",
+        handle: "img.dragHandle2",
 		iframeFix: true,
 	}).disableSelection();
     
@@ -300,9 +279,10 @@ $.fn.makeParticipantsDroppable = function() {
 		opacity: 0.5,
 		items: "li:not(.placeholder)",
 		connectWith: ".connectedSortable",
+		receive: doClone,
 		over: function(event,ui) {$(this).addClass("hover-border");},		
 		out: function(event,ui) {$(this).removeClass("hover-border");},
-		handle: "img.dragHandle",
+		handle: "img.dragHandle2",
 		distance: 15,
     }).disableSelection();
     
@@ -312,9 +292,6 @@ $.fn.makeParticipantsDroppable = function() {
 		connectWith: ".connectedSortable",
 		over: function(event,ui) {$(this).addClass("hover-border-red");},		
 		drop: function(event,ui) {
-			//deleteUI = ui;
-			//$("#dialog-confirm #message").text("Are you sure you wish to delete " + ui.draggable.text());
-			//$("#dialog-confirm").dialog('open');
 			deleteUIItem(ui);	
 			},
 		out: function(event,ui) {$(this).removeClass("hover-border-red");},
@@ -328,9 +305,6 @@ $.fn.makeParticipantsDroppable = function() {
 		out: function(event,ui) {$(this).removeClass("hover-border-red");},
 		distance: 15,
 		receive: function(event, ui) {
-			//deleteUI = ui;
-			//$("#dialog-confirm #message").text("Are you sure you wish to delete " + ui.draggable.text());
-			//$("#dialog-confirm").dialog('open');
 			deleteUIItem(ui);
 		}
 	}).disableSelection();
@@ -359,28 +333,47 @@ $.fn.hide5 = function() {
 
 //<!-- scripts from files.html -->
 $.fn.makeFilesDroppable = function() {
-/*	$( ".appleCube" ).sortable({
-		items: "li:not(.placeholder)",
-		distance: 15,
-	}).disableSelection();*/
 	
-	$(".appleCube li").addClass("hover-border2");
-	$( ".appleCube li" ).draggable({
+	$(".appleCube").sortable({
+		handle: "img.dragHandle2",
 		appendTo: "body",
-        helper: "clone",
+		forcePlaceholderSize: true, 
+		start: function(event,ui) {
+			startDrag(event,ui);
+		},		
+
         opacity: 0.5,
         zIndex: 2700,
-		iframeFix: true,
-		start: function(event,ui) {$(this).addClass("workspaceItem");}
+		connectWith: "#columns",
 	}).disableSelection();
-	
+		
 };
+
+function doClone(event, ui) {
+    if (ui.sender.is('.appleCube')) {
+        // clone and insert where we got it
+        if (itemOriIndex == 0) {
+            ui.item.clone().prependTo('.appleCube');
+        } else {
+            itemOriIndex -= 1;
+            ui.item.clone().insertAfter('.appleCube li:eq(' + itemOriIndex + ')');
+        }
+        
+    }
+}
+
+/* Gets the index of where the dragging item is from */
+var itemOriIndex;
+function startDrag(event, ui) {
+	itemOriIndex = ui.item.index();
+}
 
 /* 	type = Type of file it is (what icon will be displayed). Can choose file, image, document, survey, audio
 	link = What the text links to */
 $.fn.createItem = function(type, link, name) {
-    $(".appleCube").append("<li type=" + type + " title = '" + name + "' class = 'icon "+ type +"'><a onclick='$(this).changeTab(3);' href='" + link + "' target='openFile'>" + name + "</a></li>");
+    $(".appleCube").append("<li type=" + type + " title = '" + name + "' class = 'icon "+ type +"'><a onclick='$(this).changeTab(3);' href='" + link + "' target='openFile'>" + name + "</a><img src='icons/handle.png' class='dragHandle2'></li>");
 	$(this).makeFilesDroppable();
+	$(".appleCube").last().find("img.dragHandle2").hover(function(){$(this).parent().addClass("hover-border2");}, function () {$(this).parent().removeClass("hover-border2");});	
 };
 
 $.fn.changeTab = function(number) {

@@ -56,8 +56,10 @@ ul.appleCube > li {
     overflow: hidden;
 	text-overflow: ellipsis;
 	
+	position:relative;
+	-webkit-transform: translate3d(0,0,0);
+	
     width:148px;
-	cursor: move;
 	
 	margin-bottom: 5px;
 	margin-right: 5px;
@@ -75,6 +77,8 @@ ul.apple > li {
     display: block;
 	background-color: #FFFFFF;
 	margin-bottom: -1px;
+	position:relative;
+	-webkit-transform: translate3d(0,0,0);
 
 	font-size: 17px;
     font-weight: bold;
@@ -174,14 +178,14 @@ textarea {
 	height: 30px;
 }
 
-
-img.dragHandle {
-	background-repeat: no-repeat;
+img.dragHandle2 {
 	cursor: move;
-	
+	border-radius: 8px;
 	position:absolute;
-	right:25px;
-	background-image:url(../icons/handle.png);
+	right:0px;
+	top: 0px;
+	z-index:9999;
+
 	width:25px; 
 	height:25px;
 	border:0px;	
@@ -229,7 +233,7 @@ h1 {
 	box-shadow: 0 0 15px DodgerBlue;
 }
 
-.hover-border2:hover {
+.hover-border2 {
 	box-shadow: 0 0 15px DodgerBlue;
 }
 

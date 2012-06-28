@@ -48,6 +48,11 @@ body {
 	height: 550px;
 }
 
+#columns {
+	width: 1270px;
+
+}
+
 #survey_canvas {
 	height: 550px;
 	
@@ -77,6 +82,13 @@ body {
 
 }
 
+.hover-border2 {
+	box-shadow: 0 0 0px DodgerBlue;
+}
+
+.hover-border {
+	box-shadow: 0 0 15px DodgerBlue;
+}
 
 .hover-border2:hover {
 	box-shadow: 0 0 0px DodgerBlue;
