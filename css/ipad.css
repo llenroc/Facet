@@ -20,6 +20,14 @@
 	-webkit-overflow-scrolling: touch;
 }
 
+#upArrow {
+	visibility: visible
+}
+
+#downArrow {
+	visibility: visible
+}
+
 .workspace {
 	width: 774px;
 	height: 550px;

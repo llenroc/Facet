@@ -194,8 +194,24 @@ img.dragHandle2 {
 
 #toggleSlide {
 	position: absolute;
-	left: 200px;
-	top: 0px;
+	left: 220px;
+	top: 10px;
+}
+
+#upArrow {
+	visibility:hidden;
+	z-index:9999;
+	position:absolute;
+	top:50px;
+	left:120px;
+}
+
+#downArrow {
+	visibility:hidden;	
+	z-index:9999;
+	position:absolute;
+	top:351px;
+	left:120px;
 }
 
 /* edit buttons */

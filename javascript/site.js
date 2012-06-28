@@ -35,10 +35,13 @@ $(function() {
 	$("#participantList").scroll(function(){
     if($(this)[0].scrollHeight - $(this).scrollTop() <= $(this).outerHeight())
     {
-        alert("Bottom");
+        //alert("Bottom");
+		$("#downArrow").css("visibility", "hidden");
+		
     } else if($(this).scrollTop() == 0)
     {
-        alert("Top");
+        //alert("Top");
+		$("#downArrow").css("visibility", "visible");
     }
 	});
 		
@@ -90,7 +93,7 @@ $.fn.slideItems = function() {
 		$(".participants").animate({left: '-=240'}, {duration:"slow", queue: false});
 		$(".queue").animate({left: '-=240'}, {duration:"slow", queue: false});
 		$(".workspace").animate({left: '-=240'}, {duration:"slow", queue: false});
-		$("#toggleSlide").animate({left: '-=200'}, {duration:"slow", queue: false});
+		$("#toggleSlide").animate({left: '-=215'}, {duration:"slow", queue: false});
 		
 		$("#toggleSlide").attr("src","icons/right.png");
 		slideOpen = false;
@@ -103,7 +106,7 @@ $.fn.slideItems = function() {
 		$(".participants").animate({left: '+=240'}, {duration:"slow", queue: false});
 		$(".queue").animate({left: '+=240'}, {duration:"slow", queue: false});
 		$(".workspace").animate({left: '+=240'}, {duration:"slow", queue: false});
-		$("#toggleSlide").animate({left: '+=200'}, {duration:"slow", queue: false});
+		$("#toggleSlide").animate({left: '+=215'}, {duration:"slow", queue: false});
 		
 		$("#toggleSlide").attr("src","icons/left.png");
 
