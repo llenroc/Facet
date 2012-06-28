@@ -32,6 +32,12 @@ $(function() {
 	$("#columns .column header h1 img.dragHandle2").hover(function(){$(this).parent().parent().parent().addClass("hover-border2");}, function () {$(this).parent().parent().parent().removeClass("hover-border2");});
 	$("#participantList li img.dragHandle2").hover(function(){$(this).parent().addClass("hover-border2");}, function () {$(this).parent().removeClass("hover-border2");});	
 	
+	$("#participantList").scroll(function(){
+    if($(this)[0].scrollHeight - $(this).scrollTop() <= $(this).outerHeight())
+    {
+        alert(1);
+    }
+	});
 		
 	//Placeholder to populate workspace	
 	$(this).createItem('audio', "empty.html", "Audio");
@@ -361,6 +367,8 @@ function doClone(event, ui) {
         
     }
 }
+
+
 
 /* Gets the index of where the dragging item is from */
 var itemOriIndex;
