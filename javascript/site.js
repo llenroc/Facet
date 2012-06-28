@@ -35,7 +35,10 @@ $(function() {
 	$("#participantList").scroll(function(){
     if($(this)[0].scrollHeight - $(this).scrollTop() <= $(this).outerHeight())
     {
-        alert(1);
+        alert("Bottom");
+    } else if($(this).scrollTop() == 0)
+    {
+        alert("Top");
     }
 	});
 		
