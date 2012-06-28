@@ -65,6 +65,7 @@
 #columns {
 	width: 9000000px;
 
+	overflow-y:hidden;
 	height: 45px;
 	margin-top:0px;
 	margin-left:-40px;

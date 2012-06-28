@@ -277,7 +277,7 @@ $.fn.makeParticipantsDroppable = function() {
 		receive: doClone,
 		over: function(event,ui) {$(this).addClass("hover-border");},		
 		out: function(event,ui) {$(this).removeClass("hover-border");},
-		handle: "img.dragHandle",
+		handle: "img.dragHandle2",
 		distance: 15,
     }).disableSelection();
     
