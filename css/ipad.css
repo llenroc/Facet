@@ -48,6 +48,11 @@ body {
 	height: 550px;
 }
 
+#columns {
+	width: 1270px;
+
+}
+
 #survey_canvas {
 	height: 550px;
 	
