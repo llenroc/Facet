@@ -96,3 +96,8 @@
 {
 	overflow-y:scroll;
 }
+
+.minHeightTab
+{
+	height:700px;
+}

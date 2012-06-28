@@ -390,10 +390,6 @@ $.fn.changeTab = function(number) {
 
 
 
-$.fn.refreshSurvey = function() {
-	//$(".appleCube li").remove(".survey, .results");
-	PS.ajax.getSurveys(PS.model.getSurveysCallback);
-};
 
 
 
