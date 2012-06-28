@@ -1,3 +1,5 @@
+"use strict";
+
 var deleteUI;
 var slideOpen = true;
 var pressTimer;
@@ -9,7 +11,7 @@ $(function() {
 	$(this).makeParticipantsDroppable();
 	$(this).makeFilesDroppable();
 	$( "#tabs" ).tabs();
-	$.fn.updateSurvey();
+	PS.ajax.getSurveys(PS.model.getSurveysCallback);
 	
 	var scrollable = document.getElementById("participantList");
 	new ScrollFix(scrollable);
@@ -386,65 +388,11 @@ $.fn.changeTab = function(number) {
 };
 
 
-// XML based survey updates
-
-/*$.fn.updateSurvey = function() {
-	$.ajax({
-		type: "GET",
-		url: "test.xml",
-		dataType: "xml",
-		success: parseXml
-	});
-};
-
-function parseXml(xml) {
-	$(xml).find("node").each(function()  {
-		var link = $(this).find("URL").text();
-		var name = $(this).find("Title").text();
-		var nid = $(this).find("Nid").text();
-		$(this).createItem('survey', link, name);
-		$(this).createItem('results', "http://facetsurvey.4abyte.com/surveymaps/"+nid , name+ " " + "Results");
-	});
-}*/
-
-
-
-// JSON based survey updates. requires local PHP mirror for cross site request
-
-$.fn.updateSurvey = function() {
-
-	var serverURL;
-	if( typeof phpServer === 'undefined') {
-		serverURL = "http://localhost:81/curl.php?request="
-	}
-	else {
-		serverURL = phpServer;
-	}
-
-	$.ajax({
-		type: "GET",
-		url: serverURL + "facetsurvey.4abyte.com/json-services/",
-		dataType: "json",
-		success: parseJson
-	});
-};
 
 $.fn.refreshSurvey = function() {
-	$(".appleCube li").remove(".survey, .results");
-	$(this).updateSurvey();
+	//$(".appleCube li").remove(".survey, .results");
+	PS.ajax.getSurveys(PS.model.getSurveysCallback);
 };
-
-
-function parseJson(json, textStatus, jqXHR) {
-
-	for (var x in json.nodes) {
-		//console.log(x + " " + json.nodes[x].node.question);
-		$(this).createItem('survey', json.nodes[x].node.urlResponse, json.nodes[x].node.question);
-		$(this).createItem('results', "http://facetsurvey.4abyte.com/surveymaps/" + json.nodes[x].node.idsurvey, json.nodes[x].node.question + " " + "Results");
-	}
-
-}
-
 
 
 
