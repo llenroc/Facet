@@ -202,7 +202,7 @@ img.dragHandle2 {
 	visibility:hidden;
 	z-index:9999;
 	position:absolute;
-	top:50px;
+	top:45px;
 	left:120px;
 }
 

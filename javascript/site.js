@@ -35,13 +35,24 @@ $(function() {
 	$("#participantList").scroll(function(){
     if($(this)[0].scrollHeight - $(this).scrollTop() <= $(this).outerHeight())
     {
-        //alert("Bottom");
+		// At bottom
 		$("#downArrow").css("visibility", "hidden");
 		
-    } else if($(this).scrollTop() == 0)
+    } else if($(this)[0].scrollHeight - $(this).scrollTop() > $(this).outerHeight())
     {
-        //alert("Top");
+		// Not at bottom
 		$("#downArrow").css("visibility", "visible");
+		
+    }
+	
+	if($(this).scrollTop() >= 5)
+    {
+		// Not at top
+		$("#upArrow").css("visibility", "visible");
+    } else if($(this).scrollTop() < 5)
+    {
+		// At top
+		$("#upArrow").css("visibility", "hidden");
     }
 	});
 		
