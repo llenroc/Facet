@@ -74,6 +74,7 @@ $.fn.slideItems = function() {
 		$(".queue").animate({width: '+=240'}, {duration:"slow", queue: false});
 		$(".monitter").animate({width: '+=240'}, {duration:"slow", queue: false});
 		$(".workspace").animate({width: '+=240'}, {duration:"slow", queue: false});
+		$("#columns").animate({width: '+=240'}, {duration:"slow", queue: false});
 		
 		$(".participants").animate({left: '-=240'}, {duration:"slow", queue: false});
 		$(".queue").animate({left: '-=240'}, {duration:"slow", queue: false});
@@ -86,6 +87,7 @@ $.fn.slideItems = function() {
 		$(".queue").animate({width: '-=240'}, {duration:"slow", queue: false});
 		$(".monitter").animate({width: '-=240'}, {duration:"slow", queue: false});
 		$(".workspace").animate({width: '-=240'}, {duration:"slow", queue: false});
+		$("#columns").animate({width: '-=240'}, {duration:"slow", queue: false});
 		
 		$(".participants").animate({left: '+=240'}, {duration:"slow", queue: false});
 		$(".queue").animate({left: '+=240'}, {duration:"slow", queue: false});
