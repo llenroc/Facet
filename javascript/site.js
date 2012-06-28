@@ -114,6 +114,8 @@ $.fn.makeQueueDroppable = function() {
 		start: function(event,ui) {$(ui.item).css("background-color","red");},
 		
 		receive: function(event,ui) {
+			$("#columns").css("width", "+=162px");
+		
 			doClone(event,ui);
 			var type = $(ui.item).attr("type");
 			$(ui.item).removeClass();
@@ -143,13 +145,12 @@ $.fn.makeQueueDroppable = function() {
 		
 	$(".workspace").sortable({
 		items: "none",
-		
 		receive: function(event,ui) {
 			$(".trash").append(ui.item);
 			$(".trash").children().remove();
 			var type = $(ui.item).attr("type");
 			$("#sharedScreen").attr("src",ui.item.find("a").attr("href"));
-				
+						
 			//Just creates a random name because twitter doesn't allow duplicate tweets
 			var chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz";
 			var string_length = 5;
