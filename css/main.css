@@ -214,6 +214,22 @@ img.dragHandle2 {
 	left:120px;
 }
 
+#leftArrow {
+	visibility:hidden;
+	z-index:9999;
+	position:absolute;
+	top:10px;
+	left:260px;
+}
+
+#rightArrow {
+	visibility:visible;	
+	z-index:9999;
+	position:absolute;
+	top:10px;
+	left:1210px;
+}
+
 /* edit buttons */
 
 .iPhoneButton {

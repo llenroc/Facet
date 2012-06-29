@@ -33,27 +33,50 @@ $(function() {
 	$("#participantList li img.dragHandle2").hover(function(){$(this).parent().addClass("hover-border2");}, function () {$(this).parent().removeClass("hover-border2");});	
 	
 	$("#participantList").scroll(function(){
-    if($(this)[0].scrollHeight - $(this).scrollTop()-5 <= $(this).outerHeight())
-    {
-		// At bottom
-		$("#downArrow").css("visibility", "hidden");
+		if($(this)[0].scrollHeight - $(this).scrollTop()-5 <= $(this).outerHeight())
+		{
+			// At bottom
+			$("#downArrow").css("visibility", "hidden");
+			
+		} else if($(this)[0].scrollHeight - $(this).scrollTop()-5 > $(this).outerHeight())
+		{
+			// Not at bottom
+			$("#downArrow").css("visibility", "visible");
+			
+		}
 		
-    } else if($(this)[0].scrollHeight - $(this).scrollTop()-5 > $(this).outerHeight())
-    {
-		// Not at bottom
-		$("#downArrow").css("visibility", "visible");
-		
-    }
+		if($(this).scrollTop() >= 5)
+		{
+			// Not at top
+			$("#upArrow").css("visibility", "visible");
+		} else if($(this).scrollTop() < 5)
+		{
+			// At top
+			$("#upArrow").css("visibility", "hidden");
+		}
+	});
 	
-	if($(this).scrollTop() >= 5)
-    {
-		// Not at top
-		$("#upArrow").css("visibility", "visible");
-    } else if($(this).scrollTop() < 5)
-    {
-		// At top
-		$("#upArrow").css("visibility", "hidden");
-    }
+	$(".queue").scroll(function() {
+	    if($(this)[0].scrollWidth - $(this).scrollLeft()-525 <= $(this).outerWidth())
+		{
+			// At right
+			$("#rightArrow").css("visibility", "hidden");
+		
+		} else if($(this)[0].scrollWidth - $(this).scrollLeft()-525 > $(this).outerWidth())
+		{
+			// Not at right
+			$("#rightArrow").css("visibility", "visible");	
+		}
+	
+		if($(this).scrollLeft() >= 5)
+		{
+			// Not at left
+			$("#leftArrow").css("visibility", "visible");
+		} else if($(this).scrollLeft() < 5)
+		{
+			// At left
+			$("#leftArrow").css("visibility", "hidden");
+		}
 	});
 		
 	//Placeholder to populate workspace	
@@ -104,6 +127,7 @@ $.fn.slideItems = function() {
 		$(".participants").animate({left: '-=240'}, {duration:"slow", queue: false});
 		$(".queue").animate({left: '-=240'}, {duration:"slow", queue: false});
 		$(".workspace").animate({left: '-=240'}, {duration:"slow", queue: false});
+		$("#leftArrow").animate({left: '-=240'}, {duration:"slow", queue: false});
 		$("#toggleSlide").animate({left: '-=215'}, {duration:"slow", queue: false});
 		
 		$("#toggleSlide").attr("src","icons/right.png");
@@ -117,6 +141,7 @@ $.fn.slideItems = function() {
 		$(".participants").animate({left: '+=240'}, {duration:"slow", queue: false});
 		$(".queue").animate({left: '+=240'}, {duration:"slow", queue: false});
 		$(".workspace").animate({left: '+=240'}, {duration:"slow", queue: false});
+		$("#leftArrow").animate({left: '+=240'}, {duration:"slow", queue: false});
 		$("#toggleSlide").animate({left: '+=215'}, {duration:"slow", queue: false});
 		
 		$("#toggleSlide").attr("src","icons/left.png");

@@ -28,6 +28,12 @@
 	visibility: visible
 }
 
+
+#rightArrow {
+	visibility: visible
+	left:990px;
+}
+
 .workspace {
 	width: 774px;
 	height: 550px;
@@ -76,7 +82,7 @@ body {
 
 .queue
 {
-	width:754px;
+	width:724px;
 	-webkit-overflow-scrolling: touch;
 
 }
