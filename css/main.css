@@ -227,7 +227,7 @@ img.dragHandle2 {
 	z-index:9999;
 	position:absolute;
 	top:10px;
-	left:1210px;
+	//left:1210px;
 }
 
 /* edit buttons */
