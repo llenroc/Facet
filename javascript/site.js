@@ -57,12 +57,12 @@ $(function() {
 	});
 	
 	$(".queue").scroll(function() {
-	    if($(this)[0].scrollWidth - $(this).scrollLeft()-525 <= $(this).outerWidth())
+	    if($(this)[0].scrollWidth - $(this).scrollLeft()-500 <= $(this).outerWidth())
 		{
 			// At right
 			$("#rightArrow").css("visibility", "hidden");
 		
-		} else if($(this)[0].scrollWidth - $(this).scrollLeft()-525 > $(this).outerWidth())
+		} else if($(this)[0].scrollWidth - $(this).scrollLeft()-500 > $(this).outerWidth())
 		{
 			// Not at right
 			$("#rightArrow").css("visibility", "visible");	
