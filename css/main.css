@@ -218,15 +218,15 @@ img.dragHandle2 {
 	visibility:hidden;
 	z-index:9999;
 	position:absolute;
-	top:30px;
-	left:260px;
+	top:35px;
+	left:265px;
 }
 
 #rightArrow {
 	visibility:visible;	
 	z-index:9999;
 	position:absolute;
-	top:30px;
+	top:35px;
 	left:1230px;
 }
 
