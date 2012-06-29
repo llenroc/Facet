@@ -202,23 +202,23 @@ img.dragHandle2 {
 	visibility:hidden;
 	z-index:9999;
 	position:absolute;
-	top:45px;
-	left:120px;
+	top:60px;
+	left:240px;
 }
 
 #downArrow {
 	visibility:hidden;	
 	z-index:9999;
 	position:absolute;
-	top:351px;
-	left:120px;
+	top:345px;
+	left:240px;
 }
 
 #leftArrow {
 	visibility:hidden;
 	z-index:9999;
 	position:absolute;
-	top:10px;
+	top:30px;
 	left:260px;
 }
 
@@ -226,8 +226,8 @@ img.dragHandle2 {
 	visibility:visible;	
 	z-index:9999;
 	position:absolute;
-	top:10px;
-	left:1210px;
+	top:30px;
+	left:1230px;
 }
 
 /* edit buttons */
