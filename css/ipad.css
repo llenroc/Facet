@@ -21,16 +21,16 @@
 }
 
 #upArrow {
-	visibility: hidden
+	visibility: hidden;
 }
 
 #downArrow {
-	visibility: visible
+	visibility: visible;
 }
 
 
 #rightArrow {
-	visibility: visible
+	visibility: visible;
 	left:990px;
 }
 
