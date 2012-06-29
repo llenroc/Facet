@@ -57,9 +57,7 @@ $(function() {
 	});
 	
 	$(".queue").scroll(function() {
-		if($(this).scrollTop() > 0) {
-			$(this).scrollTop(0);
-		}
+
 	    if($(this)[0].scrollWidth - $(this).scrollLeft()-500 <= $(this).outerWidth())
 		{
 			// At right
