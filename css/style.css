@@ -51,6 +51,7 @@
 /* style from queue.html*/
 .column 
 {
+	overflow-y: hidden;
     width:157px;
     float:left;
     background-color: #FFFFFF;
