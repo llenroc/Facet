@@ -335,6 +335,7 @@ $.fn.makeParticipantsDroppable = function() {
 		items: "li:not(.placeholder)",
 		connectWith: ".connectedSortable",
 		receive: doClone,
+		appendTo: "body",
 		helper: "clone",
 		zIndex: 9999,
 		over: function(event,ui) {$(this).addClass("hover-border");},		
