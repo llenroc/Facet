@@ -166,7 +166,11 @@ $.fn.makeQueueDroppable = function() {
         opacity: 0.5,
 		connectWith: ".workspace",
 		
-		start: function(event,ui) {$(ui.item).css("background-color","red");},
+		start: function(event,ui) {
+			$(ui.helper).find("a").css("color","white");
+			$(ui.helper).css("list-style-type","none");
+			
+		},
 		remove: function(event,ui) {$("#columns").css("width", "-=162px");},
 		receive: function(event,ui) {
 			$("#columns").css("width", "+=162px");
