@@ -336,7 +336,7 @@ $.fn.makeParticipantsDroppable = function() {
 		connectWith: ".connectedSortable",
 		receive: doClone,
 		appendTo: "body",
-		helper: "clone",
+	//	helper: "clone",
 		zIndex: 9999,
 		over: function(event,ui) {$(this).addClass("hover-border");},		
 		out: function(event,ui) {$(this).removeClass("hover-border");},
