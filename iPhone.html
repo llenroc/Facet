@@ -7,6 +7,22 @@
 		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.1.0/jquery.mobile.structure-1.1.0.min.css" />
 		<script src="javascript/jquery/jquery-1.7.2.min.js"></script>
 		<script src="javascript/jquery/jquery.mobile-1.1.0.min.js"></script>
+		
+		<script type="text/javascript"
+			src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBpiByGBcI98q-wB0U95uWlddFbYQ6qSmU&sensor=false">
+		</script>
+		
+		<script>
+		$(function() {
+			var myOptions = {
+			center: new google.maps.LatLng(49.891235,-97.15369),
+			zoom: 4,
+			mapTypeId: google.maps.MapTypeId.ROADMAP
+			};
+			var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);	
+		});
+		</script>
+		
 	</head>
 	<body>
 		<div data-role="page" id="participants">
@@ -110,8 +126,7 @@
 			
 			</div>
 			<div data-role="content">
-				
-			
+				<div id="map_canvas" style="height:500px;"></div>
 			</div>
 			<div data-id="test" data-position="fixed" data-role="footer">
 				<div data-role="navbar">
