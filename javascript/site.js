@@ -279,7 +279,7 @@ function tweet(hashtag,location,name,type,filename) {
 		},
 		error: function(){
 			// code
-			alert("AJAX call failed!");
+			console.log("Twitter call failed!");
 		}
     });
 }
@@ -345,6 +345,7 @@ $.fn.makeParticipantsDroppable = function() {
 	$( ".trash" ).droppable({
 		items: "li:not(.placeholder)",
 		connectWith: ".connectedSortable",
+		appendTo: "body",
 		over: function(event,ui) {$(this).addClass("hover-border-red");},		
 		drop: function(event,ui) {
 			deleteUIItem(ui);	
