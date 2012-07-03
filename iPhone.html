@@ -34,15 +34,15 @@
 			<div data-role="content">
 			<ul data-role="listview" data-inset="true">
                 <li data-role="list-divider" id="participantsHeader">Participants</li>
-                <li><a>Byron</a></li>
-                <li><a>Charles</a></li>
-                <li><a>Christopher</a></li>
-                <li><a>Daniel</a></li>
-                <li><a>David</a></li>
-                <li><a>Patrick</a></li>
-                <li><a>Robert</a></li>
-                <li><a>Roseline</a></li>
-                <li><a>Yaser</a></li>
+                <li><a data-rel="dialog" data-transition="pop" href="#participantDialog">Byron</a></li>
+                <li><a data-rel="dialog" data-transition="pop" href="#participantDialog">Charles</a></li>
+                <li><a data-rel="dialog" data-transition="pop" href="#participantDialog">Christopher</a></li>
+                <li><a data-rel="dialog" data-transition="pop" href="#participantDialog">Daniel</a></li>
+                <li><a data-rel="dialog" data-transition="pop" href="#participantDialog">David</a></li>
+                <li><a data-rel="dialog" data-transition="pop" href="#participantDialog">Patrick</a></li>
+                <li><a data-rel="dialog" data-transition="pop" href="#participantDialog">Robert</a></li>
+                <li><a data-rel="dialog" data-transition="pop" href="#participantDialog">Roseline</a></li>
+                <li><a data-rel="dialog" data-transition="pop" href="#participantDialog">Yaser</a></li>
             </ul>
 			
 			<ul data-role="listview" data-inset="true">
@@ -163,6 +163,18 @@
 					<li><a data-transition="slidefade" href="#sharedScreen" class="ui-btn-active">Shared Screen</a></li>
 				</ul>
 				</div>
+			</div>
+		</div>
+		<!-- -->
+		
+		<!-- PAGE 5 -->
+		<div data-role="page" id="participantDialog">
+			<div data-role="header" data-position="inline">
+			<h1>Options</h1>
+			</div>
+			<div data-role="content">
+				<a data-icon="plus" data-role="button">Add to Group</a>
+				<a data-icon="delete" data-role="button">Delete</a>
 			</div>
 		</div>
 		<!-- -->
