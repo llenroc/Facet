@@ -335,6 +335,8 @@ $.fn.makeParticipantsDroppable = function() {
 		items: "li:not(.placeholder)",
 		connectWith: ".connectedSortable",
 		receive: doClone,
+		helper: "clone",
+		zIndex: 9999,
 		over: function(event,ui) {$(this).addClass("hover-border");},		
 		out: function(event,ui) {$(this).removeClass("hover-border");},
 		handle: "img.dragHandle2",
@@ -345,7 +347,6 @@ $.fn.makeParticipantsDroppable = function() {
 	$( ".trash" ).droppable({
 		items: "li:not(.placeholder)",
 		connectWith: ".connectedSortable",
-		appendTo: "body",
 		over: function(event,ui) {$(this).addClass("hover-border-red");},		
 		drop: function(event,ui) {
 			deleteUIItem(ui);	
