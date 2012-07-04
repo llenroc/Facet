@@ -22,9 +22,9 @@ $(function() {
 		$(asd).find("ul").append("<li>sup</li");
 	});
 	
-	$("body").taphold(function() {
+	$("body").bind("taphold", function() {
 		alert("taphold");
-	}
+	});
 
 });
 
