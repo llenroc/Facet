@@ -1,4 +1,5 @@
 var selectedName;
+var selectedGroup;
 
 $(function() {
 	var myOptions = {
@@ -12,12 +13,23 @@ $(function() {
 		selectedName = $(this);
 		$("#optionHeader").text(selectedName.text());
 	});
+	
+	$(".groupListPop li").click(function() {
+		selectedGroup = $(this);
+		var index = selectedGroup.index();
+		console.log(index);
+		var asd = $("#groupList").get(index);
+		$(asd).find("ul").append("<li>sup</li");
+	});
+	
+
 });
 
 $.fn.newGroup = function() {
 	var name = $("#createGroupLabel").val();
 	if(name != "") {
 		$("#groupList").append("<li><a>"+ name + "</a><ul data-role='listview' data-inset='true'></ul></li>");
+		$(".groupListPop").append("<li><a>"+ name + "</a></li>");
 		$('#groupList').listview('refresh');
 		$('#newgroupDialog').dialog('close');
 		$("#createGroupLabel").val("");
@@ -28,3 +40,4 @@ $.fn.deleteUser = function() {
 	$("#participantList").children().slice(selectedName.index(),selectedName.index()+1).remove();
 	$('#participantDialog').dialog('close');
 };
+
