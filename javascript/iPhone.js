@@ -22,6 +22,9 @@ $(function() {
 		$(asd).find("ul").append("<li>sup</li");
 	});
 	
+	$("body").taphold(function() {
+		alert("taphold");
+	}
 
 });
 
