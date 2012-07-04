@@ -8,21 +8,12 @@
 		<script src="javascript/jquery/jquery-1.7.2.min.js"></script>
 		<script src="javascript/jquery/jquery.mobile-1.1.0.min.js"></script>
 		
+		<script type="text/javascript" src="javascript/iPhone.js"></script>
+		
 		<script type="text/javascript"
 			src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBpiByGBcI98q-wB0U95uWlddFbYQ6qSmU&sensor=false">
 		</script>
-		
-		<script>
-		$(function() {
-			var myOptions = {
-			center: new google.maps.LatLng(49.891235,-97.15369),
-			zoom: 4,
-			mapTypeId: google.maps.MapTypeId.ROADMAP
-			};
-			var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);	
-		});
-		</script>
-		
+				
 	</head>
 	<body>
 		<div data-role="page" id="participants">
@@ -32,7 +23,7 @@
 			
 			</div>
 			<div data-role="content">
-			<ul data-role="listview" data-inset="true">
+			<ul id="participantList" data-role="listview" data-inset="true">
                 <li data-role="list-divider" id="participantsHeader">Participants</li>
                 <li><a data-rel="dialog" data-transition="pop" href="#participantDialog">Byron</a></li>
                 <li><a data-rel="dialog" data-transition="pop" href="#participantDialog">Charles</a></li>
@@ -46,11 +37,11 @@
             </ul>
 			
 			<fieldset class="ui-grid-a">
-				<div class="ui-block-a"><a data-icon="plus" data-role="button">Add Group</a></div>
+				<div class="ui-block-a"><a data-rel="dialog" data-transition="pop" href="#newgroupDialog" data-icon="plus" data-role="button">Add Group</a></div>
 				<div class="ui-block-b"><a data-icon="gear" data-role="button">Edit Group</a></div>	   
 			</fieldset>
 			
-			<ul data-role="listview" data-inset="true">
+			<ul id="groupList" data-role="listview" data-inset="true">
                 <li data-role="list-divider" id="groupsHeader">Groups</li>
 				<li><a>Facet</a><ul data-role="listview" data-inset="true"></ul></li>
                 <li><a>NSERC</a><ul data-role="listview" data-inset="true"></ul></li>
@@ -171,7 +162,7 @@
 		</div>
 		<!-- -->
 		
-		<!-- PAGE 5 -->
+		<!-- POPUP -->
 		<div data-role="page" id="participantDialog">
 			<div data-role="header" data-position="inline">
 			<h1>Options</h1>
@@ -179,6 +170,19 @@
 			<div data-role="content">
 				<a data-icon="plus" data-role="button">Add to Group</a>
 				<a data-icon="delete" data-role="button">Delete</a>
+			</div>
+		</div>
+		<!-- -->
+		
+		<!-- POPUP -->
+		<div data-role="page" id="newgroupDialog">
+			<div data-role="header" data-position="inline">
+			<h1>New Group</h1>
+			</div>
+			<div data-role="content">
+				<label for="createGroupLabel" class="ui-hidden-accessible">Group Name:</label>
+				<input type="text" name="name" id="createGroupLabel" placeholder="Group Name"/>
+				<a onclick="$(this).newGroup();" data-icon="check" data-role="button">Create</a>
 			</div>
 		</div>
 		<!-- -->
