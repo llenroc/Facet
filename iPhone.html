@@ -165,11 +165,11 @@
 		<!-- POPUP -->
 		<div data-role="page" id="participantDialog">
 			<div data-role="header" data-position="inline">
-			<h1>Options</h1>
+			<h1 id="optionHeader">Options</h1>
 			</div>
 			<div data-role="content">
 				<a data-icon="plus" data-role="button">Add to Group</a>
-				<a data-icon="delete" data-role="button">Delete</a>
+				<a onclick="$(this).deleteUser();" data-icon="delete" data-role="button">Delete</a>
 			</div>
 		</div>
 		<!-- -->
