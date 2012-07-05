@@ -30,7 +30,15 @@ $(function() {
             $the_ul.trigger('create');
         }
     });
+		
+	$("#editGroupButton").click(function() {
+		$(this).addUserToGroup("Daniel", 1);
+	});
 	
+});
+
+$(document).bind("mobileinit", function(){
+	$.mobile.page.prototype.options.addBackBtn = true;
 });
 
 $.fn.newGroup = function() {
@@ -47,6 +55,11 @@ $.fn.newGroup = function() {
 $.fn.deleteUser = function() {
 	$("#participantList").children().slice(selectedName.index(),selectedName.index()+1).remove();
 	$('#participantDialog').dialog('close');
+};
+
+$.fn.addUserToGroup = function(name, index) {
+	$("#groupList li:eq("+index+")").append("<li>"+name+"</li>");
+
 };
 
 
