@@ -31,13 +31,17 @@ $(function() {
             $the_ul.trigger('create');
         }
     });
+	
+	$(".group").live("click", function() {
+		$(this).nextUntil(".ui-li-divider").toggle();
+	});
 			
 });
  
 $.fn.newGroup = function() {
 	var name = $("#createGroupLabel").val();
 	if(name != "") {
-		$("#groupList").append("<li data-role='list-divider'>"+ name + "</li>");
+		$("#groupList").append("<li class='group' data-role='list-divider'>"+ name + "</li>");
 		$(".groupListPop").append("<li><a>"+ name + "</a></li>");
 		$('#groupList').listview('refresh');
 		$('#newgroupDialog').dialog('close');
@@ -66,6 +70,3 @@ $.fn.createItem = function(type, link, name) {
 	$('#workspaceList').listview('refresh');
 };
 
-$.fn.hideGroup = function() {
-	//$(this).parent().parent().parent().find("li").css("background-color","red");
-};
