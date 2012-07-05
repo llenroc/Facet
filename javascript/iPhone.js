@@ -38,7 +38,7 @@ $(function() {
 		} else {
 			$(this).addClass("hidden");
 		}
-		$(this).nextUntil(".ui-li-divider").toggle('fast');
+		$(this).nextUntil(".ui-li-divider").toggle();
 	});
 			
 });
