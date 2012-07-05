@@ -41,7 +41,7 @@ $(function() {
 $.fn.newGroup = function() {
 	var name = $("#createGroupLabel").val();
 	if(name != "") {
-		$("#groupList").append("<li class='group' data-role='list-divider'>"+ name + "</li>");
+		$("#groupList").append("<li class='group' data-role='list-divider'><div class='name'>"+ name + "</div><div class='ui-li-count'>0</div></li>");
 		$(".groupListPop").append("<li><a>"+ name + "</a></li>");
 		$('#groupList').listview('refresh');
 		$('#newgroupDialog').dialog('close');
@@ -56,9 +56,11 @@ $.fn.deleteUser = function() {
 
 $.fn.addUserToGroup = function(name, groupName) {
 
-	$("#groupList li").each(function(index) {
+	$("#groupList li .name").each(function(index) {
 		if(groupName == $(this).text()) {
-			$(this).after("<li>"+name+"</li>");
+			$(this).parent().after("<li>"+name+"</li>");
+			var count = parseInt($(this).parent().find(".ui-li-count").text()) + 1;
+			$(this).parent().find(".ui-li-count").text(count);
 			$('#groupList').listview('refresh');
 		}
 	});	
