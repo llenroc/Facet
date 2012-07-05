@@ -22,10 +22,15 @@ $(function() {
 		$(asd).find("ul").append("<li>sup</li");
 	});
 	
-	$("body").bind("taphold", function() {
-		alert("taphold");
-	});
-
+	$('#addToGroupDialog').on('pagecreate pageshow', function (event) {
+		var $the_ul = $('.groupListPop');
+        if ($the_ul.hasClass('ui-listview')) {
+            $the_ul.listview('refresh');
+        } else {
+            $the_ul.trigger('create');
+        }
+    });
+	
 });
 
 $.fn.newGroup = function() {
