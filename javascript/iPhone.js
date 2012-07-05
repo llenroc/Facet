@@ -19,7 +19,7 @@ $(function() {
 		var text = selectedGroup.text();
 		var text2 = text.substring(0,text.length-1);
 		$(this).addUserToGroup(selectedName.text(),text2);
-		$('.ui-dialog').dialog('close');
+		window.history.go(-2);
 		
 	});
 	
@@ -58,6 +58,7 @@ $.fn.addUserToGroup = function(name, groupName) {
 			$('#groupList').listview('refresh');
 		}
 	});	
+
 };
 
 $.fn.createItem = function(type, link, name) {
@@ -66,7 +67,5 @@ $.fn.createItem = function(type, link, name) {
 };
 
 $.fn.hideGroup = function() {
-	console.log("here");
-	$(this).parent().parent().parent().find("li").css("background-color","red");
+	//$(this).parent().parent().parent().find("li").css("background-color","red");
 };
-
