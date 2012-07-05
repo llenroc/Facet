@@ -8,6 +8,7 @@
 		<script src="javascript/jquery/jquery-1.7.2.min.js"></script>
 		<script src="javascript/jquery/jquery.mobile-1.1.0.min.js"></script>
 		
+		<script type="text/javascript" src="javascript/publicsquare.js"> </script>
 		<script type="text/javascript" src="javascript/iPhone.js"></script>
 		<script type="text/javascript" src="javascript/ajax.js"> </script>
         <script type="text/javascript" src="javascript/model.js"> </script>
@@ -56,7 +57,7 @@
 				<div data-role="navbar">
 				<ul>
 					<li><a data-transition="slidefade" href="#participants" class="ui-btn-active">Participants</a></li>
-					<li><a data-transition="slidefade" href="#workspace">Workspace</a></li>
+					<li><a onclick="PS.ajax.getSurveys(PS.model.getSurveysCallback);" data-transition="slidefade" href="#workspace">Workspace</a></li>
 					<li><a data-transition="slidefade" href="#queue">Queue</a></li>
 					<li><a data-transition="slidefade" href="#map">Map</a></li>
 					<li><a data-transition="slidefade" href="#sharedScreen">Shared Screen</a></li>
@@ -99,7 +100,7 @@
 				<div data-role="navbar">
 				<ul>
 					<li><a data-transition="slidefade" href="#participants">Participants</a></li>
-					<li><a data-transition="slidefade" href="#workspace" class="ui-btn-active">Workspace</a></li>
+					<li><a onclick="PS.ajax.getSurveys(PS.model.getSurveysCallback);" data-transition="slidefade" href="#workspace" class="ui-btn-active">Workspace</a></li>
 					<li><a data-transition="slidefade" href="#queue">Queue</a></li>
 					<li><a data-transition="slidefade" href="#map">Map</a></li>
 					<li><a data-transition="slidefade" href="#sharedScreen">Shared Screen</a></li>
@@ -124,7 +125,7 @@
 				<div data-role="navbar">
 				<ul>
 					<li><a data-transition="slidefade" href="#participants">Participants</a></li>
-					<li><a data-transition="slidefade" href="#workspace">Workspace</a></li>
+					<li><a onclick="PS.ajax.getSurveys(PS.model.getSurveysCallback);" data-transition="slidefade" href="#workspace">Workspace</a></li>
 					<li><a data-transition="slidefade" href="#queue" class="ui-btn-active">Queue</a></li>
 					<li><a data-transition="slidefade" href="#map">Map</a></li>
 					<li><a data-transition="slidefade" href="#sharedScreen">Shared Screen</a></li>
@@ -148,7 +149,7 @@
 				<div data-role="navbar">
 				<ul>
 					<li><a data-transition="slidefade" href="#participants">Participants</a></li>
-					<li><a data-transition="slidefade" href="#workspace">Workspace</a></li>
+					<li><a onclick="PS.ajax.getSurveys(PS.model.getSurveysCallback);" data-transition="slidefade" href="#workspace">Workspace</a></li>
 					<li><a data-transition="slidefade" href="#queue">Queue</a></li>
 					<li><a data-transition="slidefade" href="#map" class="ui-btn-active">Map</a></li>
 					<li><a data-transition="slidefade" href="#sharedScreen">Shared Screen</a></li>
@@ -173,7 +174,7 @@
 				<div data-role="navbar">
 				<ul>
 					<li><a data-transition="slidefade" href="#participants">Participants</a></li>
-					<li><a data-transition="slidefade" href="#workspace">Workspace</a></li>
+					<li><a onclick="PS.ajax.getSurveys(PS.model.getSurveysCallback);" data-transition="slidefade" href="#workspace">Workspace</a></li>
 					<li><a data-transition="slidefade" href="#queue">Queue</a></li>
 					<li><a data-transition="slidefade" href="#map">Map</a></li>
 					<li><a data-transition="slidefade" href="#sharedScreen" class="ui-btn-active">Shared Screen</a></li>
