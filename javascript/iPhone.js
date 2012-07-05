@@ -33,6 +33,11 @@ $(function() {
     });
 	
 	$(".group").live("click", function() {
+		if($(this).hasClass("hidden")) {
+			$(this).removeClass("hidden");
+		} else {
+			$(this).addClass("hidden");
+		}
 		$(this).nextUntil(".ui-li-divider").toggle();
 	});
 			
@@ -58,7 +63,11 @@ $.fn.addUserToGroup = function(name, groupName) {
 
 	$("#groupList li .name").each(function(index) {
 		if(groupName == $(this).text()) {
-			$(this).parent().after("<li>"+name+"</li>");
+			var style="";
+			if($(this).parent().hasClass("hidden")) {
+				style = "style='display:none;'";
+			}
+			$(this).parent().after("<li " + style +">"+name+"</li>");
 			var count = parseInt($(this).parent().find(".ui-li-count").text()) + 1;
 			$(this).parent().find(".ui-li-count").text(count);
 			$('#groupList').listview('refresh', true);
