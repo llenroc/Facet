@@ -9,17 +9,18 @@ $(function() {
 	};
 	var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);	
 	
-	$("#participantList li").click(function() {
+	$("#participantList li").live("click", function() {
 		selectedName = $(this);
 		$("#optionHeader").text(selectedName.text());
 	});
 	
-	$(".groupListPop li").click(function() {
+	$(".groupListPop li:not([data-role='list-divider'])").live("click", function() {
 		selectedGroup = $(this);
-		var index = selectedGroup.index();
-		console.log(index);
-		var asd = $("#groupList").get(index);
-		$(asd).find("ul").append("<li>sup</li");
+		var text = selectedGroup.text();
+		var text2 = text.substring(0,text.length-1);
+		$(this).addUserToGroup(selectedName.text(),text2);
+		$('.ui-dialog').dialog('close');
+		
 	});
 	
 	$('#addToGroupDialog').on('pagecreate pageshow', function (event) {
@@ -30,21 +31,13 @@ $(function() {
             $the_ul.trigger('create');
         }
     });
-		
-	$("#editGroupButton").click(function() {
-		$(this).addUserToGroup("Daniel", 1);
-	});
-	
+			
 });
-
-$(document).bind("mobileinit", function(){
-	$.mobile.page.prototype.options.addBackBtn = true;
-});
-
+ 
 $.fn.newGroup = function() {
 	var name = $("#createGroupLabel").val();
 	if(name != "") {
-		$("#groupList").append("<li><a>"+ name + "</a><ul data-role='listview' data-inset='true'></ul></li>");
+		$("#groupList").append("<li data-role='list-divider'>"+ name + "</li>");
 		$(".groupListPop").append("<li><a>"+ name + "</a></li>");
 		$('#groupList').listview('refresh');
 		$('#newgroupDialog').dialog('close');
@@ -57,14 +50,23 @@ $.fn.deleteUser = function() {
 	$('#participantDialog').dialog('close');
 };
 
-$.fn.addUserToGroup = function(name, index) {
-	$("#groupList li:eq("+index+")").append("<li>"+name+"</li>");
+$.fn.addUserToGroup = function(name, groupName) {
 
+	$("#groupList li").each(function(index) {
+		if(groupName == $(this).text()) {
+			$(this).after("<li>"+name+"</li>");
+			$('#groupList').listview('refresh');
+		}
+	});	
 };
-
 
 $.fn.createItem = function(type, link, name) {
     $("#workspaceList").append("<li type=" + type + " title = '" + name + "'><a href='" + link + "'>" + name + "</a></li>");
 	$('#workspaceList').listview('refresh');
+};
+
+$.fn.hideGroup = function() {
+	console.log("here");
+	$(this).parent().parent().parent().find("li").css("background-color","red");
 };
 
