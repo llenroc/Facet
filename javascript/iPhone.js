@@ -49,3 +49,9 @@ $.fn.deleteUser = function() {
 	$('#participantDialog').dialog('close');
 };
 
+
+$.fn.createItem = function(type, link, name) {
+    $("#workspaceList").append("<li type=" + type + " title = '" + name + "'><a href='" + link + "'>" + name + "</a></li>");
+	$('#workspaceList').listview('refresh');
+};
+

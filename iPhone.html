@@ -9,6 +9,8 @@
 		<script src="javascript/jquery/jquery.mobile-1.1.0.min.js"></script>
 		
 		<script type="text/javascript" src="javascript/iPhone.js"></script>
+		<script type="text/javascript" src="javascript/ajax.js"> </script>
+        <script type="text/javascript" src="javascript/model.js"> </script>
 		
 		<script type="text/javascript"
 			src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBpiByGBcI98q-wB0U95uWlddFbYQ6qSmU&sensor=false">
@@ -71,13 +73,12 @@
 			<h1>Workspace</h1>
 			</div>
 			<div data-role="content">
-			
 			<div style="text-align:center;" data-role="controlgroup" data-type="horizontal">
-				<a data-mini="true" data-role="button">Audio</a>
+				<a onclick="$(this).createItem('audio','#','Audio');" data-mini="true" data-role="button">Audio</a>
 				<a data-mini="true" data-rel="dialog" data-transition="pop" href="#surveyDialog" data-role="button">Survey</a>
-				<a data-mini="true" data-role="button">File</a>
-				<a data-mini="true" data-role="button">Image</a>
-				<a data-mini="true" data-role="button">Document</a>
+				<a onclick="$(this).createItem('file','#','File');" data-mini="true" data-role="button">File</a>
+				<a onclick="$(this).createItem('image','#','Image');" data-mini="true" data-role="button">Image</a>
+				<a onclick="$(this).createItem('document','#','Document');" data-mini="true" data-role="button">Document</a>
 			</div>
 				
 			<ul id="workspaceList" data-role="listview" data-inset="true">
