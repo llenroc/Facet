@@ -101,7 +101,7 @@ PS.ajax.userDelete = function(userId, callback) {
 }
 
 
-PS.ajax.userIndex(event, callback) {
+PS.ajax.userIndex = function(event, callback) {
 	$.ajax({
 		type: "GET", // or PUT or DELETE, oddly enough
 		url: PS.ajax.getServerPrefix() + "restfacet/user/",
@@ -140,7 +140,7 @@ PS.ajax.surveyRetrieve = function(surveyId, callback) {
 //TODO: Drupal rest also supports node functions... do we need these?
 
 
-PS.ajax.nodeIndex(callback) {
+PS.ajax.nodeIndex = function(callback) {
 	$.ajax({
 		type: "GET",
 		url: PS.ajax.getServerPrefix() + "restfacet/node/",
