@@ -7,10 +7,11 @@
 		
 		<title>Facet Testing</title>
 		
-		
 		<link rel="stylesheet" href="css/mobile.min.css" />
 		<link rel="stylesheet" href="css/jquery.mobile.structure-1.1.0.min.css" />
 		<script src="javascript/jquery/jquery-1.7.2.min.js"></script>
+		
+		<!-- http://jquerymobile.com/demos/1.1.0/ -->
 		<script src="javascript/jquery/jquery.mobile-1.1.0.min.js"></script>
 		
 		<script type="text/javascript" src="javascript/server.js"> </script>
@@ -25,7 +26,30 @@
 		</script>
 				
 	</head>
+	
+	<!--
+	Each page has the following format
+	
+	<div data-role="page">
+			<div data-role="header" data-position="inline">
+			<a href="index.html" data-rel="back" data-icon="arrow-l">Back</a>
+			INSERT HEADER HERE
+			</div>
+			
+			<div data-role="content">
+			INSERT CONTENT HERE
+			</div>
+			
+			<div data-id="test" data-position="fixed" data-role="footer">
+			INSERT FOOTER HERE
+			</div>
+		</div>
+	
+	-->
+	
 	<body>
+	
+<!-- -----------------------------------------PARTICIPANTS--------------------------------------------------------------------------------- -->
 		<div data-role="page" id="participants">
 			<div data-role="header" data-position="inline">
 			<a href="index.html" data-rel="back" data-icon="arrow-l">Back</a>
@@ -74,7 +98,10 @@
 			</div>
 		</div>
 		
-		<!-- PAGE 2 -->
+<!-- ----------------------------------------------------------------------------------------------------------------------------------- -->
+		
+
+<!-- -----------------------------------------WORKSPACE--------------------------------------------------------------------------------- -->
 		<div data-role="page" id="workspace">
 			<div data-role="header" data-position="inline">
 			<a href="index.html" data-rel="back" data-icon="arrow-l">Back</a>
@@ -115,9 +142,10 @@
 				</div>
 			</div>
 		</div>
-		<!-- -->
+<!-- ----------------------------------------------------------------------------------------------------------------------------------- -->
 		
-		<!-- PAGE 3 -->
+		
+<!-- -----------------------------------------QUEUE------------------------------------------------------------------------------------- -->
 		<div data-role="page" id="queue">
 			<div data-role="header" data-position="inline">
 			<a href="index.html" data-rel="back" data-icon="arrow-l">Back</a>
@@ -140,9 +168,10 @@
 				</div>
 			</div>
 		</div>
-		<!-- -->
+<!-- ----------------------------------------------------------------------------------------------------------------------------------- -->
 		
-		<!-- PAGE 4 -->
+		
+<!-- -----------------------------------------MAP--------------------------------------------------------------------------------------- -->
 		<div data-role="page" id="map">
 			<div data-role="header" data-position="inline">
 			<a href="index.html" data-rel="back" data-icon="arrow-l">Back</a>
@@ -164,9 +193,10 @@
 				</div>
 			</div>
 		</div>
-		<!-- -->
+<!-- ----------------------------------------------------------------------------------------------------------------------------------- -->
 		
-		<!-- PAGE 4 -->
+		
+<!-- -----------------------------------------SHARED SCREEN----------------------------------------------------------------------------- -->
 		<div data-role="page" id="sharedScreen">
 			<div data-role="header" data-position="inline">
 			<a href="index.html" data-rel="back" data-icon="arrow-l">Back</a>
@@ -189,9 +219,10 @@
 				</div>
 			</div>
 		</div>
-		<!-- -->
+<!-- ----------------------------------------------------------------------------------------------------------------------------------- -->
 		
-		<!-- POPUP -->
+		
+<!-- -----------------------------------------PARTICIPANTS DIALOG---------------------------------------------------------------------- -->
 		<div data-role="page" id="participantDialog">
 			<div data-role="header" data-position="inline">
 			<h1 id="optionHeader">Options</h1>
@@ -201,9 +232,10 @@
 				<a id="deleteUserButton" onclick="$(this).deleteUser();" data-icon="delete" data-role="button">Delete User</a>
 			</div>
 		</div>
-		<!-- -->
-		
-		<!-- POPUP -->
+<!-- ----------------------------------------------------------------------------------------------------------------------------------- -->
+	
+	
+<!-- -----------------------------------------NEW GROUP DIALOG-------------------------------------------------------------------------- -->
 		<div data-role="page" id="newgroupDialog">
 			<div data-role="header" data-position="inline">
 			<h1>New Group</h1>
@@ -214,9 +246,10 @@
 				<a onclick="$(this).newGroup();" data-icon="check" data-role="button">Create</a>
 			</div>
 		</div>
-		<!-- -->
+<!-- ----------------------------------------------------------------------------------------------------------------------------------- -->
 		
-		<!-- POPUP -->
+		
+<!-- -----------------------------------------ADD TO GROUP DIALOG------------------------------------------------------------------------ -->
 		<div data-role="page" id="addToGroupDialog">
 			<div data-role="header" data-position="inline">
 			<h1>Add to</h1>
@@ -229,9 +262,10 @@
             </ul>	
 			</div>
 		</div>
-		<!-- -->
-		
-		<!-- POPUP -->
+<!-- ----------------------------------------------------------------------------------------------------------------------------------- -->
+	
+	
+<!-- -----------------------------------------SURVEY DIALOG------------------------------------------------------------------------------ -->
 		<div data-role="page" id="surveyDialog">
 			<div data-role="header" data-position="inline">
 			<h1>Survey</h1>
@@ -240,9 +274,10 @@
 				<object id="survey_canvas" width="100%" height="75%" class="facetsurvey" type="text/html" data="http://facetsurvey.4abyte.com"></object>
 			</div>
 		</div>
-		<!-- -->
+<!-- ----------------------------------------------------------------------------------------------------------------------------------- -->
 		
-		<!-- POPUP -->
+		
+<!-- -----------------------------------------WORKSPACE ITEM DIALOG--------------------------------------------------------------------- -->
 		<div data-role="page" id="workspaceDialog">
 			<div data-role="header" data-position="inline">
 			<h1 class="dialogHeader">Item</h1>
@@ -254,9 +289,10 @@
 				<a onclick="$(this).deleteItem();" data-icon="delete" data-role="button">Delete</a>
 			</div>
 		</div>
-		<!-- -->
+<!-- ----------------------------------------------------------------------------------------------------------------------------------- -->
 		
-		<!-- POPUP -->
+		
+<!-- -----------------------------------------OPEN FILE DIALOG--------------------------------------------------------------------------- -->
 		<div data-role="page" id="openDialog">
 			<div data-role="header" data-position="inline">
 			<h1 class="dialogHeader">Item</h1>
@@ -265,7 +301,7 @@
 				<object id="open_canvas" width="100%" height="75%" type="text/html" data=""></object>
 			</div>
 		</div>
-		<!-- -->
+<!-- ----------------------------------------------------------------------------------------------------------------------------------- -->
 		
 		
 		
