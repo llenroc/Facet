@@ -2,6 +2,16 @@ var selectedName;
 var selectedGroup;
 
 $(function() {
+	$(this).createItem('audio', "empty.html", "Audio");
+	$(this).createItem('file', "empty.html", "File");
+	$(this).createItem('image', "empty.html", "Image");
+	$(this).createItem('document', "empty.html", "Document");
+	$(this).createItem('file', "empty.html", "File");
+	$(this).createItem('file', "empty.html", "File");
+	$(this).createItem('audio', "empty.html", "Audio");
+	$(this).createItem('image', "empty.html", "Image");
+
+
 	var myOptions = {
 		center: new google.maps.LatLng(49.891235,-97.15369),
 		zoom: 4,
@@ -77,7 +87,7 @@ $.fn.addUserToGroup = function(name, groupName) {
 };
 
 $.fn.createItem = function(type, link, name) {
-    $("#workspaceList").append("<li type=" + type + " title = '" + name + "'><a href='" + link + "'>" + name + "</a></li>");
+    $("#workspaceList").append("<li data-filtertext='"+ name + " " + type + "' type=" + type + " title = '" + name + "'><a data-rel='dialog' data-transition='pop' href='#workspaceDialog' linkURL='" + link + "'>" + name + "</a></li>");
 	$('#workspaceList').listview('refresh');
 };
 
