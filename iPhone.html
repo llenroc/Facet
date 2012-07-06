@@ -64,7 +64,7 @@
 				<div data-role="navbar">
 				<ul>
 					<li><a data-transition="slidefade" href="#participants" class="ui-btn-active">Participants</a></li>
-					<li><a onclick="PS.ajax.getSurveys(PS.model.getSurveysCallback);" data-transition="slidefade" href="#workspace">Workspace</a></li>
+					<li><a onclick="PS.ajax.surveyIndex(PS.model.getSurveysCallback);" data-transition="slidefade" href="#workspace">Workspace</a></li>
 					<li><a data-transition="slidefade" href="#queue">Queue</a></li>
 					<li><a data-transition="slidefade" href="#map">Map</a></li>
 					<li><a data-transition="slidefade" href="#sharedScreen">Shared Screen</a></li>
@@ -89,10 +89,17 @@
 				<a onclick="$(this).createItem('document','#','Document');" data-mini="true" data-role="button">Document</a>
 			</div>
 				
-			</br>
-			
-			<ul data-filter="true" id="workspaceList" data-role="listview" data-inset="true">
+			<ul id="workspaceList" data-role="listview" data-inset="true">
                 <li data-role="list-divider" id="participantsHeader">Workspace</li>
+                <li><a data-rel="dialog" data-transition="pop" href="#workspaceDialog">File</a></li>
+                <li><a data-rel="dialog" data-transition="pop" href="#workspaceDialog">Image</a></li>
+                <li><a data-rel="dialog" data-transition="pop" href="#workspaceDialog">File</a></li>
+                <li><a data-rel="dialog" data-transition="pop" href="#workspaceDialog">Document</a></li>
+                <li><a data-rel="dialog" data-transition="pop" href="#workspaceDialog">Image</a></li>
+                <li><a data-rel="dialog" data-transition="pop" href="#workspaceDialog">Video</a></li>
+                <li><a data-rel="dialog" data-transition="pop" href="#workspaceDialog">Audio</a></li>
+                <li><a data-rel="dialog" data-transition="pop" href="#workspaceDialog">Document</a></li>
+                <li><a data-rel="dialog" data-transition="pop" href="#workspaceDialog">Survey</a></li>
             </ul>
 				
 			</div>
@@ -100,7 +107,7 @@
 				<div data-role="navbar">
 				<ul>
 					<li><a data-transition="slidefade" href="#participants">Participants</a></li>
-					<li><a onclick="PS.ajax.getSurveys(PS.model.getSurveysCallback);" data-transition="slidefade" href="#workspace" class="ui-btn-active">Workspace</a></li>
+					<li><a onclick="PS.ajax.surveyIndex(PS.model.getSurveysCallback);" data-transition="slidefade" href="#workspace" class="ui-btn-active">Workspace</a></li>
 					<li><a data-transition="slidefade" href="#queue">Queue</a></li>
 					<li><a data-transition="slidefade" href="#map">Map</a></li>
 					<li><a data-transition="slidefade" href="#sharedScreen">Shared Screen</a></li>
@@ -125,7 +132,7 @@
 				<div data-role="navbar">
 				<ul>
 					<li><a data-transition="slidefade" href="#participants">Participants</a></li>
-					<li><a onclick="PS.ajax.getSurveys(PS.model.getSurveysCallback);" data-transition="slidefade" href="#workspace">Workspace</a></li>
+					<li><a onclick="PS.ajax.surveyIndex(PS.model.getSurveysCallback);" data-transition="slidefade" href="#workspace">Workspace</a></li>
 					<li><a data-transition="slidefade" href="#queue" class="ui-btn-active">Queue</a></li>
 					<li><a data-transition="slidefade" href="#map">Map</a></li>
 					<li><a data-transition="slidefade" href="#sharedScreen">Shared Screen</a></li>
@@ -149,7 +156,7 @@
 				<div data-role="navbar">
 				<ul>
 					<li><a data-transition="slidefade" href="#participants">Participants</a></li>
-					<li><a onclick="PS.ajax.getSurveys(PS.model.getSurveysCallback);" data-transition="slidefade" href="#workspace">Workspace</a></li>
+					<li><a onclick="PS.ajax.surveyIndex(PS.model.getSurveysCallback);" data-transition="slidefade" href="#workspace">Workspace</a></li>
 					<li><a data-transition="slidefade" href="#queue">Queue</a></li>
 					<li><a data-transition="slidefade" href="#map" class="ui-btn-active">Map</a></li>
 					<li><a data-transition="slidefade" href="#sharedScreen">Shared Screen</a></li>
@@ -174,7 +181,7 @@
 				<div data-role="navbar">
 				<ul>
 					<li><a data-transition="slidefade" href="#participants">Participants</a></li>
-					<li><a onclick="PS.ajax.getSurveys(PS.model.getSurveysCallback);" data-transition="slidefade" href="#workspace">Workspace</a></li>
+					<li><a onclick="PS.ajax.surveyIndex(PS.model.getSurveysCallback);" data-transition="slidefade" href="#workspace">Workspace</a></li>
 					<li><a data-transition="slidefade" href="#queue">Queue</a></li>
 					<li><a data-transition="slidefade" href="#map">Map</a></li>
 					<li><a data-transition="slidefade" href="#sharedScreen" class="ui-btn-active">Shared Screen</a></li>
@@ -187,7 +194,7 @@
 		<!-- POPUP -->
 		<div data-role="page" id="participantDialog">
 			<div data-role="header" data-position="inline">
-			<h1 class="dialogHeader">Options</h1>
+			<h1 id="optionHeader">Options</h1>
 			</div>
 			<div data-role="content">
 				<a data-rel="dialog" data-transition="pop" href="#addToGroupDialog" data-icon="plus" data-role="button">Add to Group</a>
@@ -259,7 +266,6 @@
 			</div>
 		</div>
 		<!-- -->
-		
 		
 		
 		

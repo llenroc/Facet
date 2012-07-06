@@ -11,7 +11,7 @@ $(function() {
 	$(this).makeParticipantsDroppable();
 	$(this).makeFilesDroppable();
 	$( "#tabs" ).tabs();
-	PS.ajax.getSurveys(PS.model.getSurveysCallback);
+	PS.ajax.surveyIndex(PS.model.getSurveysCallback);
 	
 	var scrollable = document.getElementById("participantList");
 	new ScrollFix(scrollable);
