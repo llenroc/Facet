@@ -1,4 +1,4 @@
-var selectedName;
+var selectedItem;
 var selectedGroup;
 
 $(function() {
@@ -19,16 +19,16 @@ $(function() {
 	};
 	var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);	
 	
-	$("#participantList li").live("click", function() {
-		selectedName = $(this);
-		$("#optionHeader").text(selectedName.text());
+	$("#participantList li, #workspaceList li").live("click", function() {
+		selectedItem = $(this);
+		$(".dialogHeader").text(selectedItem.text());
 	});
 	
 	$(".groupListPop li:not([data-role='list-divider'])").live("click", function() {
 		selectedGroup = $(this);
 		var text = selectedGroup.text();
 		var text2 = text.substring(0,text.length-1);
-		$(this).addUserToGroup(selectedName.text(),text2);
+		$(this).addUserToGroup(selectedItem.text(),text2);
 		window.history.go(-2);
 		
 	});
@@ -65,8 +65,13 @@ $.fn.newGroup = function() {
 };
 
 $.fn.deleteUser = function() {
-	$("#participantList").children().slice(selectedName.index(),selectedName.index()+1).remove();
-	$('#participantDialog').dialog('close');
+	$("#participantList").children().slice(selectedItem.index(),selectedItem.index()+1).remove();
+	$('.ui-dialog').dialog('close');
+};
+
+$.fn.deleteItem = function() {
+	$("#workspaceList").children().slice(selectedItem.index(),selectedItem.index()+1).remove();
+	$('.ui-dialog').dialog('close');
 };
 
 $.fn.addUserToGroup = function(name, groupName) {
