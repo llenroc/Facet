@@ -1,7 +1,10 @@
+// When clicking on a li from #participantList or #workspaceList, this is updated with the li itself. Later on it is used to provide information about what was originally clicked on
 var selectedItem;
 var selectedGroup;
 
 $(function() {
+
+	// Populate the workspace with some sample items
 	$(this).createItem('audio', "empty.html", "Audio");
 	$(this).createItem('file', "empty.html", "File");
 	$(this).createItem('image', "empty.html", "Image");
@@ -11,7 +14,7 @@ $(function() {
 	$(this).createItem('audio', "empty.html", "Audio");
 	$(this).createItem('image', "empty.html", "Image");
 
-
+	// Initialize the Google Map to be zoomed in on the lat/long
 	var myOptions = {
 		center: new google.maps.LatLng(49.891235,-97.15369),
 		zoom: 4,
@@ -19,16 +22,23 @@ $(function() {
 	};
 	var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);	
 	
+	
+	// Saves the li to selectedItem to be used later on
 	$("#participantList li, #workspaceList li").live("click", function() {
 		selectedItem = $(this);
+		
+		// Change header to be more approprate for the item that was clicked on
 		$(".dialogHeader").text(selectedItem.text());
 	});
 	
+	// When clicking on an item from the group dialog that isn't a header, this gets called. It formats the string to get rid of trailing spaces and then adds the user to the selected group.
 	$(".groupListPop li:not([data-role='list-divider'])").live("click", function() {
 		selectedGroup = $(this);
 		var text = selectedGroup.text();
 		var text2 = text.substring(0,text.length-1);
 		$(this).addUserToGroup(selectedItem.text(),text2);
+		
+		// Go back 2 dialog boxes (to the main screen)
 		window.history.go(-2);
 		
 	});
@@ -94,5 +104,9 @@ $.fn.addUserToGroup = function(name, groupName) {
 $.fn.createItem = function(type, link, name) {
     $("#workspaceList").append("<li data-filtertext='"+ name + " " + type + "' type=" + type + " title = '" + name + "'><a data-rel='dialog' data-transition='pop' href='#workspaceDialog' linkURL='" + link + "'>" + name + "</a></li>");
 	$('#workspaceList').listview('refresh');
+};
+
+$.fn.changeOpenFile = function() {
+	console.log(selectedItem.text());
 };
 

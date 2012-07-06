@@ -1,10 +1,15 @@
 <html>
 	<head>
 		<meta charset="utf-8">
+		
+		<!-- Mobile tag to disable zooming and also set the viewport -->
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=0" />
+		
 		<title>Facet Testing</title>
+		
+		
 		<link rel="stylesheet" href="css/mobile.min.css" />
-		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.1.0/jquery.mobile.structure-1.1.0.min.css" />
+		<link rel="stylesheet" href="css/jquery.mobile.structure-1.1.0.min.css" />
 		<script src="javascript/jquery/jquery-1.7.2.min.js"></script>
 		<script src="javascript/jquery/jquery.mobile-1.1.0.min.js"></script>
 		
@@ -14,7 +19,7 @@
 		<script type="text/javascript" src="javascript/ajax.js"> </script>
         <script type="text/javascript" src="javascript/model.js"> </script>
 		
-		
+		<!-- Javascript for Google Maps -->
 		<script type="text/javascript"
 			src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBpiByGBcI98q-wB0U95uWlddFbYQ6qSmU&sensor=false">
 		</script>
@@ -236,10 +241,21 @@
 			<h1 class="dialogHeader">Item</h1>
 			</div>
 			<div data-role="content">
-				<a data-role="button">Open</a>
+				<a onclick="$(this).changeOpenFile();" data-rel="dialog" data-transition="pop" href="#openDialog" data-role="button">Open</a>
 				<a data-role="button">Send to Queue</a>
 				<a data-role="button">Share</a>
 				<a onclick="$(this).deleteItem();" data-icon="delete" data-role="button">Delete</a>
+			</div>
+		</div>
+		<!-- -->
+		
+		<!-- POPUP -->
+		<div data-role="page" id="openDialog">
+			<div data-role="header" data-position="inline">
+			<h1 class="dialogHeader">Item</h1>
+			</div>
+			<div data-role="content">
+				<object id="open_canvas" width="100%" height="75%" type="text/html" data=""></object>
 			</div>
 		</div>
 		<!-- -->
