@@ -85,17 +85,17 @@ $(function() {
 	//Placeholder to populate workspace	
 	$(this).createItem('audio', "empty.html", "Audio");
 	$(this).createItem('file', "empty.html", "File");
-	$(this).createItem('image', "empty.html", "Image");
+	$(this).createItem('images', "empty.html", "Image");
 	$(this).createItem('document', "empty.html", "Document");
 	$(this).createItem('file', "empty.html", "File");
 	$(this).createItem('file', "empty.html", "File");
 	$(this).createItem('audio', "empty.html", "Audio");
-	$(this).createItem('image', "empty.html", "Image");
+	$(this).createItem('images', "empty.html", "Image");
 	$(this).createItem('document', "empty.html", "Document");
-	$(this).createItem('image', "empty.html", "Image");
+	$(this).createItem('images', "empty.html", "Image");
 	$(this).createItem('file', "empty.html", "File");
 	$(this).createItem('audio', "empty.html", "Audio");
-	$(this).createItem('image', "empty.html", "Image");
+	$(this).createItem('images', "empty.html", "Image");
 	$(this).createItem('document', "empty.html", "Document");
 	$(this).createItem('file', "empty.html", "File");
 	$(this).createItem('file', "empty.html", "File");

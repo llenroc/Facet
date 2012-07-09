@@ -1,0 +1,21 @@
+$(function() {
+	
+
+
+});
+
+$.fn.login = function() {
+	$("#error").css("display", "none");
+	var username = $("#username").val();
+	var password = $("#password").val();
+	PS.ajax.userLogin(username,password, loginPassed , loginFailed );
+};
+
+function loginPassed() {
+	console.log("login passed");
+	window.location = "main.html";
+}
+
+function loginFailed() {
+	$("#error").css("display", "block");
+}

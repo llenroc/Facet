@@ -4,16 +4,19 @@ var selectedGroup;
 
 $(function() {
 
+
 	// Populate the workspace with some sample items
 	$(this).createItem('audio', "empty.html", "Audio");
 	$(this).createItem('file', "empty.html", "File");
-	$(this).createItem('image', "empty.html", "Image");
+	$(this).createItem('images', "empty.html", "Image");
 	$(this).createItem('document', "empty.html", "Document");
 	$(this).createItem('file', "empty.html", "File");
 	$(this).createItem('file', "empty.html", "File");
 	$(this).createItem('audio', "empty.html", "Audio");
-	$(this).createItem('image', "empty.html", "Image");
+	$(this).createItem('images', "empty.html", "Image"); 
+	
 
+	
 	// Initialize the Google Map to be zoomed in on the lat/long
 	var myOptions = {
 		center: new google.maps.LatLng(49.891235,-97.15369),
@@ -21,7 +24,7 @@ $(function() {
 		mapTypeId: google.maps.MapTypeId.ROADMAP
 	};
 	var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);	
-	
+		
 	
 	// Saves the li to selectedItem to be used later on
 	$("#participantList li, #workspaceList li").live("click", function() {
@@ -42,9 +45,10 @@ $(function() {
 		window.history.go(-2);
 		
 	});
-	
-	// A fix to an error I was having if I tried to refresh the dialog list
+				
+	// A fix to an error I was having i f I tried to refresh the dialog list
 	$('#addToGroupDialog').on('pagecreate pageshow', function (event) {
+
 		var $the_ul = $('.groupListPop');
         if ($the_ul.hasClass('ui-listview')) {
             $the_ul.listview('refresh');
@@ -52,7 +56,7 @@ $(function() {
             $the_ul.trigger('create');
         }
     });
-	
+				
 	// Hiding function
 	$(".group").live("click", function() {
 		// .hidden is used for when adding users to a group. If a user is added to a group that is hidden, the users is hidden
@@ -138,7 +142,7 @@ $.fn.createItem = function(type, link, name) {
     $("#workspaceList").append("<li data-filtertext='"+ name + " " + type + "' type=" + type + " title = '" + name + "'><a data-rel='dialog' data-transition='pop' href='#workspaceDialog' linkURL='" + link + "'>" + name + "</a></li>");
 
 	// Refreshes list
-	$('#workspaceList').listview('refresh');
+	//$('#workspaceList').listview('refresh');
 };
 
 $.fn.changeOpenFile = function() {

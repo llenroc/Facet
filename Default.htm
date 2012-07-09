@@ -5,24 +5,14 @@
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
 <meta name="viewport" content="user-scalable=no, width=device-width" />
 <title>Login Page</title>
-<style type="text/css">
- #container {     
-        display:table;     
-        border-collapse:collapse;   
-        height:500px;   
-        width:100%; 
-        
-    }          
-    #layout {     
-        display:table-row;    
-    }            
-    #content {     
-        display:table-cell;   
-        text-align:center;  
-        vertical-align:middle;     
-    }            
 
-</style>
+<link rel="stylesheet" href="css/login.css" />
+
+<script src="javascript/jquery/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="javascript/publicsquare.js"> </script>
+<script type="text/javascript" src="javascript/ajax.js"> </script>
+<script type="text/javascript" src="javascript/login.js"></script>
+
 
 </head>
 
@@ -30,17 +20,18 @@
 
     
 <div id="container">     
-    <div id="layout">     
+    <div id="layout">  
+		<center>   
         <div id="content">
-        	<h2>
-        		Session Login:
-        	</h2>
-            <form action="Main.html">
-				Username: <input type="text" name="username" /><br />
-				Password: <input type="password" name="password" /><br />
-				<input type="submit" value="submit"/>
-			</form>
-        </div>      
+        	<h1>
+        		Login:
+        	</h1> </br>
+				Username: <input id="username" type="text" name="username" /><br />
+				Password: <input id="password" type="password" name="password" /><br />
+				<p id="error" style="display:none;color:red;">Wrong Username or Password</p>
+				<input onclick="$(this).login();" type="submit" value="Submit"/>
+        </div>  
+		</center>    
     </div>    
 </div> 
 

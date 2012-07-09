@@ -29,12 +29,13 @@ PS.ajax.getServerPrefix = function() {
 //Unsecured: login, create
 //Secured: logout, index, update, everything else ... ?
 
-PS.ajax.userLogin = function (username, password, callback) {
+PS.ajax.userLogin = function (username, password, callback , errorCallback) {
 	$.ajax({
 		type: "POST",
 		url: PS.ajax.getServerPrefix() + "restfacet/user/login",
 		dataType: "json",
 		success: function(data, textStatus, jqXHR) { PS.ajax.setCookie(data, textStatus, jqXHR); callback(data, textStatus, jqXHR); },
+		error: errorCallback,
 		data: {username: username, password: password}
 		
 	});
@@ -52,7 +53,7 @@ PS.ajax.userLogout = function (callback) {
 //Not an ajax call, just a local utility function. 
 //TODO: Only needs to be called when using reverse proxy for local development ... 
 PS.ajax.setCookie = function (data, textStatus, jqXHR) {
-		session = data;
+		var session = data;
 		var today = new Date();
 		var expire = new Date();
 		expire.setTime(today.getTime() + 3600000*24*30); // 30 days
