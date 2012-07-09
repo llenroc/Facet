@@ -18,7 +18,7 @@ $.fn.login = function() {
 function loginPassed() {
 	console.log("login passed");
 	alert(screen.width);
-	if( screen.width <= 480 ) {
+	if( screen.width <= 720 ) {
 		window.location = '/iphone.html';
 	} else {
 		window.location = "main.html";
