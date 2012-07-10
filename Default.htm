@@ -36,11 +36,21 @@
         <div id="content">
         	<h1>
         		Login:
-        	</h1> </br>
-				Username: <input id="username" type="text" name="username" /><br />
-				Password: <input id="password" type="password" name="password" /><br />
-				<p id="error" style="display:none;color:red;">Wrong Username or Password</p>
-				<input onclick="$(this).login();" type="submit" value="Submit"/>
+        	</h1> <br />
+            <table align="center">
+            <tr>
+				<td>Username: </td>
+                <td><input id="username" type="text" name="username" /></td>
+            </tr>
+            <tr>
+				<td>Password: </td>
+                <td><input id="password" type="password" name="password" /></td>
+            </tr>
+            </table>
+
+			<p id="error" style="display:none;color:red;">Wrong Username or Password</p>
+			<input onclick="$(this).login();" type="submit" value="Submit"/>
+            <p>New Users <a href="SignUp.html" style="color:Blue">Sign Up Here</a></p>
         </div>  
 		</center>    
     </div>    
