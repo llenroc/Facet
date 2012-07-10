@@ -1,4 +1,6 @@
 $(function() {
+
+	// Detects if user presses enter in the password box.
 	$("#password").keypress(function(e) {
 		if(e.which == 10 || e.which == 13) {
             $(this).login();
