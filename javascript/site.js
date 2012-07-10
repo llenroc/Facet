@@ -114,9 +114,6 @@ $(function() {
 	
 	$("body").disableSelection();
 	
-
-	
-
 });
 
 $.fn.slideItems = function() {

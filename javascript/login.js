@@ -1,5 +1,9 @@
 $(function() {
-	
+	$("#password").keypress(function(e) {
+		if(e.which == 10 || e.which == 13) {
+            $(this).login();
+        }
+	});
 
 
 });
@@ -13,7 +17,12 @@ $.fn.login = function() {
 
 function loginPassed() {
 	console.log("login passed");
-	window.location = "main.html";
+	if( screen.width <= 720 ) {
+		window.location = 'iphone.html';
+	} else {
+		window.location = "main.html";
+	}
+
 }
 
 function loginFailed() {
