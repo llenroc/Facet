@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+
+<html>
+
+    <head>
+
+    <script src="javascript/publicsquare.js"> </script>
+    <script src="javascript/jquery/jquery-1.7.2.min.js"> </script>
+    <script src="javascript/ajax.js"> </script>
+    
+
+    <script> 
+
+        var id = 9;
+    
+        function callback(json, textStatus, jqXHR) {
+                console.log(json);
+                console.log(jqXHR);
+                console.log(document.cookie);
+            }
+    
+        function userretrieve(event) {
+            PS.ajax.userRetrieve(id, callback);
+        }
+
+        function usercreate(event) {
+            PS.ajax.userCreate("uofctest", "discardable87@gmail.com", "testahoy", callback);
+        }
+
+
+        function userupdate(event) {
+            PS.ajax.userUpdate(id, {pass:"testahoy"} , callback);
+        }
+
+
+        function userdelete(event) { 
+            PS.ajax.userDelete(id, callback);
+        }
+
+
+        function userindex(event) {
+            PS.ajax.userIndex(callback);
+        }
+
+
+        function useractionlogin(event) {
+            //PS.ajax.userLogin("uofctest", "testahoy", callback);
+            PS.ajax.userLogin("uofctest", "", callback);
+            //PS.ajax.userLogin("PatrickKing2", "baz", callback);
+            //PS.ajax.userLogin("PatrickKing", "baz", callback);
+            //PS.ajax.userLogin("admin", "112114", callback);
+            
+        }
+
+
+        function useractionlogout(event)   {
+            PS.ajax.userLogout(callback);
+            clearCookies();
+        }
+
+        
+        function clearCookies() {
+            var cookies = document.cookie.split( ';' );
+                for ( i = 0; i < cookies.length; i++ ) {
+                    var cookieParts = cookies[i].split("=");
+                    document.cookie = cookieParts[0] + "=;expires=Thu, 01-Jan-1970 00:00:01 GMT";
+                }                
+        
+            
+
+        }
+        
+    </script>
+
+    </head>
+
+    <body>
+
+        <button onClick="useractionlogin(event);"> useractionlogin </button>
+        <button onClick="useractionlogout(event);"> useractionlogout </button>
+        <button onClick="userindex(event);"> userindex </button>
+        <button onClick="userretrieve(event);"> userretrieve </button>
+
+        <button onClick="usercreate(event);"> usercreate </button>
+        <button onClick="userupdate(event);"> userupdate </button>
+        <button onClick="userdelete(event);"> userdelete </button>
+
+
+    </body>
+
+</html>

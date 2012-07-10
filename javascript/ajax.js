@@ -58,9 +58,10 @@ PS.ajax.setCookie = function (data, textStatus, jqXHR) {
 		var expire = new Date();
 		expire.setTime(today.getTime() + 3600000*24*30); // 30 days
 		document.cookie = session.session_name+"="+escape(session.sessid)
-			+ ";expires="+expire.toGMTString();
+			+ ";expires="+expire.toGMTString() + "; path=/";
 }
-    
+
+// Requires administrator powers, for accounts other than your own
 PS.ajax.userRetrieve = function(userId, callback) {
 	$.ajax({
 		type: "GET",
@@ -70,6 +71,7 @@ PS.ajax.userRetrieve = function(userId, callback) {
 	});
 }
 
+//TODO: Account creation works, but there are two issues. 1) Users are created 'blocked' and 2) the password field seems to be ignored.
 PS.ajax.userCreate = function(username, email, password, callback) {
 	$.ajax({
 		type: "POST",
@@ -80,7 +82,7 @@ PS.ajax.userCreate = function(username, email, password, callback) {
 	});
 }
 
-
+// data should be an object, with key/value pairs for each field to be updated
 PS.ajax.userUpdate = function(userId, data, callback) {
 	$.ajax({
 		type: "PUT",
@@ -91,7 +93,7 @@ PS.ajax.userUpdate = function(userId, data, callback) {
 	});
 }
 
-
+// Requires administrator powers
 PS.ajax.userDelete = function(userId, callback) {
 	$.ajax({
 		type: "DELETE", 
@@ -101,8 +103,8 @@ PS.ajax.userDelete = function(userId, callback) {
 	});
 }
 
-
-PS.ajax.userIndex = function(event, callback) {
+// Requires administrator powers
+PS.ajax.userIndex = function(callback) {
 	$.ajax({
 		type: "GET", // or PUT or DELETE, oddly enough
 		url: PS.ajax.getServerPrefix() + "restfacet/user/",
