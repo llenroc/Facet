@@ -21,18 +21,11 @@ $.fn.logout = function() {
 
 function logoutPassed(json, textStatus, jqXHR) {
 	console.log("Logout Passed");
-	console.log(json);
-	console.log(jqXHR);
-	console.log(document.cookie);
 }
 
 function loginPassed(json, textStatus, jqXHR) {
 	console.log("Login Passed");
-	
-	console.log(json);
-	console.log(jqXHR);
-	console.log(document.cookie);
-				
+					
 	if( screen.width <= 720 ) {
 		window.location = 'iphone.html';
 	} else {
@@ -41,21 +34,22 @@ function loginPassed(json, textStatus, jqXHR) {
 }
 
 function loginFailed(json, textStatus, jqXHR) {
-	$("#error").text(jqXHR);
-	$("#error").css("display", "block");
-	
 	console.log("Login Failed");
 		
+	var message = json.statusText.split(": ")[1];
 	switch(json.status) {
 		case 401:
-			console.log("401");
+			$("#error").text(message);
 			break;
 		case 406:
+			$("#error").text(message);
 			break;
 		default:
-		
+			$("#error").text("Uncaught Error: " + jqXHR);
 			break;
 	}
+	
+	$("#error").css("display", "block");
 	
 	//console.log(json);
 	//console.log(jqXHR);

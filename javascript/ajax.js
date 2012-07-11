@@ -82,6 +82,7 @@ PS.ajax.userCreate = function(username, email, password, callback) {
 	});
 }
 
+
 // data should be an object, with key/value pairs for each field to be updated
 PS.ajax.userUpdate = function(userId, data, callback) {
 	$.ajax({
