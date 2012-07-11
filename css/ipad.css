@@ -35,6 +35,11 @@
 	left:990px;
 }
 
+#leftArrow {
+	visibility: visible;
+	top:50px;
+}
+
 .workspace {
 	width: 774px;
 	height: 550px;
