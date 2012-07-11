@@ -121,6 +121,12 @@ $.fn.slideItems = function() {
 		$(".workspace").animate({width: '+=240'}, {duration:"slow", queue: false});
 		$("#columns").animate({width: '+=240'}, {duration:"slow", queue: false});*/
 		
+		$(".queue").css("width", '+=240' );
+		$(".monitter").css("width", '+=240' );
+		$(".workspace").css("width", '+=240' );
+		$("#columns").css("width", '+=240' );
+		
+		
 		$(".participants").animate({left: '-=240'}, {duration:"slow", queue: false});
 		$(".queue").animate({left: '-=240'}, {duration:"slow", queue: false});
 		$(".workspace").animate({left: '-=240'}, {duration:"slow", queue: false});
@@ -134,6 +140,11 @@ $.fn.slideItems = function() {
 		$(".monitter").animate({width: '-=240'}, {duration:"slow", queue: false});
 		$(".workspace").animate({width: '-=240'}, {duration:"slow", queue: false});
 		$("#columns").animate({width: '-=240'}, {duration:"slow", queue: false});*/
+		
+				$(".queue").css("width", '-=240' );
+		$(".monitter").css("width", '-=240' );
+		$(".workspace").css("width", '-=240' );
+		$("#columns").css("width", '-=240' );
 		
 		$(".participants").animate({left: '+=240'}, {duration:"slow", queue: false});
 		$(".queue").animate({left: '+=240'}, {duration:"slow", queue: false});
