@@ -33,11 +33,13 @@
 	visibility: visible;
 	top:50px;
 	left:990px;
+	display:inline;
 }
 
 #leftArrow {
 	visibility: visible;
 	top:50px;
+	display:inline;
 }
 
 .workspace {
