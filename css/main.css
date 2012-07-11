@@ -220,6 +220,7 @@ img.dragHandle2 {
 	position:absolute;
 	top:73px;
 	left:255px;
+	display:none;
 }
 
 #rightArrow {
@@ -228,6 +229,7 @@ img.dragHandle2 {
 	position:absolute;
 	top:73px;
 	left:1226px;
+	display:none;
 }
 
 /* edit buttons */
