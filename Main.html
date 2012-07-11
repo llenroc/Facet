@@ -54,6 +54,14 @@
 		<script type="text/javascript"
 			src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBpiByGBcI98q-wB0U95uWlddFbYQ6qSmU&sensor=false">
 		</script>
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $("button").click(function () {
+                    alert($("div").scrollLeft() + " px");
+                });
+            });
+        </script>
         
         <!-- https://github.com/furf/jquery-ui-touch-punch
          Hack to get drag and drop to work on touch devices-->
@@ -68,7 +76,7 @@
 		<img style="z-index:9999;" src="icons/left.png" id="toggleSlide"></img>
 
 		
-        <div class="participants"> 
+        <div align="left" class="participants"> 
             <h1>Participants</h1>
 				<img src="icons/upS.png" id="upArrow"></img>
 				<img src="icons/downS.png" id="downArrow"></img>
@@ -97,20 +105,21 @@
             <ul class="apple" id = "groupList"></ul>
         </div>
 		
-		<img src="icons/leftS.png" id="leftArrow"></img>
-		<img src="icons/rightS.png" id="rightArrow"></img>
-		<div class="queue">
+		<!--<img alt="Left Arrow" src="icons/leftS.png" id="leftArrow"/>
+		<img alt="Right Arrow" src="icons/rightS.png" id="rightArrow"/>-->
 
-            <ul id="columns">
-                <li class="column"><header><h1>Comment<img src="icons/handle.png" class="dragHandle2"></h1></header></li>
-                <li class="column"><header><h1>Comment<img src="icons/handle.png" class="dragHandle2"></h1></header></li>
-                <li class="column"><header><h1>Survey<img src="icons/handle.png" class="dragHandle2"></h1></header></li>
-                <li class="column"><header><h1>Question<img src="icons/handle.png" class="dragHandle2"></h1></header></li>
-                <li class="column"><header><h1>Video<img src="icons/handle.png" class="dragHandle2"></h1></header></li>
-            </ul>           
-        </div>
+		<div align="center" class="queue" style="height:auto; white-space:nowrap; overflow-x:scroll; overflow-y:hidden; position:fixed;">
         
-        <div class="workspace">
+            <ul id="columns">
+                <li class="column"><header><h1>Comment<img alt="List Item" src="icons/handle.png" class="dragHandle2"/></h1></header></li>
+                <li class="column"><header><h1>Comment<img alt="List Item" src="icons/handle.png" class="dragHandle2"/></h1></header></li>
+                <li class="column"><header><h1>Survey<img alt="List Item" src="icons/handle.png" class="dragHandle2"/></h1></header></li>
+                <li class="column"><header><h1>Question<img alt="List Item" src="icons/handle.png" class="dragHandle2"/></h1></header></li>
+                <li class="column"><header><h1>Video<img alt="List Item" src="icons/handle.png" class="dragHandle2"/></h1></header></li>
+            </ul>
+               
+        </div>
+        <div class="workspace" style="position:relative; top:60px;">
             <div class="demo">
                 <div id="tabs">
                     <ul>
@@ -155,28 +164,7 @@
             </div>
                        
         </div>
-             
+        
+
     </body>  
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
