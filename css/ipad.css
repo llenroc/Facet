@@ -43,7 +43,7 @@
 }
 
 .workspace {
-	width: 774px;
+	width: 784px;
 	height: 550px;
 }
 
@@ -90,9 +90,8 @@ body {
 
 .queue
 {
-	width:754px;
-	-webkit-overflow-scrolling: touch;
-	overflow-x:scroll;
+	width:764px;
+	overflow-x:touch;
 }
 
 .column  {
