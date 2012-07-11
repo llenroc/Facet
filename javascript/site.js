@@ -38,7 +38,7 @@ $(function() {
 			// At bottom
 			$("#downArrow").css("visibility", "hidden");
 			
-		} else if($(this)[0].scrollHeight - $(this).scrollTop()-5 > $(this).outerHeight())
+		} else 
 		{
 			// Not at bottom
 			$("#downArrow").css("visibility", "visible");
@@ -49,7 +49,7 @@ $(function() {
 		{
 			// Not at top
 			$("#upArrow").css("visibility", "visible");
-		} else if($(this).scrollTop() < 5)
+		} else 
 		{
 			// At top
 			$("#upArrow").css("visibility", "hidden");
@@ -57,15 +57,12 @@ $(function() {
 	});
 	
 	$(".queue").scroll(function() {
-		if($(this).scrollTop() > 0) {
-			$(this).scrollTop(0);
-		}
 	    if($(this)[0].scrollWidth - $(this).scrollLeft()-500 <= $(this).outerWidth())
 		{
 			// At right
 			$("#rightArrow").css("visibility", "hidden");
 		
-		} else if($(this)[0].scrollWidth - $(this).scrollLeft()-500 > $(this).outerWidth())
+		} else 
 		{
 			// Not at right
 			$("#rightArrow").css("visibility", "visible");	
@@ -75,7 +72,7 @@ $(function() {
 		{
 			// Not at left
 			$("#leftArrow").css("visibility", "visible");
-		} else if($(this).scrollLeft() < 5)
+		} else 
 		{
 			// At left
 			$("#leftArrow").css("visibility", "hidden");
