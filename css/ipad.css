@@ -37,7 +37,7 @@
 }
 
 #leftArrow {
-	visibility: visible;
+	visibility: hidden;
 	top:50px;
 	display:inline;
 }
@@ -91,7 +91,7 @@ body {
 .queue
 {
 	width:754px;
-	-webkit-overflow-scrolling: touch;
+	
 
 }
 
