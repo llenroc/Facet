@@ -91,6 +91,7 @@ body {
 .queue
 {
 	width:754px;
+	-webkit-overflow-scrolling: touch;
 	overflow-x:scroll;
 }
 
