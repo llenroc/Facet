@@ -14,10 +14,10 @@ else {
 PS.ajax.getServerPrefix = function() {
 	if(PS.useReverseProxy) {
 
-		return "http://" + location.hostname + ":81/facet";
+		return "http://" + location.hostname + ":81/facet/";
 	}
 	else {
-		return "http://" + location.hostname;
+		return "http://" + location.hostname + "/";
 	}
 
 }
