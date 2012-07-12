@@ -38,7 +38,7 @@ $(function() {
 			// At bottom
 			$("#downArrow").css("visibility", "hidden");
 			
-		} else if($(this)[0].scrollHeight - $(this).scrollTop()-5 > $(this).outerHeight())
+		} else 
 		{
 			// Not at bottom
 			$("#downArrow").css("visibility", "visible");
@@ -49,7 +49,7 @@ $(function() {
 		{
 			// Not at top
 			$("#upArrow").css("visibility", "visible");
-		} else if($(this).scrollTop() < 5)
+		} else 
 		{
 			// At top
 			$("#upArrow").css("visibility", "hidden");
@@ -57,15 +57,12 @@ $(function() {
 	});
 	
 	$(".queue").scroll(function() {
-		if($(this).scrollTop() > 0) {
-			$(this).scrollTop(0);
-		}
 	    if($(this)[0].scrollWidth - $(this).scrollLeft()-500 <= $(this).outerWidth())
 		{
 			// At right
 			$("#rightArrow").css("visibility", "hidden");
 		
-		} else if($(this)[0].scrollWidth - $(this).scrollLeft()-500 > $(this).outerWidth())
+		} else 
 		{
 			// Not at right
 			$("#rightArrow").css("visibility", "visible");	
@@ -75,7 +72,7 @@ $(function() {
 		{
 			// Not at left
 			$("#leftArrow").css("visibility", "visible");
-		} else if($(this).scrollLeft() < 5)
+		} else 
 		{
 			// At left
 			$("#leftArrow").css("visibility", "hidden");
@@ -114,15 +111,50 @@ $(function() {
 	
 	$("body").disableSelection();
 	
+	// If an administrator is logged in, then the list of all users is populated
+	PS.ajax.userIndex(populateParticipants, populateFailed);
 });
+
+// Account logged in is administrator and is adding users
+function populateParticipants(json, textStatus, jqXHR) {
+	$(json).each(function() {
+		var name = this.name;
+		if(name != "")
+			createUser(name);
+	});
+}
+
+// Not administrator and so populating with default users
+function populateFailed() {
+	createUser("Byron");
+	createUser("Charles");
+	createUser("Christopher");
+	createUser("Daniel");
+	createUser("David");
+	createUser("Patrick");
+	createUser("Robert");
+	createUser("Roseline");
+	createUser("Yaser");
+}
+
+// Adds user to the participant list with the given name
+function createUser(name) {
+	$("#participantList").append("<li class='user icon'><a href='#'>" + name + "</a><img alt='Drag Handle' src='icons/handle.png' class='dragHandle2'></li>");
+}
 
 $.fn.slideItems = function() {
 
 	if(slideOpen) {
-		$(".queue").animate({width: '+=240'}, {duration:"slow", queue: false});
+	/*	$(".queue").animate({width: '+=240'}, {duration:"slow", queue: false});
 		$(".monitter").animate({width: '+=240'}, {duration:"slow", queue: false});
 		$(".workspace").animate({width: '+=240'}, {duration:"slow", queue: false});
-		$("#columns").animate({width: '+=240'}, {duration:"slow", queue: false});
+		$("#columns").animate({width: '+=240'}, {duration:"slow", queue: false});*/
+		
+		$(".queue").css("width", '+=240' );
+		$(".monitter").css("width", '+=240' );
+		$(".workspace").css("width", '+=240' );
+		$("#columns").css("width", '+=240' );
+		
 		
 		$(".participants").animate({left: '-=240'}, {duration:"slow", queue: false});
 		$(".queue").animate({left: '-=240'}, {duration:"slow", queue: false});
@@ -133,16 +165,21 @@ $.fn.slideItems = function() {
 		$("#toggleSlide").attr("src","icons/right.png");
 		slideOpen = false;
 	} else {
-		$(".queue").animate({width: '-=240'}, {duration:"slow", queue: false});
+	/*	$(".queue").animate({width: '-=240'}, {duration:"slow", queue: false});
 		$(".monitter").animate({width: '-=240'}, {duration:"slow", queue: false});
 		$(".workspace").animate({width: '-=240'}, {duration:"slow", queue: false});
-		$("#columns").animate({width: '-=240'}, {duration:"slow", queue: false});
+		$("#columns").animate({width: '-=240'}, {duration:"slow", queue: false});*/
 		
 		$(".participants").animate({left: '+=240'}, {duration:"slow", queue: false});
 		$(".queue").animate({left: '+=240'}, {duration:"slow", queue: false});
 		$(".workspace").animate({left: '+=240'}, {duration:"slow", queue: false});
 		$("#leftArrow").animate({left: '+=240'}, {duration:"slow", queue: false});
 		$("#toggleSlide").animate({left: '+=215'}, {duration:"slow", queue: false});
+		
+		$(".queue").css("width", '-=240' );
+		$(".monitter").css("width", '-=240' );
+		$(".workspace").css("width", '-=240' );
+		$("#columns").css("width", '-=240' );
 		
 		$("#toggleSlide").attr("src","icons/left.png");
 

@@ -92,6 +92,7 @@ PS.ajax.userCreate = function(username, email, password, callback) {
 	});
 }
 
+
 // data should be an object, with key/value pairs for each field to be updated
 PS.ajax.userUpdate = function(userId, data, callback) {
 	$.ajax({
@@ -114,12 +115,13 @@ PS.ajax.userDelete = function(userId, callback) {
 }
 
 // Requires administrator powers
-PS.ajax.userIndex = function(callback) {
+PS.ajax.userIndex = function(callback, errorCallback) {
 	$.ajax({
 		type: "GET", // or PUT or DELETE, oddly enough
 		url: PS.ajax.getServerPrefix() + "restfacet/user/",
 		dataType: "json",
 		success: callback,
+		error: errorCallback
 	});
 }
 

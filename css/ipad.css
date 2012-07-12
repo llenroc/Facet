@@ -31,11 +31,19 @@
 
 #rightArrow {
 	visibility: visible;
-	left:990px;
+	top:50px;
+	left:1005px;
+	display:inline;
+}
+
+#leftArrow {
+	visibility: hidden;
+	top:50px;
+	display:inline;
 }
 
 .workspace {
-	width: 774px;
+	width: 789px;
 	height: 550px;
 }
 
@@ -82,9 +90,8 @@ body {
 
 .queue
 {
-	width:754px;
+	width:765px;
 	-webkit-overflow-scrolling: touch;
-
 }
 
 .column  {

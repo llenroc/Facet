@@ -218,16 +218,18 @@ img.dragHandle2 {
 	visibility:hidden;
 	z-index:9999;
 	position:absolute;
-	top:35px;
-	left:265px;
+	top:73px;
+	left:255px;
+	display:none;
 }
 
 #rightArrow {
 	visibility:visible;	
 	z-index:9999;
 	position:absolute;
-	top:35px;
-	left:1230px;
+	top:73px;
+	left:1226px;
+	display:none;
 }
 
 /* edit buttons */
@@ -257,7 +259,7 @@ img.dragHandle2 {
 
 h1 {
 	white-space: nowrap;
-    overflow: hidden;
+    
 	text-overflow: ellipsis;
 }
 
