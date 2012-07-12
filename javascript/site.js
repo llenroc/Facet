@@ -111,9 +111,11 @@ $(function() {
 	
 	$("body").disableSelection();
 	
+	// If an administrator is logged in, then the list of all users is populated
 	PS.ajax.userIndex(populateParticipants, populateFailed);
 });
 
+// Account logged in is administrator and is adding users
 function populateParticipants(json, textStatus, jqXHR) {
 	$(json).each(function() {
 		var name = this.name;
@@ -122,6 +124,7 @@ function populateParticipants(json, textStatus, jqXHR) {
 	});
 }
 
+// Not administrator and so populating with default users
 function populateFailed() {
 	createUser("Byron");
 	createUser("Charles");
@@ -134,6 +137,7 @@ function populateFailed() {
 	createUser("Yaser");
 }
 
+// Adds user to the participant list with the given name
 function createUser(name) {
 	$("#participantList").append("<li class='user icon'><a href='#'>" + name + "</a><img alt='Drag Handle' src='icons/handle.png' class='dragHandle2'></li>");
 }
