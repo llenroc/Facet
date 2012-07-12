@@ -105,12 +105,13 @@ PS.ajax.userDelete = function(userId, callback) {
 }
 
 // Requires administrator powers
-PS.ajax.userIndex = function(callback) {
+PS.ajax.userIndex = function(callback, errorCallback) {
 	$.ajax({
 		type: "GET", // or PUT or DELETE, oddly enough
 		url: PS.ajax.getServerPrefix() + "restfacet/user/",
 		dataType: "json",
 		success: callback,
+		error: errorCallback
 	});
 }
 

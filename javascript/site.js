@@ -111,7 +111,32 @@ $(function() {
 	
 	$("body").disableSelection();
 	
+	PS.ajax.userIndex(populateParticipants, populateFailed);
 });
+
+function populateParticipants(json, textStatus, jqXHR) {
+	$(json).each(function() {
+		var name = this.name;
+		if(name != "")
+			createUser(name);
+	});
+}
+
+function populateFailed() {
+	createUser("Byron");
+	createUser("Charles");
+	createUser("Christopher");
+	createUser("Daniel");
+	createUser("David");
+	createUser("Patrick");
+	createUser("Robert");
+	createUser("Roseline");
+	createUser("Yaser");
+}
+
+function createUser(name) {
+	$("#participantList").append("<li class='user icon'><a href='#'>" + name + "</a><img alt='Drag Handle' src='icons/handle.png' class='dragHandle2'></li>");
+}
 
 $.fn.slideItems = function() {
 
