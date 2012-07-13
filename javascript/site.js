@@ -112,6 +112,8 @@ $(function() {
 	$("body").disableSelection();
 	
 	// If an administrator is logged in, then the list of all users is populated
+	
+	$("#participantList").append("<li id='loading' class='icon'>Loading Users...</li>");
 	PS.ajax.userIndex(populateParticipants, populateFailed);
 });
 
@@ -123,6 +125,7 @@ function populateParticipants(json, textStatus, jqXHR) {
 			createUser(name);
 	});
 	
+	$("#loading").remove();
 	$(this).makeParticipantsDroppable(); /* Makes new group droppable */
 }
 
@@ -138,6 +141,7 @@ function populateFailed() {
 	createUser("Roseline");
 	createUser("Yaser");
 	
+	$("#loading").remove();
 	$(this).makeParticipantsDroppable(); /* Makes new group droppable */
 }
 
