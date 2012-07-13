@@ -18,9 +18,11 @@
 
 <link rel="stylesheet" href="css/SignUp.css" />
 
+<script src="javascript/jquery/jquery-1.7.2.min.js"></script>
 <script type="text/javascript" src="javascript/publicsquare.js"> </script>
-<script type="text/javascript" src="javascript/server.js"> </script>
+<!--<script type="text/javascript" src="javascript/server.js"> </script>-->
 <script type="text/javascript" src="javascript/ajax.js"> </script>
+<script type="text/javascript" src="javascript/SignUp.js"> </script>
 
 </head>
 
@@ -37,19 +39,11 @@
 
             <table align="center">
             <tr>
-                <td align="left">Username: </td>
-                <td><input id="username" type="text" name="username" /></td>
-            </tr>
-            <tr>
-                <td align="left">First Name: </td>
+                <td align="left">Full Name: </td>
                 <td><input id="fname" type="text" name="fname" /></td>
             </tr>
             <tr>
-                <td align="left">Last Name: </td>
-                <td><input id="lname" type="text" name="lname" /></td>
-            </tr>
-            <tr>
-                <td align="left">Email: </td>
+                <td align="left">Email (Username): </td>
                 <td><input id="email" type="email" name="email" /></td>
             </tr>
             <tr>
@@ -60,11 +54,11 @@
                 <td align="left">Password Confirm: </td>
                 <td><input id="cpassword" type="password" name="cpassword" /></td>
             </tr>
-            <tr>
-                <td></td>
-                <td align="left"><!--<input onclick="$(this).signup();" type="submit" value="Submit"/>--></td>
-            </tr>
             </table>
+
+            <p id="pwError" style="display:none;color:red;">Passwords Do NOT Match OR Are Short Than 6 Characters</p>
+            <p id="emptyError" style="display:none;color:red;">All Entries Must Contain A Value</p>
+            <!--<input onclick="$(this).signup();" type="submit" value="Submit"/>-->
         </div>
 
     </center>

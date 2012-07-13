@@ -77,7 +77,7 @@ PS.ajax.userCreate = function(username, email, password, callback) {
 		type: "POST",
 		url: PS.ajax.getServerPrefix() + "restfacet/user/",
 		dataType: "json",
-		success: callback,
+		success: function(data, textStatus, jqXHR) { PS.ajax.setCookie(data, textStatus, jqXHR); callback(data, textStatus, jqXHR); },
 		data: {name: username, mail:email, pass: password}, // all three required
 	});
 }
