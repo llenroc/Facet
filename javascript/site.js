@@ -122,6 +122,8 @@ function populateParticipants(json, textStatus, jqXHR) {
 		if(name != "")
 			createUser(name);
 	});
+	
+	$(this).makeParticipantsDroppable(); /* Makes new group droppable */
 }
 
 // Not administrator and so populating with default users
@@ -135,6 +137,8 @@ function populateFailed() {
 	createUser("Robert");
 	createUser("Roseline");
 	createUser("Yaser");
+	
+	$(this).makeParticipantsDroppable(); /* Makes new group droppable */
 }
 
 // Adds user to the participant list with the given name
