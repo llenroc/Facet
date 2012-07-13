@@ -29,7 +29,7 @@ $.fn.checkCredentials = function () {
             if (spaces.length == 1) {
                 if (pw.length > 5) {
                     console.log("Passwords matched");
-                    if ($("#email").val() != "" && $("#fname").val() != "") {
+                    if ($("#email").val() != "" && $("#username").val() != "") {
                         console.log("Credentials are not empty");
                         pwNotSame = false;
                         return true;
