@@ -20,7 +20,7 @@
             }
     
         function userretrieve(event) {
-            PS.ajax.userRetrieve(id, callback);
+            PS.ajax.userRetrieve(7, callback);
         }
 
         function usercreate(event) {
@@ -45,17 +45,17 @@
 
         function useractionlogin(event) {
             //PS.ajax.userLogin("uofctest", "testahoy", callback);
-            PS.ajax.userLogin("uofctest", "", callback);
+            //PS.ajax.userLogin("uofctest", "", callback);
             //PS.ajax.userLogin("PatrickKing2", "baz", callback);
             //PS.ajax.userLogin("PatrickKing", "baz", callback);
-            //PS.ajax.userLogin("admin", "112114", callback);
+            PS.ajax.userLogin("admin", "112114", callback);
             
         }
 
 
         function useractionlogout(event)   {
             PS.ajax.userLogout(callback);
-            clearCookies();
+            //clearCookies();
         }
 
         

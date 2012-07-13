@@ -45,7 +45,7 @@ function loginFailed(json, textStatus, jqXHR) {
 			$("#error").text(message);
 			break;
 		default:
-			$("#error").text("Uncaught Error: " + jqXHR);
+			$("#error").text("Uncaught Error: " + json.statusText);
 			break;
 	}
 	

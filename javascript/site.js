@@ -111,7 +111,44 @@ $(function() {
 	
 	$("body").disableSelection();
 	
+	// If an administrator is logged in, then the list of all users is populated
+	
+	$("#participantList").append("<li class='icon' id='loading'>Loading Users...</li>");
+	PS.ajax.userIndex(populateParticipants, populateFailed);
 });
+
+// Account logged in is administrator and is adding users
+function populateParticipants(json, textStatus, jqXHR) {
+	$(json).each(function() {
+		var name = this.name;
+		if(name != "")
+			createUser(name, this.uid);
+	});
+	
+	$("#loading").remove();
+	$(this).makeParticipantsDroppable(); /* Makes new group droppable */
+}
+
+// Not administrator and so populating with default users
+function populateFailed() {
+	createUser("Byron",0);
+	createUser("Charles",0);
+	createUser("Christopher",0);
+	createUser("Daniel",0);
+	createUser("David",0);
+	createUser("Patrick",0);
+	createUser("Robert",0);
+	createUser("Roseline",0);
+	createUser("Yaser",0);
+	
+	$("#loading").remove();
+	$(this).makeParticipantsDroppable(); /* Makes new group droppable */
+}
+
+// Adds user to the participant list with the given name
+function createUser(name, id) {
+	$("#participantList").append("<li uid='" + id + "' class='user icon'><a href='#'>" + name + "</a><img alt='Drag Handle' src='icons/handle.png' class='dragHandle2'></li>");
+}
 
 $.fn.slideItems = function() {
 

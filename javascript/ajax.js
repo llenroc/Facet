@@ -4,21 +4,22 @@
 
 PS.ajax = {};
 
-if( typeof phpServer === 'undefined') {
-	PS.useReverseProxy = true;
+if(location.hostname === "facetsurvey.4abyte.com") {
+	PS.useReverseProxy = false;
 }
 else {
-	PS.useReverseProxy = false;
+	PS.useReverseProxy = true;
 }
 
 PS.ajax.getServerPrefix = function() {
 	if(PS.useReverseProxy) {
 
-		return "http://localhost:81/facet/";
+		return "http://" + location.hostname + ":81/facet/";
 	}
 	else {
-		return phpServer;
+		return "http://" + location.hostname + "/";
 	}
+
 }
 
 
@@ -46,7 +47,7 @@ PS.ajax.userLogout = function (callback) {
 		type: "POST",
 		url: PS.ajax.getServerPrefix() + "restfacet/user/logout/",
 		dataType: "json",
-		success: callback, // TODO: Delete cookie after logging out.
+		success: function (data, textStatus, jqXHR) {PS.ajax.clearCookies(); callback(data, textStatus, jqXHR);},
 	});
 }
 
@@ -60,6 +61,15 @@ PS.ajax.setCookie = function (data, textStatus, jqXHR) {
 		document.cookie = session.session_name+"="+escape(session.sessid)
 			+ ";expires="+expire.toGMTString() + "; path=/";
 }
+
+PS.ajax.clearCookies = function() {
+	var cookies = document.cookie.split( ';' );
+		for ( var i = 0; i < cookies.length; i++ ) {
+			var cookieParts = cookies[i].split("=");
+			document.cookie = cookieParts[0] + "=;expires=Thu, 01-Jan-1970 00:00:01 GMT";
+		}  
+}
+
 
 // Requires administrator powers, for accounts other than your own
 PS.ajax.userRetrieve = function(userId, callback) {
@@ -105,12 +115,13 @@ PS.ajax.userDelete = function(userId, callback) {
 }
 
 // Requires administrator powers
-PS.ajax.userIndex = function(callback) {
+PS.ajax.userIndex = function(callback, errorCallback) {
 	$.ajax({
 		type: "GET", // or PUT or DELETE, oddly enough
 		url: PS.ajax.getServerPrefix() + "restfacet/user/",
 		dataType: "json",
 		success: callback,
+		error: errorCallback
 	});
 }
 

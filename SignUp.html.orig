@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<meta name="viewport" content="user-scalable=no, width=device-width" />
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+	
+<!-- iPad Portrait 768x1004 -->
+<link rel="apple-touch-startup-image" media="(min-device-width: 768px) and (orientation: portrait)" href="splash-1004.png" />
+<!-- iPad Landscape 1024x748 -->
+<link rel="apple-touch-startup-image" media="(min-device-width: 768px) and (orientation: landscape)" href="splash-1024.png" />
+<link rel="apple-touch-icon" href="apple-touch-icon.png" />
+
+
+<title>Public Square New User Page</title>
+
+<link rel="stylesheet" href="css/SignUp.css" />
+
+<script src="javascript/jquery/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="javascript/publicsquare.js"> </script>
+<!--<script type="text/javascript" src="javascript/server.js"> </script>-->
+<script type="text/javascript" src="javascript/ajax.js"> </script>
+<script type="text/javascript" src="javascript/SignUp.js"> </script>
+
+</head>
+
+<body>
+    
+<div id="SignUpContainer">
+    <div id="SignUpLayout">
+    <center>
+
+        <div id="SignUpContent">
+            <h1>
+                Welcome to Public Square's User Creation Page
+            </h1><br />
+
+            <table align="center">
+            <tr>
+                <td align="left">Full Name: </td>
+                <td><input id="fname" type="text" name="fname" /></td>
+            </tr>
+            <tr>
+                <td align="left">Email (Username): </td>
+                <td><input id="email" type="email" name="email" /></td>
+            </tr>
+            <tr>
+                <td align="left">Password: </td>
+                <td><input id="password" type="password" name="password" /></td>
+            </tr>
+            <tr>
+                <td align="left">Password Confirm: </td>
+                <td><input id="cpassword" type="password" name="cpassword" /></td>
+            </tr>
+            </table>
+
+            <p id="pwError" style="display:none;color:red;">Passwords Do NOT Match OR Are Short Than 6 Characters</p>
+            <p id="emptyError" style="display:none;color:red;">All Entries Must Contain A Value</p>
+            <!--<input onclick="$(this).signup();" type="submit" value="Submit"/>-->
+        </div>
+
+    </center>
+    </div>    
+</div>
+
+</body>
+
+</html>
