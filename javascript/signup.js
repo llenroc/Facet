@@ -1,63 +1,59 @@
-﻿var pwNotSame = false;
+﻿var emailError = false;
 
-$.fn.signup = function () {
-    $("#pwError").css("display", "none");
-    $("#emptyError").css("display", "none");
+function signup() {
+    
+    $('#emailError').change(function () {
+        $('#emailError').css("display", "none");
+    });
+
+    $("#emptyError").bind("DOMSubtreeModified", function () {
+        $("#emptyError").css("display", "none");
+    });
+
     var username = $("#username").val();
     var email = $("#email").val();
-    var password = $("#password").val();
-    var cpassword = $("#cpassword").val();
-    var passed = $(this).checkCredentials();
-    console.log(passed.valueOf());
+    var passed = checkCredentials(email);
 
     if (passed) {
-        PS.ajax.userCreate(username, email, password, userCreated);
+        PS.ajax.userCreate(username, email, "", userCreated, userCreateFailed);
     }
     else {
-        $(this).userCreateFailed();
-        console.log("User not created");
+        $(this).failedCreation();
     }
 };
 
-$.fn.checkCredentials = function () {
-    var pw = $("#password").val();
-    var spaces = pw.split(" ");
-    pwNotSame = true;
+function checkCredentials (email) {
+    var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    emailError = true;
 
-    if (pw.valueOf() == $("#cpassword").val()) {
-        if (pw.valueOf() != "") {
-            if (spaces.length == 1) {
-                if (pw.length > 5) {
-                    console.log("Passwords matched");
-                    if ($("#email").val() != "" && $("#username").val() != "") {
-                        console.log("Credentials are not empty");
-                        pwNotSame = false;
-                        return true;
-                    }
-                }
-            }
+    if (filter.test(email)) {
+        console.log("Email passed standard format check");
+        emailError = false;
+        if ($("#email").val() != "" && $("#username").val() != "" && $("#fname").val() != "") {
+            console.log("Credentials are not empty");
+            return true;
         }
     }
     return false;
 };
 
-$.fn.userCreateFailed = function () {
-    if (pwNotSame) {
-        $("#pwError").css("display", "block");
-        pwSame = false;
+function failedCreation () {
+    console.log("User not created");
+    if (emailError) {
+        $("#emailError").css("display", "block");
+        emailError = false;
     }
     else {
         $("#emptyError").css("display", "block");
     }
 }
 
+function userCreateFailed (json, textStatus, jqXHR) {
+    $(this).failedCreation();
+}
+
 function userCreated (json, textStatus, jqXHR) {
     console.log("User created successfully");
 
-    if (screen.width <= 720) {
-        window.location = 'iphone.html';
-    }
-    else {
-        window.location = "main.html";
-    }
+    $("#successful").css("display", "block");
 }

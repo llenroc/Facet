@@ -24,6 +24,10 @@
 <script type="text/javascript" src="javascript/ajax.js"> </script>
 <script type="text/javascript" src="javascript/SignUp.js"> </script>
 
+<style type="text/css" id="styles">
+    p { display:none; color:red; }
+</style>
+
 </head>
 
 <body>
@@ -40,25 +44,31 @@
             <table align="center">
             <tr>
                 <td align="left">Full Name: </td>
+                <td><input id="fname" type="text" name="fname" /></td>
+            </tr>
+            <tr>
+                <td align="left">Username: </td>
                 <td><input id="username" type="text" name="username" /></td>
             </tr>
             <tr>
-                <td align="left">Email (Username): </td>
+                <td align="left">Email: </td>
                 <td><input id="email" type="email" name="email" /></td>
             </tr>
-            <tr>
+            <!--<tr>
                 <td align="left">Password: </td>
                 <td><input id="password" type="password" name="password" /></td>
             </tr>
             <tr>
                 <td align="left">Password Confirm: </td>
                 <td><input id="cpassword" type="password" name="cpassword" /></td>
-            </tr>
+            </tr>-->
             </table>
 
-            <p id="pwError" style="display:none;color:red;">Passwords Do NOT Match OR Are Short Than 6 Characters</p>
+            <!--<p id="pwError" style="display:none;color:red;">Passwords Do NOT Match OR Are Short Than 6 Characters</p>-->
+            <p id="emailError" style="display:none;color:red;">Email MUST Match A Standard Format</p>
             <p id="emptyError" style="display:none;color:red;">All Entries Must Contain A Value</p>
-            <input onclick="$(this).signup();" type="submit" value="Submit"/>
+            <p id="successful" style="display:none;color:Green;">An Email Has Been Sent To The Specified Account For Confirmation</p>
+            <input onclick="signup();" type="submit" value="Submit"/>
         </div>
 
     </center>
