@@ -113,7 +113,7 @@ $(function() {
 	
 	// If an administrator is logged in, then the list of all users is populated
 	
-	$("#participantList").append("<li id='loading' class='icon'>Loading Users...</li>");
+	$("#participantList").append("<li class='icon' id='loading'>Loading Users...</li>");
 	PS.ajax.userIndex(populateParticipants, populateFailed);
 });
 
@@ -122,7 +122,7 @@ function populateParticipants(json, textStatus, jqXHR) {
 	$(json).each(function() {
 		var name = this.name;
 		if(name != "")
-			createUser(name);
+			createUser(name, this.uid);
 	});
 	
 	$("#loading").remove();
@@ -131,23 +131,23 @@ function populateParticipants(json, textStatus, jqXHR) {
 
 // Not administrator and so populating with default users
 function populateFailed() {
-	createUser("Byron");
-	createUser("Charles");
-	createUser("Christopher");
-	createUser("Daniel");
-	createUser("David");
-	createUser("Patrick");
-	createUser("Robert");
-	createUser("Roseline");
-	createUser("Yaser");
+	createUser("Byron",0);
+	createUser("Charles",0);
+	createUser("Christopher",0);
+	createUser("Daniel",0);
+	createUser("David",0);
+	createUser("Patrick",0);
+	createUser("Robert",0);
+	createUser("Roseline",0);
+	createUser("Yaser",0);
 	
 	$("#loading").remove();
 	$(this).makeParticipantsDroppable(); /* Makes new group droppable */
 }
 
 // Adds user to the participant list with the given name
-function createUser(name) {
-	$("#participantList").append("<li class='user icon'><a href='#'>" + name + "</a><img alt='Drag Handle' src='icons/handle.png' class='dragHandle2'></li>");
+function createUser(name, id) {
+	$("#participantList").append("<li uid='" + id + "' class='user icon'><a href='#'>" + name + "</a><img alt='Drag Handle' src='icons/handle.png' class='dragHandle2'></li>");
 }
 
 $.fn.slideItems = function() {

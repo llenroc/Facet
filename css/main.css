@@ -104,7 +104,13 @@ ul.apple ul.apple {
 }
 
 .audio {
+
 	background-image: url(../icons/audio.png);
+}
+
+#loading {
+	background-position: 12px 12px;
+	background-image: url(../icons/loading.gif);
 }
 
 .delete {
