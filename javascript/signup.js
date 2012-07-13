@@ -4,6 +4,7 @@ $.fn.signup = function () {
     $("#pwError").css("display", "none");
     $("#emptyError").css("display", "none");
     var username = $("#username").val();
+    var email = $("#email").val();
     var password = $("#password").val();
     var cpassword = $("#cpassword").val();
     var passed = $(this).checkCredentials();
