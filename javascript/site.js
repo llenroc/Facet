@@ -29,7 +29,7 @@ $(function() {
 	new ScrollFix(scrollable4);
 	
 	
-	PS.ajax.setCookie("iliketurtles","true","what?");
+	PS.ajax.setCookieData("iliketurtles","true","what?");
 	console.log(document.cookie.split(";"));
 	
 	
