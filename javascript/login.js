@@ -1,11 +1,7 @@
 $(function() {
 
-	var status = getCookie("loggedIn");
-	if(status != null || status != "") {
-		console.log("User logged in...redirecting!");	
-		//window.location = "main.html";
-	}
-
+	PS.ajax.userLogout(logoutPassed);
+	
 	// Detects if user presses enter in the password box.
 	$("#password").keypress(function(e) {
 		if(e.which == 10 || e.which == 13) {
@@ -19,10 +15,6 @@ $.fn.login = function() {
 	var username = $("#username").val();
 	var password = $("#password").val();
 	PS.ajax.userLogin(username,password, loginPassed , loginFailed );
-};
-
-$.fn.logout = function() {
-	PS.ajax.userLogout(logoutPassed);
 };
 
 function logoutPassed(json, textStatus, jqXHR) {
@@ -60,20 +52,4 @@ function loginFailed(json, textStatus, jqXHR) {
 	//console.log(json);
 	//console.log(jqXHR);
 	//console.log(document.cookie);
-}
-
-// Used to see if user is logged in
-function getCookie(c_name)
-{
-	var i,x,y,ARRcookies=document.cookie.split(";");
-	for (i=0;i<ARRcookies.length;i++)
-	{
-		x=ARRcookies[i].substr(0,ARRcookies[i].indexOf("="));
-		y=ARRcookies[i].substr(ARRcookies[i].indexOf("=")+1);
-		x=x.replace(/^\s+|\s+$/g,"");
-		if (x==c_name)
-		{
-			return unescape(y);
-		}
-	}
 }
