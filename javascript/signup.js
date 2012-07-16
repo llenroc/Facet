@@ -1,7 +1,6 @@
 ﻿var emailError = false;
 
 function signup() {
-    
     $('#emailError').change(function () {
         $('#emailError').css("display", "none");
     });
@@ -18,7 +17,7 @@ function signup() {
         PS.ajax.userCreate(username, email, "", userCreated, userCreateFailed);
     }
     else {
-        $(this).failedCreation();
+        failedCreation();
     }
 };
 
@@ -49,7 +48,7 @@ function failedCreation () {
 }
 
 function userCreateFailed (json, textStatus, jqXHR) {
-    $(this).failedCreation();
+    failedCreation();
 }
 
 function userCreated (json, textStatus, jqXHR) {
