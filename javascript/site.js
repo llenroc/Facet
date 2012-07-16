@@ -29,7 +29,6 @@ $(function() {
 	new ScrollFix(scrollable4);
 	
 	
-	PS.ajax.setCookieData("iliketurtles","true","what?");
 	console.log(document.cookie.split(";"));
 	
 	
