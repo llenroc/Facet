@@ -3,7 +3,7 @@ $(function() {
 	var status = getCookie("loggedIn");
 	if(status != null || status != "") {
 		console.log("User logged in...redirecting!");	
-		window.location = "main.html";
+		//window.location = "main.html";
 	}
 
 	// Detects if user presses enter in the password box.
