@@ -63,7 +63,9 @@ PS.ajax.setCookie = function (data, textStatus, jqXHR) {
 			+ ";expires="+expire.toGMTString() + "; path=/";
 }
 
-
+// c_name is the name of the field. Example - "username"
+// value is the value of the field. Example - "Daniel"
+// exdays is the number of days from now for the cookie to expire. Example - 365
 PS.ajax.setCookieData = function(c_name,value,exdays) {
 	var exdate=new Date();
 	exdate.setDate(exdate.getDate() + exdays);

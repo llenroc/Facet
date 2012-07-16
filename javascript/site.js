@@ -7,6 +7,12 @@ var pressTimer;
 
 
 $(function() {
+
+	var status = getCookie("loggedIn");
+	if(status == null || status == "") {
+		console.log("YUNOLOGGEDIN");	
+	}
+
 	$(this).makeQueueDroppable();
 	$(this).makeParticipantsDroppable();
 	$(this).makeFilesDroppable();
@@ -27,10 +33,7 @@ $(function() {
 	
 	var scrollable4 = document.getElementById("queue");
 	new ScrollFix(scrollable4);
-	
-	
-	console.log(document.cookie.split(";"));
-	
+		
 	
 	$("#columns .column header h1 img.dragHandle2").hover(function(){$(this).parent().parent().parent().addClass("hover-border2");}, function () {$(this).parent().parent().parent().removeClass("hover-border2");});
 	$("#participantList li img.dragHandle2").hover(function(){$(this).parent().addClass("hover-border2");}, function () {$(this).parent().removeClass("hover-border2");});	
@@ -119,6 +122,22 @@ $(function() {
 	$("#participantList").append("<li class='icon' id='loading'>Loading Users...</li>");
 	PS.ajax.userIndex(populateParticipants, populateFailed);
 });
+
+// Used to see if user is logged in
+function getCookie(c_name)
+{
+	var i,x,y,ARRcookies=document.cookie.split(";");
+	for (i=0;i<ARRcookies.length;i++)
+	{
+		x=ARRcookies[i].substr(0,ARRcookies[i].indexOf("="));
+		y=ARRcookies[i].substr(ARRcookies[i].indexOf("=")+1);
+		x=x.replace(/^\s+|\s+$/g,"");
+		if (x==c_name)
+		{
+			return unescape(y);
+		}
+	}
+}
 
 // Account logged in is administrator and is adding users
 function populateParticipants(json, textStatus, jqXHR) {
