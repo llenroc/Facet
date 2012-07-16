@@ -28,6 +28,8 @@ $(function() {
 	var scrollable4 = document.getElementById("queue");
 	new ScrollFix(scrollable4);
 	
+	console.log(document.cookie);
+	
 	
 	$("#columns .column header h1 img.dragHandle2").hover(function(){$(this).parent().parent().parent().addClass("hover-border2");}, function () {$(this).parent().parent().parent().removeClass("hover-border2");});
 	$("#participantList li img.dragHandle2").hover(function(){$(this).parent().addClass("hover-border2");}, function () {$(this).parent().removeClass("hover-border2");});	
