@@ -65,10 +65,12 @@
             </div>
             <div id="mydiv">
             <!--<p id="pwError" style="display:none;color:red;">Passwords Do NOT Match OR Are Short Than 6 Characters</p>-->
-            <p id="emailError" style="display:none;color:red;">Email MUST Match A Standard Format</p>
-            <p id="emptyError" style="display:none;color:red;">All Entries Must Contain A Value</p>
-            <p id="successful" style="display:none;color:Green;">An Email Has Been Sent To The Specified Account For Confirmation</p>
-            <input onclick="signup();" type="submit" value="Submit"/>
+            <p class="errormsg" id="emailError" style="display:none;color:red;">Email MUST Match A Standard Format</p>
+            <p class="errormsg" id="emptyError" style="display:none;color:red;">All Entries Must Contain A Value</p>
+            <p class="errormsg" id="emailUsed" style="display:none;color:red;">Email Already In Use</p>
+            <p class="errormsg" id="processing" style="display:none;color:Black;">Processing Request...</p>
+            <p class="errormsg" id="successful" style="display:none;color:Green;">An Email Has Been Sent To The Specified Account For Confirmation</p>
+            <input id="submitButton" onclick="signup();" type="submit" value="Submit"/>
         </div>
     </center>
     </div>    

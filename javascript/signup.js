@@ -1,12 +1,14 @@
 ﻿var emailError = false;
 
 function signup() {
-    $('#emailError').change(function () {
-        $('#emailError').css("display", "none");
-    });
-
-    $("#emptyError").bind("DOMSubtreeModified", function () {
-        $("#emptyError").css("display", "none");
+    $('#emailError').css("display", "none");
+    $("#emptyError").css("display", "none");
+    $("#emailUsed").css("display", "none");
+    $("#processing").css("display", "none");
+    $(document).ready(function () {
+        $(".errormsg").each(function () {
+            $(this).load("mydiv");
+        });
     });
 
     var username = $("#username").val();
@@ -14,10 +16,11 @@ function signup() {
     var passed = checkCredentials(email);
 
     if (passed) {
+        $("#processing").css("display", "block");
         PS.ajax.userCreate(username, email, "", userCreated, userCreateFailed);
     }
     else {
-        failedCreation();
+        failedCreation("");
     }
 };
 
@@ -36,9 +39,13 @@ function checkCredentials (email) {
     return false;
 };
 
-function failedCreation () {
+function failedCreation (jqXHR) {
     console.log("User not created");
-    if (emailError) {
+    $("#processing").css("display", "none");
+    if (jqXHR != "") {
+        $("#emailUsed").css("display", "block");
+    }
+    else if (emailError) {
         $("#emailError").css("display", "block");
         emailError = false;
     }
@@ -47,12 +54,14 @@ function failedCreation () {
     }
 }
 
-function userCreateFailed (json, textStatus, jqXHR) {
-    failedCreation();
+function userCreateFailed(json, textStatus, jqXHR) {
+    /*check for "Not Acceptable" for email already in use error*/
+    failedCreation(jqXHR);
 }
 
 function userCreated (json, textStatus, jqXHR) {
     console.log("User created successfully");
 
     $("#successful").css("display", "block");
+    $("#submitButton").css("display", "none");
 }
