@@ -28,6 +28,8 @@ $(function() {
 	var scrollable4 = document.getElementById("queue");
 	new ScrollFix(scrollable4);
 	
+	
+	PS.ajax.setCookie("iliketurtles","true","what?");
 	console.log(document.cookie.split(";"));
 	
 	

@@ -1,9 +1,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-
-<!-- http://www.w3schools.com/js/js_cookies.asp -->
-
 <script type="text/javascript">
 function getCookie(c_name)
 {
@@ -38,12 +35,14 @@ if (username!=null && username!="")
   {
   alert("Welcome again " + username);
   }
-  
+else 
+  {
   username=prompt("Please enter your name:","");
   if (username!=null && username!="")
     {
-    setCookie("username9001",username,365);
+    setCookie("username",username,365);
     }
+  }
 }
 </script>
 </head>
