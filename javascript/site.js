@@ -10,7 +10,8 @@ $(function() {
 
 	var status = getCookie("loggedIn");
 	if(status == null || status == "") {
-		console.log("YUNOLOGGEDIN");	
+		console.log("User not logged in...redirecting!");	
+		window.location = "default.html";
 	}
 
 	$(this).makeQueueDroppable();
