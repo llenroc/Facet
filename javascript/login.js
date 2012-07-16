@@ -1,5 +1,11 @@
 $(function() {
 
+	var status = getCookie("loggedIn");
+	if(status != null || status != "") {
+		console.log("User logged in...redirecting!");	
+		window.location = "main.html";
+	}
+
 	// Detects if user presses enter in the password box.
 	$("#password").keypress(function(e) {
 		if(e.which == 10 || e.which == 13) {
@@ -54,6 +60,20 @@ function loginFailed(json, textStatus, jqXHR) {
 	//console.log(json);
 	//console.log(jqXHR);
 	//console.log(document.cookie);
-	
-	
+}
+
+// Used to see if user is logged in
+function getCookie(c_name)
+{
+	var i,x,y,ARRcookies=document.cookie.split(";");
+	for (i=0;i<ARRcookies.length;i++)
+	{
+		x=ARRcookies[i].substr(0,ARRcookies[i].indexOf("="));
+		y=ARRcookies[i].substr(ARRcookies[i].indexOf("=")+1);
+		x=x.replace(/^\s+|\s+$/g,"");
+		if (x==c_name)
+		{
+			return unescape(y);
+		}
+	}
 }

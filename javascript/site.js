@@ -4,7 +4,7 @@ var deleteUI;
 var slideOpen = true;
 var pressTimer;
 
-
+// http://www.w3schools.com/js/js_cookies.asp
 
 $(function() {
 
