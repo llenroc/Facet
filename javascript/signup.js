@@ -62,6 +62,7 @@ function userCreateFailed(json, textStatus, jqXHR) {
 function userCreated (json, textStatus, jqXHR) {
     console.log("User created successfully");
 
+	$("#processing").css("display", "none");
     $("#successful").css("display", "block");
     $("#submitButton").css("display", "none");
 }
