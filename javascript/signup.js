@@ -6,9 +6,9 @@ function signup() {
     $("#emailUsed").css("display", "none");
     $("#processing").css("display", "none");
     $(document).ready(function () {
-        $(".errormsg").each(function () {
+        /*$(".errormsg").each(function () {
             $(this).load("mydiv");
-        });
+        });*/
     });
 
     var username = $("#username").val();
