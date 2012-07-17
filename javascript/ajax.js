@@ -35,7 +35,7 @@ PS.ajax.userLogin = function (username, password, callback , errorCallback) {
 		type: "POST",
 		url: PS.ajax.getServerPrefix() + "restfacet/user/login",
 		dataType: "json",
-		success: function(data, textStatus, jqXHR) { PS.ajax.setCookie(data, textStatus, jqXHR); PS.ajax.setCookieData("loggedIn","true",365); callback(data, textStatus, jqXHR); },
+		success: function(data, textStatus, jqXHR) { PS.ajax.setCookie(data, textStatus, jqXHR); PS.ajax.setCookieData("loggedIn","true",365); PS.ajax.setCookieData("name",username,365); callback(data, textStatus, jqXHR); },
 		error: errorCallback,
 		data: {username: username, password: password}
 		

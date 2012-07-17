@@ -5,11 +5,6 @@ function signup() {
     $("#emptyError").css("display", "none");
     $("#emailUsed").css("display", "none");
     $("#processing").css("display", "none");
-    $(document).ready(function () {
-        /*$(".errormsg").each(function () {
-            $(this).load("mydiv");
-        });*/
-    });
 
     var username = $("#username").val();
     var email = $("#email").val();

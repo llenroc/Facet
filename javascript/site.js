@@ -1,55 +1,60 @@
 "use strict";
 
-var deleteUI;
 var slideOpen = true;
-var pressTimer;
+var accountName;
 
 // http://www.w3schools.com/js/js_cookies.asp
 
 $(function() {
 
+	// Checks if the user is logged in. If the user is not logged in, it redirects the user to the login page
 	var status = getCookie("loggedIn");
 	if(status == null || status == "") {
 		console.log("User not logged in...redirecting!");	
 		window.location = "default.html";
 	}
+	
+	// Gets name from cookie
+	accountName = getCookie("name");
 
+	// Makes everything draggable
 	$(this).makeQueueDroppable();
 	$(this).makeParticipantsDroppable();
 	$(this).makeFilesDroppable();
+	
+	// Initializes the tabs
 	$( "#tabs" ).tabs();
+	
+	// Populates the surveys from the server
 	PS.ajax.surveyIndex(PS.model.getSurveysCallback);
+	
 	
 	var scrollable = document.getElementById("participantList");
 	new ScrollFix(scrollable);
-
 	var scrollable1 = document.getElementById("groupList");
 	new ScrollFix(scrollable1);
-
 	var scrollable2 = document.getElementById("tweets");
 	new ScrollFix(scrollable2);
-	
 	var scrollable3 = $(".files-area").get(0);
 	new ScrollFix(scrollable3);
-	
 	var scrollable4 = document.getElementById("queue");
 	new ScrollFix(scrollable4);
 		
 	
+	// Adds the hover border to the proper parent element when hovering over the dragHandle
 	$("#columns .column header h1 img.dragHandle2").hover(function(){$(this).parent().parent().parent().addClass("hover-border2");}, function () {$(this).parent().parent().parent().removeClass("hover-border2");});
 	$("#participantList li img.dragHandle2").hover(function(){$(this).parent().addClass("hover-border2");}, function () {$(this).parent().removeClass("hover-border2");});	
 	
+	// Updates the scrolling arrows that show when user scrolls the participantList.
 	$("#participantList").scroll(function(){
 		if($(this)[0].scrollHeight - $(this).scrollTop()-5 <= $(this).outerHeight())
 		{
 			// At bottom
-			$("#downArrow").css("visibility", "hidden");
-			
+			$("#downArrow").css("visibility", "hidden");		
 		} else 
 		{
 			// Not at bottom
-			$("#downArrow").css("visibility", "visible");
-			
+			$("#downArrow").css("visibility", "visible");		
 		}
 		
 		if($(this).scrollTop() >= 5)
@@ -63,12 +68,12 @@ $(function() {
 		}
 	});
 	
+	// Updates the scrolling arrows that show when user scrolls the queue
 	$(".queue").scroll(function() {
 	    if($(this)[0].scrollWidth - $(this).scrollLeft()-500 <= $(this).outerWidth())
 		{
 			// At right
 			$("#rightArrow").css("visibility", "hidden");
-		
 		} else 
 		{
 			// Not at right
@@ -105,10 +110,13 @@ $(function() {
 	$(this).createItem('file', "empty.html", "File");
 	$(this).createItem('audio', "empty.html", "Audio");
 	
+	// Event handling for the slide button
 	$("#toggleSlide").click(function() {	
 		$(this).slideItems();
 	});
-								
+				
+	
+	// Initializes the Google Map
 	var myOptions = {
 		center: new google.maps.LatLng(49.891235,-97.15369),
 		zoom: 4,
@@ -116,10 +124,10 @@ $(function() {
 	};
 	var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);						
 	
+	// Disables selection
 	$("body").disableSelection();
 	
 	// If an administrator is logged in, then the list of all users is populated
-	
 	$("#participantList").append("<li class='icon' id='loading'>Loading Users...</li>");
 	PS.ajax.userIndex(populateParticipants, populateFailed);
 });
@@ -173,8 +181,8 @@ function createUser(name, id) {
 	$("#participantList").append("<li uid='" + id + "' class='user icon'><a href='#'>" + name + "</a><img alt='Drag Handle' src='icons/handle.png' class='dragHandle2'></li>");
 }
 
+// Animates divs to slide in and out
 $.fn.slideItems = function() {
-
 	if(slideOpen) {
 	/*	$(".queue").animate({width: '+=240'}, {duration:"slow", queue: false});
 		$(".monitter").animate({width: '+=240'}, {duration:"slow", queue: false});
@@ -185,8 +193,7 @@ $.fn.slideItems = function() {
 		$(".monitter").css("width", '+=240' );
 		$(".workspace").css("width", '+=240' );
 		$("#columns").css("width", '+=240' );
-		
-		
+			
 		$(".participants").animate({left: '-=240'}, {duration:"slow", queue: false});
 		$(".queue").animate({left: '-=240'}, {duration:"slow", queue: false});
 		$(".workspace").animate({left: '-=240'}, {duration:"slow", queue: false});
@@ -213,13 +220,25 @@ $.fn.slideItems = function() {
 		$("#columns").css("width", '-=240' );
 		
 		$("#toggleSlide").attr("src","icons/left.png");
-
 		slideOpen = true;
 	}
 };
 
+// Creates a random string of 5 characters. Used for twitter since it doesn't allow duplicate messages
+// No longer used since we now use the username.
+function randomString() {
+	var chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz";
+	var string_length = 5;
+	var randomstring = '';
+	for (var i=0; i<string_length; i++) {
+		var rnum = Math.floor(Math.random() * chars.length);
+		randomstring += chars.substring(rnum,rnum+1);
+	}
+	return randomstring;
+};
+
+
 $.fn.makeQueueDroppable = function() {	
-	
 	$("#columns").sortable({
 		appendTo: "body",
 		revert: true,
@@ -251,16 +270,7 @@ $.fn.makeQueueDroppable = function() {
 			$(this).removeClass("hover-border");			
 			$(this).makeQueueDroppable();
 						
-			//Just creates a random name because twitter doesn't allow duplicate tweets
-			var chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz";
-			var string_length = 5;
-			var randomstring = '';
-			for (var i=0; i<string_length; i++) {
-				var rnum = Math.floor(Math.random() * chars.length);
-				randomstring += chars.substring(rnum,rnum+1);
-			}
-			
-			tweet("facetmeeting321","queue",randomstring,type, ui.item.text() );
+			tweet("facetmeeting321","queue",accountName,type, ui.item.text() );
 		},
 		
 		over: function(event,ui) {$(".queue").addClass("hover-border");},		
@@ -275,15 +285,7 @@ $.fn.makeQueueDroppable = function() {
 			var type = $(ui.item).attr("type");
 			$("#sharedScreen").attr("src",ui.item.find("a").attr("href"));
 						
-			//Just creates a random name because twitter doesn't allow duplicate tweets
-			var chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz";
-			var string_length = 5;
-			var randomstring = '';
-			for (var i=0; i<string_length; i++) {
-				var rnum = Math.floor(Math.random() * chars.length);
-				randomstring += chars.substring(rnum,rnum+1);
-			}
-			tweet("facetmeeting321","shared screen",randomstring,type, ui.item.text() );
+			tweet("facetmeeting321","shared screen",accountName,type, ui.item.text() );
 			$(this).changeTab(4);
 		},
 		
@@ -291,17 +293,16 @@ $.fn.makeQueueDroppable = function() {
 		out: function(event,ui) {$("#tabs").removeClass("hover-border");},
 	
 	}).disableSelection();
-
 };
 
-var editing = false;
 
+var editing = false;
 /* If we are currently renaming, then we make an group with the textarea, else if just create regular text*/
 $.fn.newGroup = function() {
     if(editing == true) {
-        $("#groupList").append("<li class = 'icon group connectedSortable'><img onclick='$(this).test();' class='delete' src='icons/delete.png'></img><div onclick='$(this).hide5();'><textarea>New Group</textarea></div><ul class = 'apple'></ul></li>");
+        $("#groupList").append("<li class = 'icon group connectedSortable'><img onclick='$(this).parent().remove();' class='delete' src='icons/delete.png'></img><div onclick='$(this).next().toggle();'><textarea>New Group</textarea></div><ul class = 'apple'></ul></li>");
     } else {
-        $("#groupList").append("<li class = 'icon group connectedSortable'><div onclick='$(this).hide5();'>New Group</div><ul class = 'apple' style='display:none'></ul></li>");	
+        $("#groupList").append("<li class = 'icon group connectedSortable'><div onclick='$(this).next().toggle();'>New Group</div><ul class = 'apple' style='display:none'></ul></li>");	
     }
     $(this).makeParticipantsDroppable(); /* Makes new group droppable */
 };
@@ -316,7 +317,7 @@ $.fn.rename = function() {
                                               
             /*Deleting*/
             var oldHtml = $(this).html();
-            $(this).html("<img onclick='$(this).test();' class='delete' src='icons/delete.png'></img>" + oldHtml);
+            $(this).html("<img onclick='$(this).parent().remove();' class='delete' src='icons/delete.png'></img>" + oldHtml);
         });
 		editing = true;
 		$("#renameButton").html("Done");
@@ -348,10 +349,6 @@ function tweet(hashtag,location,name,type,filename) {
 		}
     });
 }
-
-$.fn.test = function() {
-    $(this).parent().remove();
-};
 
 $.fn.makeParticipantsDroppable = function() {
     $( "#participantList li" ).draggable({
@@ -448,13 +445,6 @@ function deleteUIItem(ui) {
 	}
 }
 
-$.fn.hide5 = function() { 
-    $(this).next().toggle();
-};
-
-
-
-//<!-- scripts from files.html -->
 $.fn.makeFilesDroppable = function() {
 	
 	$(".appleCube").sortable({
@@ -480,12 +470,9 @@ function doClone(event, ui) {
         } else {
             itemOriIndex -= 1;
             ui.item.clone().insertAfter('.appleCube li:eq(' + itemOriIndex + ')');
-        }
-        
+        }      
     }
 }
-
-
 
 /* Gets the index of where the dragging item is from */
 var itemOriIndex;

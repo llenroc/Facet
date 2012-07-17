@@ -70,6 +70,12 @@ ul.appleCube > li {
 	border-radius: 8px 8px 8px 8px;
 }
 
+.queue li header h1 {
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
+
 
 ul.apple > li {
     border: 1px solid #999999;
