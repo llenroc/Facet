@@ -35,7 +35,7 @@ PS.ajax.userLogin = function (username, password, callback , errorCallback) {
 		type: "POST",
 		url: PS.ajax.getServerPrefix() + "restfacet/user/login",
 		dataType: "json",
-		success: function(data, textStatus, jqXHR) { PS.ajax.setCookie(data, textStatus, jqXHR); callback(data, textStatus, jqXHR); },
+		success: function(data, textStatus, jqXHR) { PS.ajax.setCookie(data, textStatus, jqXHR); PS.ajax.setCookieData("loggedIn","true",365); callback(data, textStatus, jqXHR); },
 		error: errorCallback,
 		data: {username: username, password: password}
 		
@@ -51,6 +51,7 @@ PS.ajax.userLogout = function (callback) {
 	});
 }
 
+
 //Not an ajax call, just a local utility function. 
 //TODO: Only needs to be called when using reverse proxy for local development ... 
 PS.ajax.setCookie = function (data, textStatus, jqXHR) {
@@ -61,6 +62,17 @@ PS.ajax.setCookie = function (data, textStatus, jqXHR) {
 		document.cookie = session.session_name+"="+escape(session.sessid)
 			+ ";expires="+expire.toGMTString() + "; path=/";
 }
+
+// c_name is the name of the field. Example - "username"
+// value is the value of the field. Example - "Daniel"
+// exdays is the number of days from now for the cookie to expire. Example - 365
+PS.ajax.setCookieData = function(c_name,value,exdays) {
+	var exdate=new Date();
+	exdate.setDate(exdate.getDate() + exdays);
+	var c_value=escape(value) + ((exdays==null) ? "" : "; expires="+exdate.toUTCString());
+	document.cookie=c_name + "=" + c_value;
+}
+
 
 PS.ajax.clearCookies = function() {
 	var cookies = document.cookie.split( ';' );
@@ -82,12 +94,13 @@ PS.ajax.userRetrieve = function(userId, callback) {
 }
 
 //TODO: Account creation works, but there are two issues. 1) Users are created 'blocked' and 2) the password field seems to be ignored.
-PS.ajax.userCreate = function(username, email, password, callback) {
+PS.ajax.userCreate = function(username, email, password, callback, errorCallback) {
 	$.ajax({
 		type: "POST",
 		url: PS.ajax.getServerPrefix() + "restfacet/user/",
 		dataType: "json",
 		success: function(data, textStatus, jqXHR) { PS.ajax.setCookie(data, textStatus, jqXHR); callback(data, textStatus, jqXHR); },
+        error: errorCallback,
 		data: {name: username, mail:email, pass: password}, // all three required
 	});
 }
