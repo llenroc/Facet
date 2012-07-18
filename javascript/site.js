@@ -244,7 +244,6 @@ function randomString() {
 $.fn.makeQueueDroppable = function() {	
 	$("#columns").sortable({
 		appendTo: "body",
-		revert: true,
 		handle: "img.dragHandle2",
 		helper: "clone",
 		revertDuration: 250,
@@ -257,7 +256,12 @@ $.fn.makeQueueDroppable = function() {
 			$(ui.helper).find("a").css("color","white");
 			$(ui.helper).css("list-style-type","none");
 			$(ui.helper).addClass("queueItem");
+			$(ui.helper).attr("href",$(ui.item).find("a").attr("href"));
+			$(ui.helper).attr("type",$(ui.item).attr("type"));
 			
+			$(ui.helper).css("white-space", "nowrap");
+			$(ui.helper).css("text-overflow", "ellipsis");
+			$(ui.helper).css("overflow", "hidden");			
 		},
 		remove: function(event,ui) {$("#columns").css("width", "-=162px");},
 		receive: function(event,ui) {
@@ -281,24 +285,27 @@ $.fn.makeQueueDroppable = function() {
 		out: function(event,ui) {$(".queue").removeClass("hover-border");},
 	}).disableSelection();
 		
-	$(".workspace").sortable({
-		items: "none",
-		receive: function(event,ui) {
-			$(".trash").append(ui.item);
+	$(".workspace").droppable({
+		accept: ".column",
+		drop: function(event,ui) {
+			$(".trash").append(ui.draggable);
 			$(".trash").children().remove();
-			var type = $(ui.item).attr("type");
-			$("#sharedScreen").attr("src",ui.item.find("a").attr("href"));
+			
+			var type = $(ui.helper).attr("type");
+			var href = $(ui.helper).attr("href");
+			$("#sharedScreen").attr("src",href);
 						
-			tweet("facetmeeting321","shared screen",accountJSON.name,type, ui.item.text() );
+			tweet("facetmeeting321","shared screen",accountJSON.name,type, ui.helper.text() );
 			$(this).changeTab(4);
+			
+			$("#tabs").removeClass("hover-border");
 		},
 		
 		over: function(event,ui) {$("#tabs").addClass("hover-border");},		
 		out: function(event,ui) {$("#tabs").removeClass("hover-border");},
+	});
 	
-	}).disableSelection();
 };
-
 
 var editing = false;
 /* If we are currently renaming, then we make an group with the textarea, else if just create regular text*/
@@ -369,7 +376,6 @@ $.fn.makeParticipantsDroppable = function() {
 	    
     /* Everything with the .group class will be droppable, and it'll append it to children with the .apple class */
     $( ".group" ).droppable({
-   //     accept: ":not(.ui-sortable-helper)",
 		over: function(event,ui) {$(this).addClass("hover-border");},		
 		out: function(event,ui) {$(this).removeClass("hover-border");},
         drop: function( event, ui ) {
@@ -378,9 +384,9 @@ $.fn.makeParticipantsDroppable = function() {
 			
 			if(isQueueItem || isWorkspaceItem) {				
 				console.log("Sending item to all members of '" + $(this).find("div").text()+"'");
-				
-				$(this).find("ul li").each(function() {
-					console.log("Sending item to '" + $(this).text() + "'");				
+				var item = ui.draggable.text();	
+				$(this).find("ul li").each(function() {		
+					console.log("Sending " + item + " to '" + $(this).text() + "'");					
 				});
 			
 			} else {
@@ -395,6 +401,7 @@ $.fn.makeParticipantsDroppable = function() {
     }).disableSelection();
 		
 	$( "#participantList li" ).droppable({
+		accept: ".column, .workspaceItem",
 		over: function(event,ui) {$(this).addClass("hover-border");},		
 		out: function(event,ui) {$(this).removeClass("hover-border");},
         drop: function( event, ui ) {
