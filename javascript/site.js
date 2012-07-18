@@ -14,6 +14,8 @@ $(function() {
 		window.location = "default.html";
 	}
 	
+	console.log(document.cookie);
+	
 	// Gets name from cookie
 	accountName = getCookie("name");
 
