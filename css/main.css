@@ -249,6 +249,7 @@ img.dragHandle2 {
 
 .iPhoneButton {
     font-weight: bold;
+    cursor:pointer;
     text-align: center;
     line-height: 28px;
     color: white;
