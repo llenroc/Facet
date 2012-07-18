@@ -1,6 +1,15 @@
 ﻿var emailError = false;
 var pwError = false;
 
+$(function () {
+    // Detects if user presses enter.
+    $(this).keypress(function (e) {
+        if (e.which == 10 || e.which == 13) {
+            signup();
+        }
+    });
+});
+
 function signup() {
     $("#pwError").css("display", "none");
     $("#emailError").css("display", "none");
@@ -78,4 +87,15 @@ function userCreated (json, textStatus, jqXHR) {
 	$("#processing").css("display", "none");
     $("#successful").css("display", "block");
     $("#submitButton").css("display", "none");
+}
+
+function passwordsMatch() {
+    $("#pwwrong").css("display", "none");
+    $("#pwcheck").css("display", "none");
+    if ($("#password").val() == $("#cpassword").val()) {
+        $("#pwcheck").css("display", "block");
+    }
+    else {
+        $("#pwwrong").css("display", "block");
+    }
 }
