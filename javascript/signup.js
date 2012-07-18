@@ -92,10 +92,21 @@ function userCreated (json, textStatus, jqXHR) {
 function passwordsMatch() {
     $("#pwwrong").css("display", "none");
     $("#pwcheck").css("display", "none");
+    passwordStrength();
     if ($("#password").val() == $("#cpassword").val()) {
         $("#pwcheck").css("display", "block");
     }
     else {
         $("#pwwrong").css("display", "block");
+    }
+}
+
+function passwordStrength() {
+    $("#pwrequired").css("display", "none");
+    var pw = $("#password").val();
+    var spaces = pw.split(" ");
+
+    if (pw.length < 6 || spaces.length > 1) {
+        $("#pwrequired").css("display", "block");
     }
 }

@@ -59,6 +59,7 @@
             <tr>
                 <td align="left">Password: </td>
                 <td><input id="password" type="password" name="password" onkeyup="passwordsMatch();"/></td>
+                <td><p id="pwrequired" style="color:Red; display:none; font-size:medium">Must Be 6 Characters & No Spaces</p></td>
             </tr>
             <tr>
                 <td align="left">Password Confirm: </td>
@@ -68,7 +69,7 @@
             </table>
             </div>
             <div id="mydiv">
-            <p class="errormsg" id="pwError" style="display:none;color:red;">Passwords Do NOT Match OR Are Short Than 6 Characters</p>
+            <p class="errormsg" id="pwError" style="display:none;color:red;">Passwords Error: Check Your Password Again</p>
             <p class="errormsg" id="emailError" style="display:none;color:red;">Email MUST Match A Standard Format</p>
             <p class="errormsg" id="emptyError" style="display:none;color:red;">All Entries Must Contain A Value</p>
             <p class="errormsg" id="emailUsed" style="display:none;color:red;">Email Already In Use</p>
