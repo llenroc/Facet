@@ -1,7 +1,7 @@
 "use strict";
 
 var slideOpen = true;
-var accountName;
+var accountJSON;
 
 // http://www.w3schools.com/js/js_cookies.asp
 
@@ -14,10 +14,13 @@ $(function() {
 		window.location = "default.html";
 	}
 	
-	console.log(document.cookie);
+
+	// Gets id from cookie
+	var accountID = getCookie("id");
 	
-	// Gets name from cookie
-	accountName = getCookie("name");
+	// Then performs a ajax call to get the JSON object from the server
+	PS.ajax.userRetrieve(accountID, function(json, textStatus, jqXHR) { accountJSON = json; console.log("Welcome " + accountJSON.name); });
+
 
 	// Makes everything draggable
 	$(this).makeQueueDroppable();
@@ -272,7 +275,7 @@ $.fn.makeQueueDroppable = function() {
 			$(this).removeClass("hover-border");			
 			$(this).makeQueueDroppable();
 						
-			tweet("facetmeeting321","queue",accountName,type, ui.item.text() );
+			tweet("facetmeeting321","queue",accountJSON.name,type, ui.item.text() );
 		},
 		
 		over: function(event,ui) {$(".queue").addClass("hover-border");},		
@@ -287,7 +290,7 @@ $.fn.makeQueueDroppable = function() {
 			var type = $(ui.item).attr("type");
 			$("#sharedScreen").attr("src",ui.item.find("a").attr("href"));
 						
-			tweet("facetmeeting321","shared screen",accountName,type, ui.item.text() );
+			tweet("facetmeeting321","shared screen",accountJSON.name,type, ui.item.text() );
 			$(this).changeTab(4);
 		},
 		
