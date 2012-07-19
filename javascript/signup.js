@@ -12,6 +12,7 @@ $(function () {
     if (window.screen.availWidth < 420) {
         document.getElementById("SignUpContent").style.width = "100%";
         document.getElementById("tscontent").style.width = "100%";
+        document.getElementById("eUsername").style.width = "95%";
         document.getElementById("username").style.width = "95%";
         document.getElementById("password").style.width = "95%";
         document.getElementById("cpassword").style.width = "95%";
@@ -116,5 +117,16 @@ function passwordStrength() {
 
     if (pw.length < 6 || spaces.length > 1) {
         $("#pwrequired").css("display", "inline");
+    }
+}
+
+function fillusername() {
+    var email = $("#username").val();
+    var i = email.indexOf("@");
+    if (i != -1) {
+        document.getElementById("eUsername").value = email.substring(0, i);
+    }
+    else {
+        document.getElementById("eUsername").value = email;
     }
 }

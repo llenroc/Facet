@@ -45,8 +45,12 @@
 
             <table id="tscontent" align="center">
             <tr>
-                <td align="left">Username (email): </td>
-                <td><input id="username" type="text" name="username" /></td>
+                <td align="left">Email: </td>
+                <td><input id="username" type="email" name="email" onkeyup="fillusername();"/></td>
+            </tr>
+            <tr>
+                <td align="left">Username: </td>
+                <td><input id="eUsername" type="text" name="username" readonly="readonly"/></td>
             </tr>
             <tr>
                 <td align="left">Password: </td>
