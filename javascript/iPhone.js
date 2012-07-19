@@ -4,7 +4,6 @@ var selectedGroup;
 
 $(function() {
 
-
 	// Populate the workspace with some sample items
 	$(this).createItem('audio', "empty.html", "Audio");
 	$(this).createItem('file', "empty.html", "File");
@@ -14,8 +13,6 @@ $(function() {
 	$(this).createItem('file', "empty.html", "File");
 	$(this).createItem('audio', "empty.html", "Audio");
 	$(this).createItem('images', "empty.html", "Image"); 
-	
-
 	
 	// Initialize the Google Map to be zoomed in on the lat/long
 	var myOptions = {
@@ -69,8 +66,14 @@ $(function() {
 		// Goes from the item clicked up until the next divider and toggles visibility
 		$(this).nextUntil(".ui-li-divider").toggle();
 	});
-			
+	
+	PS.ajax.userIndex(populateParticipants, populateFailed);		
 });
+
+function createUser(name, id) {
+	$("#participantList").append("<li uid='" + id + "'><a data-rel='dialog' data-transition='pop' href='#participantDialog'>" + name + "</a></li>");
+	$('#groupList').listview('refresh', true);
+}
  
 $.fn.newGroup = function() {
 	// Gets value from textbox
@@ -110,7 +113,6 @@ $.fn.deleteItem = function() {
 };
 
 $.fn.addUserToGroup = function(name, groupName) {
-
 	// Goes through all the .name in #groupList and checks to see if it matches the groupName parameter. If it does, then it adds the user to the group
 	$("#groupList li .name").each(function(index) {
 		if(groupName == $(this).text()) {
@@ -134,18 +136,19 @@ $.fn.addUserToGroup = function(name, groupName) {
 			$('#groupList').listview('refresh', true);
 		}
 	});	
-
 };
 
 $.fn.createItem = function(type, link, name) {
 	// data-filtertext = when using the filter bar, it filters by this text. Currently it filters by type (survey, image, document, etc ...) and the item name.
     $("#workspaceList").append("<li data-filtertext='"+ name + " " + type + "' type=" + type + " title = '" + name + "'><a data-rel='dialog' data-transition='pop' href='#workspaceDialog' linkURL='" + link + "'>" + name + "</a></li>");
-
-	// Refreshes list
-	//$('#workspaceList').listview('refresh');
 };
 
 $.fn.changeOpenFile = function() {
 	console.log(selectedItem.text());
 };
 
+function refreshSurveys(json, textStatus, jqXHR) {
+	console.log("here");
+	PS.model.getSurveysCallback(json,textStatus,jqXHR);
+	$('#workspaceList').listview('refresh');
+}
