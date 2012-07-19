@@ -1,5 +1,6 @@
 if (window.screen.availWidth < 420) {
     document.getElementById("content").style.width = "100%";
+    document.getElementById("tcontent").style.width = "100%";
 }
 
 $(function() {
