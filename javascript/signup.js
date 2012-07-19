@@ -8,6 +8,15 @@ $(function () {
             signup();
         }
     });
+
+    if (window.screen.availWidth < 420) {
+        document.getElementById("SignUpContent").style.width = "100%";
+        document.getElementById("tscontent").style.width = "100%";
+        document.getElementById("username").style.width = "95%";
+        document.getElementById("password").style.width = "95%";
+        document.getElementById("cpassword").style.width = "95%";
+        document.getElementById("pwrequired").style.width = "95%";
+    }
 });
 
 function signup() {
@@ -18,13 +27,12 @@ function signup() {
     $("#processing").css("display", "none");
 
     var username = $("#username").val();
-    var email = $("#email").val();
     var pw = $("#password").val();
-    var passed = checkCredentials(email, pw);
+    var passed = checkCredentials(username, pw);
 
     if (passed) {
         $("#processing").css("display", "block");
-        PS.ajax.userCreate(username, email, pw, userCreated, userCreateFailed);
+        PS.ajax.userCreate("", username, pw, userCreated, userCreateFailed);
     }
     else {
         failedCreation("");
@@ -45,7 +53,7 @@ function checkCredentials (email, pw) {
                 if (filter.test(email)) {
                     console.log("Email passed standard format check");
                     emailError = false;
-                    if ($("#email").val() != "" && $("#username").val() != "" && $("#fname").val() != "") {
+                    if ($("#email").val() != "" && $("#username").val() != "") {
                         console.log("Credentials are not empty");
                         return true;
                     }
