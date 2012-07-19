@@ -181,7 +181,8 @@ $.fn.changeOpenFile = function() {
 };
 
 function refreshSurveys(json, textStatus, jqXHR) {
-	console.log("here");
+	$("#workspaceList").append("<li id='loadingWorkspace'><a>Loading Items...</a></li>");
+	$('#workspaceList').listview('refresh');
 	PS.model.getSurveysCallback(json,textStatus,jqXHR);
 	$('#workspaceList').listview('refresh');
 }
