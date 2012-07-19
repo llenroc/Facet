@@ -1,17 +1,19 @@
-if (window.screen.availWidth < 420) {
-    document.getElementById("content").style.width = "100%";
-}
+$(function () {
+    PS.ajax.userLogout(logoutPassed);
 
-$(function() {
-
-	PS.ajax.userLogout(logoutPassed);
-	
-	// Detects if user presses enter in the password box.
-	$("#password").keypress(function(e) {
-		if(e.which == 10 || e.which == 13) {
+    // Detects if user presses enter in the password box.
+    $("#password").keypress(function (e) {
+        if (e.which == 10 || e.which == 13) {
             $(this).login();
         }
-	});
+    });
+
+    if (window.screen.availWidth < 420) {
+        document.getElementById("content").style.width = "100%";
+        document.getElementById("tcontent").style.width = "100%";
+        document.getElementById("username").style.width = "95%";
+        document.getElementById("password").style.width = "95%";
+    }
 });
 
 $.fn.login = function() {
