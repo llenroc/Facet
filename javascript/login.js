@@ -9,8 +9,8 @@ $(function () {
     });
 
     if (window.screen.availWidth < 420) {
-        document.getElementById("content").style.width = window.screen.availWidth.toString();
-        document.getElementById("tcontent").style.width = window.screen.availWidth;
+        document.getElementById("content").style.width = window.screen.availWidth.toString() + "px";
+        document.getElementById("tcontent").style.width = window.screen.availWidth.toString() + "px";
     }
 });
 
