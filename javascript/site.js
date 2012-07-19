@@ -42,11 +42,6 @@ $(function() {
 	var scrollable4 = document.getElementById("queue");
 	new ScrollFix(scrollable4);
 		
-	
-	// Adds the hover border to the proper parent element when hovering over the dragHandle
-	$("#columns .column header h1 img.dragHandle2").hover(function(){$(this).parent().parent().parent().addClass("hover-border2");}, function () {$(this).parent().parent().parent().removeClass("hover-border2");});
-	$("#participantList li img.dragHandle2").hover(function(){$(this).parent().addClass("hover-border2");}, function () {$(this).parent().removeClass("hover-border2");});	
-	
 	// Updates the scrolling arrows that show when user scrolls the participantList.
 	$("#participantList").scroll(function(){
 		if($(this)[0].scrollHeight - $(this).scrollTop()-5 <= $(this).outerHeight())
@@ -304,8 +299,7 @@ $.fn.makeQueueDroppable = function() {
 		
 		over: function(event,ui) {$("#tabs").addClass("hover-border");},		
 		out: function(event,ui) {$("#tabs").removeClass("hover-border");},
-	});
-	
+	});	
 };
 
 var editing = false;
@@ -366,7 +360,6 @@ $.fn.makeParticipantsDroppable = function() {
 			return $("<li class='user icon' style='font-weight: bold;font-size: 17px;font-family: Helvetica; list-style-type: none;'>" + name + "</li>")[0];},
         cursorAt: { right: 20, top: 20},
         opacity: 0.5,
-
 		scroll: false,
         handle: "img.dragHandle2",
 		iframeFix: true,
