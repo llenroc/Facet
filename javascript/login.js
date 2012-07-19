@@ -1,3 +1,8 @@
+alert(window.screen.availWidth);
+if (window.screen.availWidth < 500) {
+    
+}
+
 $(function() {
 
 	PS.ajax.userLogout(logoutPassed);
