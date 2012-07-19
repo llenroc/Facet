@@ -14,6 +14,7 @@ $(function() {
 	$(this).createItem('audio', "empty.html", "Audio");
 	$(this).createItem('images', "empty.html", "Image"); 
 	
+	
 	// Initialize the Google Map to be zoomed in on the lat/long
 	var myOptions = {
 		center: new google.maps.LatLng(49.891235,-97.15369),
@@ -67,12 +68,44 @@ $(function() {
 		$(this).nextUntil(".ui-li-divider").toggle();
 	});
 	
+	$("#participantList").append("<li id='loading'><a>Loading Users...</a></li>");
+	$('#participantList').listview('refresh', true);
 	PS.ajax.userIndex(populateParticipants, populateFailed);		
 });
 
 function createUser(name, id) {
 	$("#participantList").append("<li uid='" + id + "'><a data-rel='dialog' data-transition='pop' href='#participantDialog'>" + name + "</a></li>");
-	$('#groupList').listview('refresh', true);
+}
+
+// Ajax call passed and adding recieved users
+function populateParticipants(json, textStatus, jqXHR) {
+	$(json).each(function() {
+		var name = this.name;
+		if(name != "")
+			createUser(name, this.uid);
+	});
+	
+	// Removes loading animation item
+	$("#loading").remove();
+	$('#participantList').listview('refresh', true);
+}
+
+// Not administrator and so populating with default users
+function populateFailed() {
+	createUser("Byron",0);
+	createUser("Charles",0);
+	createUser("Christopher",0);
+	createUser("Daniel",0);
+	createUser("David",0);
+	createUser("Patrick",0);
+	createUser("Robert",0);
+	createUser("Roseline",0);
+	createUser("Yaser",0);
+	
+	// Removes loading animation item
+	$("#loading").remove();
+	$('#participantList').listview('refresh', true);
+
 }
  
 $.fn.newGroup = function() {
