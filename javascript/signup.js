@@ -107,6 +107,6 @@ function passwordStrength() {
     var spaces = pw.split(" ");
 
     if (pw.length < 6 || spaces.length > 1) {
-        $("#pwrequired").css("display", "block");
+        $("#pwrequired").css("display", "inline");
     }
 }

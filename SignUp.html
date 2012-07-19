@@ -45,7 +45,7 @@
 
             <table align="center">
             <tr>
-                <td align="left">Username: </td>
+                <td align="left">Username (email): </td>
                 <td><input id="username" type="text" name="username" /></td>
             </tr>
             <tr>
@@ -59,7 +59,10 @@
             <tr>
                 <td align="left">Password: </td>
                 <td><input id="password" type="password" name="password" onkeyup="passwordsMatch();"/></td>
-                <td><p id="pwrequired" style="color:Red; display:none; font-size:medium">Must Be 6 Characters & No Spaces</p></td>
+                
+            </tr>
+            <tr>
+                <td colspan="2" align="center""><p align="center" id="pwrequired" style="color:Red; display:none; font-size:medium;">At Least 6 Characters & No Spaces</p></td>
             </tr>
             <tr>
                 <td align="left">Password Confirm: </td>
@@ -67,6 +70,7 @@
                 <td><img alt="Password Mismatch" id="pwwrong" src="icons/pwwrong.png" width="20" height="16" style="display:none" /><img alt="Passwords Match" id="pwcheck" src="icons/pwcheck.png" width="20" height="16" style="display:none" /></td>
             </tr>
             </table>
+
             </div>
             <div id="mydiv">
             <p class="errormsg" id="pwError" style="display:none;color:red;">Passwords Error: Check Your Password Again</p>
