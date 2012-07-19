@@ -1,0 +1,299 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+		
+		<!-- Mobile tag to disable zooming and also set the viewport -->
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=0" />
+		
+		<title>Facet Testing</title>
+		
+		<link rel="stylesheet" href="css/mobile.min.css" />
+		<link rel="stylesheet" href="css/jquery.mobile.structure-1.1.0.min.css" />
+		<script src="javascript/jquery/jquery-1.7.2.min.js"></script>
+		
+		<!-- http://jquerymobile.com/demos/1.1.0/ -->
+		<script src="javascript/jquery/jquery.mobile-1.1.0.min.js"></script>
+		
+		<script type="text/javascript" src="javascript/publicsquare.js"> </script>
+		<script type="text/javascript" src="javascript/iPhone.js"></script>
+		<script type="text/javascript" src="javascript/ajax.js"> </script>
+        <script type="text/javascript" src="javascript/model.js"> </script>
+		
+		<!-- Javascript for Google Maps -->
+		<script type="text/javascript"
+			src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBpiByGBcI98q-wB0U95uWlddFbYQ6qSmU&sensor=false">
+		</script>
+				
+	</head>
+	
+	<!--
+	Each page has the following format
+	
+	<div data-role="page">
+			<div data-role="header" data-position="inline">
+			<a href="index.html" data-rel="back" data-icon="arrow-l">Back</a>
+			INSERT HEADER HERE
+			</div>
+			
+			<div data-role="content">
+			INSERT CONTENT HERE
+			</div>
+			
+			<div data-id="test" data-position="fixed" data-role="footer">
+			INSERT FOOTER HERE
+			</div>
+		</div>
+	
+	-->
+	
+	<body>
+	
+<!-- -----------------------------------------PARTICIPANTS--------------------------------------------------------------------------------- -->
+		<div data-role="page" id="participants">
+			<div data-role="header" data-position="inline">
+			<a href="index.html" data-rel="back" data-icon="arrow-l">Back</a>
+			<h1>Facet</h1>
+			
+			</div>
+			<div data-role="content">
+			<ul id="participantList" data-role="listview" data-inset="true">
+                <li style="font-size:110%;" data-role="list-divider" id="participantsHeader">Participants</li>
+                <li><a data-rel="dialog" data-transition="pop" href="#participantDialog">Byron</a></li>
+                <li><a data-rel="dialog" data-transition="pop" href="#participantDialog">Charles</a></li>
+                <li><a data-rel="dialog" data-transition="pop" href="#participantDialog">Christopher</a></li>
+                <li><a data-rel="dialog" data-transition="pop" href="#participantDialog">Daniel</a></li>
+                <li><a data-rel="dialog" data-transition="pop" href="#participantDialog">David</a></li>
+                <li><a data-rel="dialog" data-transition="pop" href="#participantDialog">Patrick</a></li>
+                <li><a data-rel="dialog" data-transition="pop" href="#participantDialog">Robert</a></li>
+                <li><a data-rel="dialog" data-transition="pop" href="#participantDialog">Roseline</a></li>
+                <li><a data-rel="dialog" data-transition="pop" href="#participantDialog">Yaser</a></li>
+            </ul>
+			
+			<div style="text-align:center;" data-type="horizontal" data-role="controlgroup">
+				<a data-rel="dialog" data-transition="pop" href="#newgroupDialog" data-icon="plus" data-role="button">Add Group</a>
+				<a id="editGroupButton" data-icon="gear" data-role="button">Edit Group</a>
+			</div>
+			
+			<ul id="groupList" data-role="listview" data-inset="true">
+                <li style="font-size:110%;" data-role="list-divider" id="groupsHeader">Groups</li>
+				<li class="group" data-role="list-divider"><div class="name">Facet</div><div class="ui-li-count">0</div></li>
+                <li class="group" data-role="list-divider"><div class="name">NSERC</div><div class="ui-li-count">0</div></li>
+
+            </ul>
+			
+			</div>
+			<div data-id="test" data-position="fixed" data-role="footer">
+			
+				<div data-role="navbar">
+				<ul>
+					<li><a data-transition="slidefade" href="#participants" class="ui-btn-active">Participants</a></li>
+					<li><a onclick="PS.ajax.surveyIndex(PS.model.getSurveysCallback);" data-transition="slidefade" href="#workspace">Workspace</a></li>
+					<li><a data-transition="slidefade" href="#queue">Queue</a></li>
+					<li><a data-transition="slidefade" href="#map">Map</a></li>
+					<li><a data-transition="slidefade" href="#sharedScreen">Shared Screen</a></li>
+				</ul>
+				</div>
+				
+			</div>
+		</div>
+		
+<!-- ----------------------------------------------------------------------------------------------------------------------------------- -->
+		
+
+<!-- -----------------------------------------WORKSPACE--------------------------------------------------------------------------------- -->
+		<div data-role="page" id="workspace">
+			<div data-role="header" data-position="inline">
+			<a href="index.html" data-rel="back" data-icon="arrow-l">Back</a>
+			<h1>Workspace</h1>
+			</div>
+			<div data-role="content">
+			<div style="text-align:center;" data-role="controlgroup" data-type="horizontal">
+				<a onclick="$(this).createItem('audio','#','Audio');" data-mini="true" data-role="button">Audio</a>
+				<a data-mini="true" data-rel="dialog" data-transition="pop" href="#surveyDialog" data-role="button">Survey</a>
+				<a onclick="$(this).createItem('file','#','File');" data-mini="true" data-role="button">File</a>
+				<a onclick="$(this).createItem('images','#','Image');" data-mini="true" data-role="button">Image</a>
+				<a onclick="$(this).createItem('document','#','Document');" data-mini="true" data-role="button">Document</a>
+			</div>
+				
+			<ul id="workspaceList" data-role="listview" data-inset="true">
+                <li data-role="list-divider" id="participantsHeader">Workspace</li>
+            </ul>
+				
+			</div>
+			<div data-id="test" data-position="fixed" data-role="footer">
+				<div data-role="navbar">
+				<ul>
+					<li><a data-transition="slidefade" href="#participants">Participants</a></li>
+					<li><a onclick="PS.ajax.surveyIndex(PS.model.getSurveysCallback);" data-transition="slidefade" href="#workspace" class="ui-btn-active">Workspace</a></li>
+					<li><a data-transition="slidefade" href="#queue">Queue</a></li>
+					<li><a data-transition="slidefade" href="#map">Map</a></li>
+					<li><a data-transition="slidefade" href="#sharedScreen">Shared Screen</a></li>
+				</ul>
+				</div>
+			</div>
+		</div>
+<!-- ----------------------------------------------------------------------------------------------------------------------------------- -->
+		
+		
+<!-- -----------------------------------------QUEUE------------------------------------------------------------------------------------- -->
+		<div data-role="page" id="queue">
+			<div data-role="header" data-position="inline">
+			<a href="index.html" data-rel="back" data-icon="arrow-l">Back</a>
+			<h1>Queue</h1>
+			
+			</div>
+			<div data-role="content">
+				
+			
+			</div>
+			<div data-id="test" data-position="fixed" data-role="footer">
+				<div data-role="navbar">
+				<ul>
+					<li><a data-transition="slidefade" href="#participants">Participants</a></li>
+					<li><a onclick="PS.ajax.surveyIndex(PS.model.getSurveysCallback);" data-transition="slidefade" href="#workspace">Workspace</a></li>
+					<li><a data-transition="slidefade" href="#queue" class="ui-btn-active">Queue</a></li>
+					<li><a data-transition="slidefade" href="#map">Map</a></li>
+					<li><a data-transition="slidefade" href="#sharedScreen">Shared Screen</a></li>
+				</ul>
+				</div>
+			</div>
+		</div>
+<!-- ----------------------------------------------------------------------------------------------------------------------------------- -->
+		
+		
+<!-- -----------------------------------------MAP--------------------------------------------------------------------------------------- -->
+		<div data-role="page" id="map">
+			<div data-role="header" data-position="inline">
+			<a href="index.html" data-rel="back" data-icon="arrow-l">Back</a>
+			<h1>Map</h1>
+			
+			</div>
+			<div data-role="content">
+				<div id="map_canvas" style="height:400px;"></div>
+			</div>
+			<div data-id="test" data-position="fixed" data-role="footer">
+				<div data-role="navbar">
+				<ul>
+					<li><a data-transition="slidefade" href="#participants">Participants</a></li>
+					<li><a onclick="PS.ajax.surveyIndex(PS.model.getSurveysCallback);" data-transition="slidefade" href="#workspace">Workspace</a></li>
+					<li><a data-transition="slidefade" href="#queue">Queue</a></li>
+					<li><a data-transition="slidefade" href="#map" class="ui-btn-active">Map</a></li>
+					<li><a data-transition="slidefade" href="#sharedScreen">Shared Screen</a></li>
+				</ul>
+				</div>
+			</div>
+		</div>
+<!-- ----------------------------------------------------------------------------------------------------------------------------------- -->
+		
+		
+<!-- -----------------------------------------SHARED SCREEN----------------------------------------------------------------------------- -->
+		<div data-role="page" id="sharedScreen">
+			<div data-role="header" data-position="inline">
+			<a href="index.html" data-rel="back" data-icon="arrow-l">Back</a>
+			<h1>Shared Screen</h1>
+			
+			</div>
+			<div data-role="content">
+				
+			
+			</div>
+			<div data-id="test" data-position="fixed" data-role="footer">
+				<div data-role="navbar">
+				<ul>
+					<li><a data-transition="slidefade" href="#participants">Participants</a></li>
+					<li><a onclick="PS.ajax.surveyIndex(PS.model.getSurveysCallback);" data-transition="slidefade" href="#workspace">Workspace</a></li>
+					<li><a data-transition="slidefade" href="#queue">Queue</a></li>
+					<li><a data-transition="slidefade" href="#map">Map</a></li>
+					<li><a data-transition="slidefade" href="#sharedScreen" class="ui-btn-active">Shared Screen</a></li>
+				</ul>
+				</div>
+			</div>
+		</div>
+<!-- ----------------------------------------------------------------------------------------------------------------------------------- -->
+		
+		
+<!-- -----------------------------------------PARTICIPANTS DIALOG---------------------------------------------------------------------- -->
+		<div data-role="page" id="participantDialog">
+			<div data-role="header" data-position="inline">
+			<h1 id="optionHeader">Options</h1>
+			</div>
+			<div data-role="content">
+				<a data-rel="dialog" data-transition="pop" href="#addToGroupDialog" data-icon="plus" data-role="button">Add to Group</a>
+				<a id="deleteUserButton" onclick="$(this).deleteUser();" data-icon="delete" data-role="button">Delete User</a>
+			</div>
+		</div>
+<!-- ----------------------------------------------------------------------------------------------------------------------------------- -->
+	
+	
+<!-- -----------------------------------------NEW GROUP DIALOG-------------------------------------------------------------------------- -->
+		<div data-role="page" id="newgroupDialog">
+			<div data-role="header" data-position="inline">
+			<h1>New Group</h1>
+			</div>
+			<div data-role="content">
+				<label for="createGroupLabel" class="ui-hidden-accessible">Group Name:</label>
+				<input type="text" name="name" id="createGroupLabel" placeholder="Group Name"/>
+				<a onclick="$(this).newGroup();" data-icon="check" data-role="button">Create</a>
+			</div>
+		</div>
+<!-- ----------------------------------------------------------------------------------------------------------------------------------- -->
+		
+		
+<!-- -----------------------------------------ADD TO GROUP DIALOG------------------------------------------------------------------------ -->
+		<div data-role="page" id="addToGroupDialog">
+			<div data-role="header" data-position="inline">
+			<h1>Add to</h1>
+			</div>
+			<div data-role="content">
+				<ul class="groupListPop" data-role="listview" data-inset="true">
+					<li data-role="list-divider" id="groupsHeader">Groups</li>
+					<li><a>Facet</a></li>
+					<li><a>NSERC</a></li>
+            </ul>	
+			</div>
+		</div>
+<!-- ----------------------------------------------------------------------------------------------------------------------------------- -->
+	
+	
+<!-- -----------------------------------------SURVEY DIALOG------------------------------------------------------------------------------ -->
+		<div data-role="page" id="surveyDialog">
+			<div data-role="header" data-position="inline">
+			<h1>Survey</h1>
+			</div>
+			<div data-role="content">
+				<object id="survey_canvas" width="100%" height="75%" class="facetsurvey" type="text/html" data="http://facetsurvey.4abyte.com"></object>
+			</div>
+		</div>
+<!-- ----------------------------------------------------------------------------------------------------------------------------------- -->
+		
+		
+<!-- -----------------------------------------WORKSPACE ITEM DIALOG--------------------------------------------------------------------- -->
+		<div data-role="page" id="workspaceDialog">
+			<div data-role="header" data-position="inline">
+			<h1 class="dialogHeader">Item</h1>
+			</div>
+			<div data-role="content">
+				<a onclick="$(this).changeOpenFile();" data-rel="dialog" data-transition="pop" href="#openDialog" data-role="button">Open</a>
+				<a data-role="button">Send to Queue</a>
+				<a data-role="button">Share</a>
+				<a onclick="$(this).deleteItem();" data-icon="delete" data-role="button">Delete</a>
+			</div>
+		</div>
+<!-- ----------------------------------------------------------------------------------------------------------------------------------- -->
+		
+		
+<!-- -----------------------------------------OPEN FILE DIALOG--------------------------------------------------------------------------- -->
+		<div data-role="page" id="openDialog">
+			<div data-role="header" data-position="inline">
+			<h1 class="dialogHeader">Item</h1>
+			</div>
+			<div data-role="content">
+				<object id="open_canvas" width="100%" height="75%" type="text/html" data=""></object>
+			</div>
+		</div>
+<!-- ----------------------------------------------------------------------------------------------------------------------------------- -->
+		
+		
+		
+	</body>
+</html>

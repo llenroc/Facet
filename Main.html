@@ -1,47 +1,146 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
+     
+    <head>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+		
+		<meta name="apple-mobile-web-app-capable" content="yes">
+			
+		<!-- iPad Portrait 768x1004 -->
+		<link rel="apple-touch-startup-image" media="(min-device-width: 768px) and (orientation: portrait)" href="splash-1004.png" />
+		<!-- iPad Landscape 1024x748 -->
+		<link rel="apple-touch-startup-image" media="(min-device-width: 768px) and (orientation: landscape)" href="splash-1024.png" />
+		<link rel="apple-touch-icon" href="apple-touch-icon.png" />
+		
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=0" />
+		
 
-<head>
-<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
-<title>Default Page</title>
-<style type="text/css">
-.participants {
-	position:absolute;
-	left:0;
-	top:0;
-}
+        <title>Facet Testing</title>
+                   
+        <link rel="stylesheet" href="css/jquery.ui.all.css" />
+		<link rel="stylesheet" href="css/demos.css" />
+	
+		<link rel="stylesheet" type="text/css" href="css/style.css" />
+        <link rel="stylesheet" type="text/css" href="css/main.css" />		
+		<link rel="stylesheet" type="text/css" href="css/monitter.css" />
+				
+		<link rel="stylesheet" media="only screen and (max-device-width: 1024px)" href="css/ipad.css" type="text/css" />
 
-.twitterfeed 
-{
-	position:absolute;
-	top:850px;
-	left:300px;
-}
+        
+        <!-- *** scripts *** -->       
+        
+        <script src="javascript/jquery/jquery-1.7.2.min.js"></script>
+        <script src="javascript/jquery/jquery.ui.core.min.js"></script>
+        <script src="javascript/jquery/jquery.ui.widget.min.js"></script>
+        <script src="javascript/jquery/jquery.ui.mouse.min.js"></script>
+        <script src="javascript/jquery/jquery.ui.sortable.min.js"></script>
+        <script src="javascript/jquery/jquery.ui.draggable.min.js"></script>
+        <script src="javascript/jquery/jquery.ui.droppable.min.js"></script>
+        <script src="javascript/jquery/jquery.ui.tabs.min.js"></script>		
+		<script src="javascript/jquery/jquery.bgiframe-2.1.2.min.js"></script>
+		<script src="javascript/jquery/jquery.ui.button.min.js"></script>
+		<script src="javascript/jquery/jquery.ui.position.min.js"></script>
+        
+        <script type="text/javascript" src="javascript/publicsquare.js"> </script>
+        <script type="text/javascript" src="javascript/ajax.js"> </script>
+        <script type="text/javascript" src="javascript/model.js"> </script>
 
-.workspace 
-{
-	position:absolute;
-	top:100px;
-	left:300px;
-}
+        <script type="text/javascript" src="javascript/site.js"></script>
+		
+		<script type="text/javascript" src="javascript/scrollfix.min.js"></script>
+		<script type="text/javascript" src="javascript/monitter.min.js"></script>
+		
+		<script type="text/javascript"
+			src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBpiByGBcI98q-wB0U95uWlddFbYQ6qSmU&sensor=false">
+		</script>
 
-.queue
-{
-	position:absolute;
-	top:0;
-	left:300px;
-}
+        
+        <!-- https://github.com/furf/jquery-ui-touch-punch
+         Hack to get drag and drop to work on touch devices-->
+        <script src="javascript/jquery.ui.touch-punch.min.js"></script>
+		
 
-}
+		         
+    </head>
+    
+    <body>
+	
+		<img alt="Toggle Participants View" style="z-index:9999;" src="icons/left.png" id="toggleSlide" />
+		
+        <div class="participants"> 
+			<button onclick="PS.ajax.userLogout(function() {window.location = 'default.html';});" style="position:absolute; left:5px;top:10px; z-index:9999;">Log out</button>
+            <h1>Participants</h1>
+				<img alt="Up Arrow" src="icons/upS.png" id="upArrow" />
+				<img alt="Down Arrow" src="icons/downS.png" id="downArrow" />
+                <ul class = "apple" id="participantList">
+                </ul>
+				
+			<ul class="apple"><li class = 'icon trash connectedSortable'>Trash</li></ul>
+			
+            <h1>Groups</h1>
+            
+            <div id="editButtonGroup">
+                <div class="iPhoneButton" onclick="$(this).newGroup();">New</div>
+                <div class="iPhoneButton" id="renameButton" onclick="$(this).rename();">Edit</div>                
+            </div>
+            		
+            <ul class="apple" id = "groupList"></ul>
+        </div>
+		
+		<img alt="Left Arrow" src="icons/leftS.png" id="leftArrow"/>
+		<img alt="Right Arrow" src="icons/rightS.png" id="rightArrow"/>
 
-</style>
-</head>
+		<div class="queue" style="height:auto; white-space:nowrap; overflow-x:scroll; overflow-y:hidden; position:relative; top:0px; margin-left:-5px; margin-top:-6px;">
+        
+            <ul id="columns"></ul>
+               
+        </div>
+        <div class="workspace" style="position:relative; top:-10px; margin-left:-17px; margin-top:0px;">
+            <div class="demo">
+                <div id="tabs">
+                    <ul>
+                        <li><a href="#tabs-1">Map</a></li>
+                        <li><a href="#tabs-2">Survey</a></li>
+                        <li><a href="#tabs-3" onclick="PS.ajax.surveyIndex(PS.model.getSurveysCallback);">Workspace</a></li>
+						<li><a href="#tabs-4">File</a></li>
+						<li><a href="#tabs-5">Shared Screen</a></li>
+                    </ul>
+                    <div id="tabs-1">
+						<div id="map_canvas"></div>
+                    </div>
+                    <div id="tabs-2" class="minHeightTab">
+                        <object id="survey_canvas" width="100%" height="100%" class="facetsurvey" type="text/html" data="http://facetsurvey.4abyte.com"></object>
+                    </div>	
+                    <div id="tabs-3">
+                        <div class="files-area" style="width: 100%;">
 
-<body>
-		<object width="1000" height="100" class="queue" data="queue.html" type="text/html"></object>
-		<object width="300" height="950" class="participants" type="text/html" data="participantGroups.html"></object>
-		<iframe src="workspace.html" width="1000" height="800" class="workspace"></iframe>
-		<object width="1000" height="150" class="twitterfeed" type="text/html" data="twitter.html"></object>
-</body>
+							<div style="margin-bottom:10px">
+								<button class="iPhoneButton" onclick="$(this).createItem('audio','#' ,'Audio');">Audio</button>
+								<button class="iPhoneButton" onclick="$(this).changeTab(1);">Survey</button>
+								<button class="iPhoneButton" onclick="$(this).createItem('file','#', 'File');">File</button>
+								<button class="iPhoneButton" onclick="$(this).createItem('images','tree.png', 'Image');">Image</button>
+								<button class="iPhoneButton" onclick="$(this).createItem('document','https://docs.google.com/document/d/1CI6nWiu_Z1-pFmAcR8qPTK7S_rOfghr03tMd6aLW6rA/edit', 'Document');">Document</button>
+							</div>
+                            <ul class = "appleCube"></ul>
 
+                        </div>						
+                    </div>
+					<div id="tabs-4" class="minHeightTab">
+						<iframe id="open_canvas" name="openFile" width="100%" height="100%" frameborder="0" marginheight="0" marginwidth="0"></iframe>
+					</div>
+					
+					<div id="tabs-5">
+						<iframe id="sharedScreen" width="100%" height="100%" frameborder="0" marginheight="0" marginwidth="0"></iframe>
+					</div>
+                </div>
+            </div> 
+                       
+            <div class="twitterfeed">
+				<div class="monitter" id="tweets" title="facetmeeting321" lang="en"></div>
+            </div>
+                       
+        </div>
+        
+
+    </body>  
 </html>

@@ -1,0 +1,40 @@
+#content {
+	border: 1px solid #999999;
+	border-radius: 8px 8px 8px 8px;
+	background-color: #FFF;
+	text-align:center; 
+	width:85%;
+	padding-bottom: 20px;
+	font-family: Helvetica;
+}
+
+body {
+    background-color: #ccc;
+
+}
+
+
+h1 {
+	border-radius: 8px 8px 0px 0px;
+    margin: 0;
+    padding: 0;
+    background-color: #ccc;
+	border-right: 0px solid #666;
+    color: #FFFFFF;
+    display: block;
+    font-size: 28px;
+    font-weight: bold;
+    padding: 10px 0;
+    text-align: center;
+    text-decoration: none;
+	text-shadow: 0px 1px 2px #000000;
+			
+	/* Cross Browser Gradient. */
+	background: #B0BCCA;
+    background: -webkit-gradient(linear, left top, left bottom, from(#B0BCCA), to(#6D859F));
+    background: -moz-linear-gradient(top, #B0BCCA, #6D859F);
+    background: -o-linear-gradient(#B0BCCA, #6D859F);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#B0BCCA', endColorstr='#6D859F');
+    zoom:1;
+	
+}

@@ -1,0 +1,86 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<meta name="viewport" content="user-scalable=no, width=device-width" />
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+	
+<!-- iPad Portrait 768x1004 -->
+<link rel="apple-touch-startup-image" media="(min-device-width: 768px) and (orientation: portrait)" href="splash-1004.png" />
+<!-- iPad Landscape 1024x748 -->
+<link rel="apple-touch-startup-image" media="(min-device-width: 768px) and (orientation: landscape)" href="splash-1024.png" />
+<link rel="apple-touch-icon" href="apple-touch-icon.png" />
+
+
+<title>Public Square New User Page</title>
+
+<link rel="stylesheet" href="css/SignUp.css" />
+
+<script src="javascript/jquery/jquery-1.7.2.js"></script>
+<script type="text/javascript" src="javascript/publicsquare.js"> </script>
+<script type="text/javascript" src="javascript/ajax.js"> </script>
+<script type="text/javascript" src="javascript/SignUp.js"> </script>
+<script type="text/javascript" src="javascript/pageloaded.js"></script>
+<script type="text/javascript" language="javascript">
+    window.onload = WindowLoadedHanlder;
+</script>
+
+<style type="text/css" id="styles">
+    p { display:none; color:red; }
+</style>
+
+</head>
+
+<body>
+    
+<div id="SignUpContainer">
+    <div id="SignUpLayout">
+    <center>
+        <div id="SignUpContent">
+            <h1>
+                Welcome to Public Square's User Creation Page
+            </h1><br />
+
+            <table align="center">
+            <tr>
+                <td align="left">Username: </td>
+                <td><input id="username" type="text" name="username" /></td>
+            </tr>
+            <tr>
+                <td align="left">Full Name: </td>
+                <td><input id="fname" type="text" name="fname" /></td>
+            </tr>
+            <tr>
+                <td align="left">Email: </td>
+                <td><input id="email" type="email" name="email" /></td>
+            </tr>
+            <tr>
+                <td align="left">Password: </td>
+                <td><input id="password" type="password" name="password" onkeyup="passwordsMatch();"/></td>
+                <td><p id="pwrequired" style="color:Red; display:none; font-size:medium">Must Be 6 Characters & No Spaces</p></td>
+            </tr>
+            <tr>
+                <td align="left">Password Confirm: </td>
+                <td><input id="cpassword" type="password" name="cpassword" onkeyup="passwordsMatch();"/></td>
+                <td><img alt="Password Mismatch" id="pwwrong" src="icons/pwwrong.png" width="20" height="16" style="display:none" /><img alt="Passwords Match" id="pwcheck" src="icons/pwcheck.png" width="20" height="16" style="display:none" /></td>
+            </tr>
+            </table>
+            </div>
+            <div id="mydiv">
+            <p class="errormsg" id="pwError" style="display:none;color:red;">Passwords Error: Check Your Password Again</p>
+            <p class="errormsg" id="emailError" style="display:none;color:red;">Email MUST Match A Standard Format</p>
+            <p class="errormsg" id="emptyError" style="display:none;color:red;">All Entries Must Contain A Value</p>
+            <p class="errormsg" id="emailUsed" style="display:none;color:red;">Email Already In Use</p>
+            <p class="errormsg" id="processing" style="display:none;color:Black;">Processing Request...</p>
+            <p class="errormsg" id="successful" style="display:none;color:Green;">An Email Has Been Sent To The Specified Account For Confirmation</p>
+            <input id="submitButton" onclick="signup();" type="submit" value="Submit"/>
+        </div>
+    </center>
+    </div>    
+</div>
+
+</body>
+
+</html>

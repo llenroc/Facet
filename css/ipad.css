@@ -1,0 +1,116 @@
+#participantList
+{
+	height: 301px;
+	position:relative;
+	overflow-y:scroll;
+	-webkit-overflow-scrolling: touch;
+}
+
+.participants
+{
+	height: 748px;
+	overflow-y:hidden;
+}
+
+#groupList
+{
+	height: 180px;
+	position:relative;
+	overflow-y:scroll;
+	-webkit-overflow-scrolling: touch;
+}
+
+#upArrow {
+	visibility: hidden;
+}
+
+#downArrow {
+	visibility: visible;
+}
+
+
+#rightArrow {
+	visibility: visible;
+	top:50px;
+	left:1005px;
+	display:inline;
+}
+
+#leftArrow {
+	visibility: hidden;
+	top:50px;
+	display:inline;
+}
+
+.workspace {
+	width: 789px;
+	height: 550px;
+}
+
+ul.appleCube > li {
+	width:130px;
+}
+
+body {
+	width:100%;
+}
+
+.files-area {
+	height: 550px;
+	overflow-y: scroll;
+	-webkit-overflow-scrolling: touch;
+}
+
+.monitter 
+{
+	-webkit-overflow-scrolling: touch;
+}
+
+#map_canvas {
+	height: 550px;
+}
+
+#columns {
+	width: 1270px;
+
+}
+
+#survey_canvas {
+	height: 550px;
+	
+}
+
+#open_canvas {
+	height: 550px;
+}
+
+#sharedScreen {
+	height: 550px;
+}
+
+.queue
+{
+	width:765px;
+	-webkit-overflow-scrolling: touch;
+}
+
+.column  {
+	width:145px;
+}
+
+.monitter {
+	width: 754px;
+
+}
+
+.hover-border2 {
+	box-shadow: 0 0 0px DodgerBlue;
+}
+
+.hover-border {
+	box-shadow: 0 0 15px DodgerBlue;
+}
+
+.hover-border2:hover {
+	box-shadow: 0 0 0px DodgerBlue;
+}

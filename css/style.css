@@ -1,0 +1,104 @@
+/* style from participants.html */
+.participants 
+{
+    position:absolute;
+    left:0;
+    top:0;
+    width:250px;
+    background-color: #ddd; /* Background color */
+    color: #222;            /* Foreground color used for text */
+    font-family: Helvetica;
+    font-size: 14px;
+	height: 100%;
+	
+	border-right: 1px solid #666;
+}
+
+.twitterfeed 
+{
+    padding-left:12px;
+}
+
+.workspace 
+{
+    position:absolute;
+    top:45px;
+    left:250px;
+    width:1000px;
+    height:800px;
+}
+
+.queue
+{
+    position:absolute;
+    top:-5px;
+    left:250px;
+    width:984px;
+    margin:10px;
+	height: 45px;
+		
+	overflow-x: scroll;
+	overflow-y: hidden;
+	border-radius: 8px;
+}
+
+
+#map_canvas {
+	height: 650px;
+}
+
+
+/* style from queue.html*/
+.column 
+{
+	overflow-y: hidden;
+    width:157px;
+    float:left;
+    background-color: #FFFFFF;
+    margin-right: 5px;	
+    border-radius: 8px;
+    text-align: center;
+	position:relative;
+	-webkit-transform: translate3d(0,0,0);
+	
+
+}
+
+#columns {
+	width: 1500px;
+	overflow-y:hidden;
+	height: 100%;
+	margin-top:0px;
+	margin-left:-40px;
+
+}
+
+.column header 
+{
+    color: #FFF;
+    text-shadow: 0px 1px 2px #000000;
+    padding: 5px;	
+    border-radius: 8px;
+	
+	background: #B0BCCA;
+    background: -webkit-gradient(linear, left top, left bottom, from(#B0BCCA), to(#6D859F));
+    background: -moz-linear-gradient(top, #B0BCCA, #6D859F);
+    background: -o-linear-gradient(#B0BCCA, #6D859F);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#B0BCCA', endColorstr='#6D859F');
+    zoom:1;
+}
+
+.column header h1
+{
+    font-size:125%;
+}
+
+#tabs-3
+{
+	overflow-y:scroll;
+}
+
+.minHeightTab
+{
+	height:700px;
+}
