@@ -12,9 +12,10 @@
 	<script>
 		var start;
 		
-		$("button").bind('touchstart', function() {
+		$("button").live('touchstart', function() {
 			var d = new Date();
 			start = d.getTime();
+			alert("here");
 			
 		});
 		
