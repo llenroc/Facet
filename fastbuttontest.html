@@ -9,29 +9,11 @@
 	<script type="text/javascript" src="javascript/google.fastbutton.js"> </script>
 	<script type="text/javascript" src="javascript/jquery.google.fastbutton.js"> </script>
 	
-	<script>
-		var start;
-		
-		$("button").live('touchstart', function() {
-			var d = new Date();
-			start = d.getTime();
-		
-		});
-		
-		function endTimer() {
-			var d2 = new Date();
-			var end = d2.getTime();
-			
-			alert(end - start + " millis");	
-		}
-	
-	
-	</script>
 </head>
 
 
-<body onload="$('.fast').fastClick(function(e) { endTimer()});">
-	<button onclick="endTimer();">Regular</button>
+<body onload="$('.fast').fastClick(function(e) { alert('Alert');});">
+	<button onclick="alert('Alert');">Regular</button>
 	<button class="fast">Fastclick</button>
 
 </body>

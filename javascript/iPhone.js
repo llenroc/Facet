@@ -7,6 +7,13 @@ var selectedGroup;
 	pagebeforeshow is fied EVERY time the page is brought into view
 */
 
+// Anything that involves any pages here
+$(function() {
+	$(".logout").fastClick(function(e) {
+		window.location = "default.html";
+	});
+});
+
 // Everything to do with elements in the workspace goes here
 $("#workspace").live('pageinit', function() {
 	console.log("Workspace");
@@ -62,10 +69,6 @@ $("#participants").live('pageinit', function() {
 	$("#participantList").append("<li id='loading'><a>Loading Users...</a></li>");
 	$('#participantList').listview('refresh', true);
 	PS.ajax.userIndex(populateParticipants, populateFailed);		
-});
-
-$(".logout").live("click" , function() {
-	window.location = "default.html";
 });
 
 
