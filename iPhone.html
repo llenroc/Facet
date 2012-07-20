@@ -58,15 +58,6 @@
 			<div data-role="content">
 			<ul id="participantList" data-role="listview" data-inset="true">
                 <li style="font-size:110%;" data-role="list-divider" id="participantsHeader">Participants</li>
-                <li><a data-rel="dialog" data-transition="pop" href="#participantDialog">Byron</a></li>
-                <li><a data-rel="dialog" data-transition="pop" href="#participantDialog">Charles</a></li>
-                <li><a data-rel="dialog" data-transition="pop" href="#participantDialog">Christopher</a></li>
-                <li><a data-rel="dialog" data-transition="pop" href="#participantDialog">Daniel</a></li>
-                <li><a data-rel="dialog" data-transition="pop" href="#participantDialog">David</a></li>
-                <li><a data-rel="dialog" data-transition="pop" href="#participantDialog">Patrick</a></li>
-                <li><a data-rel="dialog" data-transition="pop" href="#participantDialog">Robert</a></li>
-                <li><a data-rel="dialog" data-transition="pop" href="#participantDialog">Roseline</a></li>
-                <li><a data-rel="dialog" data-transition="pop" href="#participantDialog">Yaser</a></li>
             </ul>
 			
 			<div style="text-align:center;" data-type="horizontal" data-role="controlgroup">
@@ -87,7 +78,7 @@
 				<div data-role="navbar">
 				<ul>
 					<li><a data-transition="slidefade" href="#participants" class="ui-btn-active">Participants</a></li>
-					<li><a onclick="PS.ajax.surveyIndex(PS.model.getSurveysCallback);" data-transition="slidefade" href="#workspace">Workspace</a></li>
+					<li><a onclick="PS.ajax.surveyIndex(refreshSurveys);" data-transition="slidefade" href="#workspace">Workspace</a></li>
 					<li><a data-transition="slidefade" href="#queue">Queue</a></li>
 					<li><a data-transition="slidefade" href="#map">Map</a></li>
 					<li><a data-transition="slidefade" href="#sharedScreen">Shared Screen</a></li>
@@ -124,7 +115,7 @@
 				<div data-role="navbar">
 				<ul>
 					<li><a data-transition="slidefade" href="#participants">Participants</a></li>
-					<li><a onclick="PS.ajax.surveyIndex(PS.model.getSurveysCallback);" data-transition="slidefade" href="#workspace" class="ui-btn-active">Workspace</a></li>
+					<li><a onclick="PS.ajax.surveyIndex(refreshSurveys);" data-transition="slidefade" href="#workspace" class="ui-btn-active">Workspace</a></li>
 					<li><a data-transition="slidefade" href="#queue">Queue</a></li>
 					<li><a data-transition="slidefade" href="#map">Map</a></li>
 					<li><a data-transition="slidefade" href="#sharedScreen">Shared Screen</a></li>
@@ -150,7 +141,7 @@
 				<div data-role="navbar">
 				<ul>
 					<li><a data-transition="slidefade" href="#participants">Participants</a></li>
-					<li><a onclick="PS.ajax.surveyIndex(PS.model.getSurveysCallback);" data-transition="slidefade" href="#workspace">Workspace</a></li>
+					<li><a onclick="PS.ajax.surveyIndex(refreshSurveys);" data-transition="slidefade" href="#workspace">Workspace</a></li>
 					<li><a data-transition="slidefade" href="#queue" class="ui-btn-active">Queue</a></li>
 					<li><a data-transition="slidefade" href="#map">Map</a></li>
 					<li><a data-transition="slidefade" href="#sharedScreen">Shared Screen</a></li>
@@ -175,7 +166,7 @@
 				<div data-role="navbar">
 				<ul>
 					<li><a data-transition="slidefade" href="#participants">Participants</a></li>
-					<li><a onclick="PS.ajax.surveyIndex(PS.model.getSurveysCallback);" data-transition="slidefade" href="#workspace">Workspace</a></li>
+					<li><a onclick="PS.ajax.surveyIndex(refreshSurveys);" data-transition="slidefade" href="#workspace">Workspace</a></li>
 					<li><a data-transition="slidefade" href="#queue">Queue</a></li>
 					<li><a data-transition="slidefade" href="#map" class="ui-btn-active">Map</a></li>
 					<li><a data-transition="slidefade" href="#sharedScreen">Shared Screen</a></li>
@@ -201,7 +192,7 @@
 				<div data-role="navbar">
 				<ul>
 					<li><a data-transition="slidefade" href="#participants">Participants</a></li>
-					<li><a onclick="PS.ajax.surveyIndex(PS.model.getSurveysCallback);" data-transition="slidefade" href="#workspace">Workspace</a></li>
+					<li><a onclick="PS.ajax.surveyIndex(refreshSurveys);" data-transition="slidefade" href="#workspace">Workspace</a></li>
 					<li><a data-transition="slidefade" href="#queue">Queue</a></li>
 					<li><a data-transition="slidefade" href="#map">Map</a></li>
 					<li><a data-transition="slidefade" href="#sharedScreen" class="ui-btn-active">Shared Screen</a></li>
@@ -215,7 +206,7 @@
 <!-- -----------------------------------------PARTICIPANTS DIALOG---------------------------------------------------------------------- -->
 		<div data-role="page" id="participantDialog">
 			<div data-role="header" data-position="inline">
-			<h1 id="optionHeader">Options</h1>
+			<h1 class="dialogHeader">Options</h1>
 			</div>
 			<div data-role="content">
 				<a data-rel="dialog" data-transition="pop" href="#addToGroupDialog" data-icon="plus" data-role="button">Add to Group</a>
