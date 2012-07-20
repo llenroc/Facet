@@ -2,6 +2,14 @@
 var selectedItem;
 var selectedGroup;
 
+/*
+	pageinit is fired the FIRST time the page is brought into view
+	pagebeforeshow is fied EVERY time the page is brought into view
+	
+	https://developers.google.com/mobile/articles/fast_buttons?hl=de-DE
+	Website for information about removing the 300ms click delay on mobile devices
+*/
+
 // Everything to do with elements in the workspace goes here
 $("#workspace").live('pageinit', function() {
 	console.log("Workspace");
@@ -17,7 +25,11 @@ $("#workspace").live('pageinit', function() {
 	$(this).createItem('images', "empty.html", "Image");
 	
 	$('#workspaceList').listview('refresh', true);
-	
+});
+
+// Will ensure the surveys are refreshed everytime the workspace page
+$("#workspace").live('pagebeforeshow', function() {
+	PS.ajax.surveyIndex(refreshSurveys);
 });
 
 // Everything to do with elements in the workspace goes here
