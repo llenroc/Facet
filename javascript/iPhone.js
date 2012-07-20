@@ -5,9 +5,6 @@ var selectedGroup;
 /*
 	pageinit is fired the FIRST time the page is brought into view
 	pagebeforeshow is fied EVERY time the page is brought into view
-	
-	https://developers.google.com/mobile/articles/fast_buttons?hl=de-DE
-	Website for information about removing the 300ms click delay on mobile devices
 */
 
 // Everything to do with elements in the workspace goes here
