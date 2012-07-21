@@ -8,7 +8,10 @@ var selectedGroup;
 */
 
 $(function() {
-	new FastClick(document.body);
+	$(".logout").fastClick(function() {
+		window.location = "default.html";
+	});
+
 });
 
 // Everything to do with elements in the workspace goes here
@@ -67,11 +70,6 @@ $("#participants").live('pageinit', function() {
 	$('#participantList').listview('refresh', true);
 	PS.ajax.userIndex(populateParticipants, populateFailed);		
 });
-
-$(".logout").live("click" , function() {
-	window.location = "default.html";
-});
-
 
 // Saves the li to selectedItem to be used later on
 $("#participantList li, #workspaceList li").live("click", function() {
