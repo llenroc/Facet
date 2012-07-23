@@ -2,16 +2,31 @@
 var selectedItem;
 var selectedGroup;
 
+var accountJSON;
+
 /*
 	pageinit is fired the FIRST time the page is brought into view
 	pagebeforeshow is fied EVERY time the page is brought into view
 */
 
 $(function() {
+
+	// Checks if the user is logged in. If the user is not logged in, it redirects the user to the login page
+	var status = getCookie("loggedIn");
+	if(status == null || status == "") {
+		console.log("User not logged in...redirecting!");	
+		window.location = "default.html";
+	}
+	
+	// Gets id from cookie
+	var accountID = getCookie("id");
+	
+	// Then performs a ajax call to get the JSON object from the server
+	PS.ajax.userRetrieve(accountID, function(json, textStatus, jqXHR) { accountJSON = json; console.log("Welcome " + accountJSON.name); });
+	
 	$(".logout").fastClick(function() {
 		window.location = "default.html";
 	});
-
 });
 
 // Everything to do with elements in the workspace goes here
@@ -114,6 +129,22 @@ $(".group").live("click", function() {
 	// Goes from the item clicked up until the next divider and toggles visibility
 	$(this).nextUntil(".ui-li-divider").toggle();
 });
+
+// Used to see if user is logged in
+function getCookie(c_name)
+{
+	var i,x,y,ARRcookies=document.cookie.split(";");
+	for (i=0;i<ARRcookies.length;i++)
+	{
+		x=ARRcookies[i].substr(0,ARRcookies[i].indexOf("="));
+		y=ARRcookies[i].substr(ARRcookies[i].indexOf("=")+1);
+		x=x.replace(/^\s+|\s+$/g,"");
+		if (x==c_name)
+		{
+			return unescape(y);
+		}
+	}
+}
 
 function createUser(name, id) {
 	$("#participantList").append("<li uid='" + id + "'><a data-rel='dialog' data-transition='pop' href='#participantDialog'>" + name + "</a></li>");
