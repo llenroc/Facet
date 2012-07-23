@@ -107,15 +107,17 @@
 			
 			<div data-role="content">
 			<div style="text-align:center;" data-role="controlgroup" data-type="horizontal">
-				<a onclick="$(this).createItem('audio','#','Audio');" data-mini="true" data-role="button">Audio</a>
+				<a onclick="$(this).createItem('audio','#','Audio');$('#workspaceList').listview('refresh');" data-mini="true" data-role="button">Audio</a>
 				<a data-mini="true" data-rel="dialog" data-transition="pop" href="#surveyDialog" data-role="button">Survey</a>
-				<a onclick="$(this).createItem('file','#','File');" data-mini="true" data-role="button">File</a>
-				<a onclick="$(this).createItem('images','#','Image');" data-mini="true" data-role="button">Image</a>
-				<a onclick="$(this).createItem('document','#','Document');" data-mini="true" data-role="button">Document</a>
+				<a onclick="$(this).createItem('file','#','File');$('#workspaceList').listview('refresh');" data-mini="true" data-role="button">File</a>
+				<a onclick="$(this).createItem('images','#','Image');$('#workspaceList').listview('refresh');" data-mini="true" data-role="button">Image</a>
+				<a onclick="$(this).createItem('document','#','Document');$('#workspaceList').listview('refresh');" data-mini="true" data-role="button">Document</a>
 			</div>
+			
+			</br>
 				
-			<ul id="workspaceList" data-role="listview" data-inset="true">
-                <li data-role="list-divider" id="participantsHeader">Workspace</li>
+			<ul data-filter="true" id="workspaceList" data-role="listview" data-inset="true">
+                <li data-role="list-divider" id="workspaceHeader">Workspace</li>
             </ul>
 				
 			</div>
@@ -144,6 +146,10 @@
 			
 			<div data-role="content">
 				
+			<ul id="queueList" data-role="listview" data-inset="true">
+                <li data-role="list-divider" id="queueHeader">Queue</li>
+            </ul>	
+			
 			
 			</div>
 			<div data-id="test" data-position="fixed" data-role="footer">

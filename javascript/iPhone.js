@@ -28,6 +28,14 @@ $(function() {
 		window.location = "default.html";
 	});
 	
+	$("#editGroupButton").fastClick(function() {
+		$("#groupList").children().not("#groupsHeader").each(function() {
+			console.log($(this).html());
+		
+		});
+	
+	});
+	
 });
 
 // Everything to do with elements in the workspace goes here
