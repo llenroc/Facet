@@ -28,9 +28,6 @@ $(function() {
 		window.location = "default.html";
 	});
 	
-	$("a").fastClick(function() {
-	
-	});
 });
 
 // Everything to do with elements in the workspace goes here
