@@ -11,18 +11,8 @@ var accountJSON;
 
 $(function() {
 
-	// Checks if the user is logged in. If the user is not logged in, it redirects the user to the login page
-	var status = getCookie("loggedIn");
-	if(status == null || status == "") {
-		console.log("User not logged in...redirecting!");	
-		window.location = "default.html";
-	}
-	
-	// Gets id from cookie
-	var accountID = getCookie("id");
-	
-	// Then performs a ajax call to get the JSON object from the server
-	PS.ajax.userRetrieve(accountID, function(json, textStatus, jqXHR) { accountJSON = json; console.log("Welcome " + accountJSON.name); });
+	checkLogIn()
+	accountJSON = getUser();
 	
 	$(".logout").fastClick(function() {
 		window.location = "default.html";
@@ -43,16 +33,10 @@ $("#workspace").live('pageinit', function() {
 	console.log("Workspace");
 	
 	// Populate the workspace with some sample items
-	$(this).createItem('audio', "empty.html", "Audio");
-	$(this).createItem('file', "empty.html", "File");
-	$(this).createItem('images', "empty.html", "Image");
-	$(this).createItem('document', "empty.html", "Document");
-	$(this).createItem('file', "empty.html", "File");
-	$(this).createItem('file', "empty.html", "File");
-	$(this).createItem('audio', "empty.html", "Audio");
-	$(this).createItem('images', "empty.html", "Image");
+	populateSampleWorkspace()
 	
 	$('#workspaceList').listview('refresh', true);
+	
 });
 
 // Will ensure the surveys are refreshed everytime the workspace page
@@ -174,15 +158,7 @@ function populateParticipants(json, textStatus, jqXHR) {
 
 // Not administrator and so populating with default users
 function populateFailed() {
-	createUser("Byron",0);
-	createUser("Charles",0);
-	createUser("Christopher",0);
-	createUser("Daniel",0);
-	createUser("David",0);
-	createUser("Patrick",0);
-	createUser("Robert",0);
-	createUser("Roseline",0);
-	createUser("Yaser",0);
+	populateSampleUsers();
 	
 	// Removes loading animation item
 	$("#loading").remove();
