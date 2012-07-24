@@ -82,11 +82,7 @@ $(function() {
 	populateSampleWorkspace()
 	
 	//Placeholder to populate queue
-	createQueueItem("Comment","empty.html");
-	createQueueItem("Comment","empty.html");
-	createQueueItem("Survey","empty.html");
-	createQueueItem("Question","empty.html");
-	createQueueItem("Video","empty.html");
+	populateSampleQueue()
 	
 	// Event handling for the slide button
 	$("#toggleSlide").click(function() {	
@@ -109,29 +105,10 @@ $(function() {
 	PS.ajax.userIndex(populateParticipants, populateFailed);
 });
 
-// Used to see if user is logged in
-function getCookie(c_name)
-{
-	var i,x,y,ARRcookies=document.cookie.split(";");
-	for (i=0;i<ARRcookies.length;i++)
-	{
-		x=ARRcookies[i].substr(0,ARRcookies[i].indexOf("="));
-		y=ARRcookies[i].substr(ARRcookies[i].indexOf("=")+1);
-		x=x.replace(/^\s+|\s+$/g,"");
-		if (x==c_name)
-		{
-			return unescape(y);
-		}
-	}
-}
-
 // Ajax call passed and adding recieved users
 function populateParticipants(json, textStatus, jqXHR) {
-	$(json).each(function() {
-		var name = this.name;
-		if(name != "")
-			createUser(name, this.uid);
-	});
+
+	loadParticipants(json);
 	
 	// Removes loading animation item
 	$("#loading").remove();

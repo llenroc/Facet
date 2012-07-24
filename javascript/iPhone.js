@@ -41,12 +41,19 @@ $("#workspace").live('pageinit', function() {
 
 // Will ensure the surveys are refreshed everytime the workspace page
 $("#workspace").live('pagebeforeshow', function() {
+
+	// Adds the Loading item and refreshes it so we can see it while loading
+	$("#workspaceList").append("<li id='loadingWorkspace'><a>Loading Items...</a></li>");
+	$('#workspaceList').listview('refresh');
+	
 	PS.ajax.surveyIndex(refreshSurveys);
 });
 
 // Everything to do with elements in the workspace goes here
 $("#queue").live('pageinit', function() {
 	console.log("Queue");
+	populateSampleQueue();
+	$('#queueList').listview('refresh', true);
 	
 });
 	
@@ -123,33 +130,14 @@ $(".group").live("click", function() {
 	$(this).nextUntil(".ui-li-divider").toggle();
 });
 
-// Used to see if user is logged in
-function getCookie(c_name)
-{
-	var i,x,y,ARRcookies=document.cookie.split(";");
-	for (i=0;i<ARRcookies.length;i++)
-	{
-		x=ARRcookies[i].substr(0,ARRcookies[i].indexOf("="));
-		y=ARRcookies[i].substr(ARRcookies[i].indexOf("=")+1);
-		x=x.replace(/^\s+|\s+$/g,"");
-		if (x==c_name)
-		{
-			return unescape(y);
-		}
-	}
-}
-
 function createUser(name, id) {
 	$("#participantList").append("<li uid='" + id + "'><a data-rel='dialog' data-transition='pop' href='#participantDialog'>" + name + "</a></li>");
 }
 
 // Ajax call passed and adding recieved users
 function populateParticipants(json, textStatus, jqXHR) {
-	$(json).each(function() {
-		var name = this.name;
-		if(name != "")
-			createUser(name, this.uid);
-	});
+
+	loadParticipants(json);
 	
 	// Removes loading animation item
 	$("#loading").remove();
@@ -239,8 +227,12 @@ $.fn.changeOpenFile = function() {
 };
 
 function refreshSurveys(json, textStatus, jqXHR) {
-	$("#workspaceList").append("<li id='loadingWorkspace'><a>Loading Items...</a></li>");
-	$('#workspaceList').listview('refresh');
+	
+	// Does the callback in model.js and then refreshes
 	PS.model.getSurveysCallback(json,textStatus,jqXHR);
 	$('#workspaceList').listview('refresh');
+}
+
+function createQueueItem(name,link) {
+	$("#queueList").append("<li link='" + link + "'><a>" + name + "</a></li>");
 }
