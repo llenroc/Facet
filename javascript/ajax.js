@@ -93,7 +93,7 @@ PS.ajax.userRetrieve = function(userId, callback) {
 	});
 }
 
-//TODO: Account creation works, but there are two issues. 1) Users are created 'blocked' and 2) the password field seems to be ignored.
+
 PS.ajax.userCreate = function(username, email, password, callback, errorCallback) {
 	$.ajax({
 		type: "POST",

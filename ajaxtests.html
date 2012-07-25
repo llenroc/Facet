@@ -67,10 +67,182 @@
                     var cookieParts = cookies[i].split("=");
                     document.cookie = cookieParts[0] + "=;expires=Thu, 01-Jan-1970 00:00:01 GMT";
                 }                
+        }
+
+        function index_nodes() {
+            	$.ajax({
+                    type: "GET", // or PUT or DELETE, oddly enough
+                    url: PS.ajax.getServerPrefix() + "restfacet/node/",
+                    dataType: "json",
+                    success: callback,
+                    data: {pagesize : 100} 
+                });
+        }
+        
+  /*      
+        $node_data['title'] = 'Project Example Services';
+$node_data['type'] = 'project';
+$node_data['language'] = 'und';
+$node_data['field_project_name']['und']['0']['value'] = 'Project XX'; 
+$node_data['field_project_users']['und']['0']['nid'] = '[nid:744]';
+$node_data['field_project_observers']['und']['0']['nid'] = '[nid:744]';
+$node_data['field_owners']['und']['0']['nid'] = '[nid:745]';
+$node_data['field_project_item']['und']['0']['nid'] = '[nid:746]';
+$node_data['field_project_meetings']['und']['0']['nid'] = '[nid:747]';
+$node_data['field_project_groups']['und']['0']['nid'] = '[nid:748]';
+     */
+     
+        function create_project() {
+            $.ajax({
+                type: "POST",
+                url: PS.ajax.getServerPrefix() + "restfacet/node/",
+                dataType: "json",
+                success: callback ,
+                data: {
+                    title: "Patrick's 4th Project", 
+                    type: "project", 
+                    'field_project_name[und][0][value]': "Project X",
+                    'field_owners[und][0][nid]': "[nid:745]",
+                    'field_owners[und][1][nid]': "[nid:744]",
+                }, 
+            });
+        }
+        
+
+             
+        function update_project() {
+        
+        	$.ajax({
+                type: "PUT",
+                url: PS.ajax.getServerPrefix() + "restfacet/node/" + '832',
+                dataType: "json",
+                success: function () {callback; retreive_project();},
+                data: { type: "project",
+                        'field_owners[und][1][nid]': "",
+                        'field_owners[und][2][nid]': "[nid:744]"
+                        } 
+//                type: 'project', 'field_project_name[und][1][value]': "Project M"},
+//                data: {type: 'project', 'field_owners[und][0][nid]': "nid:745"},
+            });
+        //field_owners[und][0][nid]=[nid:745]&
         
             
-
         }
+        
+        function retreive_project() {
+            $.ajax({
+                type: "GET",
+                url: PS.ajax.getServerPrefix() + "restfacet/node/" + '832',
+                dataType: "json",
+                success: callback,
+            });
+        }
+        
+        
+        function create_meeting() {
+            $.ajax({
+                type: "POST",
+                url: PS.ajax.getServerPrefix() + "restfacet/node/",
+                dataType: "json",
+                success: callback ,
+                data: {
+                    title: "Everybody, get in here", 
+                    type: "meeting", 
+                    'field_meeting_name[und][0][value]': "Meeting X",
+                    'field_meeting_owners[und][0][nid]': "[nid:745]",
+                    'field_meeting_owning_project[und][0][nid]': '[nid:820]',
+                    }, 
+            });
+        }
+        function index_meeting() {
+                $.ajax({
+                    type: "GET", // or PUT or DELETE, oddly enough
+                    url: PS.ajax.getServerPrefix() + "restfacet/node/",
+                    dataType: "json",
+                    success: callback,
+                    data: {pagesize : 100, type: "meeting"} 
+                });
+        }
+        
+        
+        function retrieve_meeting() {
+            $.ajax({
+                type: "GET",
+                url: PS.ajax.getServerPrefix() + "restfacet/node/" + '841',
+                dataType: "json",
+                success: callback,
+            });
+        }
+        
+        
+        function create_group() {
+            $.ajax({
+                type: "POST",
+                url: PS.ajax.getServerPrefix() + "restfacet/node/",
+                dataType: "json",
+                success: callback ,
+                data: {
+                    title: "Fellowship of the Ring", 
+                    type: "group", 
+                    'field_group_name[und][0][value]': "Fellowship of the Ring",
+
+                    'field_group_owners[und][0][nid]': "[nid:745]",
+                    'field_group_users[und][0][nid]': "[nid:745]",
+                    'field_group_observers[und][0][nid]': "[nid:745]",
+                    'field_group_owners[und][1][nid]': "[nid:744]",
+                    'field_group_users[und][1][nid]': "[nid:744]",
+                    'field_group_observers[und][1][nid]': "[nid:744]",
+                    
+                    'field_group_owning_project[und][0][nid]': '[nid:820]',
+                    'field_group_items[und][0][nid]': '[nid:842]',
+                    
+                    }, 
+            });
+        }
+        function retrieve_group() {
+            $.ajax({
+                type: "GET",
+                url: PS.ajax.getServerPrefix() + "restfacet/node/" + '843',
+                dataType: "json",
+                success: callback,
+            });
+        }
+        
+        
+        
+        function create_item() {
+            $.ajax({
+                type: "POST",
+                url: PS.ajax.getServerPrefix() + "restfacet/node/",
+                dataType: "json",
+                success: callback ,
+                data: {
+                    title: "The One Ring", 
+                    type: "item", 
+                    'field_item_name[und][0][value]': "The One Ring",
+                    'field_item_id_creator[und][0][nid]': "[nid:745]",
+                    'field_item_id_owner[und][0][nid]': '[nid:745]',
+                    }, 
+            });
+        }
+        function retrieve_item() {
+            $.ajax({
+                type: "GET",
+                url: PS.ajax.getServerPrefix() + "restfacet/node/" + '842',
+                dataType: "json",
+                success: callback,
+            });
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
     </script>
 
@@ -78,6 +250,7 @@
 
     <body>
 
+        <p>
         <button onClick="useractionlogin(event);"> useractionlogin </button>
         <button onClick="useractionlogout(event);"> useractionlogout </button>
         <button onClick="userindex(event);"> userindex </button>
@@ -86,8 +259,31 @@
         <button onClick="usercreate(event);"> usercreate </button>
         <button onClick="userupdate(event);"> userupdate </button>
         <button onClick="userdelete(event);"> userdelete </button>
+        </p>
+        
+        <p>
+        <button onClick="index_nodes();"> index nodes </button>
+        <button onClick="create_project();"> create project </button>
+        <button onClick="update_project();"> update project </button>
+        <button onClick="retreive_project();"> retrieve project </button>
+        </p>
 
+        <p>
+        <button onClick="create_meeting();"> create meeting </button>
+        <button onClick="retrieve_meeting();"> retrieve meeting </button>
+        </p>
 
+        <p>
+        <button onClick="create_group();"> create group </button>
+        <button onClick="retrieve_group();"> retrieve group </button>
+        </p>
+
+        <p>
+        <button onClick="create_item();"> create item </button>
+        <button onClick="retrieve_item();"> retrieve item </button>
+        </p>
+        
+        
     </body>
 
 </html>
