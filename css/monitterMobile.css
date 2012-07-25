@@ -26,6 +26,6 @@
 .monitter 
 {
 	height: 75px;
-	overflow-y: scroll;
+	overflow-y: hidden;
 	font-size: 14px;
 }
