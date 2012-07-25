@@ -31,7 +31,7 @@ $(function() {
 // Everything to do with elements in the workspace goes here
 $("#workspace").live('pageinit', function() {
 	console.log("Workspace");
-	
+
 	// Populate the workspace with some sample items
 	populateSampleWorkspace()
 	
@@ -53,8 +53,12 @@ $("#workspace").live('pagebeforeshow', function() {
 $("#queue").live('pageinit', function() {
 	console.log("Queue");
 	populateSampleQueue();
-	$('#queueList').listview('refresh', true);
+	$('#queueList').listview('refresh');
 	
+});
+
+$("#queue").live("pageshow", function() {
+	$('#queueList').listview('refresh');
 });
 	
 // Everything to do with elements in the workspace goes here
@@ -238,6 +242,12 @@ function refreshSurveys(json, textStatus, jqXHR) {
 	$('#workspaceList').listview('refresh');
 }
 
+function addToQueue() {
+	createQueueItem(selectedItem.text(),$(selectedItem).find("a").attr("linkurl"));
+	$('.ui-dialog').dialog('close');
+
+}
+
 function createQueueItem(name,link) {
-	$("#queueList").append("<li link='" + link + "'><a>" + name + "</a></li>");
+	$("#queueList").append("<li linkurl='" + link + "'><a>" + name + "</a></li>");
 }
