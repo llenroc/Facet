@@ -11,7 +11,7 @@ $(function() {
 	checkLogIn();
 	
 	// Blocks UI until ajax callback is completed
-/*	$.blockUI({
+	$.blockUI({
 		css: { 
 			border: 'none', 
 			padding: '15px', 
@@ -20,7 +20,7 @@ $(function() {
 			'-moz-border-radius': '10px', 
 			opacity: .5, 
 			color: '#fff' },
-	});*/
+	});
 	
 	// AJAX call to first get user id from cookie, and then to retrieve the json object from server
 	// Once AJAX call is completed then accountJSON will be the user account of the person currently logged in
