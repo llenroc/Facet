@@ -232,7 +232,7 @@ $.fn.createItem = function(type, link, name) {
 };
 
 $.fn.changeOpenFile = function() {
-	console.log(selectedItem.text());
+	$("#open_canvas").attr("data",$(selectedItem).find("a").attr("linkurl"));
 };
 
 function refreshSurveys(json, textStatus, jqXHR) {
