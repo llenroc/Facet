@@ -1,14 +1,30 @@
 "use strict";
 
 var slideOpen = true;
-var accountJSON;
+//var accountJSON;
 
 // http://www.w3schools.com/js/js_cookies.asp
+// http://malsup.com/jquery/block/
 
 $(function() {
-
+	// Checks if user is logged in. If they are not, redirect them to login page
 	checkLogIn();
-	accountJSON = getUser();
+	
+	// Blocks UI until ajax callback is completed
+	$.blockUI({
+		css: { 
+			border: 'none', 
+			padding: '15px', 
+			backgroundColor: '#000', 
+			'-webkit-border-radius': '10px', 
+			'-moz-border-radius': '10px', 
+			opacity: .5, 
+			color: '#fff' },
+	});
+	
+	// AJAX call to first get user id from cookie, and then to retrieve the json object from server
+	// Once AJAX call is completed then accountJSON will be the user account of the person currently logged in
+	getUser();
 	
 	// Makes everything draggable
 	$(this).makeQueueDroppable();
@@ -104,6 +120,13 @@ $(function() {
 	$("#participantList").append("<li class='icon' id='loading'>Loading Users...</li>");
 	PS.ajax.userIndex(populateParticipants, populateFailed);
 });
+
+function getUserCallback() {	
+	//$.unblockUI();
+}
+
+// Unblocks UI when AJAX activity stops
+$(document).ajaxStop($.unblockUI);
 
 // Ajax call passed and adding recieved users
 function populateParticipants(json, textStatus, jqXHR) {

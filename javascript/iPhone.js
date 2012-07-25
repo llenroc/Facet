@@ -2,7 +2,7 @@
 var selectedItem;
 var selectedGroup;
 
-var accountJSON;
+//var accountJSON;
 
 /*
 	pageinit is fired the FIRST time the page is brought into view
@@ -12,7 +12,7 @@ var accountJSON;
 $(function() {
 
 	checkLogIn()
-	accountJSON = getUser();
+	getUser();
 	
 	$(".logout").fastClick(function() {
 		window.location = "default.html";
@@ -129,6 +129,11 @@ $(".group").live("click", function() {
 	// Goes from the item clicked up until the next divider and toggles visibility
 	$(this).nextUntil(".ui-li-divider").toggle();
 });
+
+function getUserCallback() {
+
+
+}
 
 function createUser(name, id) {
 	$("#participantList").append("<li uid='" + id + "'><a data-rel='dialog' data-transition='pop' href='#participantDialog'>" + name + "</a></li>");

@@ -34,7 +34,7 @@ function loadParticipants(json) {
 
 function getUser() {
 	// Then performs a ajax call to get the JSON object from the server
-	PS.ajax.userRetrieve( getCookie("id"), function(json, textStatus, jqXHR) {console.log("Welcome " + json.name); return json; });
+	PS.ajax.userRetrieve(getCookie("id"), function(json, textStatus, jqXHR) {console.log("Welcome " + json.name); accountJSON = json; getUserCallback();});
 }
 
 function populateSampleWorkspace() {
