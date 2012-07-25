@@ -1,27 +1,31 @@
 "use strict";
 
 var slideOpen = true;
-var accountJSON;
+//var accountJSON;
 
 // http://www.w3schools.com/js/js_cookies.asp
+// http://malsup.com/jquery/block/
 
 $(function() {
-
-	// Checks if the user is logged in. If the user is not logged in, it redirects the user to the login page
-	var status = getCookie("loggedIn");
-	if(status == null || status == "") {
-		console.log("User not logged in...redirecting!");	
-		window.location = "default.html";
-	}
+	// Checks if user is logged in. If they are not, redirect them to login page
+	checkLogIn();
 	
-
-	// Gets id from cookie
-	var accountID = getCookie("id");
+	// Blocks UI until ajax callback is completed
+	$.blockUI({
+		css: { 
+			border: 'none', 
+			padding: '15px', 
+			backgroundColor: '#000', 
+			'-webkit-border-radius': '10px', 
+			'-moz-border-radius': '10px', 
+			opacity: .5, 
+			color: '#fff' },
+	});
 	
-	// Then performs a ajax call to get the JSON object from the server
-	PS.ajax.userRetrieve(accountID, function(json, textStatus, jqXHR) { accountJSON = json; console.log("Welcome " + accountJSON.name); });
-
-
+	// AJAX call to first get user id from cookie, and then to retrieve the json object from server
+	// Once AJAX call is completed then accountJSON will be the user account of the person currently logged in
+	getUser();
+	
 	// Makes everything draggable
 	$(this).makeQueueDroppable();
 	$(this).makeParticipantsDroppable();
@@ -32,7 +36,6 @@ $(function() {
 	
 	// Populates the surveys from the server
 	PS.ajax.surveyIndex(PS.model.getSurveysCallback);
-	
 	
 	var scrollable = document.getElementById("participantList");
 	new ScrollFix(scrollable);
@@ -45,11 +48,6 @@ $(function() {
 	var scrollable4 = document.getElementById("queue");
 	new ScrollFix(scrollable4);
 		
-	
-	// Adds the hover border to the proper parent element when hovering over the dragHandle
-	$("#columns .column header h1 img.dragHandle2").hover(function(){$(this).parent().parent().parent().addClass("hover-border2");}, function () {$(this).parent().parent().parent().removeClass("hover-border2");});
-	$("#participantList li img.dragHandle2").hover(function(){$(this).parent().addClass("hover-border2");}, function () {$(this).parent().removeClass("hover-border2");});	
-	
 	// Updates the scrolling arrows that show when user scrolls the participantList.
 	$("#participantList").scroll(function(){
 		if($(this)[0].scrollHeight - $(this).scrollTop()-5 <= $(this).outerHeight())
@@ -97,30 +95,16 @@ $(function() {
 	});
 		
 	//Placeholder to populate workspace	
-	$(this).createItem('audio', "empty.html", "Audio");
-	$(this).createItem('file', "empty.html", "File");
-	$(this).createItem('images', "empty.html", "Image");
-	$(this).createItem('document', "empty.html", "Document");
-	$(this).createItem('file', "empty.html", "File");
-	$(this).createItem('file', "empty.html", "File");
-	$(this).createItem('audio', "empty.html", "Audio");
-	$(this).createItem('images', "empty.html", "Image");
-	$(this).createItem('document', "empty.html", "Document");
-	$(this).createItem('images', "empty.html", "Image");
-	$(this).createItem('file', "empty.html", "File");
-	$(this).createItem('audio', "empty.html", "Audio");
-	$(this).createItem('images', "empty.html", "Image");
-	$(this).createItem('document', "empty.html", "Document");
-	$(this).createItem('file', "empty.html", "File");
-	$(this).createItem('file', "empty.html", "File");
-	$(this).createItem('audio', "empty.html", "Audio");
+	populateSampleWorkspace()
+	
+	//Placeholder to populate queue
+	populateSampleQueue()
 	
 	// Event handling for the slide button
 	$("#toggleSlide").click(function() {	
 		$(this).slideItems();
 	});
 				
-	
 	// Initializes the Google Map
 	var myOptions = {
 		center: new google.maps.LatLng(49.891235,-97.15369),
@@ -137,46 +121,32 @@ $(function() {
 	PS.ajax.userIndex(populateParticipants, populateFailed);
 });
 
-// Used to see if user is logged in
-function getCookie(c_name)
-{
-	var i,x,y,ARRcookies=document.cookie.split(";");
-	for (i=0;i<ARRcookies.length;i++)
-	{
-		x=ARRcookies[i].substr(0,ARRcookies[i].indexOf("="));
-		y=ARRcookies[i].substr(ARRcookies[i].indexOf("=")+1);
-		x=x.replace(/^\s+|\s+$/g,"");
-		if (x==c_name)
-		{
-			return unescape(y);
-		}
-	}
+
+function getUserCallback() {	
+	//$.unblockUI();
 }
 
-// Account logged in is administrator and is adding users
+
+// Unblocks UI when AJAX activity stops
+$(document).ajaxStop($.unblockUI);
+
+
+// Ajax call passed and adding recieved users
 function populateParticipants(json, textStatus, jqXHR) {
-	$(json).each(function() {
-		var name = this.name;
-		if(name != "")
-			createUser(name, this.uid);
-	});
+
+	loadParticipants(json);
 	
+	// Removes loading animation item
 	$("#loading").remove();
 	$(this).makeParticipantsDroppable(); /* Makes new group droppable */
 }
 
 // Not administrator and so populating with default users
 function populateFailed() {
-	createUser("Byron",0);
-	createUser("Charles",0);
-	createUser("Christopher",0);
-	createUser("Daniel",0);
-	createUser("David",0);
-	createUser("Patrick",0);
-	createUser("Robert",0);
-	createUser("Roseline",0);
-	createUser("Yaser",0);
+
+	populateSampleUsers();
 	
+	// Removes loading animation item
 	$("#loading").remove();
 	$(this).makeParticipantsDroppable(); /* Makes new group droppable */
 }
@@ -184,6 +154,12 @@ function populateFailed() {
 // Adds user to the participant list with the given name
 function createUser(name, id) {
 	$("#participantList").append("<li uid='" + id + "' class='user icon'><a href='#'>" + name + "</a><img alt='Drag Handle' src='icons/handle.png' class='dragHandle2'></li>");
+}
+
+// Creates Queue item with a given name and link
+function createQueueItem(name, link) {
+	$("#columns").css("width", "+=162px");
+	$("#columns").append("<li class='column'><header><h1><a onclick='$(this).changeTab(3);' href='"+ link + "' target='openFile'>" + name + "</a><img alt='List Item' src='icons/handle.png' class='dragHandle2'></h1></header></li>");
 }
 
 // Animates divs to slide in and out
@@ -229,88 +205,93 @@ $.fn.slideItems = function() {
 	}
 };
 
-// Creates a random string of 5 characters. Used for twitter since it doesn't allow duplicate messages
-// No longer used since we now use the username.
-function randomString() {
-	var chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz";
-	var string_length = 5;
-	var randomstring = '';
-	for (var i=0; i<string_length; i++) {
-		var rnum = Math.floor(Math.random() * chars.length);
-		randomstring += chars.substring(rnum,rnum+1);
-	}
-	return randomstring;
-};
-
-
 $.fn.makeQueueDroppable = function() {	
 	$("#columns").sortable({
 		appendTo: "body",
-		revert: true,
 		handle: "img.dragHandle2",
 		helper: "clone",
-		revertDuration: 250,
 		zIndex: 9999,
 		scroll: false,
         opacity: 0.5,
-		connectWith: ".workspace",
 		
 		start: function(event,ui) {
+			iFrameFix();
 			$(ui.helper).find("a").css("color","white");
 			$(ui.helper).css("list-style-type","none");
+			$(ui.helper).addClass("queueItem");
+			$(ui.helper).attr("href",$(ui.item).find("a").attr("href"));
+			$(ui.helper).attr("type",$(ui.item).attr("type"));
 			
+			$(ui.helper).css("white-space", "nowrap");
+			$(ui.helper).css("text-overflow", "ellipsis");
+			$(ui.helper).css("overflow", "hidden");			
 		},
-		remove: function(event,ui) {$("#columns").css("width", "-=162px");},
-		receive: function(event,ui) {
-			$("#columns").css("width", "+=162px");
-		
-			doClone(event,ui);
-			var type = $(ui.item).attr("type");
-			$(ui.item).removeClass();
-			$(ui.item).addClass("column");
-			var text = $(ui.item).text();
-			var link = ui.item.find("a").attr("href");
-			$(ui.item).html("<header><h1><a onclick='$(this).changeTab(3);' href='"+ link + "' target='openFile'>" + text + "</a><img src='icons/handle.png' class='dragHandle2'></h1></header>");
-			
-			$(this).removeClass("hover-border");			
-			$(this).makeQueueDroppable();
-						
-			tweet("facetmeeting321","queue",accountJSON.name,type, ui.item.text() );
-		},
-		
-		over: function(event,ui) {$(".queue").addClass("hover-border");},		
-		out: function(event,ui) {$(".queue").removeClass("hover-border");},
+		stop: function(event,ui) { stopiFrameFix(); },
+		remove: function(event,ui) { $("#columns").css("width", "-=162px"); },
 	}).disableSelection();
+	
+	$(".queue").droppable({
+		accept: ".workspaceItem",	
+		drop: function(event,ui) {
+			var type = $(ui.helper).attr("type");
+			var text = $(ui.helper).text();
+			var link = $(ui.helper).attr("href");
+			
+			createQueueItem(text,link);
+			
+			$(this).makeQueueDroppable();
+			$(this).removeClass("hover-border");
+			
+			PS.ajax.tweet("facetmeeting321","queue",accountJSON.name,type, text );
+		},
 		
-	$(".workspace").sortable({
-		items: "none",
-		receive: function(event,ui) {
-			$(".trash").append(ui.item);
+		over: function(event,ui) { $(".queue").addClass("hover-border"); },		
+		out: function(event,ui) { $(".queue").removeClass("hover-border"); },
+	}).disableSelection();
+	
+	
+	// Handles the ability to drag items to the shared screen
+	$(".workspace").droppable({
+		accept: ".column",
+		drop: function(event,ui) {
+			$(".trash").append(ui.draggable);
 			$(".trash").children().remove();
-			var type = $(ui.item).attr("type");
-			$("#sharedScreen").attr("src",ui.item.find("a").attr("href"));
+			
+			var type = $(ui.helper).attr("type");
+			var href = $(ui.helper).attr("href");
+			$("#sharedScreen").attr("src",href);
 						
-			tweet("facetmeeting321","shared screen",accountJSON.name,type, ui.item.text() );
+			PS.ajax.tweet("facetmeeting321","shared screen",accountJSON.name,type, ui.helper.text() );
 			$(this).changeTab(4);
+			
+			$("#tabs").removeClass("hover-border");
 		},
 		
 		over: function(event,ui) {$("#tabs").addClass("hover-border");},		
 		out: function(event,ui) {$("#tabs").removeClass("hover-border");},
-	
-	}).disableSelection();
+	});	
 };
-
 
 var editing = false;
 /* If we are currently renaming, then we make an group with the textarea, else if just create regular text*/
 $.fn.newGroup = function() {
     if(editing == true) {
-        $("#groupList").append("<li class = 'icon group connectedSortable'><img onclick='$(this).parent().remove();' class='delete' src='icons/delete.png'></img><div onclick='$(this).next().toggle();'><textarea>New Group</textarea></div><ul class = 'apple'></ul></li>");
+        $("#groupList").append("<li class = 'icon group'><img onclick='$(this).parent().remove();' class='delete' src='icons/delete.png'></img><div onclick='$(this).next().toggle();'><textarea>New Group</textarea></div><ul class = 'apple'></ul></li>");
     } else {
-        $("#groupList").append("<li class = 'icon group connectedSortable'><div onclick='$(this).next().toggle();'>New Group</div><ul class = 'apple' style='display:none'></ul></li>");	
+        $("#groupList").append("<li class = 'icon group'><div onclick='$(this).next().toggle();'>New Group</div><ul class = 'apple' style='display:none'></ul></li>");	
     }
     $(this).makeParticipantsDroppable(); /* Makes new group droppable */
 };
+
+// jQuery has built in iFrameFix for draggable, but not for sortable. Essentially what it does is it adds an invisible div overtop to prevent mousecapture
+function iFrameFix() {
+	$("body").append("<div class='iFrameFix' style='top:0px; left:0px; position:absolute; width:100%; height:100%;'></div>");
+}
+
+// Removes div created from iFrameFix()
+function stopiFrameFix() {
+	$(".iFrameFix").remove();
+}
 
 /* Converts the name to a textarea to start renaming. Converts text area to text when finished */
 $.fn.rename = function() {
@@ -341,156 +322,124 @@ $.fn.rename = function() {
     }
 };
 
-function tweet(hashtag,location,name,type,filename) {
-	$.ajax({
-		type: "POST",
-		url:  "tweetMessage.php?hashtag="+hashtag+"&location="+location+"&name="+name+"&type="+type+"&filename="+filename,
-		success: function(){
-
-		},
-		error: function(){
-			// code
-			console.log("Twitter call failed!");
-		}
-    });
-}
-
 $.fn.makeParticipantsDroppable = function() {
     $( "#participantList li" ).draggable({
 		appendTo: "body",
         helper: function() {
 			var name = $(this).text();
-			return $("<li class='user icon' style='font-weight: bold;font-size: 17px;font-family: Helvetica; list-style-type: none; border-top-left-radius: 8px; border-top-right-radius: 8px;'>" + name + "</li>")[0];},
+			return $("<li class='user icon' style='font-weight: bold;font-size: 17px;font-family: Helvetica; list-style-type: none;'>" + name + "</li>")[0];},
         cursorAt: { right: 20, top: 20},
         opacity: 0.5,
 		scroll: false,
         handle: "img.dragHandle2",
 		iframeFix: true,
 	}).disableSelection();
-    
+	    
     /* Everything with the .group class will be droppable, and it'll append it to children with the .apple class */
     $( ".group" ).droppable({
-        accept: ":not(.ui-sortable-helper)",
-		over: function(event,ui) {$(this).addClass("hover-border");},		
-		out: function(event,ui) {$(this).removeClass("hover-border");},
+		over: function(event,ui) { $(this).addClass("hover-border"); },		
+		out: function(event,ui) { $(this).removeClass("hover-border"); },
         drop: function( event, ui ) {
-			$( this ).find(".apple").show(); /* When a new item is added, the group is expanded */
-			$( this ).find( ".placeholder" ).remove();
+			var isQueueItem = $(ui.helper).hasClass("queueItem");
+			var isWorkspaceItem = $(ui.helper).hasClass("workspaceItem");
+			var isDupe = $(ui.helper).hasClass("groupDupe");
+			
+			if(isQueueItem || isWorkspaceItem) {				
+				console.log("Sending item to all members of '" + $(this).find("div").text()+"'");
+				var item = ui.draggable.text();	
+				$(this).find("ul li").each(function() {		
+					console.log("Sending " + item + " to '" + $(this).text() + "'");					
+				});
+			
+			} else if (isDupe) {/*Ignore Duplicates from sortable*/} else {
+				$( this ).find(".apple").show(); /* When a new item is added, the group is expanded */
+				$( "<li class='icon user'></li>" ).html( ui.draggable.html() ).appendTo( jQuery(".apple",this));
+			}
+			
 			$(this).removeClass("hover-border");
-            			
-			$( "<li class='icon user'></li>" ).html( ui.draggable.html() ).appendTo( jQuery(".apple",this));
         }
     }).disableSelection();
 		
 	$( "#participantList li" ).droppable({
-        accept: ":not(.ui-sortable-helper) .queueItem, .workspaceItem",
-		over: function(event,ui) {$(this).addClass("hover-border");},		
-		out: function(event,ui) {$(this).removeClass("hover-border");},
+		accept: ".column, .workspaceItem",
+		over: function(event,ui) { $(this).addClass("hover-border"); },		
+		out: function(event,ui) { $(this).removeClass("hover-border"); },
         drop: function( event, ui ) {
-			$( this ).find( ".placeholder" ).remove();
 			$(this).removeClass("hover-border");
 			var name = $(this).text();
 			var item = ui.draggable.text();
-			alert("Send " + item + " to " + name + "?");
+			console.log("Sending " + item + " to '" + name + "'");
         }
     }).disableSelection();
-    
-  
-    /* All groups need .group class and .connectedSortable class to join together for sorting */
+      
+    /* All groups need .group class to join together for sorting */
     $( ".group" ).sortable({
 		opacity: 0.5,
 		items: "li:not(.placeholder)",
-		connectWith: ".connectedSortable",
-		receive: doClone,
+		connectWith: ".group",
 		appendTo: "body",
 		helper: "clone",
 		zIndex: 9999,
-		over: function(event,ui) {$(this).addClass("hover-border");},		
-		out: function(event,ui) {$(this).removeClass("hover-border");},
+		over: function(event,ui) { $(this).addClass("hover-border"); },		
+		out: function(event,ui) { $(this).removeClass("hover-border"); },
+		start: function(event,ui) {
+			iFrameFix(); 
+			$(ui.helper).css("list-style-type","none");
+			$(ui.helper).css("font-weight","bold");
+			$(ui.helper).css("font-size","17px");
+			$(ui.helper).css("font-family","Helvetica");
+			$(ui.helper).addClass("groupDupe");
+		},
+		stop: function(event,ui) { stopiFrameFix(); },
 		handle: "img.dragHandle2",
 		distance: 15,
     }).disableSelection();
     
 	
 	$( ".trash" ).droppable({
-		items: "li:not(.placeholder)",
-		connectWith: ".connectedSortable",
-		over: function(event,ui) {$(this).addClass("hover-border-red");},		
-		drop: function(event,ui) {
-			deleteUIItem(ui);	
-			},
-		out: function(event,ui) {$(this).removeClass("hover-border-red");},
+		over: function(event,ui) { $(this).addClass("hover-border-red"); },		
+		drop: function(event,ui) { deleteUIItem(ui); },
+		out: function(event,ui) { $(this).removeClass("hover-border-red"); },
 		distance: 15,
-	}).disableSelection();
-	
-    $( ".trash" ).sortable({
-		items: "li:not(.placeholder)",
-		connectWith: ".connectedSortable",
-		over: function(event,ui) {$(this).addClass("hover-border-red");},		
-		out: function(event,ui) {$(this).removeClass("hover-border-red");},
-		distance: 15,
-		receive: function(event, ui) {
-			deleteUIItem(ui);
-		}
 	}).disableSelection();
 };
 
 function deleteUIItem(ui) {
+	$(".trash").removeClass("hover-border-red");
 	var message = "Are you sure you wish to delete?";
 	var r = confirm(message);
 	if (r==true)
-	{
-		$(".trash").removeClass("hover-border-red");
+	{	
 		$(".trash").append(ui.draggable);
 		$(".trash").children().remove();
-	}
-	else
-	{
-		$(".trash").removeClass("hover-border-red");
 	}
 }
 
 $.fn.makeFilesDroppable = function() {
-	
 	$(".appleCube").sortable({
 		handle: "img.dragHandle2",
 		appendTo: "body",
 		forcePlaceholderSize: true, 
 		start: function(event,ui) {
-			startDrag(event,ui);
-		},		
+			iFrameFix();
+			$(ui.helper).addClass("workspaceItem");
+			
+			$(ui.helper).attr("href",$(ui.item).find("a").attr("href"));
+			$(ui.helper).attr("type",$(ui.item).attr("type"));
+		},	
+
+		stop: function(event,ui) {stopiFrameFix();},		
 
         opacity: 0.5,
         zIndex: 2700,
-		connectWith: "#columns",
-	}).disableSelection();
-		
+	}).disableSelection();	
 };
-
-function doClone(event, ui) {
-    if (ui.sender.is('.appleCube')) {
-        // clone and insert where we got it
-        if (itemOriIndex == 0) {
-            ui.item.clone().prependTo('.appleCube');
-        } else {
-            itemOriIndex -= 1;
-            ui.item.clone().insertAfter('.appleCube li:eq(' + itemOriIndex + ')');
-        }      
-    }
-}
-
-/* Gets the index of where the dragging item is from */
-var itemOriIndex;
-function startDrag(event, ui) {
-	itemOriIndex = ui.item.index();
-}
 
 /* 	type = Type of file it is (what icon will be displayed). Can choose file, image, document, survey, audio
 	link = What the text links to */
 $.fn.createItem = function(type, link, name) {
     $(".appleCube").append("<li type=" + type + " title = '" + name + "' class = 'icon "+ type +"'><a onclick='$(this).changeTab(3);' href='" + link + "' target='openFile'>" + name + "</a><img src='icons/handle.png' class='dragHandle2'></li>");
 	$(this).makeFilesDroppable();
-	$(".appleCube").last().find("img.dragHandle2").hover(function(){$(this).parent().addClass("hover-border2");}, function () {$(this).parent().removeClass("hover-border2");});	
 };
 
 $.fn.changeTab = function(number) {

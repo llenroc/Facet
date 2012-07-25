@@ -41,9 +41,11 @@
 		<script src="javascript/jquery/jquery.ui.button.min.js"></script>
 		<script src="javascript/jquery/jquery.ui.position.min.js"></script>
         
+        <script type="text/javascript" src="javascript/jquery.blockUI.js"> </script>		
         <script type="text/javascript" src="javascript/publicsquare.js"> </script>
         <script type="text/javascript" src="javascript/ajax.js"> </script>
         <script type="text/javascript" src="javascript/model.js"> </script>
+		<script type="text/javascript" src="javascript/universal.js"> </script>
 
         <script type="text/javascript" src="javascript/site.js"></script>
 		
@@ -65,10 +67,10 @@
     
     <body>
 	
-		<img alt="Toggle Participants View" style="z-index:9999;" src="icons/left.png" id="toggleSlide" />
+		<img alt="Toggle Participants View" style="z-index:999;" src="icons/left.png" id="toggleSlide" />
 		
         <div class="participants"> 
-			<button onclick="PS.ajax.userLogout(function() {window.location = 'default.html';});" style="position:absolute; left:5px;top:10px; z-index:9999;">Log out</button>
+			<button onclick="window.location = 'default.html';" style="position:absolute; left:5px;top:10px; z-index:999;">Log out</button>
             <h1>Participants</h1>
 				<img alt="Up Arrow" src="icons/upS.png" id="upArrow" />
 				<img alt="Down Arrow" src="icons/downS.png" id="downArrow" />
@@ -92,13 +94,7 @@
 
 		<div class="queue" style="height:auto; white-space:nowrap; overflow-x:scroll; overflow-y:hidden; position:relative; top:0px; margin-left:-5px; margin-top:-6px;">
         
-            <ul id="columns">
-                <li class="column"><header><h1>Comment<img alt="List Item" src="icons/handle.png" class="dragHandle2"/></h1></header></li>
-                <li class="column"><header><h1>Comment<img alt="List Item" src="icons/handle.png" class="dragHandle2"/></h1></header></li>
-                <li class="column"><header><h1>Survey<img alt="List Item" src="icons/handle.png" class="dragHandle2"/></h1></header></li>
-                <li class="column"><header><h1>Question<img alt="List Item" src="icons/handle.png" class="dragHandle2"/></h1></header></li>
-                <li class="column"><header><h1>Video<img alt="List Item" src="icons/handle.png" class="dragHandle2"/></h1></header></li>
-            </ul>
+            <ul id="columns"></ul>
                
         </div>
         <div class="workspace" style="position:relative; top:-10px; margin-left:-17px; margin-top:0px;">

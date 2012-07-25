@@ -178,6 +178,20 @@ PS.ajax.nodeIndex = function(callback) {
 }
 
 
+PS.ajax.tweet = function(hashtag,location,name,type,filename) {
+	$.ajax({
+		type: "POST",
+		url:  "tweetMessage.php?hashtag="+hashtag+"&location="+location+"&name="+name+"&type="+type+"&filename="+filename,
+		success: function(){
+
+		},
+		error: function(){
+			// code
+			console.log("Twitter call failed!");
+		}
+    });
+}
+
 
 
 

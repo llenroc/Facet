@@ -3,7 +3,9 @@
 
 <head>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
-<meta name="viewport" content="user-scalable=no, width=device-width" />
+
+<!-- Mobile tag to disable zooming and also set the viewport -->
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=0" />
 
 <meta name="apple-mobile-web-app-capable" content="yes">
 	
@@ -43,23 +45,22 @@
                 Welcome to Public Square's User Creation Page
             </h1><br />
 
-            <table align="center">
-            <tr>
-                <td align="left">Username: </td>
-                <td><input id="username" type="text" name="username" /></td>
-            </tr>
-            <tr>
-                <td align="left">Full Name: </td>
-                <td><input id="fname" type="text" name="fname" /></td>
-            </tr>
+            <table id="tscontent" align="center">
             <tr>
                 <td align="left">Email: </td>
-                <td><input id="email" type="email" name="email" /></td>
+                <td><input id="username" type="email" name="email" onkeyup="fillusername();" onfocus="fillusername();" onblur="fillusername();"/></td>
+            </tr>
+            <tr>
+                <td align="left">Username: </td>
+                <td><input id="eUsername" type="text" name="username" readonly="readonly"/></td>
             </tr>
             <tr>
                 <td align="left">Password: </td>
                 <td><input id="password" type="password" name="password" onkeyup="passwordsMatch();"/></td>
-                <td><p id="pwrequired" style="color:Red; display:none; font-size:medium">Must Be 6 Characters & No Spaces</p></td>
+                
+            </tr>
+            <tr>
+                <td colspan="2" align="center""><p align="center" id="pwrequired" style="color:Red; display:none; font-size:medium;">At Least 6 Characters & No Spaces</p></td>
             </tr>
             <tr>
                 <td align="left">Password Confirm: </td>
@@ -67,6 +68,7 @@
                 <td><img alt="Password Mismatch" id="pwwrong" src="icons/pwwrong.png" width="20" height="16" style="display:none" /><img alt="Passwords Match" id="pwcheck" src="icons/pwcheck.png" width="20" height="16" style="display:none" /></td>
             </tr>
             </table>
+
             </div>
             <div id="mydiv">
             <p class="errormsg" id="pwError" style="display:none;color:red;">Passwords Error: Check Your Password Again</p>
