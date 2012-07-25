@@ -23,6 +23,14 @@
 	margin: 0;
 	padding: 0;
 }
+
+.tweet p a:link {
+	color: #87CEEB;
+}
+
+.tweet p a:visited {
+	color: #ed490a;
+}
 .monitter 
 {
 	height: 75px;
