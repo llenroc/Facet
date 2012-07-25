@@ -11,10 +11,11 @@
 }
 .tweet img
 {
+	display: none;
+	height: 0px;
+	width: 0px;
 	float: left;
-	border: 1px solid #999999;
 	margin-right: 1em;
-	border-radius: 8px;
 	
 }
 .tweet p.text
