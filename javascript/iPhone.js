@@ -17,6 +17,11 @@ $(function() {
 	$(".logout").fastClick(function() {
 		window.location = "default.html";
 	});
+		
+	$(".fastnav").fastClick(function(e) {
+		$(this).trigger("click");
+		e.preventDefault();
+	});
 	
 	$("#editGroupButton").fastClick(function() {
 		$("#groupList").children().not("#groupsHeader").each(function() {
