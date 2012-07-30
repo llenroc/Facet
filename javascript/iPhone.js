@@ -11,7 +11,10 @@ var selectedGroup;
 
 $(function() {
 
-	checkLogIn()
+	// Checks if the user is logged in. If the user is not logged in, it redirects the user to the login page
+	checkLogIn();
+	
+	// Then performs a ajax call to get the JSON object from the server
 	getUser();
 	
 	$(".logout").fastClick(function() {
@@ -48,6 +51,7 @@ $("#workspace").live('pagebeforeshow', function() {
 	
 	PS.ajax.surveyIndex(refreshSurveys);
 });
+
 
 // Everything to do with elements in the workspace goes here
 $("#queue").live('pageinit', function() {
@@ -91,7 +95,7 @@ $("#participants").live('pageinit', function() {
 });
 
 // Saves the li to selectedItem to be used later on
-$("#participantList li, #workspaceList li").live("click", function() {
+$("#participantList li, #workspaceList li, #queueList li").live("click", function() {
 	selectedItem = $(this);
 	
 	// Change header to be more approprate for the item that was clicked on
@@ -111,7 +115,7 @@ $(".groupListPop li:not([data-role='list-divider'])").live("click", function() {
 });
 
 // A fix to an error I was having if I tried to refresh the dialog list
-$('#addToGroupDialog').on('pagecreate pageshow', function (event) {
+$('#addToGroupDialog').live('pagecreate pagebeforeshow', function (event) {
 
 	var $the_ul = $('.groupListPop');
 	if ($the_ul.hasClass('ui-listview')) {
@@ -119,6 +123,11 @@ $('#addToGroupDialog').on('pagecreate pageshow', function (event) {
 	} else {
 		$the_ul.trigger('create');
 	}
+});
+
+// A fix to an error I was having if I tried to refresh the dialog list
+$('#addToGroupDialog').live('pageshow', function (event) {
+	$('.groupListPop').listview("refresh");
 });
 
 // Hiding function
@@ -200,6 +209,14 @@ $.fn.deleteItem = function() {
 	$('.ui-dialog').dialog('close');
 };
 
+$.fn.deleteQueueItem = function() {
+	// Slice out selected item and remove it
+	$("#queueList").children().slice(selectedItem.index(),selectedItem.index()+1).remove();
+	
+	// Close dialog	
+	$('.ui-dialog').dialog('close');
+};
+
 $.fn.addUserToGroup = function(name, groupName) {
 	// Goes through all the .name in #groupList and checks to see if it matches the groupName parameter. If it does, then it adds the user to the group
 	$("#groupList li .name").each(function(index) {
@@ -250,5 +267,5 @@ function addToQueue() {
 }
 
 function createQueueItem(name,link) {
-	$("#queueList").append("<li linkurl='" + link + "'><a>" + name + "</a></li>");
+	$("#queueList").append("<li linkurl='" + link + "'><a data-rel='dialog' data-transition='pop' href='#queueDialog' linkURL='" + link + "'>" + name + "</a></li>");
 }
