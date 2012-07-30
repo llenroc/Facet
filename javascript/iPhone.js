@@ -244,6 +244,7 @@ function refreshSurveys(json, textStatus, jqXHR) {
 
 function addToQueue() {
 	createQueueItem(selectedItem.text(),$(selectedItem).find("a").attr("linkurl"));
+	PS.ajax.tweet("facetmeeting321","queue",accountJSON.name,"TODO", selectedItem.text() );
 	$('.ui-dialog').dialog('close');
 
 }
