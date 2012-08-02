@@ -68,6 +68,48 @@ $("#queue").live('pageinit', function() {
 	
 });
 
+
+//Swiping to change pages code. Could be coded cleaner
+
+$("#participants").live("swiperight", function () {
+	$.mobile.changePage($("#sharedScreen"), {transition: "slide",reverse:true});
+});
+$("#participants").live("swipeleft", function () {
+	$.mobile.changePage($("#workspace") , {transition: "slide"});
+});
+
+$("#workspace").live("swiperight", function () {
+	$.mobile.changePage($("#participants"), {transition: "slide",reverse:true});
+});
+$("#workspace").live("swipeleft", function () {
+	$.mobile.changePage($("#queue") , {transition: "slide"});
+});
+
+$("#queue").live("swiperight", function () {
+	$.mobile.changePage($("#workspace"), {transition: "slide",reverse:true});
+});
+$("#queue").live("swipeleft", function () {
+	$.mobile.changePage($("#map") , {transition: "slide"});
+});
+
+$("#map").live("swiperight", function () {
+	$.mobile.changePage($("#queue"), {transition: "slide",reverse:true});
+});
+$("#map").live("swipeleft", function () {
+	$.mobile.changePage($("#sharedScreen") , {transition: "slide"});
+});
+
+$("#sharedScreen").live("swiperight", function () {
+	$.mobile.changePage($("#map"), {transition: "slide",reverse:true});
+});
+$("#sharedScreen").live("swipeleft", function () {
+	$.mobile.changePage($("#participants") , {transition: "slide"});
+});
+
+
+
+
+
 $("#queue").live("pageshow", function() {
 	$('#queueList').listview('refresh');
 });
