@@ -223,7 +223,7 @@
 			</div>
 			<div data-role="content">
 			
-				<object style="border-radius: 8px;" id="shared_canvas" width="100%" type="text/html" data=""></object>
+				<object style="border-radius: 8px;" id="shared_canvas" height="400px" width="100%" type="text/html" data=""></object>
 
 			</div>
 			<div data-id="test" data-position="fixed" data-role="footer">
@@ -254,7 +254,7 @@
 			<div data-role="content">
 				<label for="createGroupLabel" class="ui-hidden-accessible">Group Name:</label>
 				<input type="text" name="name" id="createGroupLabel" placeholder="Group Name"/>
-				<a onclick="$(this).newGroup();" data-icon="check" data-role="button">Create</a>
+				<a onclick="newGroup($('#createGroupLabel').val())" data-icon="check" data-role="button">Create</a>
 			</div>
 		</div>
 <!-- ----------------------------------------------------------------------------------------------------------------------------------- -->
@@ -310,7 +310,7 @@
 			</div>
 			<div data-role="content">
 				<a data-icon="check" onclick="$(this).changeOpenFile();" data-rel="dialog" data-transition="pop" href="#openDialog" data-role="button">Open</a>
-				<a data-role="button">Share</a>
+				<a onclick="sendToSharedScreen()" data-role="button">Send to Shared Screen</a>
 				<a onclick="$(this).deleteQueueItem();" data-icon="delete" data-role="button">Delete</a>
 			</div>
 		</div>

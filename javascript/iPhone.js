@@ -172,15 +172,14 @@ function populateFailed() {
 
 }
  
-$.fn.newGroup = function() {
-	// Gets value from textbox
-	var name = $("#createGroupLabel").val();
-	
+function newGroup(groupName) {
+
 	// Does not add group if name is blank
-	if(name != "") {
+	if(groupName != "") {
+	
 		// Append new group to both the visible group list, as well as the dialog box when adding user to group
-		$("#groupList").append("<li class='group' data-role='list-divider'><div class='name'>"+ name + "</div><div class='ui-li-count'>0</div></li>");
-		$(".groupListPop").append("<li><a>"+ name + "</a></li>");
+		$("#groupList").append("<li class='group' data-role='list-divider'><div class='name'>"+ groupName + "</div><div class='ui-li-count'>0</div></li>");
+		$(".groupListPop").append("<li><a>"+ groupName + "</a></li>");
 		
 		// jQuery Mobile - Added proper CSS to newly added item
 		$('#groupList').listview('refresh', true);
@@ -268,4 +267,11 @@ function addToQueue() {
 
 function createQueueItem(name,link) {
 	$("#queueList").append("<li linkurl='" + link + "'><a data-rel='dialog' data-transition='pop' href='#queueDialog' linkURL='" + link + "'>" + name + "</a></li>");
+}
+
+function sendToSharedScreen() {
+	$("#shared_canvas").attr("data", $(selectedItem).attr("linkURL"));
+	
+	$.mobile.changePage($("#sharedScreen"));
+	
 }
