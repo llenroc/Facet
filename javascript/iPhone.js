@@ -29,6 +29,13 @@ $(function() {
 	
 	});
 	
+	// Detects if user presses enter in the new group group box.
+    $("#createGroupLabel").keypress(function (e) {
+        if (e.which == 10 || e.which == 13) {
+            newGroup($('#createGroupLabel').val());
+        }
+    });
+	
 });
 
 // Everything to do with elements in the workspace goes here
@@ -94,6 +101,11 @@ $("#participants").live('pageinit', function() {
 	PS.ajax.userIndex(populateParticipants, populateFailed);		
 });
 
+// When the new group dialog is shown, it automagically focuses the textbox
+$("#newgroupDialog").live("pageshow", function() {
+	$("#createGroupLabel")[0].focus();
+});
+
 // Saves the li to selectedItem to be used later on
 $("#participantList li, #workspaceList li, #queueList li").live("click", function() {
 	selectedItem = $(this);
@@ -107,7 +119,7 @@ $(".groupListPop li:not([data-role='list-divider'])").live("click", function() {
 	selectedGroup = $(this);
 	var text = selectedGroup.text();
 	var text2 = text.substring(0,text.length-1);
-	$(this).addUserToGroup(selectedItem.text(),text2);
+	addUserToGroup(selectedItem.text(),text2);
 	
 	// Go back 2 dialog boxes (to the main screen)
 	window.history.go(-2);
@@ -192,15 +204,18 @@ function newGroup(groupName) {
 	}
 };
 
-$.fn.deleteUser = function() {
+function deleteUser() {
 	// Slice out selected item and remove it
 	$("#participantList").children().slice(selectedItem.index(),selectedItem.index()+1).remove();
 	
 	// Close dialog
 	$('.ui-dialog').dialog('close');
+	
+	// Refresh styling
+	$('#participantList').listview('refresh');
 };
 
-$.fn.deleteItem = function() {
+function deleteItem() {
 	// Slice out selected item and remove it
 	$("#workspaceList").children().slice(selectedItem.index(),selectedItem.index()+1).remove();
 	
@@ -208,7 +223,7 @@ $.fn.deleteItem = function() {
 	$('.ui-dialog').dialog('close');
 };
 
-$.fn.deleteQueueItem = function() {
+function deleteQueueItem() {
 	// Slice out selected item and remove it
 	$("#queueList").children().slice(selectedItem.index(),selectedItem.index()+1).remove();
 	
@@ -216,7 +231,7 @@ $.fn.deleteQueueItem = function() {
 	$('.ui-dialog').dialog('close');
 };
 
-$.fn.addUserToGroup = function(name, groupName) {
+function addUserToGroup(name, groupName) {
 	// Goes through all the .name in #groupList and checks to see if it matches the groupName parameter. If it does, then it adds the user to the group
 	$("#groupList li .name").each(function(index) {
 		if(groupName == $(this).text()) {
@@ -242,13 +257,13 @@ $.fn.addUserToGroup = function(name, groupName) {
 	});	
 };
 
-$.fn.createItem = function(type, link, name) {
+function createItem(type, link, name) {
 	// data-filtertext = when using the filter bar, it filters by this text. Currently it filters by type (survey, image, document, etc ...) and the item name.
     $("#workspaceList").append("<li data-filtertext='"+ name + " " + type + "' type=" + type + " title = '" + name + "'><a data-rel='dialog' data-transition='pop' href='#workspaceDialog' linkURL='" + link + "'>" + name + "</a></li>");
 };
 
-$.fn.changeOpenFile = function() {
-	$("#open_canvas").attr("data",$(selectedItem).find("a").attr("linkurl"));
+function changeOpenFile(url) {
+	$("#open_canvas").attr("data",url);
 };
 
 function refreshSurveys(json, textStatus, jqXHR) {
@@ -259,8 +274,13 @@ function refreshSurveys(json, textStatus, jqXHR) {
 }
 
 function addToQueue() {
+	// Creates queue item based off the text and link
 	createQueueItem(selectedItem.text(),$(selectedItem).find("a").attr("linkurl"));
+	
+	// Tweets
 	PS.ajax.tweet("facetmeeting321","queue",accountJSON.name,$(selectedItem).attr("type"), selectedItem.text() );
+	
+	// Closes Dialog box
 	$('.ui-dialog').dialog('close');
 
 }
@@ -270,8 +290,10 @@ function createQueueItem(name,link) {
 }
 
 function sendToSharedScreen() {
-	$("#shared_canvas").attr("data", $(selectedItem).attr("linkURL"));
+	// Grabs the linkURL from the selected item and sets it as the data of the shared_canvas object
+	$("#shared_canvas").attr("data", $(selectedItem).attr("linkURL"));	
 	
+	// Changes page to the newly changed shared screen
 	$.mobile.changePage($("#sharedScreen"));
 	
 }

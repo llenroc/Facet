@@ -38,14 +38,14 @@ function getUser() {
 }
 
 function populateSampleWorkspace() {
-	$(this).createItem('audio', "empty.html", "Audio");
-	$(this).createItem('file', "empty.html", "File");
-	$(this).createItem('images', "empty.html", "Image");
-	$(this).createItem('document', "empty.html", "Document");
-	$(this).createItem('file', "empty.html", "File");
-	$(this).createItem('file', "empty.html", "File");
-	$(this).createItem('audio', "empty.html", "Audio");
-	$(this).createItem('images', "empty.html", "Image");
+	createItem('audio', "empty.html", "Audio");
+	createItem('file', "empty.html", "File");
+	createItem('images', "empty.html", "Image");
+	createItem('document', "empty.html", "Document");
+	createItem('file', "empty.html", "File");
+	createItem('file', "empty.html", "File");
+	createItem('audio', "empty.html", "Audio");
+	createItem('images', "empty.html", "Image");
 }
 
 function populateSampleUsers() {

@@ -9,8 +9,9 @@ PS.model.getSurveysCallback = function(json, textStatus, jqXHR) {
 	for (var x in json.nodes) {		
 		if (PS.model.surveysList[json.nodes[x].node.idsurvey] === undefined) {
 			PS.model.surveysList[json.nodes[x].node.idsurvey] = json.nodes[x].node;
-			$(this).createItem('survey', json.nodes[x].node.urlResponse, json.nodes[x].node.question);
-			$(this).createItem('results', "http://facetsurvey.4abyte.com/surveymaps/" + json.nodes[x].node.idsurvey, json.nodes[x].node.question + " " + "Results");
+			
+			createItem('survey', json.nodes[x].node.urlResponse, json.nodes[x].node.question);
+			createItem('results', "http://facetsurvey.4abyte.com/surveymaps/" + json.nodes[x].node.idsurvey, json.nodes[x].node.question + " " + "Results");
 			
 		}
 		
