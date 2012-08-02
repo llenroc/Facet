@@ -82,8 +82,8 @@
             <h1>Groups</h1>
             
             <div id="editButtonGroup">
-                <div class="iPhoneButton" onclick="$(this).newGroup();">New</div>
-                <div class="iPhoneButton" id="renameButton" onclick="$(this).rename();">Edit</div>                
+                <div class="iPhoneButton" onclick="newGroup()">New</div>
+                <div class="iPhoneButton" id="renameButton" onclick="rename()">Edit</div>                
             </div>
             		
             <ul class="apple" id = "groupList"></ul>
@@ -118,7 +118,7 @@
 
 							<div style="margin-bottom:10px">
 								<button class="iPhoneButton" onclick="createItem('audio','#' ,'Audio');">Audio</button>
-								<button class="iPhoneButton" onclick="$(this).changeTab(1);">Survey</button>
+								<button class="iPhoneButton" onclick="changeTab(1)">Survey</button>
 								<button class="iPhoneButton" onclick="createItem('file','#', 'File');">File</button>
 								<button class="iPhoneButton" onclick="createItem('images','tree.png', 'Image');">Image</button>
 								<button class="iPhoneButton" onclick="createItem('document','https://docs.google.com/document/d/1CI6nWiu_Z1-pFmAcR8qPTK7S_rOfghr03tMd6aLW6rA/edit', 'Document');">Document</button>
