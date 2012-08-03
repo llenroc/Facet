@@ -260,17 +260,11 @@ function deleteUser() {
 function deleteItem() {
 	// Slice out selected item and remove it
 	$("#workspaceList").children().slice(selectedItem.index(),selectedItem.index()+1).remove();
-	
-	// Close dialog	
-	$('.ui-dialog').dialog('close');
 };
 
 function deleteQueueItem() {
 	// Slice out selected item and remove it
 	$("#queueList").children().slice(selectedItem.index(),selectedItem.index()+1).remove();
-	
-	// Close dialog	
-	$('.ui-dialog').dialog('close');
 };
 
 function addUserToGroup(name, groupName) {
@@ -322,6 +316,9 @@ function addToQueue() {
 	// Tweets
 	PS.ajax.tweet("facetmeeting321","queue",accountJSON.name,$(selectedItem).attr("type"), selectedItem.text() );
 	
+	// Changes header of the shared screen page
+	$("#sharedScreenHeader").text(selectedItem.text());
+	
 	// Closes Dialog box
 	$('.ui-dialog').dialog('close');
 
@@ -335,7 +332,13 @@ function sendToSharedScreen() {
 	// Grabs the linkURL from the selected item and sets it as the data of the shared_canvas object
 	$("#shared_canvas").attr("data", $(selectedItem).attr("linkURL"));	
 	
+	// Deletes the item from the queue
+	deleteQueueItem();
+	
 	// Changes page to the newly changed shared screen
 	$.mobile.changePage($("#sharedScreen"));
+	
+	// Tweets
+	PS.ajax.tweet("facetmeeting321","shared screen",accountJSON.name,$(selectedItem).attr("type"), selectedItem.text() );
 	
 }

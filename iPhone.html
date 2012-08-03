@@ -209,7 +209,7 @@
 		<div data-role="page" id="sharedScreen">
 			<div data-role="header" data-position="inline">
 				<a href="index.html" data-rel="back" data-icon="arrow-l">Back</a>
-				<h1>Shared Screen</h1>
+				<h1 id="sharedScreenHeader">Shared Screen</h1>
 				<a class="logout" data-icon="back">Logout</a>
 				<div data-role="navbar">
 					<ul>
@@ -297,7 +297,7 @@
 				<a data-icon="check" onclick="changeOpenFile($(selectedItem).find('a').attr('linkurl'))" data-rel="dialog" data-transition="pop" href="#openDialog" data-role="button">Open</a>
 				<a id="addToQueueButton" data-icon="forward" onclick="addToQueue();" data-role="button">Send to Queue</a>
 				<a data-role="button">Share</a>
-				<a onclick="deleteItem()" data-icon="delete" data-role="button">Delete</a>
+				<a onclick="deleteItem();$('.ui-dialog').dialog('close');" data-icon="delete" data-role="button">Delete</a>
 			</div>
 		</div>
 <!-- ----------------------------------------------------------------------------------------------------------------------------------- -->
@@ -311,7 +311,7 @@
 			<div data-role="content">
 				<a data-icon="check" onclick="changeOpenFile($(selectedItem).find('a').attr('linkurl'))" data-rel="dialog" data-transition="pop" href="#openDialog" data-role="button">Open</a>
 				<a data-icon="forward" onclick="sendToSharedScreen()" data-role="button">Send to Shared Screen</a>
-				<a onclick="deleteQueueItem()" data-icon="delete" data-role="button">Delete</a>
+				<a onclick="deleteQueueItem();$('.ui-dialog').dialog('close');" data-icon="delete" data-role="button">Delete</a>
 			</div>
 		</div>
 <!-- ----------------------------------------------------------------------------------------------------------------------------------- -->
