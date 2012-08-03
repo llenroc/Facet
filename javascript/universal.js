@@ -62,9 +62,9 @@ function populateSampleUsers() {
 
 function populateSampleQueue() {
 	//Placeholder to populate queue
-	createQueueItem("Comment","empty.html");
-	createQueueItem("Comment","empty.html");
-	createQueueItem("Survey","empty.html");
-	createQueueItem("Question","empty.html");
-	createQueueItem("Video","empty.html");
+	createQueueItem("Comment","empty.html", "comment");
+	createQueueItem("Comment","empty.html", "comment");
+	createQueueItem("Survey","empty.html", "survey");
+	createQueueItem("Question","empty.html", "question");
+	createQueueItem("Video","empty.html", "video");
 }

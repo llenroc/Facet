@@ -153,9 +153,9 @@ function createUser(name, id) {
 }
 
 // Creates Queue item with a given name and link
-function createQueueItem(name, link) {
+function createQueueItem(name, link, type) {
 	$("#columns").css("width", "+=162px");
-	$("#columns").append("<li class='column'><header><h1><a onclick='changeTab(3)' href='"+ link + "' target='openFile'>" + name + "</a><img alt='List Item' src='icons/handle.png' class='dragHandle2'></h1></header></li>");
+	$("#columns").append("<li type='" + type + "' class='column'><header><h1><a onclick='changeTab(3)' href='"+ link + "' target='openFile'>" + name + "</a><img alt='List Item' src='icons/handle.png' class='dragHandle2'></h1></header></li>");
 }
 
 // Animates divs to slide in and out
@@ -217,7 +217,7 @@ function makeQueueDroppable() {
 			$(ui.helper).addClass("queueItem");
 			$(ui.helper).attr("href",$(ui.item).find("a").attr("href"));
 			$(ui.helper).attr("type",$(ui.item).attr("type"));
-			
+					
 			$(ui.helper).css("white-space", "nowrap");
 			$(ui.helper).css("text-overflow", "ellipsis");
 			$(ui.helper).css("overflow", "hidden");			
@@ -233,7 +233,7 @@ function makeQueueDroppable() {
 			var text = $(ui.helper).text();
 			var link = $(ui.helper).attr("href");
 			
-			createQueueItem(text,link);
+			createQueueItem(text,link, type);
 			
 			makeQueueDroppable();
 			$(this).removeClass("hover-border");
