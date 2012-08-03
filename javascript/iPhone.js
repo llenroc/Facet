@@ -43,8 +43,8 @@ $("#workspace").live('pageinit', function() {
 	console.log("Workspace");
 
 	// Populate the workspace with some sample items
-	populateSampleWorkspace()
-	
+	populateSampleWorkspace();
+		
 	$('#workspaceList').listview('refresh', true);
 	
 });
