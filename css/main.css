@@ -124,6 +124,14 @@ ul.apple ul.apple {
 	background-image: url(../icons/delete.png);
 }
 
+.meeting {
+	background-image: url(../icons/meeting2.png);
+}
+
+.project {
+	background-image: url(../icons/project.png);
+}
+
 .share {
 	background-image: url(../icons/share.png);
 }
