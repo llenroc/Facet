@@ -19,6 +19,7 @@
 <title>Public Square New User Page</title>
 
 <link rel="stylesheet" href="css/SignUp.css" />
+<link rel="stylesheet" type="text/css" href="css/button.css" />
 
 <script src="javascript/jquery/jquery-1.7.2.js"></script>
 <script type="text/javascript" src="javascript/publicsquare.js"> </script>
@@ -69,7 +70,11 @@
             </tr>
             </table>
 
+			<input style="margin-top:5px;" class="button blue" id="submitButton" onclick="signup();" type="submit" value="Submit"/>
+			
             </div>
+			
+
             <div id="mydiv">
             <p class="errormsg" id="pwError" style="display:none;color:red;">Passwords Error: Check Your Password Again</p>
             <p class="errormsg" id="emailError" style="display:none;color:red;">Email MUST Match A Standard Format</p>
@@ -77,7 +82,7 @@
             <p class="errormsg" id="emailUsed" style="display:none;color:red;">Email Already In Use</p>
             <p class="errormsg" id="processing" style="display:none;color:Black;">Processing Request...</p>
             <p class="errormsg" id="successful" style="display:none;color:Green;">An Email Has Been Sent To The Specified Account For Confirmation</p>
-            <input id="submitButton" onclick="signup();" type="submit" value="Submit"/>
+            
         </div>
     </center>
     </div>    

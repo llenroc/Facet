@@ -246,7 +246,6 @@ PS.ajax.projectIndex = function(callback, errorCallback) {
 	$.ajax({
 		type: "GET",
 		url: PS.ajax.getServerPrefix() + "services-xml/project",
-		dataType: "json",
 		success: callback,
 		error: errorCallback,
 	});	
@@ -259,7 +258,7 @@ PS.ajax.projectCreate = function(callback, errorCallback, name, userNodeId) {
 		dataType: "json",
 		success: callback,
         error: errorCallback,	
-		data: {name: name, type: 'project', 'field_owners[und][0][nid]': PS.ajax.wrapNodeId(userNodeId)}
+		data: {title: name, type: 'project', 'field_project_owners[und][0][nid]': PS.ajax.wrapNodeId(userNodeId)}
 	});
 }
 PS.ajax.projectRetrieve = PS.ajax.nodeRetrieve;
@@ -273,7 +272,6 @@ PS.ajax.meetingIndex = function(callback, errorCallback) {
 	$.ajax({
 		type: "GET",
 		url: PS.ajax.getServerPrefix() + "services-xml/meeting",
-		dataType: "json",
 		success: callback,
 		error: errorCallback,
 	});		
@@ -309,7 +307,6 @@ PS.ajax.groupIndex = function(callback, errorCallback) {
 	$.ajax({
 		type: "GET",
 		url: PS.ajax.getServerPrefix() + "services-xml/group",
-		dataType: "json",
 		success: callback,
 		error: errorCallback,
 	});		
@@ -337,7 +334,6 @@ PS.ajax.itemIndex = function(callback, errorCallback) {
 	$.ajax({
 		type: "GET",
 		url: PS.ajax.getServerPrefix() + "services-xml/item",
-		dataType: "json",
 		success: callback,
 		error: errorCallback,
 	});		
@@ -372,7 +368,6 @@ PS.ajax.userNodeIndex = function(callback, errorCallback) {
 	$.ajax({
 		type: "GET",
 		url: PS.ajax.getServerPrefix() + "services-xml/user",
-		dataType: "json",
 		success: callback,
 		error: errorCallback,
 	});		
