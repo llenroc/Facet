@@ -1,0 +1,39 @@
+.tweet
+{
+	display: block;
+
+	clear: both;
+	padding: .6em;
+	margin: .3em;
+	overflow: hidden;
+	border: 1px solid #999999;
+	border-radius: 8px;
+}
+.tweet img
+{
+	display: none;
+	height: 0px;
+	width: 0px;
+	float: left;
+	margin-right: 1em;
+	
+}
+.tweet p.text
+{
+	margin: 0;
+	padding: 0;
+}
+
+.tweet p a:link {
+	color: #87CEEB;
+}
+
+.tweet p a:visited {
+	color: #ed490a;
+}
+.monitter 
+{
+	height: 65px;
+	overflow-y: hidden;
+	font-size: 12px;
+}

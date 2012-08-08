@@ -7,8 +7,12 @@
 		
 		<title>Facet Testing</title>
 		
+
 		<link rel="stylesheet" href="css/mobile.min.css" />
 		<link rel="stylesheet" href="css/jquery.mobile.structure-1.1.0.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/monitterMobile.css" />
+		<link rel="stylesheet" type="text/css" href="css/iphone.css" />
+				
 		<script src="javascript/jquery/jquery-1.7.2.min.js"></script>
 		
 		<!-- http://jquerymobile.com/demos/1.1.1/ -->
@@ -22,6 +26,8 @@
 		<script type="text/javascript" src="javascript/ajax.js"> </script>
         <script type="text/javascript" src="javascript/model.js"> </script>
 		<script type="text/javascript" src="javascript/universal.js"> </script>
+		
+		<script type="text/javascript" src="javascript/monitter.min.js"></script>
 
 		
 		<!-- Javascript for Google Maps -->
@@ -35,20 +41,21 @@
 	Each page has the following format
 	
 	<div data-role="page">
-			<div data-role="header" data-position="inline">
+		<div data-role="header" data-position="fixed" data-tap-toggle="false">
 			<a href="index.html" data-rel="back" data-icon="arrow-l">Back</a>
 			INSERT HEADER HERE
 			<a class="logout" data-icon="back">Logout</a>
-			</div>
-			
-			<div data-role="content">
-			INSERT CONTENT HERE
-			</div>
-			
-			<div data-id="test" data-position="fixed" data-role="footer">
-			INSERT FOOTER HERE
-			</div>
 		</div>
+		
+		<div data-role="content">
+			INSERT CONTENT HERE
+		</div>
+		
+		<div data-id="test" data-position="fixed" data-role="footer">
+			<div class="monitter" id="tweets" title="facetmeeting321" lang="en"></div>
+			INSERT FOOTER HERE
+		</div>
+	</div>
 	
 	-->
 	
@@ -56,19 +63,28 @@
 	
 <!-- -----------------------------------------PARTICIPANTS--------------------------------------------------------------------------------- -->
 		<div data-role="page" id="participants">
-			<div data-role="header" data-position="inline">
-			<a href="index.html" data-rel="back" data-icon="arrow-l">Back</a>
-			<h1>Facet</h1>
-			<a class="logout" data-icon="back">Logout</a>
-			
+			<div data-role="header" data-position="fixed" data-tap-toggle="false">
+				<a href="index.html" data-rel="back" data-icon="arrow-l">Back</a>
+				<h1>Facet</h1>
+				<a class="logout" data-icon="back">Logout</a>
+				
+				<div data-role="navbar">
+					<ul>
+						<li><a class="fastnav" data-transition="slide" href="#participants" class="ui-btn-active">Users</a></li>
+						<li><a class="fastnav" data-transition="slide" href="#workspace">Workspace</a></li>
+						<li><a class="fastnav" data-transition="slide" href="#queue">Queue</a></li>
+						<li><a class="fastnav" data-transition="slide" href="#map">Map</a></li>
+						<li><a class="fastnav" data-transition="slide" href="#sharedScreen">Shared Screen</a></li>
+					</ul>
+				</div>
 			</div>
 			<div data-role="content">
 			<ul id="participantList" data-role="listview" data-inset="true">
-                <li style="font-size:110%;" data-role="list-divider" id="participantsHeader">Participants</li>
+                <li style="font-size:110%;" data-role="list-divider" id="participantsHeader">Users</li>
             </ul>
 			
 			<div style="text-align:center;" data-type="horizontal" data-role="controlgroup">
-				<a data-rel="dialog" data-transition="pop" href="#newgroupDialog" data-icon="plus" data-role="button">Add Group</a>
+				<a data-rel="dialog" data-transition="pop" href="#newgroupDialog" data-icon="plus" data-role="button">New Group</a>
 				<a id="editGroupButton" data-icon="gear" data-role="button">Edit Group</a>
 			</div>
 			
@@ -82,17 +98,8 @@
 			</div>
 			
 			
-			<div data-id="test" data-position="fixed" data-role="footer">
-				<div data-role="navbar">
-				<ul>
-					<li><a class="fastnav" data-transition="slide" href="#participants" class="ui-btn-active">Participants</a></li>
-					<li><a class="fastnav" data-transition="slide" href="#workspace">Workspace</a></li>
-					<li><a class="fastnav" data-transition="slide" href="#queue">Queue</a></li>
-					<li><a class="fastnav" data-transition="slide" href="#map">Map</a></li>
-					<li><a class="fastnav" data-transition="slide" href="#sharedScreen">Shared Screen</a></li>
-				</ul>
-				</div>
-				
+			<div data-id="test" data-position="fixed" data-role="footer">		
+				<div class="monitter" id="tweets" title="facetmeeting321" lang="en"></div>	
 			</div>
 		</div>
 		
@@ -101,19 +108,28 @@
 
 <!-- -----------------------------------------WORKSPACE--------------------------------------------------------------------------------- -->
 		<div data-role="page" id="workspace">
-			<div data-role="header" data-position="inline">
-			<a href="index.html" data-rel="back" data-icon="arrow-l">Back</a>
-			<h1>Workspace</h1>
-			<a class="logout" data-icon="back">Logout</a>
+			<div data-role="header" data-position="fixed" data-tap-toggle="false">
+				<a href="index.html" data-rel="back" data-icon="arrow-l">Back</a>
+				<h1>Workspace</h1>
+				<a class="logout" data-icon="back">Logout</a>
+				<div data-role="navbar">
+					<ul>
+						<li><a class="fastnav" data-transition="slide" href="#participants">Users</a></li>
+						<li><a class="fastnav" data-transition="slide" href="#workspace" class="ui-btn-active">Workspace</a></li>
+						<li><a class="fastnav" data-transition="slide" href="#queue">Queue</a></li>
+						<li><a class="fastnav" data-transition="slide" href="#map">Map</a></li>
+						<li><a class="fastnav" data-transition="slide" href="#sharedScreen">Shared Screen</a></li>
+					</ul>
+				</div>
 			</div>
 			
 			<div data-role="content">
 			<div style="text-align:center;" data-role="controlgroup" data-type="horizontal">
-				<a onclick="$(this).createItem('audio','#','Audio');$('#workspaceList').listview('refresh');" data-mini="true" data-role="button">Audio</a>
+				<a onclick="createItem('audio','#','Audio'); $('#workspaceList').listview('refresh');" data-mini="true" data-role="button">Audio</a>
 				<a data-mini="true" data-rel="dialog" data-transition="pop" href="#surveyDialog" data-role="button">Survey</a>
-				<a onclick="$(this).createItem('file','#','File');$('#workspaceList').listview('refresh');" data-mini="true" data-role="button">File</a>
-				<a onclick="$(this).createItem('images','#','Image');$('#workspaceList').listview('refresh');" data-mini="true" data-role="button">Image</a>
-				<a onclick="$(this).createItem('document','#','Document');$('#workspaceList').listview('refresh');" data-mini="true" data-role="button">Document</a>
+				<a onclick="createItem('file','#','File'); $('#workspaceList').listview('refresh');" data-mini="true" data-role="button">File</a>
+				<a onclick="createItem('images','#','Image'); $('#workspaceList').listview('refresh');" data-mini="true" data-role="button">Image</a>
+				<a onclick="createItem('document','#','Document'); $('#workspaceList').listview('refresh');" data-mini="true" data-role="button">Document</a>
 			</div>
 			
 			</br>
@@ -124,15 +140,7 @@
 				
 			</div>
 			<div data-id="test" data-position="fixed" data-role="footer">
-				<div data-role="navbar">
-				<ul>
-					<li><a class="fastnav" data-transition="slide" href="#participants">Participants</a></li>
-					<li><a class="fastnav" data-transition="slide" href="#workspace" class="ui-btn-active">Workspace</a></li>
-					<li><a class="fastnav" data-transition="slide" href="#queue">Queue</a></li>
-					<li><a class="fastnav" data-transition="slide" href="#map">Map</a></li>
-					<li><a class="fastnav" data-transition="slide" href="#sharedScreen">Shared Screen</a></li>
-				</ul>
-				</div>
+				<div class="monitter" id="tweets" title="facetmeeting321" lang="en"></div>
 			</div>
 		</div>
 <!-- ----------------------------------------------------------------------------------------------------------------------------------- -->
@@ -140,10 +148,19 @@
 		
 <!-- -----------------------------------------QUEUE------------------------------------------------------------------------------------- -->
 		<div data-role="page" id="queue">
-			<div data-role="header" data-position="inline">
-			<a href="index.html" data-rel="back" data-icon="arrow-l">Back</a>
-			<h1>Queue</h1>
-			<a class="logout" data-icon="back">Logout</a>	
+			<div data-role="header" data-position="fixed" data-tap-toggle="false">
+				<a href="index.html" data-rel="back" data-icon="arrow-l">Back</a>
+				<h1>Queue</h1>
+				<a class="logout" data-icon="back">Logout</a>	
+				<div data-role="navbar">
+					<ul>
+						<li><a class="fastnav" data-transition="slide" href="#participants">Users</a></li>
+						<li><a class="fastnav" data-transition="slide" href="#workspace">Workspace</a></li>
+						<li><a class="fastnav" data-transition="slide" href="#queue" class="ui-btn-active">Queue</a></li>
+						<li><a class="fastnav" data-transition="slide" href="#map">Map</a></li>
+						<li><a class="fastnav" data-transition="slide" href="#sharedScreen">Shared Screen</a></li>
+					</ul>
+				</div>
 			</div>
 			
 			<div data-role="content">
@@ -155,15 +172,7 @@
 			
 			</div>
 			<div data-id="test" data-position="fixed" data-role="footer">
-				<div data-role="navbar">
-				<ul>
-					<li><a class="fastnav" data-transition="slide" href="#participants">Participants</a></li>
-					<li><a class="fastnav" data-transition="slide" href="#workspace">Workspace</a></li>
-					<li><a class="fastnav" data-transition="slide" href="#queue" class="ui-btn-active">Queue</a></li>
-					<li><a class="fastnav" data-transition="slide" href="#map">Map</a></li>
-					<li><a class="fastnav" data-transition="slide" href="#sharedScreen">Shared Screen</a></li>
-				</ul>
-				</div>
+				<div class="monitter" id="tweets" title="facetmeeting321" lang="en"></div>
 			</div>
 		</div>
 <!-- ----------------------------------------------------------------------------------------------------------------------------------- -->
@@ -171,25 +180,26 @@
 		
 <!-- -----------------------------------------MAP--------------------------------------------------------------------------------------- -->
 		<div data-role="page" id="map">
-			<div data-role="header" data-position="inline">
-			<a href="index.html" data-rel="back" data-icon="arrow-l">Back</a>
-			<h1>Map</h1>
-			<a class="logout" data-icon="back">Logout</a>
+			<div data-role="header" data-position="fixed" data-tap-toggle="false">
+				<a href="index.html" data-rel="back" data-icon="arrow-l">Back</a>
+				<h1>Map</h1>
+				<a class="logout" data-icon="back">Logout</a>
+				<div data-role="navbar">
+					<ul>
+						<li><a class="fastnav" data-transition="slide" href="#participants">Users</a></li>
+						<li><a class="fastnav" data-transition="slide" href="#workspace">Workspace</a></li>
+						<li><a class="fastnav" data-transition="slide" href="#queue">Queue</a></li>
+						<li><a class="fastnav" data-transition="slide" href="#map" class="ui-btn-active">Map</a></li>
+						<li><a class="fastnav" data-transition="slide" href="#sharedScreen">Shared Screen</a></li>
+					</ul>
+				</div>
 			</div>
 			
 			<div data-role="content" style="padding: 0px;">
 				<div id="map_canvas" style="height:400px;"></div>
 			</div>
 			<div data-id="test" data-position="fixed" data-role="footer">
-				<div data-role="navbar">
-				<ul>
-					<li><a class="fastnav" data-transition="slide" href="#participants">Participants</a></li>
-					<li><a class="fastnav" data-transition="slide" href="#workspace">Workspace</a></li>
-					<li><a class="fastnav" data-transition="slide" href="#queue">Queue</a></li>
-					<li><a class="fastnav" data-transition="slide" href="#map" class="ui-btn-active">Map</a></li>
-					<li><a class="fastnav" data-transition="slide" href="#sharedScreen">Shared Screen</a></li>
-				</ul>
-				</div>
+				<div class="monitter" id="tweets" title="facetmeeting321" lang="en"></div>
 			</div>
 		</div>
 <!-- ----------------------------------------------------------------------------------------------------------------------------------- -->
@@ -197,25 +207,27 @@
 		
 <!-- -----------------------------------------SHARED SCREEN----------------------------------------------------------------------------- -->
 		<div data-role="page" id="sharedScreen">
-			<div data-role="header" data-position="inline">
-			<a href="index.html" data-rel="back" data-icon="arrow-l">Back</a>
-			<h1>Shared Screen</h1>
-			<a class="logout" data-icon="back">Logout</a>
+			<div data-role="header" data-position="fixed" data-tap-toggle="false">
+				<a href="index.html" data-rel="back" data-icon="arrow-l">Back</a>
+				<h1 id="sharedScreenHeader">Shared Screen</h1>
+				<a class="logout" data-icon="back">Logout</a>
+				<div data-role="navbar">
+					<ul>
+						<li><a class="fastnav" data-transition="slide" href="#participants">Users</a></li>
+						<li><a class="fastnav" data-transition="slide" href="#workspace">Workspace</a></li>
+						<li><a class="fastnav" data-transition="slide" href="#queue">Queue</a></li>
+						<li><a class="fastnav" data-transition="slide" href="#map">Map</a></li>
+						<li><a class="fastnav" data-transition="slide" href="#sharedScreen" class="ui-btn-active">Shared Screen</a></li>
+					</ul>
+				</div>
 			</div>
 			<div data-role="content">
-				
 			
+				<object style="border-radius: 8px;" id="shared_canvas" height="400px" width="100%" type="text/html" data=""></object>
+
 			</div>
 			<div data-id="test" data-position="fixed" data-role="footer">
-				<div data-role="navbar">
-				<ul>
-					<li><a class="fastnav" data-transition="slide" href="#participants">Participants</a></li>
-					<li><a class="fastnav" data-transition="slide" href="#workspace">Workspace</a></li>
-					<li><a class="fastnav" data-transition="slide" href="#queue">Queue</a></li>
-					<li><a class="fastnav" data-transition="slide" href="#map">Map</a></li>
-					<li><a class="fastnav" data-transition="slide" href="#sharedScreen" class="ui-btn-active">Shared Screen</a></li>
-				</ul>
-				</div>
+				<div class="monitter" id="tweets" title="facetmeeting321" lang="en"></div>
 			</div>
 		</div>
 <!-- ----------------------------------------------------------------------------------------------------------------------------------- -->
@@ -228,7 +240,7 @@
 			</div>
 			<div data-role="content">
 				<a data-rel="dialog" data-transition="pop" href="#addToGroupDialog" data-icon="plus" data-role="button">Add to Group</a>
-				<a id="deleteUserButton" onclick="$(this).deleteUser();" data-icon="delete" data-role="button">Delete User</a>
+				<a id="deleteUserButton" onclick="deleteUser()" data-icon="delete" data-role="button">Delete User</a>
 			</div>
 		</div>
 <!-- ----------------------------------------------------------------------------------------------------------------------------------- -->
@@ -242,7 +254,7 @@
 			<div data-role="content">
 				<label for="createGroupLabel" class="ui-hidden-accessible">Group Name:</label>
 				<input type="text" name="name" id="createGroupLabel" placeholder="Group Name"/>
-				<a onclick="$(this).newGroup();" data-icon="check" data-role="button">Create</a>
+				<a onclick="newGroup( $('#createGroupLabel').val() )" data-icon="check" data-role="button">Create</a>
 			</div>
 		</div>
 <!-- ----------------------------------------------------------------------------------------------------------------------------------- -->
@@ -270,7 +282,7 @@
 			<h1>Survey</h1>
 			</div>
 			<div data-role="content">
-				<object id="survey_canvas" width="100%" height="75%" class="facetsurvey" type="text/html" data="http://facetsurvey.4abyte.com"></object>
+				<object style="border-radius: 8px;" id="survey_canvas" width="100%" height="75%" class="facetsurvey" type="text/html" data="http://facetsurvey.4abyte.com"></object>
 			</div>
 		</div>
 <!-- ----------------------------------------------------------------------------------------------------------------------------------- -->
@@ -282,10 +294,24 @@
 			<h1 class="dialogHeader">Item</h1>
 			</div>
 			<div data-role="content">
-				<a data-icon="check" onclick="$(this).changeOpenFile();" data-rel="dialog" data-transition="pop" href="#openDialog" data-role="button">Open</a>
-				<a data-icon="forward" onclick="addToQueue();" data-role="button">Send to Queue</a>
+				<a data-icon="check" onclick="changeOpenFile($(selectedItem).find('a').attr('linkurl'))" data-rel="dialog" data-transition="pop" href="#openDialog" data-role="button">Open</a>
+				<a id="addToQueueButton" data-icon="forward" onclick="addToQueue();" data-role="button">Send to Queue</a>
 				<a data-role="button">Share</a>
-				<a onclick="$(this).deleteItem();" data-icon="delete" data-role="button">Delete</a>
+				<a onclick="deleteItem();$('.ui-dialog').dialog('close');" data-icon="delete" data-role="button">Delete</a>
+			</div>
+		</div>
+<!-- ----------------------------------------------------------------------------------------------------------------------------------- -->
+
+
+<!-- -----------------------------------------QUEUE ITEM DIALOG--------------------------------------------------------------------- -->
+		<div data-role="page" id="queueDialog">
+			<div data-role="header" data-position="inline">
+			<h1 class="dialogHeader">Item</h1>
+			</div>
+			<div data-role="content">
+				<a data-icon="check" onclick="changeOpenFile($(selectedItem).find('a').attr('linkurl'))" data-rel="dialog" data-transition="pop" href="#openDialog" data-role="button">Open</a>
+				<a data-icon="forward" onclick="sendToSharedScreen()" data-role="button">Send to Shared Screen</a>
+				<a onclick="deleteQueueItem();$('.ui-dialog').dialog('close');" data-icon="delete" data-role="button">Delete</a>
 			</div>
 		</div>
 <!-- ----------------------------------------------------------------------------------------------------------------------------------- -->
@@ -297,7 +323,7 @@
 			<h1 class="dialogHeader">Item</h1>
 			</div>
 			<div data-role="content">
-				<object id="open_canvas" width="100%" height="75%" type="text/html" data=""></object>
+				<object style="border-radius: 8px;" id="open_canvas" width="100%" height="75%" type="text/html" data=""></object>
 			</div>
 		</div>
 <!-- ----------------------------------------------------------------------------------------------------------------------------------- -->

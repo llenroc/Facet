@@ -27,9 +27,9 @@ $(function() {
 	getUser();
 	
 	// Makes everything draggable
-	$(this).makeQueueDroppable();
-	$(this).makeParticipantsDroppable();
-	$(this).makeFilesDroppable();
+	makeQueueDroppable();
+	makeParticipantsDroppable();
+	makeFilesDroppable();
 	
 	// Initializes the tabs
 	$( "#tabs" ).tabs();
@@ -102,7 +102,7 @@ $(function() {
 	
 	// Event handling for the slide button
 	$("#toggleSlide").click(function() {	
-		$(this).slideItems();
+		slideItems();
 	});
 				
 	// Initializes the Google Map
@@ -121,14 +121,10 @@ $(function() {
 	PS.ajax.userIndex(populateParticipants, populateFailed);
 });
 
-
+// When the logged in user is retrieved, the UI is unblocked
 function getUserCallback() {	
-	//$.unblockUI();
+	$.unblockUI();
 }
-
-
-// Unblocks UI when AJAX activity stops
-$(document).ajaxStop($.unblockUI);
 
 
 // Ajax call passed and adding recieved users
@@ -138,7 +134,7 @@ function populateParticipants(json, textStatus, jqXHR) {
 	
 	// Removes loading animation item
 	$("#loading").remove();
-	$(this).makeParticipantsDroppable(); /* Makes new group droppable */
+	makeParticipantsDroppable(); /* Makes new group droppable */
 }
 
 // Not administrator and so populating with default users
@@ -148,7 +144,7 @@ function populateFailed() {
 	
 	// Removes loading animation item
 	$("#loading").remove();
-	$(this).makeParticipantsDroppable(); /* Makes new group droppable */
+	makeParticipantsDroppable(); /* Makes new group droppable */
 }
 
 // Adds user to the participant list with the given name
@@ -157,13 +153,13 @@ function createUser(name, id) {
 }
 
 // Creates Queue item with a given name and link
-function createQueueItem(name, link) {
+function createQueueItem(name, link, type) {
 	$("#columns").css("width", "+=162px");
-	$("#columns").append("<li class='column'><header><h1><a onclick='$(this).changeTab(3);' href='"+ link + "' target='openFile'>" + name + "</a><img alt='List Item' src='icons/handle.png' class='dragHandle2'></h1></header></li>");
+	$("#columns").append("<li type='" + type + "' class='column'><header><h1><a onclick='changeTab(3)' href='"+ link + "' target='openFile'>" + name + "</a><img alt='List Item' src='icons/handle.png' class='dragHandle2'></h1></header></li>");
 }
 
 // Animates divs to slide in and out
-$.fn.slideItems = function() {
+function slideItems() {
 	if(slideOpen) {
 	/*	$(".queue").animate({width: '+=240'}, {duration:"slow", queue: false});
 		$(".monitter").animate({width: '+=240'}, {duration:"slow", queue: false});
@@ -205,7 +201,7 @@ $.fn.slideItems = function() {
 	}
 };
 
-$.fn.makeQueueDroppable = function() {	
+function makeQueueDroppable() {	
 	$("#columns").sortable({
 		appendTo: "body",
 		handle: "img.dragHandle2",
@@ -221,7 +217,7 @@ $.fn.makeQueueDroppable = function() {
 			$(ui.helper).addClass("queueItem");
 			$(ui.helper).attr("href",$(ui.item).find("a").attr("href"));
 			$(ui.helper).attr("type",$(ui.item).attr("type"));
-			
+					
 			$(ui.helper).css("white-space", "nowrap");
 			$(ui.helper).css("text-overflow", "ellipsis");
 			$(ui.helper).css("overflow", "hidden");			
@@ -237,9 +233,9 @@ $.fn.makeQueueDroppable = function() {
 			var text = $(ui.helper).text();
 			var link = $(ui.helper).attr("href");
 			
-			createQueueItem(text,link);
+			createQueueItem(text,link, type);
 			
-			$(this).makeQueueDroppable();
+			makeQueueDroppable();
 			$(this).removeClass("hover-border");
 			
 			PS.ajax.tweet("facetmeeting321","queue",accountJSON.name,type, text );
@@ -262,7 +258,7 @@ $.fn.makeQueueDroppable = function() {
 			$("#sharedScreen").attr("src",href);
 						
 			PS.ajax.tweet("facetmeeting321","shared screen",accountJSON.name,type, ui.helper.text() );
-			$(this).changeTab(4);
+			changeTab(4);
 			
 			$("#tabs").removeClass("hover-border");
 		},
@@ -274,13 +270,13 @@ $.fn.makeQueueDroppable = function() {
 
 var editing = false;
 /* If we are currently renaming, then we make an group with the textarea, else if just create regular text*/
-$.fn.newGroup = function() {
+function newGroup() {
     if(editing == true) {
         $("#groupList").append("<li class = 'icon group'><img onclick='$(this).parent().remove();' class='delete' src='icons/delete.png'></img><div onclick='$(this).next().toggle();'><textarea>New Group</textarea></div><ul class = 'apple'></ul></li>");
     } else {
         $("#groupList").append("<li class = 'icon group'><div onclick='$(this).next().toggle();'>New Group</div><ul class = 'apple' style='display:none'></ul></li>");	
     }
-    $(this).makeParticipantsDroppable(); /* Makes new group droppable */
+    makeParticipantsDroppable(); /* Makes new group droppable */
 };
 
 // jQuery has built in iFrameFix for draggable, but not for sortable. Essentially what it does is it adds an invisible div overtop to prevent mousecapture
@@ -294,7 +290,7 @@ function stopiFrameFix() {
 }
 
 /* Converts the name to a textarea to start renaming. Converts text area to text when finished */
-$.fn.rename = function() {
+function rename() {
     if(editing == false) {
         $("#groupList li").not(".trash").each(function(index) {
             /*Renaming*/
@@ -322,7 +318,7 @@ $.fn.rename = function() {
     }
 };
 
-$.fn.makeParticipantsDroppable = function() {
+function makeParticipantsDroppable() {
     $( "#participantList li" ).draggable({
 		appendTo: "body",
         helper: function() {
@@ -415,7 +411,7 @@ function deleteUIItem(ui) {
 	}
 }
 
-$.fn.makeFilesDroppable = function() {
+function makeFilesDroppable() {
 	$(".appleCube").sortable({
 		handle: "img.dragHandle2",
 		appendTo: "body",
@@ -437,12 +433,12 @@ $.fn.makeFilesDroppable = function() {
 
 /* 	type = Type of file it is (what icon will be displayed). Can choose file, image, document, survey, audio
 	link = What the text links to */
-$.fn.createItem = function(type, link, name) {
-    $(".appleCube").append("<li type=" + type + " title = '" + name + "' class = 'icon "+ type +"'><a onclick='$(this).changeTab(3);' href='" + link + "' target='openFile'>" + name + "</a><img src='icons/handle.png' class='dragHandle2'></li>");
-	$(this).makeFilesDroppable();
+function createItem(type, link, name) {
+    $(".appleCube").append("<li type=" + type + " title = '" + name + "' class = 'icon "+ type +"'><a onclick='changeTab(3)' href='" + link + "' target='openFile'>" + name + "</a><img src='icons/handle.png' class='dragHandle2'></li>");
+	makeFilesDroppable();
 };
 
-$.fn.changeTab = function(number) {
+function changeTab(number) {
 	$( '#tabs' ).tabs( 'option', 'selected', number );
 };
 

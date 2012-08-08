@@ -38,14 +38,14 @@ function getUser() {
 }
 
 function populateSampleWorkspace() {
-	$(this).createItem('audio', "empty.html", "Audio");
-	$(this).createItem('file', "empty.html", "File");
-	$(this).createItem('images', "empty.html", "Image");
-	$(this).createItem('document', "empty.html", "Document");
-	$(this).createItem('file', "empty.html", "File");
-	$(this).createItem('file', "empty.html", "File");
-	$(this).createItem('audio', "empty.html", "Audio");
-	$(this).createItem('images', "empty.html", "Image");
+	createItem('audio', "empty.html", "Audio");
+	createItem('file', "empty.html", "File");
+	createItem('images', "empty.html", "Image");
+	createItem('document', "empty.html", "Document");
+	createItem('file', "empty.html", "File");
+	createItem('file', "empty.html", "File");
+	createItem('audio', "empty.html", "Audio");
+	createItem('images', "empty.html", "Image");
 }
 
 function populateSampleUsers() {
@@ -62,9 +62,9 @@ function populateSampleUsers() {
 
 function populateSampleQueue() {
 	//Placeholder to populate queue
-	createQueueItem("Comment","empty.html");
-	createQueueItem("Comment","empty.html");
-	createQueueItem("Survey","empty.html");
-	createQueueItem("Question","empty.html");
-	createQueueItem("Video","empty.html");
+	createQueueItem("Comment","empty.html", "comment");
+	createQueueItem("Comment","empty.html", "comment");
+	createQueueItem("Survey","empty.html", "survey");
+	createQueueItem("Question","empty.html", "question");
+	createQueueItem("Video","empty.html", "video");
 }

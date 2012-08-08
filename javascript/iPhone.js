@@ -11,7 +11,10 @@ var selectedGroup;
 
 $(function() {
 
-	checkLogIn()
+	// Checks if the user is logged in. If the user is not logged in, it redirects the user to the login page
+	checkLogIn();
+	
+	// Then performs a ajax call to get the JSON object from the server
 	getUser();
 	
 	$(".logout").fastClick(function() {
@@ -26,6 +29,13 @@ $(function() {
 	
 	});
 	
+	// Detects if user presses enter in the new group group box.
+    $("#createGroupLabel").keypress(function (e) {
+        if (e.which == 10 || e.which == 13) {
+            newGroup($('#createGroupLabel').val());
+        }
+    });
+	
 });
 
 // Everything to do with elements in the workspace goes here
@@ -33,8 +43,8 @@ $("#workspace").live('pageinit', function() {
 	console.log("Workspace");
 
 	// Populate the workspace with some sample items
-	populateSampleWorkspace()
-	
+	populateSampleWorkspace();
+		
 	$('#workspaceList').listview('refresh', true);
 	
 });
@@ -49,6 +59,7 @@ $("#workspace").live('pagebeforeshow', function() {
 	PS.ajax.surveyIndex(refreshSurveys);
 });
 
+
 // Everything to do with elements in the workspace goes here
 $("#queue").live('pageinit', function() {
 	console.log("Queue");
@@ -56,6 +67,48 @@ $("#queue").live('pageinit', function() {
 	$('#queueList').listview('refresh');
 	
 });
+
+
+//Swiping to change pages code. Could be coded cleaner
+
+$("#participants").live("swiperight", function () {
+	$.mobile.changePage($("#sharedScreen"), {transition: "slide",reverse:true});
+});
+$("#participants").live("swipeleft", function () {
+	$.mobile.changePage($("#workspace") , {transition: "slide"});
+});
+
+$("#workspace").live("swiperight", function () {
+	$.mobile.changePage($("#participants"), {transition: "slide",reverse:true});
+});
+$("#workspace").live("swipeleft", function () {
+	$.mobile.changePage($("#queue") , {transition: "slide"});
+});
+
+$("#queue").live("swiperight", function () {
+	$.mobile.changePage($("#workspace"), {transition: "slide",reverse:true});
+});
+$("#queue").live("swipeleft", function () {
+	$.mobile.changePage($("#map") , {transition: "slide"});
+});
+
+$("#map").live("swiperight", function () {
+	$.mobile.changePage($("#queue"), {transition: "slide",reverse:true});
+});
+$("#map").live("swipeleft", function () {
+	$.mobile.changePage($("#sharedScreen") , {transition: "slide"});
+});
+
+$("#sharedScreen").live("swiperight", function () {
+	$.mobile.changePage($("#map"), {transition: "slide",reverse:true});
+});
+$("#sharedScreen").live("swipeleft", function () {
+	$.mobile.changePage($("#participants") , {transition: "slide"});
+});
+
+
+
+
 
 $("#queue").live("pageshow", function() {
 	$('#queueList').listview('refresh');
@@ -90,8 +143,13 @@ $("#participants").live('pageinit', function() {
 	PS.ajax.userIndex(populateParticipants, populateFailed);		
 });
 
+// When the new group dialog is shown, it automagically focuses the textbox
+$("#newgroupDialog").live("pageshow", function() {
+	$("#createGroupLabel")[0].focus();
+});
+
 // Saves the li to selectedItem to be used later on
-$("#participantList li, #workspaceList li").live("click", function() {
+$("#participantList li, #workspaceList li, #queueList li").live("click", function() {
 	selectedItem = $(this);
 	
 	// Change header to be more approprate for the item that was clicked on
@@ -103,7 +161,7 @@ $(".groupListPop li:not([data-role='list-divider'])").live("click", function() {
 	selectedGroup = $(this);
 	var text = selectedGroup.text();
 	var text2 = text.substring(0,text.length-1);
-	$(this).addUserToGroup(selectedItem.text(),text2);
+	addUserToGroup(selectedItem.text(),text2);
 	
 	// Go back 2 dialog boxes (to the main screen)
 	window.history.go(-2);
@@ -111,7 +169,7 @@ $(".groupListPop li:not([data-role='list-divider'])").live("click", function() {
 });
 
 // A fix to an error I was having if I tried to refresh the dialog list
-$('#addToGroupDialog').on('pagecreate pageshow', function (event) {
+$('#addToGroupDialog').live('pagecreate pagebeforeshow', function (event) {
 
 	var $the_ul = $('.groupListPop');
 	if ($the_ul.hasClass('ui-listview')) {
@@ -119,6 +177,11 @@ $('#addToGroupDialog').on('pagecreate pageshow', function (event) {
 	} else {
 		$the_ul.trigger('create');
 	}
+});
+
+// A fix to an error I was having if I tried to refresh the dialog list
+$('#addToGroupDialog').live('pageshow', function (event) {
+	$('.groupListPop').listview("refresh");
 });
 
 // Hiding function
@@ -163,15 +226,14 @@ function populateFailed() {
 
 }
  
-$.fn.newGroup = function() {
-	// Gets value from textbox
-	var name = $("#createGroupLabel").val();
-	
+function newGroup(groupName) {
+
 	// Does not add group if name is blank
-	if(name != "") {
+	if(groupName != "") {
+	
 		// Append new group to both the visible group list, as well as the dialog box when adding user to group
-		$("#groupList").append("<li class='group' data-role='list-divider'><div class='name'>"+ name + "</div><div class='ui-li-count'>0</div></li>");
-		$(".groupListPop").append("<li><a>"+ name + "</a></li>");
+		$("#groupList").append("<li class='group' data-role='list-divider'><div class='name'>"+ groupName + "</div><div class='ui-li-count'>0</div></li>");
+		$(".groupListPop").append("<li><a>"+ groupName + "</a></li>");
 		
 		// jQuery Mobile - Added proper CSS to newly added item
 		$('#groupList').listview('refresh', true);
@@ -184,23 +246,28 @@ $.fn.newGroup = function() {
 	}
 };
 
-$.fn.deleteUser = function() {
+function deleteUser() {
 	// Slice out selected item and remove it
 	$("#participantList").children().slice(selectedItem.index(),selectedItem.index()+1).remove();
 	
 	// Close dialog
 	$('.ui-dialog').dialog('close');
+	
+	// Refresh styling
+	$('#participantList').listview('refresh');
 };
 
-$.fn.deleteItem = function() {
+function deleteItem() {
 	// Slice out selected item and remove it
 	$("#workspaceList").children().slice(selectedItem.index(),selectedItem.index()+1).remove();
-	
-	// Close dialog	
-	$('.ui-dialog').dialog('close');
 };
 
-$.fn.addUserToGroup = function(name, groupName) {
+function deleteQueueItem() {
+	// Slice out selected item and remove it
+	$("#queueList").children().slice(selectedItem.index(),selectedItem.index()+1).remove();
+};
+
+function addUserToGroup(name, groupName) {
 	// Goes through all the .name in #groupList and checks to see if it matches the groupName parameter. If it does, then it adds the user to the group
 	$("#groupList li .name").each(function(index) {
 		if(groupName == $(this).text()) {
@@ -226,13 +293,13 @@ $.fn.addUserToGroup = function(name, groupName) {
 	});	
 };
 
-$.fn.createItem = function(type, link, name) {
+function createItem(type, link, name) {
 	// data-filtertext = when using the filter bar, it filters by this text. Currently it filters by type (survey, image, document, etc ...) and the item name.
     $("#workspaceList").append("<li data-filtertext='"+ name + " " + type + "' type=" + type + " title = '" + name + "'><a data-rel='dialog' data-transition='pop' href='#workspaceDialog' linkURL='" + link + "'>" + name + "</a></li>");
 };
 
-$.fn.changeOpenFile = function() {
-	$("#open_canvas").attr("data",$(selectedItem).find("a").attr("linkurl"));
+function changeOpenFile(url) {
+	$("#open_canvas").attr("data",url);
 };
 
 function refreshSurveys(json, textStatus, jqXHR) {
@@ -243,11 +310,35 @@ function refreshSurveys(json, textStatus, jqXHR) {
 }
 
 function addToQueue() {
-	createQueueItem(selectedItem.text(),$(selectedItem).find("a").attr("linkurl"));
+	// Creates queue item based off the text and link
+	createQueueItem(selectedItem.text(),$(selectedItem).find("a").attr("linkurl"), $(selectedItem).attr("type"));
+	
+	// Tweets
+	PS.ajax.tweet("facetmeeting321","queue",accountJSON.name,$(selectedItem).attr("type"), selectedItem.text() );
+	
+	// Changes header of the shared screen page
+	$("#sharedScreenHeader").text(selectedItem.text());
+	
+	// Closes Dialog box
 	$('.ui-dialog').dialog('close');
 
 }
 
-function createQueueItem(name,link) {
-	$("#queueList").append("<li linkurl='" + link + "'><a>" + name + "</a></li>");
+function createQueueItem(name, link, type) {
+	$("#queueList").append("<li linkurl='" + link + "' type='"+ type +"'><a data-rel='dialog' data-transition='pop' href='#queueDialog' linkURL='" + link + "'>" + name + "</a></li>");
+}
+
+function sendToSharedScreen() {
+	// Grabs the linkURL from the selected item and sets it as the data of the shared_canvas object
+	$("#shared_canvas").attr("data", $(selectedItem).attr("linkURL"));	
+	
+	// Deletes the item from the queue
+	deleteQueueItem();
+	
+	// Changes page to the newly changed shared screen
+	$.mobile.changePage($("#sharedScreen"));
+	
+	// Tweets
+	PS.ajax.tweet("facetmeeting321","shared screen",accountJSON.name,$(selectedItem).attr("type"), selectedItem.text() );
+	
 }

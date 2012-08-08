@@ -41,13 +41,13 @@
 		<script src="javascript/jquery/jquery.ui.button.min.js"></script>
 		<script src="javascript/jquery/jquery.ui.position.min.js"></script>
         
+		<script type="text/javascript" src="javascript/site.js"></script>
+		
         <script type="text/javascript" src="javascript/jquery.blockUI.js"> </script>		
         <script type="text/javascript" src="javascript/publicsquare.js"> </script>
         <script type="text/javascript" src="javascript/ajax.js"> </script>
         <script type="text/javascript" src="javascript/model.js"> </script>
 		<script type="text/javascript" src="javascript/universal.js"> </script>
-
-        <script type="text/javascript" src="javascript/site.js"></script>
 		
 		<script type="text/javascript" src="javascript/scrollfix.min.js"></script>
 		<script type="text/javascript" src="javascript/monitter.min.js"></script>
@@ -82,8 +82,8 @@
             <h1>Groups</h1>
             
             <div id="editButtonGroup">
-                <div class="iPhoneButton" onclick="$(this).newGroup();">New</div>
-                <div class="iPhoneButton" id="renameButton" onclick="$(this).rename();">Edit</div>                
+                <div class="iPhoneButton" onclick="newGroup()">New</div>
+                <div class="iPhoneButton" id="renameButton" onclick="rename()">Edit</div>                
             </div>
             		
             <ul class="apple" id = "groupList"></ul>
@@ -117,11 +117,11 @@
                         <div class="files-area" style="width: 100%;">
 
 							<div style="margin-bottom:10px">
-								<button class="iPhoneButton" onclick="$(this).createItem('audio','#' ,'Audio');">Audio</button>
-								<button class="iPhoneButton" onclick="$(this).changeTab(1);">Survey</button>
-								<button class="iPhoneButton" onclick="$(this).createItem('file','#', 'File');">File</button>
-								<button class="iPhoneButton" onclick="$(this).createItem('images','tree.png', 'Image');">Image</button>
-								<button class="iPhoneButton" onclick="$(this).createItem('document','https://docs.google.com/document/d/1CI6nWiu_Z1-pFmAcR8qPTK7S_rOfghr03tMd6aLW6rA/edit', 'Document');">Document</button>
+								<button class="iPhoneButton" onclick="createItem('audio','#' ,'Audio');">Audio</button>
+								<button class="iPhoneButton" onclick="changeTab(1)">Survey</button>
+								<button class="iPhoneButton" onclick="createItem('file','#', 'File');">File</button>
+								<button class="iPhoneButton" onclick="createItem('images','tree.png', 'Image');">Image</button>
+								<button class="iPhoneButton" onclick="createItem('document','https://docs.google.com/document/d/1CI6nWiu_Z1-pFmAcR8qPTK7S_rOfghr03tMd6aLW6rA/edit', 'Document');">Document</button>
 							</div>
                             <ul class = "appleCube"></ul>
 
