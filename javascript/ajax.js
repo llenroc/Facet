@@ -235,7 +235,7 @@ PS.ajax.tweet = function(hashtag,location,name,type,filename) {
 //Technically, you can set relationships like any other attribute using the below defined update functions. This is not a good idea. Use the relationship functions instead. 
 
 // Helper functions
-PS.ajax.wrapNodeId(input) {
+PS.ajax.wrapNodeId = function (input) {
 	return "[nid:" + input + "]" 
 }
 
@@ -258,9 +258,8 @@ PS.ajax.projectCreate = function(callback, errorCallback, name, userNodeId) {
 		url: PS.ajax.getServerPrefix() + "restfacet/node/",
 		dataType: "json",
 		success: callback,
-        error: errorCallback,
-		type: 'project'
-		data: {name: name, 'field_owners[und][0][nid]': PS.ajax.wrapNodeId(userNodeId)}
+        error: errorCallback,	
+		data: {name: name, type: 'project', 'field_owners[und][0][nid]': PS.ajax.wrapNodeId(userNodeId)}
 	});
 }
 PS.ajax.projectRetrieve = PS.ajax.nodeRetrieve;
@@ -289,8 +288,8 @@ PS.ajax.meetingCreate = function(callback, errorCallback, name, userNodeId, proj
 		dataType: "json",
 		success: callback,
         error: errorCallback,
-		type: 'meeting'
 		data: {	name: name, 
+				type: 'meeting',
 				'field_meeting_owners[und][0][nid]': PS.ajax.wrapNodeId(userNodeId),
                 'field_meeting_owning_project[und][0][nid]': PS.ajax.wrapNodeId(projectId),			
 				'field_meeting_date[und][0][nid]': date,
@@ -322,8 +321,8 @@ PS.ajax.groupCreate = function(callback, errorCallback, name, userNodeId, projec
 		dataType: "json",
 		success: callback,
         error: errorCallback,
-		type: 'group'
 		data: {	name: name, 
+				type: 'group',
 				'field_group_owners[und][0][nid]': PS.ajax.wrapNodeId(userNodeId),
 				'field_group_owning_project[und][0][nid]': PS.ajax.wrapNodeId(projectId),
 		}
@@ -353,8 +352,8 @@ PS.ajax.itemCreate = function(callback, errorCallback, name, userNodeId, created
 		dataType: "json",
 		success: callback,
         error: errorCallback,
-		type: 'item'
 		data: {	name: name, 
+				type: 'item',
 				'field_item_id_owner[und][0][nid]': PS.ajax.wrapNodeId(userNodeId),
 				'field_item_id_creator[und][0][nid]': PS.ajax.wrapNodeId(userNodeId),
 				'field_item_creation_timestamp[und][0][nid]': createdTime,
@@ -390,8 +389,8 @@ PS.ajax.userNodeCreate = function(callback, errorCallback, name, userName) {
 		dataType: "json",
 		success: callback,
         error: errorCallback,
-		type: 'user'
 		data: {	name: name, 
+				type: 'user',
 				'field_user_name[und][0][nid]': PS.ajax.wrapNodeId(userNodeId),
 				'field_user_username[und][0][nid]': PS.ajax.wrapNodeId(userNodeId),
 				'field_user_logged_in[und][0][nid]': 'absent', // 4abyte specs say this should be 'present' or 'absent'. don't know if there is any logic hooked up to it on their end.
@@ -428,7 +427,7 @@ PS.ajax.indexUserProjects = function(callback, errorCallback, userNodeId) {
 }
 PS.ajax.addProjectUser = function(callback, errorCallback, projectId, userNodeId) {
 	
-	PS.ajax.nodeRetrieve(
+	/*PS.ajax.nodeRetrieve(
 		function(json, textStatus, jqXHR) {
 		
 			data = {};
@@ -439,7 +438,7 @@ PS.ajax.addProjectUser = function(callback, errorCallback, projectId, userNodeId
 		},
 		errorCallback,
 		projectId,
-	);
+	);*/
 
 	$.ajax({
 		type: "GET",

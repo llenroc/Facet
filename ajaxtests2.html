@@ -19,7 +19,9 @@
                 console.log(document.cookie);
             }
     
-        
+        function foo() {
+            PS.ajax.projectIndex(callback);
+        }
     
     </script>
 
@@ -32,7 +34,7 @@
         <p>publicsquare object methods</p>
     
         <p>
-        <button onClick="PS.ajax.projectIndex(callback);"> project index </button>
+        <button onClick="foo();"> project index </button>
 
         </p>
 
