@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+
+<html>
+
+    <head>
+
+    <script src="javascript/publicsquare.js"> </script>
+    <script src="javascript/jquery/jquery-1.7.2.min.js"> </script>
+    <script src="javascript/ajax.js"> </script>
+    
+
+    <script> 
+
+        var id = 9;
+    
+        function callback(json, textStatus, jqXHR) {
+                console.log(json);
+                console.log(jqXHR);
+                console.log(document.cookie);
+            }
+    
+        
+    
+    </script>
+
+    </head>
+
+    <body>
+
+    <!-- a testfile for new publicsquare ajax methods -->
+    
+        <p>publicsquare object methods</p>
+    
+        <p>
+        <button onClick="PS.ajax.projectIndex(callback);"> project index </button>
+
+        </p>
+
+        <p>publicsquare relationship</p>
+
+        
+        
+        
+    </body>
+
+</html>
