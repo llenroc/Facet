@@ -124,6 +124,14 @@ ul.apple ul.apple {
 	background-image: url(../icons/delete.png);
 }
 
+.meeting {
+	background-image: url(../icons/meeting2.png);
+}
+
+.project {
+	background-image: url(../icons/project.png);
+}
+
 .share {
 	background-image: url(../icons/share.png);
 }
@@ -263,6 +271,8 @@ img.dragHandle2 {
     -o-border-image:url(../icons/button.png) 0 8 0 14 stretch stretch;
     -webkit-border-image: url(../icons/button.png) 0 8 0 14;
     -webkit-tap-highlight-color: rgba(0,0,0,0);
+	
+	
     
     margin:5px;
 }
