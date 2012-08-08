@@ -54,7 +54,7 @@
 	overflow-y: hidden;
     width:157px;
     float:left;
-    background-color: #FFFFFF;
+    background-color: #B0BCCA;
     margin-right: 5px;	
     border-radius: 8px;
     text-align: center;
@@ -79,7 +79,7 @@
     text-shadow: 0px 1px 2px #000000;
     padding: 5px;	
     border-radius: 8px;
-	
+		
 	background: #B0BCCA;
     background: -webkit-gradient(linear, left top, left bottom, from(#B0BCCA), to(#6D859F));
     background: -moz-linear-gradient(top, #B0BCCA, #6D859F);

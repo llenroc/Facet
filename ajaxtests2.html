@@ -14,14 +14,18 @@
         var id = 9;
     
         function callback(json, textStatus, jqXHR) {
-                console.log(json);
-                console.log(jqXHR);
-                console.log(document.cookie);
-            }
-    
-        function foo() {
-            PS.ajax.projectIndex(callback);
+			console.log(json);
+			console.log(jqXHR);
+			console.log(document.cookie);
         }
+			
+        function errorcallback(json, textStatus, jqXHR) {
+			console.log("Error Callback");
+			console.log(json);
+			console.log(jqXHR);
+			console.log(document.cookie);
+        }
+    
     
     </script>
 
@@ -34,7 +38,8 @@
         <p>publicsquare object methods</p>
     
         <p>
-        <button onClick="foo();"> project index </button>
+        <button onclick="PS.ajax.projectIndex(callback, errorcallback)"> project index </button>
+		<button onclick="PS.ajax.projectCreate(callback, errorcallback, 'Test Project', 1)"> project index </button>
 
         </p>
 

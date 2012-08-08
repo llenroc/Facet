@@ -23,6 +23,7 @@
 		<link rel="stylesheet" type="text/css" href="css/style.css" />
         <link rel="stylesheet" type="text/css" href="css/main.css" />		
 		<link rel="stylesheet" type="text/css" href="css/monitter.css" />
+		<link rel="stylesheet" type="text/css" href="css/button.css" />
 				
 		<link rel="stylesheet" media="only screen and (max-device-width: 1024px)" href="css/ipad.css" type="text/css" />
 
@@ -68,9 +69,9 @@
     <body>
 	
 		<img alt="Toggle Participants View" style="z-index:999;" src="icons/left.png" id="toggleSlide" />
+		<button class="button blue" onclick="window.location = 'default.html';" style="position:absolute; right:5px;top:5px; z-index:999;">Log out</button>
 		
         <div class="participants"> 
-			<button onclick="window.location = 'default.html';" style="position:absolute; left:5px;top:10px; z-index:999;">Log out</button>
             <h1>Participants</h1>
 				<img alt="Up Arrow" src="icons/upS.png" id="upArrow" />
 				<img alt="Down Arrow" src="icons/downS.png" id="downArrow" />
@@ -81,9 +82,9 @@
 			
             <h1>Groups</h1>
             
-            <div id="editButtonGroup">
-                <div class="iPhoneButton" onclick="newGroup()">New</div>
-                <div class="iPhoneButton" id="renameButton" onclick="rename()">Edit</div>                
+            <div id="editButtonGroup" style="text-align:center; margin-top:5px;">
+                <div class="button blue" onclick="newGroup()">New</div>
+                <div class="button blue" id="renameButton" onclick="rename()">Edit</div>                
             </div>
             		
             <ul class="apple" id = "groupList"></ul>
@@ -117,11 +118,11 @@
                         <div class="files-area" style="width: 100%;">
 
 							<div style="margin-bottom:10px">
-								<button class="iPhoneButton" onclick="createItem('audio','#' ,'Audio');">Audio</button>
-								<button class="iPhoneButton" onclick="changeTab(1)">Survey</button>
-								<button class="iPhoneButton" onclick="createItem('file','#', 'File');">File</button>
-								<button class="iPhoneButton" onclick="createItem('images','tree.png', 'Image');">Image</button>
-								<button class="iPhoneButton" onclick="createItem('document','https://docs.google.com/document/d/1CI6nWiu_Z1-pFmAcR8qPTK7S_rOfghr03tMd6aLW6rA/edit', 'Document');">Document</button>
+								<button class="button blue" onclick="createItem('audio','#' ,'Audio');">Audio</button>
+								<button class="button blue" onclick="changeTab(1)">Survey</button>
+								<button class="button blue" onclick="createItem('file','#', 'File');">File</button>
+								<button class="button blue" onclick="createItem('images','tree.png', 'Image');">Image</button>
+								<button class="button blue" onclick="createItem('document','https://docs.google.com/document/d/1CI6nWiu_Z1-pFmAcR8qPTK7S_rOfghr03tMd6aLW6rA/edit', 'Document');">Document</button>
 							</div>
                             <ul class = "appleCube"></ul>
 
