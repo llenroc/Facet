@@ -6,21 +6,90 @@
 
     <script src="javascript/publicsquare.js"> </script>
     <script src="javascript/jquery/jquery-1.7.2.min.js"> </script>
+
+
+    <script src="javascript/xml2json.js"> </script>
     <script src="javascript/ajax.js"> </script>
     
 
     <script> 
 
-        var id = 9;
-    
+
         function callback(json, textStatus, jqXHR) {
                 console.log(json);
                 console.log(jqXHR);
                 console.log(document.cookie);
             }
+            
+        function xmlCallback(xml, textStatus, jqXHR) {
+                console.log(xmlToJson(xml));
+            }
+        
+
+    
+    
+            /********** new 'rest' services **********/
+        
+        //NB: dataType is ignored by these calls
+        
+        function index_project() {
+            $.ajax({
+                type: "GET",
+                url: PS.ajax.getServerPrefix() + "services-xml/project",
+                dataType: "json",
+                success: callback,
+            });
+        }
+        
+        function index_item() {
+            $.ajax({
+                type: "GET",
+                url: PS.ajax.getServerPrefix() + "services-xml/item",
+                dataType: "json",
+                success: callback,
+            });
+            }       
+        
+        function index_group() {
+            $.ajax({
+                type: "GET",
+                url: PS.ajax.getServerPrefix() + "services-xml/group",
+                dataType: "json",
+                success: callback,
+            });
+            }       
+        
+        function index_meeting() {
+            $.ajax({
+                type: "GET",
+                url: PS.ajax.getServerPrefix() + "services-xml/meeting",
+                dataType: "json",
+                success: callback,
+            });
+            }       
+        
+        function index_user() {
+            $.ajax({
+                type: "GET",
+                url: PS.ajax.getServerPrefix() + "services-xml/user",
+                dataType: "json",
+                success: callback,
+            });
+            }   
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
         function foo() {
-            PS.ajax.projectIndex(callback);
+            //PS.ajax.projectIndex(callback);
+            PS.ajax.addProjectUser(xmlCallback, undefined, 745, 901);
         }
     
     </script>
@@ -34,11 +103,32 @@
         <p>publicsquare object methods</p>
     
         <p>
-        <button onClick="foo();"> project index </button>
-
+        <button onClick="PS.ajax.projectIndex(callback);"> project index </button>
         </p>
 
+        <p>index functions, for convenience </p>
+        
+        <p>
+        <button onClick="index_project();"> project index </button>
+        <button onClick="index_user();"> user index </button>
+        <button onClick="index_meeting();"> meeting index </button>
+        <button onClick="index_group();"> group index </button>
+        <button onClick="index_item();"> item index </button>
+        </p>
+        
         <p>publicsquare relationship</p>
+        <p>
+        <button onClick="PS.ajax.indexUserProjects(xmlCallback, undefined, 745);"> project user index </button>
+        <button onClick="PS.ajax.addProjectUser(callback, undefined, 745, 901);"> project user add </button>
+        <button onClick="PS.ajax.removeProjectUser(callback, undefined, 745, 901);"> project user remove </button>
+        </p>
+
+        <p>
+        <button onClick="PS.ajax.indexUserMeetings(xmlCallback, undefined, 744);"> meeting user index </button>
+        <button onClick="PS.ajax.addMeetingUser(callback, undefined, 744, 747);"> meeting user add </button>
+        <button onClick="PS.ajax.removeMeetingUser(callback, undefined, 744, 747);"> meeting user remove </button>
+        </p>
+
 
         
         
