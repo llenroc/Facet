@@ -50,7 +50,7 @@ function loginPassed(json, textStatus, jqXHR) {
 	console.log("Login Passed");
 	
 	$("#projectDiv").css("display","block");
-	$("#projectDiv").css("width","500px");
+	$("#projectDiv").css("width","80%");
 	$(".hideMe").hide();
 	$("#pageHeader").text("Welcome back " + json.user.name);
 }

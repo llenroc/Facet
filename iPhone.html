@@ -16,7 +16,7 @@
 		<script src="javascript/jquery/jquery-1.7.2.min.js"></script>
 		
 		<!-- http://jquerymobile.com/demos/1.1.1/ -->
-		<script src="http://jquerymobile.com/branches/1.1-stable/js/"></script>
+		<script src="javascript/jquery/jquery.mobile-1.1.1.min.js"></script>
 		
 		<script type="text/javascript" src="javascript/google.fastbutton.js"> </script>
 		<script type="text/javascript" src="javascript/jquery.google.fastbutton.js"> </script>
@@ -112,7 +112,15 @@
 				<a href="index.html" data-rel="back" data-icon="arrow-l">Back</a>
 				<h1>Workspace</h1>
 				<a class="logout" data-icon="back">Logout</a>
-
+				<div data-role="navbar">
+					<ul>
+						<li><a class="fastnav" data-transition="slide" href="#participants">Users</a></li>
+						<li><a class="fastnav" data-transition="slide" href="#workspace" class="ui-btn-active">Workspace</a></li>
+						<li><a class="fastnav" data-transition="slide" href="#queue">Queue</a></li>
+						<li><a class="fastnav" data-transition="slide" href="#map">Map</a></li>
+						<li><a class="fastnav" data-transition="slide" href="#sharedScreen">Shared Screen</a></li>
+					</ul>
+				</div>
 			</div>
 			
 			<div data-role="content">
@@ -132,17 +140,7 @@
 				
 			</div>
 			<div data-id="test" data-position="fixed" data-role="footer">
-			
 				<div class="monitter" id="tweets" title="facetmeeting321" lang="en"></div>
-								<div data-role="navbar">
-					<ul>
-						<li><a class="fastnav" data-transition="slide" href="#participants">Users</a></li>
-						<li><a class="fastnav" data-transition="slide" href="#workspace" class="ui-btn-active">Workspace</a></li>
-						<li><a class="fastnav" data-transition="slide" href="#queue">Queue</a></li>
-						<li><a class="fastnav" data-transition="slide" href="#map">Map</a></li>
-						<li><a class="fastnav" data-transition="slide" href="#sharedScreen">Shared Screen</a></li>
-					</ul>
-				</div>
 			</div>
 		</div>
 <!-- ----------------------------------------------------------------------------------------------------------------------------------- -->
