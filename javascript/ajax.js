@@ -195,7 +195,7 @@ PS.ajax.nodeUpdate = function(callback, errorCallback, id, data) {
 		url: PS.ajax.getServerPrefix() + "restfacet/node/" + id,
 		dataType: "json",
 		success: callback,
-		error: error,
+		error: errorCallback,
 		data: data,
 	});
 }
@@ -238,6 +238,9 @@ PS.ajax.tweet = function(hashtag,location,name,type,filename) {
 PS.ajax.wrapNodeId = function (input) {
 	return "[nid:" + input + "]" 
 }
+
+
+
 
 
 
@@ -373,7 +376,7 @@ PS.ajax.userNodeIndex = function(callback, errorCallback) {
 	});		
 }
 
-{userName:'stuff'}
+
 
 //name: user's full name
 //userName: must be the username of an existing user. 
@@ -410,8 +413,10 @@ PS.ajax.userNodeDelete = PS.ajax.nodeDelete;
 
 //TODO: Convenience function to decode relation members from objects
 
-//user_project_member
 
+
+//user_project_member
+// Given a userNodeId, returns an xml document containing the projects the user is a member of
 PS.ajax.indexUserProjects = function(callback, errorCallback, userNodeId) {
 	$.ajax({
 		type: "GET",
@@ -420,37 +425,103 @@ PS.ajax.indexUserProjects = function(callback, errorCallback, userNodeId) {
 		error: errorCallback,
 	});		
 }
-PS.ajax.addProjectUser = function(callback, errorCallback, projectId, userNodeId) {
+PS.ajax.addProjectUser = function(callback, errorCallback, userNodeId, projectId) {	
+	PS.ajax.nodeRetrieve(
+		function(json, textStatus, jqXHR) {					
+			var data = {};
+			data.type = "project";
+			if (json.field_project_users.und.length === undefined) {
+				data['field_project_users[und][0][nid]'] = PS.ajax.wrapNodeId(userNodeId);
+			}
+			else {
+				data['field_project_users[und][' + String(json.field_project_users.und.length) + '][nid]'] = PS.ajax.wrapNodeId(userNodeId);
+			}
 	
-	/*PS.ajax.nodeRetrieve(
-		function(json, textStatus, jqXHR) {
-		
-			data = {};
-
-			PS.ajax.nodeUpdate(callback, errorCallback, projectId, data)
-		
-
+			PS.ajax.nodeUpdate(callback, errorCallback, projectId, data);	
 		},
 		errorCallback,
-		projectId,
-	);*/
-
-	$.ajax({
-		type: "GET",
-		url: PS.ajax.getServerPrefix() + "" + projectId,
-		dataType: "json",
-		success: callback,
-		error: errorCallback,
-	});	
+		projectId
+	);
 }
-PS.ajax.removeProjectUser = function(callback, errorCallback, projectId, userNodeId) {
-	
+PS.ajax.removeProjectUser = function(callback, errorCallback, userNodeId, projectId) {
+	PS.ajax.nodeRetrieve(
+		function(json, textStatus, jqXHR) {			
+			//get the list of userNodeIds, buried in the response object
+			var users = json.field_project_users.und;
+		
+			//search for one matching the userNodeId to be removed
+			for(var i = 0; i < users.length; i += 1) { 
+				if(Number(users[i].nid) === userNodeId) {
+					var data = {};
+					data.type = "project";
+					data['field_project_users[und][' + String(i) + '][nid]'] = "";
+					PS.ajax.nodeUpdate(callback, errorCallback, projectId, data);
+					break;
+				}
+			}
+			//TODO: we tried to remove a user that wasn't a member to begin with. We should throw an error of some sort here.
+		},
+		errorCallback,
+		projectId
+	);	
 }
 
 //user_meeting_member
+PS.ajax.indexUserMeetings = function(callback, errorCallback, userNodeId) {
+	$.ajax({
+		type: "GET",
+		url: PS.ajax.getServerPrefix() + "services-xml/meeting/user/" + userNodeId,
+		success: callback,
+		error: errorCallback,
+	});		
+}
+PS.ajax.addMeetingUser = function(callback, errorCallback, userNodeId, meetingId) {	
+	PS.ajax.nodeRetrieve(
+		function(json, textStatus, jqXHR) {					
+			var data = {};
+			data.type = "meeting";
+			
+			
+			if (json.field_meeting_users.und === undefined) {
+				data['field_meeting_users[und][0][nid]'] = PS.ajax.wrapNodeId(userNodeId);
+			}
+			else {
+				data['field_meeting_users[und][' + String(json.field_meeting_users.und.length) + '][nid]'] = PS.ajax.wrapNodeId(userNodeId);
+			}
+			
+			
+			PS.ajax.nodeUpdate(callback, errorCallback, meetingId, data);	
+		},
+		errorCallback,
+		meetingId
+	);
+}
+PS.ajax.removeMeetingUser = function(callback, errorCallback, userNodeId, meetingId) {
+	PS.ajax.nodeRetrieve(
+		function(json, textStatus, jqXHR) {			
+			//get the list of userNodeIds, buried in the response object
+			var users = json.field_meeting_users.und;
+		
+			//search for one matching the userNodeId to be removed
+			for(var i = 0; i < users.length; i += 1) { 
+				if(Number(users[i].nid) === userNodeId) {
+					var data = {};
+					data.type = "meeting";
+					data['field_meeting_users[und][' + String(i) + '][nid]'] = "";
+					PS.ajax.nodeUpdate(callback, errorCallback, meetingId, data);
+					break;
+				}
+			}
+			//TODO: we tried to remove a user that wasn't a member to begin with. We should throw an error of some sort here.
+		},
+		errorCallback,
+		meetingId
+	);	
+}
+
 //user_group_member
 
-//user_project_owner
+//user_project_owner // field_owners
 //user_meeting_owner
 //user_group_owner
 
