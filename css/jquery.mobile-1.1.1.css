@@ -1768,7 +1768,7 @@ div.ui-mobile-viewport { overflow-x: hidden; }
 	z-index: 10;
 }
 .ui-navbar { max-width: 100%; }
-.ui-navbar ul { list-style:none; margin: 0; padding: 0; position: relative; display: block; border: 0; max-width: 100%; overflow:hidden; }
+.ui-navbar ul { overflow: visible !important;list-style:none; margin: 0; padding: 0; position: relative; display: block; border: 0; max-width: 100%; overflow:hidden; }
 .ui-navbar li .ui-btn { display: block; text-align: center; margin: 0 -1px 0 0; border-right-width: 0; }
 .ui-navbar li .ui-btn-icon-right .ui-icon { right: 6px; }
 /* add border if not in header/footer (full width) */
