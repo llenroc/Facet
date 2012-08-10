@@ -138,7 +138,7 @@ function getUserCallback() {
 
 function loadParticipants2(json) {
 	$(json).each(function() {
-		PS.ajax.userRetrieve(this.uid, function(json,textStatus, jqXHR) { createUser(json.name, this.uid)}, function() {console.log("Error loading uid: "+ this.uid );});
+		PS.ajax.userRetrieve(this.uid, function(json,textStatus, jqXHR) { createUser(json.name, this.uid); makeParticipantsDroppable();}, function() {console.log("Error loading uid: "+ this.uid );});
 	});
 
 }
