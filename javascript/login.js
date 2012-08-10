@@ -41,8 +41,7 @@ function loginPassed(json, textStatus, jqXHR) {
 	
 	$("#projectList").append("<li class='icon' id='loading'>Loading Projects...</li>");
 	
-	$("#projectDiv").css("display","block");
-	$("#projectDiv").css("width","80%");
+	$("#projectDiv").show();
 	$(".hideMe").hide();
 	$("#pageHeader").text("Welcome back " + json.user.name);
 	
@@ -68,8 +67,6 @@ function loginPassed(json, textStatus, jqXHR) {
 		console.log("failed");
 		
 		}, json.user.uid);
-	
-
 }
 
 function loginFailed(json, textStatus, jqXHR) {
