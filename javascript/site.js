@@ -22,6 +22,7 @@ $(function() {
 			color: '#fff' },
 	});
 	
+	console.log(document.cookie);
 	// AJAX call to first get user id from cookie, and then to retrieve the json object from server
 	// Once AJAX call is completed then accountJSON will be the user account of the person currently logged in
 	getUser();
@@ -118,12 +119,38 @@ $(function() {
 	
 	// If an administrator is logged in, then the list of all users is populated
 	$("#participantList").append("<li class='icon' id='loading'>Loading Users...</li>");
-	PS.ajax.userIndex(populateParticipants, populateFailed);
+	
+	// Old way of getting users. Gets all users, but not from the meeting
+	//PS.ajax.userIndex(populateParticipants, populateFailed);
+	
+	// New way of getting users. Gets all users from the particular meeting
+	PS.ajax.nodeRetrieve(function(json) {populateParticipants2(json.field_meeting_users.und);}, populateFailed, getCookie("meetingID"));
+	
+	// Unblocks UI when ajax calls stop
+	$(document).ajaxStop($.unblockUI);
 });
 
 // When the logged in user is retrieved, the UI is unblocked
 function getUserCallback() {	
-	$.unblockUI();
+//	$.unblockUI();
+}
+
+
+function loadParticipants2(json) {
+	$(json).each(function() {
+		PS.ajax.userRetrieve(this.uid, function(json,textStatus, jqXHR) { createUser(json.name, this.uid)}, function() {console.log("Error loading uid: "+ this.uid );});
+	});
+
+}
+
+function populateParticipants2(json,textStatus,jqXHR) {
+
+	loadParticipants2(json);
+	
+	// Removes loading animation item
+	$("#loading").remove();
+	makeParticipantsDroppable(); /* Makes new group droppable */
+
 }
 
 
@@ -292,7 +319,7 @@ function stopiFrameFix() {
 /* Converts the name to a textarea to start renaming. Converts text area to text when finished */
 function rename() {
     if(editing == false) {
-        $("#groupList li").not(".trash").each(function(index) {
+        $("#groupList li").each(function(index) {
             /*Renaming*/
             var name = $(this).find("div").html();
             $(this).find("div").html("<textarea>" + name + "</textarea>");
@@ -304,7 +331,7 @@ function rename() {
 		editing = true;
 		$("#renameButton").html("Done");
     } else {
-        $("#groupList li").not(".trash").each(function(index) {
+        $("#groupList li").each(function(index) {
             var name = $(this).find("textarea").val();
             if(name == "") {
                 name = "New Group";

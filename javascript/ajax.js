@@ -84,12 +84,13 @@ PS.ajax.clearCookies = function() {
 
 
 // Requires administrator powers, for accounts other than your own
-PS.ajax.userRetrieve = function(userId, callback) {
+PS.ajax.userRetrieve = function(userId, callback, errorCallback) {
 	$.ajax({
 		type: "GET",
 		url: PS.ajax.getServerPrefix() + "restfacet/user/" + userId,
 		dataType: "json",
 		success: callback,
+		error:errorCallback,
 	});
 }
 
@@ -107,23 +108,25 @@ PS.ajax.userCreate = function(username, email, password, callback, errorCallback
 
 
 // data should be an object, with key/value pairs for each field to be updated
-PS.ajax.userUpdate = function(userId, data, callback) {
+PS.ajax.userUpdate = function(userId, data, callback, errorCallback) {
 	$.ajax({
 		type: "PUT",
 		url: PS.ajax.getServerPrefix() + "restfacet/user/" + userId,
 		dataType: "json",
 		success: callback,
 		data: data,
+		error: errorCallback,
 	});
 }
 
 // Requires administrator powers
-PS.ajax.userDelete = function(userId, callback) {
+PS.ajax.userDelete = function(userId, callback, errorCallback) {
 	$.ajax({
 		type: "DELETE", 
 		url: PS.ajax.getServerPrefix() + "restfacet/user/" + userId,
 		dataType: "json",
 		success: callback,
+		error: errorCallback,
 	});
 }
 

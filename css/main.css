@@ -197,11 +197,14 @@ ul.apple li:last-child {
 textarea {
 	resize: none;
 	overflow: auto;
-	margin-top: -40px;
+	position: relative;
+	top: -40px;
 	font-family: Helvetica;
   	font-size: 17px;
 	font-weight: bold;
 	height: 30px;
+	width:100%;
+	border-radius:8px;
 }
 
 img.dragHandle2 {

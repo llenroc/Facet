@@ -16,13 +16,15 @@ $(function () {
     }
 	
 	$(".meeting").live("click" , function() {
+
+		PS.ajax.setCookieData("meetingID", $(this).attr("meetingID"), 365);
+		
 		if( screen.width <= 720 ) {
 			window.location = 'iphone.html';
 		} else {
 			window.location = "main.html";
 		}
 	});
-	
 });
 
 function login() {
@@ -56,7 +58,7 @@ function loginPassed(json, textStatus, jqXHR) {
 			if(meetings == "") {
 				noMeeting2();
 			} else {
-				newMeeting2(meetings);
+				newMeeting2("Meeting #" + meetings, meetings);
 			}
 		});
 		
@@ -95,17 +97,17 @@ function newProject(name) {
 }
 
 // Creates a new meeting with the given name in the UI as a child of projectIndex, 0 based index
-function newMeeting(name, projectIndex) {
-	$("#projectList").children().eq(projectIndex).find("ul").append("<li class='icon meeting'>" + name + "</li>");
+function newMeeting(name, meetingID, projectIndex) {
+	$("#projectList").children().eq(projectIndex).find("ul").append("<li meetingID='" + meetingID + "' class='icon meeting'>" + name + "</li>");
 }
 
 // Creates a new meeting with the given name in the UI as a child of the LAST project.
-function newMeeting2(name) {
-	newMeeting(name, $("#projectList").children().length -1);
+function newMeeting2(name, meetingID) {
+	newMeeting(name, meetingID ,$("#projectList").children().length -1);
 }
 
 function noMeeting(projectIndex) {
-	$("#projectList").children().eq(projectIndex).find("ul").append("<li class='icon nomeeting'>No Meetings for this Project</li>");
+	$("#projectList").children().eq(projectIndex).find("ul").append("<li meetingID='nomeeting' class='icon nomeeting'>No Meetings for this Project</li>");
 }
 
 function noMeeting2() {
