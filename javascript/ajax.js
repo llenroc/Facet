@@ -189,6 +189,9 @@ PS.ajax.nodeRetrieve = function(callback, errorCallback, id) {
 	});
 }
 
+
+// NB : For one reason or another, this only works if you have the type field set in data
+// and it must be the same as the type the node is (ie, you cannot change node type)
 PS.ajax.nodeUpdate = function(callback, errorCallback, id, data) {
 	$.ajax({
 		type: "PUT",
@@ -240,19 +243,28 @@ PS.ajax.wrapNodeId = function (input) {
 }
 
 
-
-
-
-
-// Project
-PS.ajax.projectIndex = function(callback, errorCallback) {
+// Since many functions use essentially the same ajax call, this is used and tiny bits of the URL are replaced
+PS.ajax.index = function(indexType, callback, errorCallback) {
 	$.ajax({
 		type: "GET",
-		url: PS.ajax.getServerPrefix() + "services-xml/project",
+		url: PS.ajax.getServerPrefix() + "services-xml/" + indexType,
 		success: callback,
 		error: errorCallback,
 	});	
 }
+
+// Project
+PS.ajax.projectIndex = function(callback, errorCallback) {
+	/*$.ajax({
+		type: "GET",
+		url: PS.ajax.getServerPrefix() + "services-xml/project",
+		success: callback,
+		error: errorCallback,
+	});	*/
+	
+	PS.ajax.index("project", callback, errorCallback);
+}
+
 // userNodeId: the userNode for a user who will own this project
 PS.ajax.projectCreate = function(callback, errorCallback, name, userNodeId) {
 	$.ajax({
@@ -268,17 +280,20 @@ PS.ajax.projectRetrieve = PS.ajax.nodeRetrieve;
 //PS.ajax.projectUpdate = PS.ajax.nodeUpdate;
 PS.ajax.projectDelete = PS.ajax.nodeDelete;
 
-
-
 // Meeting
+
 PS.ajax.meetingIndex = function(callback, errorCallback) {
-	$.ajax({
+	/*$.ajax({
 		type: "GET",
 		url: PS.ajax.getServerPrefix() + "services-xml/meeting",
 		success: callback,
 		error: errorCallback,
-	});		
+	});	*/
+	
+	PS.ajax.index("meeting", callback, errorCallback);
 }
+
+
 // userNodeId: the userNode for a user who will own this meeting
 // projectId: id of the project node that owns the meeting
 // date, startTime, endTime, hashTag: strings
@@ -289,7 +304,7 @@ PS.ajax.meetingCreate = function(callback, errorCallback, name, userNodeId, proj
 		dataType: "json",
 		success: callback,
         error: errorCallback,
-		data: {	name: name, 
+		data: { title: name, 
 				type: 'meeting',
 				'field_meeting_owners[und][0][nid]': PS.ajax.wrapNodeId(userNodeId),
                 'field_meeting_owning_project[und][0][nid]': PS.ajax.wrapNodeId(projectId),			
@@ -306,14 +321,19 @@ PS.ajax.meetingDelete = PS.ajax.nodeDelete;
 
 
 // Group
+
 PS.ajax.groupIndex = function(callback, errorCallback) {
-	$.ajax({
+/* 	$.ajax({
 		type: "GET",
 		url: PS.ajax.getServerPrefix() + "services-xml/group",
 		success: callback,
 		error: errorCallback,
-	});		
+	});	 */	
+	
+	PS.ajax.index("group", callback, errorCallback);
 }
+
+
 PS.ajax.groupCreate = function(callback, errorCallback, name, userNodeId, projectId) {
 	$.ajax({
 		type: "POST",
@@ -321,7 +341,7 @@ PS.ajax.groupCreate = function(callback, errorCallback, name, userNodeId, projec
 		dataType: "json",
 		success: callback,
         error: errorCallback,
-		data: {	name: name, 
+		data: {	title: name, 
 				type: 'group',
 				'field_group_owners[und][0][nid]': PS.ajax.wrapNodeId(userNodeId),
 				'field_group_owning_project[und][0][nid]': PS.ajax.wrapNodeId(projectId),
@@ -333,14 +353,18 @@ PS.ajax.groupRetrieve = PS.ajax.nodeRetrieve;
 PS.ajax.groupDelete = PS.ajax.nodeDelete;
 
 // Item
+
 PS.ajax.itemIndex = function(callback, errorCallback) {
-	$.ajax({
+/* 	$.ajax({
 		type: "GET",
 		url: PS.ajax.getServerPrefix() + "services-xml/item",
 		success: callback,
 		error: errorCallback,
-	});		
+	});	 */	
+	
+	PS.ajax.index("item", callback, errorCallback);
 }
+
 //userNodeId: node id for the user that created and initially owns the item
 //createdTime: a string
 //TODO: Add support for item type. item may need to have a new node reference field added to refer to arbitrary external nodes ... as well as additional fields for the text item types (comment, question, note/annotation)
@@ -367,13 +391,16 @@ PS.ajax.itemDelete = PS.ajax.nodeDelete;
 
 
 // User Node 
+
 PS.ajax.userNodeIndex = function(callback, errorCallback) {
-	$.ajax({
+/* 	$.ajax({
 		type: "GET",
 		url: PS.ajax.getServerPrefix() + "services-xml/user",
 		success: callback,
 		error: errorCallback,
-	});		
+	});	 */
+
+	PS.ajax.index("user", callback, errorCallback);	
 }
 
 
@@ -418,12 +445,14 @@ PS.ajax.userNodeDelete = PS.ajax.nodeDelete;
 //user_project_member
 // Given a userNodeId, returns an xml document containing the projects the user is a member of
 PS.ajax.indexUserProjects = function(callback, errorCallback, userNodeId) {
-	$.ajax({
+/* 	$.ajax({
 		type: "GET",
 		url: PS.ajax.getServerPrefix() + "services-xml/project/user/" + userNodeId,
 		success: callback,
 		error: errorCallback,
-	});		
+	});	 */	
+	
+	PS.ajax.index("project/user/" + userNodeId, callback, errorCallback);
 }
 PS.ajax.addProjectUser = function(callback, errorCallback, userNodeId, projectId) {	
 	PS.ajax.nodeRetrieve(
@@ -468,12 +497,14 @@ PS.ajax.removeProjectUser = function(callback, errorCallback, userNodeId, projec
 
 //user_meeting_member
 PS.ajax.indexUserMeetings = function(callback, errorCallback, userNodeId) {
-	$.ajax({
+/* 	$.ajax({
 		type: "GET",
 		url: PS.ajax.getServerPrefix() + "services-xml/meeting/user/" + userNodeId,
 		success: callback,
 		error: errorCallback,
-	});		
+	});		 */
+	
+	PS.ajax.index("meeting/user/" + userNodeId, callback, errorCallback);
 }
 PS.ajax.addMeetingUser = function(callback, errorCallback, userNodeId, meetingId) {	
 	PS.ajax.nodeRetrieve(

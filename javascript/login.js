@@ -23,16 +23,6 @@ $(function () {
 		}
 	});
 	
-	newProject("Project 1");
-	newMeeting("Meeting 1",0);
-	newProject("Project 2");
-	newProject("Project 3");
-	newMeeting("Meeting 2",0);
-	newMeeting("Meeting 3",0);
-	newMeeting("Meeting 2",1);
-	newMeeting("Meeting 3",1);
-	newMeeting("Meeting 2",2);
-	newMeeting("Meeting 3",2);
 });
 
 function login() {
@@ -49,10 +39,37 @@ function logoutPassed(json, textStatus, jqXHR) {
 function loginPassed(json, textStatus, jqXHR) {
 	console.log("Login Passed");
 	
+	$("#projectList").append("<li class='icon' id='loading'>Loading Projects...</li>");
+	
 	$("#projectDiv").css("display","block");
 	$("#projectDiv").css("width","80%");
 	$(".hideMe").hide();
 	$("#pageHeader").text("Welcome back " + json.user.name);
+	
+	// Returns all projects from the current user id
+	// I slice out the first element because the first element of find("node") is the node will all other nodes
+	// We don't want that, we want the individual nodes (projects)
+	PS.ajax.indexUserProjects(function(xml, textStatus, jqXHR) {
+		$(xml).find("node").slice(1).each(function() {
+			newProject("Project #" + $(this).find("Nid").text());
+			var meetings = $(this).find("Meetings").text();
+			
+			if(meetings == "") {
+				noMeeting2();
+			} else {
+				newMeeting2(meetings);
+			}
+		});
+		
+		// Removes loading animation item
+		$("#loading").remove();
+		}, function() {
+		
+		console.log("failed");
+		
+		}, json.user.uid);
+	
+
 }
 
 function loginFailed(json, textStatus, jqXHR) {
@@ -72,10 +89,7 @@ function loginFailed(json, textStatus, jqXHR) {
 	}
 	
 	$("#error").css("display", "block");
-	
-	//console.log(json);
-	//console.log(jqXHR);
-	//console.log(document.cookie);
+
 }
 
 // Creates a new project with the given name in the UI
@@ -86,4 +100,17 @@ function newProject(name) {
 // Creates a new meeting with the given name in the UI as a child of projectIndex, 0 based index
 function newMeeting(name, projectIndex) {
 	$("#projectList").children().eq(projectIndex).find("ul").append("<li class='icon meeting'>" + name + "</li>");
+}
+
+// Creates a new meeting with the given name in the UI as a child of the LAST project.
+function newMeeting2(name) {
+	newMeeting(name, $("#projectList").children().length -1);
+}
+
+function noMeeting(projectIndex) {
+	$("#projectList").children().eq(projectIndex).find("ul").append("<li class='icon nomeeting'>No Meetings for this Project</li>");
+}
+
+function noMeeting2() {
+	noMeeting($("#projectList").children().length -1);
 }
