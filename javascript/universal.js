@@ -24,6 +24,8 @@ function getCookie(c_name)
 }
 
 // Goes through each user present in the json file and creates a user out of them
+var hashtag = "";
+
 function loadParticipants(json) {
 	$(json).each(function() {
 		var name = this.name;
@@ -34,7 +36,20 @@ function loadParticipants(json) {
 
 function getUser() {
 	// Then performs a ajax call to get the JSON object from the server
-	PS.ajax.userRetrieve(getCookie("id"), function(json, textStatus, jqXHR) {console.log("Welcome " + json.name); accountJSON = json; getUserCallback();});
+	PS.ajax.userRetrieve(getCookie("id"), function(json, textStatus, jqXHR) {
+		console.log("User: " + json.name); 
+		accountJSON = json; 
+		getUserCallback();
+	});
+}
+
+function getMeeting() {
+	// New way of getting users. Gets all users from the particular meeting
+	PS.ajax.nodeRetrieve(function(json) {
+		populateParticipants2(json.field_meeting_users.und);
+		meetingJSON = json;
+		getMeetingCallback();
+			}, populateFailed, getCookie("meetingID"));
 }
 
 function populateSampleWorkspace() {

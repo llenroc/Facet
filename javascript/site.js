@@ -27,6 +27,8 @@ $(function() {
 	// Once AJAX call is completed then accountJSON will be the user account of the person currently logged in
 	getUser();
 	
+	getMeeting();
+	
 	// Makes everything draggable
 	makeQueueDroppable();
 	makeParticipantsDroppable();
@@ -122,10 +124,7 @@ $(function() {
 	
 	// Old way of getting users. Gets all users, but not from the meeting
 	//PS.ajax.userIndex(populateParticipants, populateFailed);
-	
-	// New way of getting users. Gets all users from the particular meeting
-	PS.ajax.nodeRetrieve(function(json) {populateParticipants2(json.field_meeting_users.und);}, populateFailed, getCookie("meetingID"));
-	
+		
 	// Unblocks UI when ajax calls stop
 	$(document).ajaxStop($.unblockUI);
 });
@@ -135,6 +134,17 @@ function getUserCallback() {
 //	$.unblockUI();
 }
 
+function getMeetingCallback() {
+	
+	if(meetingJSON.field_meeting_hashtag.length == 0) {
+		hashtag = "facetmeeting123";
+	} else {	
+		hashtag = meetingJSON.field_meeting_hashtag.und[0].value;
+	}
+	
+	$(".monitter").attr("title", hashtag)
+	console.log("Hashtag: " + hashtag);
+}
 
 function loadParticipants2(json) {
 	$(json).each(function() {
@@ -265,7 +275,7 @@ function makeQueueDroppable() {
 			makeQueueDroppable();
 			$(this).removeClass("hover-border");
 			
-			PS.ajax.tweet("facetmeeting321","queue",accountJSON.name,type, text );
+			PS.ajax.tweet(hashtag,"queue",accountJSON.name,type, text );
 		},
 		
 		over: function(event,ui) { $(".queue").addClass("hover-border"); },		
@@ -284,7 +294,7 @@ function makeQueueDroppable() {
 			var href = $(ui.helper).attr("href");
 			$("#sharedScreen").attr("src",href);
 						
-			PS.ajax.tweet("facetmeeting321","shared screen",accountJSON.name,type, ui.helper.text() );
+			PS.ajax.tweet(hashtag,"shared screen",accountJSON.name,type, ui.helper.text() );
 			changeTab(4);
 			
 			$("#tabs").removeClass("hover-border");
