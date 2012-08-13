@@ -242,7 +242,11 @@ PS.ajax.tweet = function(hashtag,location,name,type,filename) {
 
 // Helper functions
 PS.ajax.wrapNodeId = function (input) {
-	return "[nid:" + input + "]" 
+	return "[nid:" + input + "]";
+}
+
+PS.ajax.wrapUserId = function (input) {
+	return "[uid:" + input + "]";
 }
 
 
@@ -268,7 +272,8 @@ PS.ajax.projectIndex = function(callback, errorCallback) {
 	PS.ajax.index("project", callback, errorCallback);
 }
 
-// userNodeId: the userNode for a user who will own this project
+// name	: The name of the project
+// userNodeId: 	the userNode for a user who will own this project
 PS.ajax.projectCreate = function(callback, errorCallback, name, userNodeId) {
 	$.ajax({
 		type: "POST",
@@ -276,7 +281,11 @@ PS.ajax.projectCreate = function(callback, errorCallback, name, userNodeId) {
 		dataType: "json",
 		success: callback,
         error: errorCallback,	
-		data: {title: name, type: 'project', 'field_project_owners[und][0][nid]': PS.ajax.wrapNodeId(userNodeId)}
+		data: {	title: name, 
+				type: 'project', 
+				'field_project_name[und][0][value]': name ,
+				'field_project_owners[und][0][uid]': PS.ajax.wrapUserId(userNodeId),
+			}
 	});
 }
 PS.ajax.projectRetrieve = PS.ajax.nodeRetrieve;
@@ -309,12 +318,13 @@ PS.ajax.meetingCreate = function(callback, errorCallback, name, userNodeId, proj
         error: errorCallback,
 		data: { title: name, 
 				type: 'meeting',
-				'field_meeting_owners[und][0][nid]': PS.ajax.wrapNodeId(userNodeId),
+				'field_meeting_name[und][0][value]': name ,
+				'field_meeting_owners[und][0][uid]': PS.ajax.wrapUserId(userNodeId),
                 'field_meeting_owning_project[und][0][nid]': PS.ajax.wrapNodeId(projectId),			
-				'field_meeting_date[und][0][nid]': date,
-				'field_meeting_start_time[und][0][nid]': startTime,
-				'field_meeting_end_time[und][0][nid]': endTime,
-				'field_meeting_hashtag[und][0][nid]': hashTag,
+				'field_meeting_date[und][0][value]': date,
+				'field_meeting_start_time[und][0][value]': startTime,
+				'field_meeting_end_time[und][0][value]': endTime,
+				'field_meeting_hashtag[und][0][value]': hashTag,
 		}
 	});	 
 }
@@ -336,7 +346,9 @@ PS.ajax.groupIndex = function(callback, errorCallback) {
 	PS.ajax.index("group", callback, errorCallback);
 }
 
-
+// name : Name of group
+// userNodeId : uid of the user owner
+// projectId : nid of the owning project
 PS.ajax.groupCreate = function(callback, errorCallback, name, userNodeId, projectId) {
 	$.ajax({
 		type: "POST",
@@ -346,7 +358,8 @@ PS.ajax.groupCreate = function(callback, errorCallback, name, userNodeId, projec
         error: errorCallback,
 		data: {	title: name, 
 				type: 'group',
-				'field_group_owners[und][0][nid]': PS.ajax.wrapNodeId(userNodeId),
+				'field_group_name[und][0][value]': name ,
+				'field_group_owners[und][0][uid]': PS.ajax.wrapUserId(userNodeId),
 				'field_group_owning_project[und][0][nid]': PS.ajax.wrapNodeId(projectId),
 		}
 	});	
@@ -378,12 +391,13 @@ PS.ajax.itemCreate = function(callback, errorCallback, name, userNodeId, created
 		dataType: "json",
 		success: callback,
         error: errorCallback,
-		data: {	name: name, 
+		data: {	title: name, 
 				type: 'item',
-				'field_item_id_owner[und][0][nid]': PS.ajax.wrapNodeId(userNodeId),
-				'field_item_id_creator[und][0][nid]': PS.ajax.wrapNodeId(userNodeId),
-				'field_item_creation_timestamp[und][0][nid]': createdTime,
-				'field_item_shared_timestamp[und][0][nid]': '',
+				'field_item_name[und][0][value]': name ,
+				'field_item_id_owner[und][0][uid]': PS.ajax.wrapUserId(userNodeId),
+				'field_item_id_creator[und][0][uid]': PS.ajax.wrapUserId(userNodeId),
+				'field_item_creation_timestamp[und][0][value]': createdTime,
+				'field_item_shared_timestamp[und][0][value]': '',
 				//'field_item_type[und][0][nid]': 'survey',
 		}
 	});		
@@ -395,39 +409,40 @@ PS.ajax.itemDelete = PS.ajax.nodeDelete;
 
 // User Node 
 
-PS.ajax.userNodeIndex = function(callback, errorCallback) {
-/* 	$.ajax({
-		type: "GET",
-		url: PS.ajax.getServerPrefix() + "services-xml/user",
-		success: callback,
-		error: errorCallback,
-	});	 */
 
-	PS.ajax.index("user", callback, errorCallback);	
-}
+// PS.ajax.userNodeIndex = function(callback, errorCallback) {
+// /* 	$.ajax({
+		// type: "GET",
+		// url: PS.ajax.getServerPrefix() + "services-xml/user",
+		// success: callback,
+		// error: errorCallback,
+	// });	 */
+
+	// PS.ajax.index("user", callback, errorCallback);	
+// }
 
 
 
-//name: user's full name
-//userName: must be the username of an existing user. 
-PS.ajax.userNodeCreate = function(callback, errorCallback, name, userName) {
-	$.ajax({
-		type: "POST",
-		url: PS.ajax.getServerPrefix() + "restfacet/node/",
-		dataType: "json",
-		success: callback,
-        error: errorCallback,
-		data: {	name: name, 
-				type: 'user',
-				'field_user_name[und][0][nid]': PS.ajax.wrapNodeId(userNodeId),
-				'field_user_username[und][0][nid]': PS.ajax.wrapNodeId(userNodeId),
-				'field_user_logged_in[und][0][nid]': 'absent', // 4abyte specs say this should be 'present' or 'absent'. don't know if there is any logic hooked up to it on their end.
-		}
-	});			
-}
-PS.ajax.userNodeRetrieve = PS.ajax.nodeRetrieve;
-//PS.ajax.userNodeUpdate = PS.ajax.nodeUpdate;
-PS.ajax.userNodeDelete = PS.ajax.nodeDelete;
+// //name: user's full name
+// //userName: must be the username of an existing user. 
+// PS.ajax.userNodeCreate = function(callback, errorCallback, name, userName) {
+	// $.ajax({
+		// type: "POST",
+		// url: PS.ajax.getServerPrefix() + "restfacet/node/",
+		// dataType: "json",
+		// success: callback,
+        // error: errorCallback,
+		// data: {	name: name, 
+				// type: 'user',
+				// 'field_user_name[und][0][nid]': PS.ajax.wrapNodeId(userNodeId),
+				// 'field_user_username[und][0][nid]': PS.ajax.wrapNodeId(userNodeId),
+				// 'field_user_logged_in[und][0][value]': 'absent', // 4abyte specs say this should be 'present' or 'absent'. don't know if there is any logic hooked up to it on their end.
+		// }
+	// });			
+// }
+// PS.ajax.userNodeRetrieve = PS.ajax.nodeRetrieve;
+// //PS.ajax.userNodeUpdate = PS.ajax.nodeUpdate;
+// PS.ajax.userNodeDelete = PS.ajax.nodeDelete;
 
 
 
@@ -463,10 +478,10 @@ PS.ajax.addProjectUser = function(callback, errorCallback, userNodeId, projectId
 			var data = {};
 			data.type = "project";
 			if (json.field_project_users.und.length === undefined) {
-				data['field_project_users[und][0][nid]'] = PS.ajax.wrapNodeId(userNodeId);
+				data['field_project_users[und][0][uid]'] = PS.ajax.wrapUserId(userNodeId);
 			}
 			else {
-				data['field_project_users[und][' + String(json.field_project_users.und.length) + '][nid]'] = PS.ajax.wrapNodeId(userNodeId);
+				data['field_project_users[und][' + String(json.field_project_users.und.length) + '][uid]'] = PS.ajax.wrapUserId(userNodeId);
 			}
 	
 			PS.ajax.nodeUpdate(callback, errorCallback, projectId, data);	
@@ -483,10 +498,10 @@ PS.ajax.removeProjectUser = function(callback, errorCallback, userNodeId, projec
 		
 			//search for one matching the userNodeId to be removed
 			for(var i = 0; i < users.length; i += 1) { 
-				if(Number(users[i].nid) === userNodeId) {
+				if(Number(users[i].uid) === userNodeId) {
 					var data = {};
 					data.type = "project";
-					data['field_project_users[und][' + String(i) + '][nid]'] = "";
+					data['field_project_users[und][' + String(i) + '][uid]'] = "";
 					PS.ajax.nodeUpdate(callback, errorCallback, projectId, data);
 					break;
 				}
@@ -517,10 +532,10 @@ PS.ajax.addMeetingUser = function(callback, errorCallback, userNodeId, meetingId
 			
 			
 			if (json.field_meeting_users.und === undefined) {
-				data['field_meeting_users[und][0][nid]'] = PS.ajax.wrapNodeId(userNodeId);
+				data['field_meeting_users[und][0][uid]'] = PS.ajax.wrapUserId(userNodeId);
 			}
 			else {
-				data['field_meeting_users[und][' + String(json.field_meeting_users.und.length) + '][nid]'] = PS.ajax.wrapNodeId(userNodeId);
+				data['field_meeting_users[und][' + String(json.field_meeting_users.und.length) + '][uid]'] = PS.ajax.wrapUserId(userNodeId);
 			}
 			
 			
@@ -538,10 +553,10 @@ PS.ajax.removeMeetingUser = function(callback, errorCallback, userNodeId, meetin
 		
 			//search for one matching the userNodeId to be removed
 			for(var i = 0; i < users.length; i += 1) { 
-				if(Number(users[i].nid) === userNodeId) {
+				if(Number(users[i].uid) === userNodeId) {
 					var data = {};
 					data.type = "meeting";
-					data['field_meeting_users[und][' + String(i) + '][nid]'] = "";
+					data['field_meeting_users[und][' + String(i) + '][uid]'] = "";
 					PS.ajax.nodeUpdate(callback, errorCallback, meetingId, data);
 					break;
 				}
