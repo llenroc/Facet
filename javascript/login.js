@@ -18,7 +18,7 @@ $(function () {
 	$(".meeting").live("click" , function() {
 
 		PS.ajax.setCookieData("meetingID", $(this).attr("meetingID"), 365);
-		
+		PS.ajax.setCookieData("projectID", $(this).parent().parent().attr("projectID"), 365);
 		if( screen.width <= 720 ) {
 			window.location = 'iphone.html';
 		} else {
@@ -52,9 +52,16 @@ function loginPassed(json, textStatus, jqXHR) {
 	// We don't want that, we want the individual nodes (projects)
 	PS.ajax.indexUserProjects(function(xml, textStatus, jqXHR) {
 		$(xml).find("node").slice(1).each(function() {
-			newProject("Project #" + $(this).find("Nid").text());
-			var meetings = $(this).find("Meetings").text();
+
+			var projectName;
+			if($(this).find("Name").text() == "") {
+				projectName = "Project #" + $(this).find("Nid").text();
+			} else {
+				projectName = $(this).find("Name").text();
+			}
+			newProject(projectName, $(this).find("Nid").text());
 			
+			var meetings = $(this).find("Meetings").text();			
 			if(meetings == "") {
 				noMeeting2();
 			} else {
@@ -92,8 +99,8 @@ function loginFailed(json, textStatus, jqXHR) {
 }
 
 // Creates a new project with the given name in the UI
-function newProject(name) {
-	$("#projectList").append("<li class = 'icon project'><div onclick='$(this).next().toggle();'>" + name + "</div><ul style='display:none; padding-top:10px;' class='apple'></ul></li>");
+function newProject(name, id) {
+	$("#projectList").append("<li projectID='" + id + "' class = 'icon project'><div onclick='$(this).next().toggle();'>" + name + "</div><ul style='display:none; padding-top:10px;' class='apple'></ul></li>");
 }
 
 // Creates a new meeting with the given name in the UI as a child of projectIndex, 0 based index

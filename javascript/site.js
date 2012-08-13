@@ -29,6 +29,8 @@ $(function() {
 	
 	getMeeting();
 	
+	getProject();
+	
 	// Makes everything draggable
 	makeQueueDroppable();
 	makeParticipantsDroppable();
@@ -134,6 +136,27 @@ function getUserCallback() {
 //	$.unblockUI();
 }
 
+function getProjectCallback() {
+	
+	if(projectJSON.field_project_groups.length == 0) {
+		
+	} else {	
+		PS.ajax.nodeRetrieve(function (json) {
+			var groupName
+			if(json.field_group_name.length == 0) {
+				groupName = "Unknown Group";
+			} else {
+				groupName = json.field_group_name.und[0].value;
+			}
+			
+			newGroup1(groupName);
+			
+			}, function () {
+			
+			}, projectJSON.field_project_groups.und[0].nid);	
+	}
+}
+
 function getMeetingCallback() {
 	
 	if(meetingJSON.field_meeting_hashtag.length == 0) {
@@ -141,7 +164,7 @@ function getMeetingCallback() {
 	} else {	
 		hashtag = meetingJSON.field_meeting_hashtag.und[0].value;
 	}
-	
+		
 	$(".monitter").attr("title", hashtag)
 	console.log("Hashtag: " + hashtag);
 }
@@ -308,13 +331,18 @@ function makeQueueDroppable() {
 var editing = false;
 /* If we are currently renaming, then we make an group with the textarea, else if just create regular text*/
 function newGroup() {
+	newGroup1("New Group");
+};
+
+function newGroup1(name) {
     if(editing == true) {
-        $("#groupList").append("<li class = 'icon group'><img onclick='$(this).parent().remove();' class='delete' src='icons/delete.png'></img><div onclick='$(this).next().toggle();'><textarea>New Group</textarea></div><ul class = 'apple'></ul></li>");
+        $("#groupList").append("<li class = 'icon group'><img onclick='$(this).parent().remove();' class='delete' src='icons/delete.png'></img><div onclick='$(this).next().toggle();'><textarea>" + name + "</textarea></div><ul class = 'apple'></ul></li>");
     } else {
-        $("#groupList").append("<li class = 'icon group'><div onclick='$(this).next().toggle();'>New Group</div><ul class = 'apple' style='display:none'></ul></li>");	
+        $("#groupList").append("<li class = 'icon group'><div onclick='$(this).next().toggle();'>" + name + "</div><ul class = 'apple' style='display:none'></ul></li>");	
     }
     makeParticipantsDroppable(); /* Makes new group droppable */
-};
+
+}
 
 // jQuery has built in iFrameFix for draggable, but not for sortable. Essentially what it does is it adds an invisible div overtop to prevent mousecapture
 function iFrameFix() {

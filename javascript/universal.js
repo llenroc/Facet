@@ -52,6 +52,15 @@ function getMeeting() {
 			}, populateFailed, getCookie("meetingID"));
 }
 
+function getProject() {
+	PS.ajax.nodeRetrieve(function(json) {
+		projectJSON = json;
+		getProjectCallback();
+	
+	}, function() { }, getCookie("projectID"));
+
+}
+
 function populateSampleWorkspace() {
 	createItem('audio', "empty.html", "Audio");
 	createItem('file', "empty.html", "File");
