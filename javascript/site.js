@@ -129,6 +129,7 @@ $(function() {
 		
 	// Unblocks UI when ajax calls stop
 	$(document).ajaxStop($.unblockUI);
+	
 });
 
 // When the logged in user is retrieved, the UI is unblocked
@@ -142,14 +143,25 @@ function getProjectCallback() {
 		
 	} else {	
 		PS.ajax.nodeRetrieve(function (json) {
-			var groupName
+			var groupName;
 			if(json.field_group_name.length == 0) {
 				groupName = "Unknown Group";
 			} else {
 				groupName = json.field_group_name.und[0].value;
 			}
 			
-			newGroup1(groupName);
+			var index = newGroup1(groupName);
+						
+			if(json.field_group_users.length == 0) {
+			} else {
+				for(var i = 0; i<json.field_group_users.und.length; i++) {
+					
+					PS.ajax.userRetrieve(json.field_group_users.und[i].uid, function (json) {
+						addUserToGroup(json.name,index);
+					
+					}, function() { });
+				}
+			}
 			
 			}, function () {
 			
@@ -331,17 +343,31 @@ function makeQueueDroppable() {
 var editing = false;
 /* If we are currently renaming, then we make an group with the textarea, else if just create regular text*/
 function newGroup() {
-	newGroup1("New Group");
+	return newGroup1("New Group");
 };
 
 function newGroup1(name) {
-    if(editing == true) {
-        $("#groupList").append("<li class = 'icon group'><img onclick='$(this).parent().remove();' class='delete' src='icons/delete.png'></img><div onclick='$(this).next().toggle();'><textarea>" + name + "</textarea></div><ul class = 'apple'></ul></li>");
+	return newGroup2(name, "");
+}
+
+function newGroup2(name, users) {
+	var groupData="";
+	for(var i = 0; i < users.length; i++) {
+		groupData += "<li class='icon user'><a href='#'>" + users[i] + "</a><img alt='Drag Handle' src='icons/handle.png' class='dragHandle2'></li>";
+	}
+	
+	if(editing == true) {
+        $("#groupList").append("<li class = 'icon group'><img onclick='$(this).parent().remove();' class='delete' src='icons/delete.png'></img><div onclick='$(this).next().toggle();'><textarea>" + name + "</textarea></div><ul class = 'apple'>" + groupData + "</ul></li>");
     } else {
-        $("#groupList").append("<li class = 'icon group'><div onclick='$(this).next().toggle();'>" + name + "</div><ul class = 'apple' style='display:none'></ul></li>");	
+        $("#groupList").append("<li class = 'icon group'><div onclick='$(this).next().toggle();'>" + name + "</div><ul class = 'apple' style='display:none'>" + groupData + "</ul></li>");	
     }
     makeParticipantsDroppable(); /* Makes new group droppable */
 
+	return $("#groupList").length-1;
+}
+
+function addUserToGroup(name, index) {
+	$("#groupList").children().slice(index).find("ul").append("<li class='icon user'><a href='#'>" + name + "</a><img alt='Drag Handle' src='icons/handle.png' class='dragHandle2'></li>");
 }
 
 // jQuery has built in iFrameFix for draggable, but not for sortable. Essentially what it does is it adds an invisible div overtop to prevent mousecapture
