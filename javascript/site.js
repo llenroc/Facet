@@ -18,11 +18,13 @@ $(function() {
 			backgroundColor: '#000', 
 			'-webkit-border-radius': '10px', 
 			'-moz-border-radius': '10px', 
+			'border-radius': '10px',
 			opacity: .5, 
 			color: '#fff' },
 	});
 	
 	console.log(document.cookie);
+	
 	// AJAX call to first get user id from cookie, and then to retrieve the json object from server
 	// Once AJAX call is completed then accountJSON will be the user account of the person currently logged in
 	getUser();
@@ -30,6 +32,8 @@ $(function() {
 	getMeeting();
 	
 	getProject();
+	
+	getUserItems();
 	
 	// Makes everything draggable
 	makeQueueDroppable();
@@ -100,7 +104,7 @@ $(function() {
 	});
 		
 	//Placeholder to populate workspace	
-	populateSampleWorkspace()
+	//populateSampleWorkspace()
 	
 	//Placeholder to populate queue
 	populateSampleQueue()
@@ -123,10 +127,7 @@ $(function() {
 	
 	// If an administrator is logged in, then the list of all users is populated
 	$("#participantList").append("<li class='icon' id='loading'>Loading Users...</li>");
-	
-	// Old way of getting users. Gets all users, but not from the meeting
-	//PS.ajax.userIndex(populateParticipants, populateFailed);
-		
+			
 	// Unblocks UI when ajax calls stop
 	$(document).ajaxStop($.unblockUI);
 	
@@ -137,11 +138,24 @@ function getUserCallback() {
 //	$.unblockUI();
 }
 
+function getUserItemsCallback(xml) {
+	// Iterates through each item that a user owns and adds them to the workspace
+	$(xml).find("node").slice(1).each(function() {
+		var type = $(this).find("Type").text();
+		
+		// if type == "", then type = "unknown", else, type == type
+		type = (type == "") ? "unknown" : type;
+		createItem(type, "empty.html", $(this).find("Name").text());
+	});
+}
+
 function getProjectCallback() {
 	
-	if(projectJSON.field_project_groups.length == 0) {
-		
-	} else {	
+	// If there are no groups, do nothing...else add them to the groupList
+	if(projectJSON.field_project_groups.length == 0) { } 
+	else {	
+	
+		// Performs a retrieve to get information about the group
 		PS.ajax.nodeRetrieve(function (json) {
 			var groupName;
 			if(json.field_group_name.length == 0) {
@@ -156,6 +170,7 @@ function getProjectCallback() {
 			} else {
 				for(var i = 0; i<json.field_group_users.und.length; i++) {
 					
+					// Perform a retrieve to get the name of each user in the group
 					PS.ajax.userRetrieve(json.field_group_users.und[i].uid, function (json) {
 						addUserToGroup(json.name,index);
 					
@@ -163,6 +178,7 @@ function getProjectCallback() {
 				}
 			}
 			
+			// Failed Callback
 			}, function () {
 			
 			}, projectJSON.field_project_groups.und[0].nid);	
@@ -170,22 +186,48 @@ function getProjectCallback() {
 }
 
 function getMeetingCallback() {
-	
+	// If there is no hashtag, set it to default 'facetmeeting123'
 	if(meetingJSON.field_meeting_hashtag.length == 0) {
 		hashtag = "facetmeeting123";
 	} else {	
+		// Else, set it to what the server has
 		hashtag = meetingJSON.field_meeting_hashtag.und[0].value;
 	}
 		
-	$(".monitter").attr("title", hashtag)
+	// Update the monitor to search for that hashtag
+	$(".monitter").attr("title", hashtag);
 	console.log("Hashtag: " + hashtag);
+	
+	
+	// Populate the meeting items. If there are none, do nothing, else, add them
+	if(meetingJSON.field_meeting_items.length == 0) { }
+	else {
+		var nid = meetingJSON.field_meeting_items.und[0].nid;
+		
+		// Retrieve the node to get the name and type of the item
+		PS.ajax.nodeRetrieve(function(json) {
+			var type, name;
+			if(json.field_item_name.length == 0) { name = "Unknown Name"; }
+			else { name = json.field_item_name.und[0].value; }
+			
+			if(json.field_item_type.length == 0) { type = "unknown"; }
+			else { type = json.field_item_type.und[0].value; }
+		
+			createItem(type, "empty.html", name);
+		
+		}, function() { console.log("Failed to Load Meeting Item with nid " + nid);}, nid);		
+	}
 }
 
 function loadParticipants2(json) {
 	$(json).each(function() {
-		PS.ajax.userRetrieve(this.uid, function(json,textStatus, jqXHR) { createUser(json.name, this.uid); makeParticipantsDroppable();}, function() {console.log("Error loading uid: "+ this.uid );});
+		PS.ajax.userRetrieve(this.uid, function(json,textStatus, jqXHR) { 
+			createUser(json.name, this.uid); 
+			makeParticipantsDroppable();
+		}, function() { console.log("Error loading uid: "+ this.uid );
+		
+		});
 	});
-
 }
 
 function populateParticipants2(json,textStatus,jqXHR) {

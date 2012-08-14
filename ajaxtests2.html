@@ -109,7 +109,8 @@
         <button onclick="PS.ajax.projectIndex(callback, errorcallback)"> project index </button>
 		<button onclick="PS.ajax.projectCreate(callback, errorcallback, 'Test Potato', 1)"> project create </button>
 		<button onclick="PS.ajax.projectRetrieve(callback, errorcallback, 1126)"> project retrieve </button>
-		<button onclick="PS.ajax.projectDelete(callback, errorcallback, 1135)"> project delete </button>
+		<button onclick="PS.ajax.projectDelete(callback, errorcallback, 1163)"> project delete </button>
+		<button onclick="PS.ajax.nodeUpdate(callback, errorcallback, 1163, {type: 'project', title: 'hello'})"> project update </button>
 
         </p>
 		
@@ -118,7 +119,7 @@
         <button onclick="PS.ajax.meetingIndex(callback, errorcallback)"> meeting index </button>
 		<button onclick="PS.ajax.meetingCreate(callback, errorcallback, 'Test Meeting', 1, 1122, 'August 9th, 2012', '11 AM', '5 PM', '#DanielBdayMeeting')"> meeting create </button>
 		<button onclick="PS.ajax.meetingRetrieve(callback, errorcallback, 1159)"> meeting retrieve </button>
-		<button onclick="PS.ajax.meetingDelete(callback, errorcallback, 1128)"> meeting delete </button>
+		<button onclick="PS.ajax.meetingDelete(callback, errorcallback, 1130)"> meeting delete </button>
 
         </p>
 		
@@ -134,20 +135,20 @@
 		<p>
 		Item
         <button onclick="PS.ajax.itemIndex(callback, errorcallback)"> item index </button>
-		<button onclick="PS.ajax.itemCreate(callback, errorcallback, 'Cool New Item', 1, '11:18 AM')"> item create </button>
-		<button onclick="PS.ajax.itemRetrieve(callback, errorcallback, 842)"> item retrieve </button>
+		<button onclick="PS.ajax.itemCreate(callback, errorcallback, 'Meeting Item', 'file' , 0, 'Future')"> item create </button>
+		<button onclick="PS.ajax.itemRetrieve(callback, errorcallback, 843)"> item retrieve </button>
 		<button onclick="PS.ajax.itemDelete(callback, errorcallback, 842)"> item delete </button>
 
         </p>
 		
-<!--		<p>
+		<p>
 		User Node
         <button onclick="PS.ajax.userIndex(callback, errorcallback)"> user index </button>
 		<button onclick="PS.ajax.userCreate(callback, errorcallback, 'Daniel Sabourin', 'admin')"> user create </button>
 		<button onclick="PS.ajax.userRetrieve(1, callback, errorcallback)"> user retrieve </button>
 		<button onclick="PS.ajax.userDelete(745, callback, errorcallback)"> user delete </button>
 
-        </p>-->
+        </p>
 		 		
 		</br>
         

@@ -57,19 +57,27 @@ function getProject() {
 		projectJSON = json;
 		getProjectCallback();
 	
-	}, function() { }, getCookie("projectID"));
+	}, function() { console.log("Failed to Load Project"); }, getCookie("projectID"));
 
+}
+
+function getUserItems() {
+	PS.ajax.indexUserItems( function (xml) {
+		getUserItemsCallback(xml);	
+	}, function () { 
+		console.log("Failed to Load User Items"); 
+	}, getCookie("id"));
 }
 
 function populateSampleWorkspace() {
 	createItem('audio', "empty.html", "Audio");
 	createItem('file', "empty.html", "File");
-	createItem('images', "empty.html", "Image");
+	createItem('image', "empty.html", "Image");
 	createItem('document', "empty.html", "Document");
 	createItem('file', "empty.html", "File");
 	createItem('file', "empty.html", "File");
 	createItem('audio', "empty.html", "Audio");
-	createItem('images', "empty.html", "Image");
+	createItem('image', "empty.html", "Image");
 }
 
 function populateSampleUsers() {

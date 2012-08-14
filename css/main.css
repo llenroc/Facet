@@ -103,6 +103,7 @@ ul.apple ul.apple {
 }
 
 .icon {
+	background-image: url(../icons/questionmark.png);
 	background-repeat: no-repeat;
 	background-position: 5px 5px;
 	padding: 20px;
@@ -145,7 +146,7 @@ ul.apple ul.apple {
 	background-image: url(../icons/email.png);
 }
 
-.images {
+.image {
 	background-image: url(../icons/image.png);
 }
 
