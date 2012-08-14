@@ -150,38 +150,39 @@ function getUserItemsCallback(xml) {
 }
 
 function getProjectCallback() {
-	
 	// If there are no groups, do nothing...else add them to the groupList
 	if(projectJSON.field_project_groups.length == 0) { } 
 	else {	
-	
-		// Performs a retrieve to get information about the group
-		PS.ajax.nodeRetrieve(function (json) {
-			var groupName;
-			if(json.field_group_name.length == 0) {
-				groupName = "Unknown Group";
-			} else {
-				groupName = json.field_group_name.und[0].value;
-			}
-			
-			var index = newGroup1(groupName);
-						
-			if(json.field_group_users.length == 0) {
-			} else {
-				for(var i = 0; i<json.field_group_users.und.length; i++) {
-					
-					// Perform a retrieve to get the name of each user in the group
-					PS.ajax.userRetrieve(json.field_group_users.und[i].uid, function (json) {
-						addUserToGroup(json.name,index);
-					
-					}, function() { });
+		for(var x=0;x<projectJSON.field_project_groups.und.length;x++) {
+			// Performs a retrieve to get information about the group
+			PS.ajax.nodeRetrieve(function (json) {
+				var groupName;
+				if(json.field_group_name.length == 0) {
+					groupName = "Unknown Group";
+				} else {
+					groupName = json.field_group_name.und[0].value;
 				}
-			}
-			
-			// Failed Callback
-			}, function () {
-			
-			}, projectJSON.field_project_groups.und[0].nid);	
+				
+				var index = newGroup1(groupName);
+							
+				if(json.field_group_users.length == 0) {
+				} else {
+					for(var i = 0; i<json.field_group_users.und.length; i++) {
+						
+						// Perform a retrieve to get the name of each user in the group
+						PS.ajax.userRetrieve(json.field_group_users.und[i].uid, function (json) {
+							addUserToGroup(json.name,index);
+							
+						
+						}, function() { });
+					}
+				}
+				
+				// Failed Callback
+				}, function () {
+				
+				}, projectJSON.field_project_groups.und[x].nid);	
+		}
 	}
 }
 
@@ -405,7 +406,7 @@ function newGroup2(name, users) {
     }
     makeParticipantsDroppable(); /* Makes new group droppable */
 
-	return $("#groupList").length-1;
+	return $("#groupList").children().length-1;
 }
 
 function addUserToGroup(name, index) {

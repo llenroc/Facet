@@ -15,7 +15,7 @@
 }
 
 #participantList {
-	height: 45%;
+	height: 46%;
 	position:relative;
 	overflow-y:auto;
 	-webkit-overflow-scrolling: touch;
@@ -24,7 +24,7 @@
 
 #groupList
 {
-	height: 30%;
+	height: 29%;
 	position:relative;
 	overflow-y:auto;
 	-webkit-overflow-scrolling: touch;

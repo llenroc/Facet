@@ -61,11 +61,14 @@ function loginPassed(json, textStatus, jqXHR) {
 			}
 			newProject(projectName, $(this).find("Nid").text());
 			
-			var meetings = $(this).find("Meetings").text();			
-			if(meetings == "") {
-				noMeeting2();
-			} else {
-				newMeeting2("Meeting #" + meetings, meetings);
+			var meetings = $(this).find("Meetings").text().split(", ");	
+			
+			for(var i = 0; i < meetings.length ; i++) {
+				if(meetings[i] == "") {
+					noMeeting2();
+				} else {
+					newMeeting2("Meeting #" + meetings[i], meetings[i]);
+				}
 			}
 		});
 		

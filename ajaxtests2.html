@@ -92,6 +92,13 @@
             //PS.ajax.projectIndex(callback);
             PS.ajax.addProjectUser(xmlCallback, undefined, 745, 901);
         }
+		
+		function massiveDelete() {
+			var array = [1129, 1160, 1161];
+			for (var i = 0; i < array.length; i++) {
+				PS.ajax.groupDelete( function() { console.log(array[i] + " deleted")} , function() { console.log(array[i] + " error")} , array[i]);
+			}
+		}
    
     
     </script>
@@ -117,7 +124,7 @@
 		<p>
 		Meeting
         <button onclick="PS.ajax.meetingIndex(callback, errorcallback)"> meeting index </button>
-		<button onclick="PS.ajax.meetingCreate(callback, errorcallback, 'Test Meeting', 1, 1122, 'August 9th, 2012', '11 AM', '5 PM', '#DanielBdayMeeting')"> meeting create </button>
+		<button onclick="PS.ajax.meetingCreate(callback, errorcallback, 'Important Meeting', 1, 1126, 'August 9th, 2012', '11 AM', '5 PM', '#DanielBdayMeeting')"> meeting create </button>
 		<button onclick="PS.ajax.meetingRetrieve(callback, errorcallback, 1159)"> meeting retrieve </button>
 		<button onclick="PS.ajax.meetingDelete(callback, errorcallback, 1130)"> meeting delete </button>
 
@@ -126,7 +133,7 @@
 		<p>
 		Group
         <button onclick="PS.ajax.groupIndex(callback, errorcallback)"> group index </button>
-		<button onclick="PS.ajax.groupCreate(callback, errorcallback, 'Awesome Group!', 1, 1122)"> group create </button>
+		<button onclick="PS.ajax.groupCreate(callback, errorcallback, 'Ninjas', 1, 1126)"> group create </button>
 		<button onclick="PS.ajax.groupRetrieve(callback, errorcallback, 1129)"> group retrieve </button>
 		<button onclick="PS.ajax.groupDelete(callback, errorcallback, 1129)"> group delete </button>
 
@@ -164,6 +171,8 @@
         <button onClick="PS.ajax.addMeetingUser(callback, undefined, 744, 747);"> meeting user add </button>
         <button onClick="PS.ajax.removeMeetingUser(callback, undefined, 744, 747);"> meeting user remove </button>
         </p>
+		
+		<!--<button onclick="massiveDelete()">MASSIVE DELETE</button>-->
 
 
         
