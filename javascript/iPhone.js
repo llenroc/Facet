@@ -314,7 +314,8 @@ function addUserToGroup(name, groupName) {
 	});	
 };
 
-function createItem(type, link, name) {
+// TODO, add items to different lists
+function createItem(type, link, name, target) {
 	// data-filtertext = when using the filter bar, it filters by this text. Currently it filters by type (survey, image, document, etc ...) and the item name.
     $("#workspaceList").append("<li data-filtertext='"+ name + " " + type + "' type=" + type + " title = '" + name + "'><a data-rel='dialog' data-transition='pop' href='#workspaceDialog' linkURL='" + link + "'>" + name + "</a></li>");
 	refreshListview('#workspaceList');

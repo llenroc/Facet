@@ -46,6 +46,9 @@ $(function() {
 	// Initializes the tabs
 	$( "#tabs" ).tabs();
 	
+	// Initialize the workspace accordian
+	$( "#accordion" ).accordion( { autoHeight: false } );
+	
 	// Populates the surveys from the server
 	PS.ajax.surveyIndex(PS.model.getSurveysCallback);
 	
@@ -135,7 +138,7 @@ $(function() {
 
 // Callback for when the account logged in has been retrieved. accountJSON stores this information
 function getUserCallback() {	
-
+	$("#myItemsHeader").text(accountJSON.name +"'s Items");
 }
 
 // Callback for when the account that is logged in item's have been retrieved. xml stores this information
@@ -466,6 +469,8 @@ function makeFilesDroppable() {
 	$(".appleCube").sortable({
 		handle: "img.dragHandle2",
 		appendTo: "body",
+		//helper: "clone",
+		scroll: false,
 		forcePlaceholderSize: true, 
 		start: function(event,ui) {
 			iFrameFix();
@@ -484,8 +489,8 @@ function makeFilesDroppable() {
 
 /* 	type = Type of file it is (what icon will be displayed). Can choose file, image, document, survey, audio
 	link = What the text links to */
-function createItem(type, link, name) {
-    $(".appleCube").append("<li type=" + type + " title = '" + name + "' class = 'icon "+ type +"'><a onclick='changeTab(3)' href='" + link + "' target='openFile'>" + name + "</a><img src='icons/handle.png' class='dragHandle2'></li>");
+function createItem(type, link, name, target) {
+    $(target).append("<li type=" + type + " title = '" + name + "' class = 'icon "+ type +"'><a onclick='changeTab(3)' href='" + link + "' target='openFile'>" + name + "</a><img src='icons/handle.png' class='dragHandle2'></li>");
 	makeFilesDroppable();
 };
 

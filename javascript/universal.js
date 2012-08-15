@@ -75,20 +75,21 @@ function getMeeting() {
 		// Populate the meeting items. If there are none, do nothing, else, add them
 		if(json.field_meeting_items.length == 0) { }
 		else {
-			var nid = json.field_meeting_items.und[0].nid;
-			
-			// Retrieve the node to get the name and type of the item
-			PS.ajax.nodeRetrieve(function(json2) {
-				var type, name;
-				if(json2.field_item_name.length == 0) { name = "Unknown Name"; }
-				else { name = json2.field_item_name.und[0].value; }
+			for(var x = 0; x < json.field_meeting_items.und.length; x++) {
+				var nid = json.field_meeting_items.und[x].nid;
+				PS.ajax.nodeRetrieve(function(json2) {					
+					var type, name;
+					if(json2.field_item_name.length == 0) { name = "Unknown Name"; }
+					else { name = json2.field_item_name.und[0].value; }
+					
+					if(json2.field_item_type.length == 0) { type = "unknown"; }
+					else { type = json2.field_item_type.und[0].value; }
 				
-				if(json2.field_item_type.length == 0) { type = "unknown"; }
-				else { type = json2.field_item_type.und[0].value; }
-			
-				createItem(type, "empty.html", name);
-			
-			}, function() { console.log("Failed to Load Meeting Item with nid " + nid);}, nid);		
+					createItem(type, "empty.html", name, ".meetingItems");
+					
+				
+				}, function() { console.log("Failed to Load Meeting Items with nid " + nid); }, nid);
+			}
 		}
 		//-------------------------------------------------------------------------//
 		
@@ -115,7 +116,7 @@ function getProject() {
 						groupName = json2.field_group_name.und[0].value;
 					}
 					
-					var index = newGroup1(groupName);
+					newGroup1(groupName);
 								
 					if(json2.field_group_users.length == 0) {
 					} else {
@@ -137,6 +138,28 @@ function getProject() {
 			}
 		}
 		//-----------------------------------------------------------------------//
+		
+		
+		//-------------------------Add Project Items-----------------------------//
+		if(json.field_project_item.length == 0) { }
+		else {
+			for(var x = 0; x < json.field_project_item.und.length; x++) {
+				var nid = json.field_project_item.und[x].nid;
+				PS.ajax.nodeRetrieve(function(json2) {					
+					var type, name;
+					if(json2.field_item_name.length == 0) { name = "Unknown Name"; }
+					else { name = json2.field_item_name.und[0].value; }
+					
+					if(json2.field_item_type.length == 0) { type = "unknown"; }
+					else { type = json2.field_item_type.und[0].value; }
+				
+					createItem(type, "empty.html", name, ".projectItems");
+					
+				
+				}, function() { console.log("Failed to Load Project Items with nid " + nid); }, nid);
+			}
+		}
+		//----------------------------------------------------------------------//
 	
 		projectJSON = json;
 		getProjectCallback();
@@ -156,7 +179,7 @@ function getUserItems() {
 			
 			// if type == "", then type = "unknown", else, type == type
 			type = (type == "") ? "unknown" : type;
-			createItem(type, "empty.html", $(this).find("Name").text());
+			createItem(type, "empty.html", $(this).find("Name").text(), ".myItems");
 		});
 		//--------------------------------------------------------------------------------//
 		
@@ -172,14 +195,14 @@ function getUserItems() {
 
 // Temporary function that populates workspace with sample items
 function populateSampleWorkspace() {
-	createItem('audio', "empty.html", "Audio");
-	createItem('file', "empty.html", "File");
-	createItem('image', "empty.html", "Image");
-	createItem('document', "empty.html", "Document");
-	createItem('file', "empty.html", "File");
-	createItem('file', "empty.html", "File");
-	createItem('audio', "empty.html", "Audio");
-	createItem('image', "empty.html", "Image");
+	createItem('audio', "empty.html", "Audio", ".myItems");
+	createItem('file', "empty.html", "File", ".myItems");
+	createItem('image', "empty.html", "Image", ".myItems");
+	createItem('document', "empty.html", "Document", ".myItems");
+	createItem('file', "empty.html", "File", ".myItems");
+	createItem('file', "empty.html", "File", ".myItems");
+	createItem('audio', "empty.html", "Audio", ".myItems");
+	createItem('image', "empty.html", "Image", ".myItems");
 }
 
 // Temporary function that populates page with sample users
