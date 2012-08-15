@@ -29,10 +29,13 @@ $(function() {
 	// Once AJAX call is completed then accountJSON will be the user account of the person currently logged in
 	getUser();
 	
+	// Performs a node retrieve on the meeting. After it is retrieved, it populates the UI with all meeting related fields (users, meeting items)
 	getMeeting();
 	
+	// Performs a node retrieve on the project. After it is retrieved, it populates the UI with all project related fields (groups, group users)
 	getProject();
 	
+	// Performs a node retrieve on the user items. After it is retrieved, it populates the UI with all the user items
 	getUserItems();
 	
 	// Makes everything draggable
@@ -102,9 +105,6 @@ $(function() {
 			$("#leftArrow").css("visibility", "hidden");
 		}
 	});
-		
-	//Placeholder to populate workspace	
-	//populateSampleWorkspace()
 	
 	//Placeholder to populate queue
 	populateSampleQueue()
@@ -133,117 +133,28 @@ $(function() {
 	
 });
 
-// When the logged in user is retrieved, the UI is unblocked
+// Callback for when the account logged in has been retrieved. accountJSON stores this information
 function getUserCallback() {	
-//	$.unblockUI();
+
 }
 
+// Callback for when the account that is logged in item's have been retrieved. xml stores this information
 function getUserItemsCallback(xml) {
-	// Iterates through each item that a user owns and adds them to the workspace
-	$(xml).find("node").slice(1).each(function() {
-		var type = $(this).find("Type").text();
-		
-		// if type == "", then type = "unknown", else, type == type
-		type = (type == "") ? "unknown" : type;
-		createItem(type, "empty.html", $(this).find("Name").text());
-	});
+
 }
 
+// Callback for when the project has been retrieved. projectJSON stores this information
 function getProjectCallback() {
-	// If there are no groups, do nothing...else add them to the groupList
-	if(projectJSON.field_project_groups.length == 0) { } 
-	else {	
-		for(var x=0;x<projectJSON.field_project_groups.und.length;x++) {
-			// Performs a retrieve to get information about the group
-			PS.ajax.nodeRetrieve(function (json) {
-				var groupName;
-				if(json.field_group_name.length == 0) {
-					groupName = "Unknown Group";
-				} else {
-					groupName = json.field_group_name.und[0].value;
-				}
-				
-				var index = newGroup1(groupName);
-							
-				if(json.field_group_users.length == 0) {
-				} else {
-					for(var i = 0; i<json.field_group_users.und.length; i++) {
-						
-						// Perform a retrieve to get the name of each user in the group
-						PS.ajax.userRetrieve(json.field_group_users.und[i].uid, function (json) {
-							addUserToGroup(json.name,index);
-							
-						
-						}, function() { });
-					}
-				}
-				
-				// Failed Callback
-				}, function () {
-				
-				}, projectJSON.field_project_groups.und[x].nid);	
-		}
-	}
+
 }
 
+// Callback for when the meeting has been retrieved. meetingJSON stores this information
 function getMeetingCallback() {
-	// If there is no hashtag, set it to default 'facetmeeting123'
-	if(meetingJSON.field_meeting_hashtag.length == 0) {
-		hashtag = "facetmeeting123";
-	} else {	
-		// Else, set it to what the server has
-		hashtag = meetingJSON.field_meeting_hashtag.und[0].value;
-	}
-		
-	// Update the monitor to search for that hashtag
-	$(".monitter").attr("title", hashtag);
-	console.log("Hashtag: " + hashtag);
-	
-	
-	// Populate the meeting items. If there are none, do nothing, else, add them
-	if(meetingJSON.field_meeting_items.length == 0) { }
-	else {
-		var nid = meetingJSON.field_meeting_items.und[0].nid;
-		
-		// Retrieve the node to get the name and type of the item
-		PS.ajax.nodeRetrieve(function(json) {
-			var type, name;
-			if(json.field_item_name.length == 0) { name = "Unknown Name"; }
-			else { name = json.field_item_name.und[0].value; }
-			
-			if(json.field_item_type.length == 0) { type = "unknown"; }
-			else { type = json.field_item_type.und[0].value; }
-		
-			createItem(type, "empty.html", name);
-		
-		}, function() { console.log("Failed to Load Meeting Item with nid " + nid);}, nid);		
-	}
-}
-
-function loadParticipants2(json) {
-	$(json).each(function() {
-		PS.ajax.userRetrieve(this.uid, function(json,textStatus, jqXHR) { 
-			createUser(json.name, this.uid); 
-			makeParticipantsDroppable();
-		}, function() { console.log("Error loading uid: "+ this.uid );
-		
-		});
-	});
-}
-
-function populateParticipants2(json,textStatus,jqXHR) {
-
-	loadParticipants2(json);
-	
-	// Removes loading animation item
-	$("#loading").remove();
-	makeParticipantsDroppable(); /* Makes new group droppable */
 
 }
 
 
-// Ajax call passed and adding recieved users
-function populateParticipants(json, textStatus, jqXHR) {
+function populateParticipants(json,textStatus,jqXHR) {
 
 	loadParticipants(json);
 	
@@ -265,6 +176,7 @@ function populateFailed() {
 // Adds user to the participant list with the given name
 function createUser(name, id) {
 	$("#participantList").append("<li uid='" + id + "' class='user icon'><a href='#'>" + name + "</a><img alt='Drag Handle' src='icons/handle.png' class='dragHandle2'></li>");
+	makeParticipantsDroppable();
 }
 
 // Creates Queue item with a given name and link
@@ -385,6 +297,7 @@ function makeQueueDroppable() {
 
 var editing = false;
 /* If we are currently renaming, then we make an group with the textarea, else if just create regular text*/
+
 function newGroup() {
 	return newGroup1("New Group");
 };
@@ -409,8 +322,12 @@ function newGroup2(name, users) {
 	return $("#groupList").children().length-1;
 }
 
-function addUserToGroup(name, index) {
-	$("#groupList").children().slice(index).find("ul").append("<li class='icon user'><a href='#'>" + name + "</a><img alt='Drag Handle' src='icons/handle.png' class='dragHandle2'></li>");
+function addUserToGroup(name, groupName) {
+	$("#groupList").children().each(function () { 
+		if($(this).find("div").text() == groupName) {
+			$(this).find("ul").append("<li class='icon user'><a href='#'>" + name + "</a><img alt='Drag Handle' src='icons/handle.png' class='dragHandle2'></li>");
+		}	
+	});
 }
 
 // jQuery has built in iFrameFix for draggable, but not for sortable. Essentially what it does is it adds an invisible div overtop to prevent mousecapture

@@ -88,16 +88,13 @@
 			
 			<ul id="groupList" data-role="listview" data-inset="true">
                 <li style="font-size:110%;" data-role="list-divider" id="groupsHeader">Groups</li>
-				<li class="group" data-role="list-divider"><div class="name">Facet</div><div class="ui-li-count">0</div></li>
-                <li class="group" data-role="list-divider"><div class="name">NSERC</div><div class="ui-li-count">0</div></li>
-
             </ul>
 			
 			</div>
 			
 			
 			<div data-id="test" data-position="fixed" data-role="footer">		
-				<div class="monitter" id="tweets" title="facetmeeting321" lang="en"></div>	
+				<div class="monitter" id="tweets" title="" lang="en"></div>	
 			</div>
 		</div>
 		
@@ -123,11 +120,11 @@
 			
 			<div data-role="content">
 			<div style="text-align:center;" data-role="controlgroup" data-type="horizontal">
-				<a onclick="createItem('audio','#','Audio'); $('#workspaceList').listview('refresh');" data-mini="true" data-role="button">Audio</a>
+				<a onclick="createItem('audio','#','Audio'); refreshListview('#workspaceList');" data-mini="true" data-role="button">Audio</a>
 				<a data-mini="true" data-rel="dialog" data-transition="pop" href="#surveyDialog" data-role="button">Survey</a>
-				<a onclick="createItem('file','#','File'); $('#workspaceList').listview('refresh');" data-mini="true" data-role="button">File</a>
-				<a onclick="createItem('images','#','Image'); $('#workspaceList').listview('refresh');" data-mini="true" data-role="button">Image</a>
-				<a onclick="createItem('document','#','Document'); $('#workspaceList').listview('refresh');" data-mini="true" data-role="button">Document</a>
+				<a onclick="createItem('file','#','File'); refreshListview('#workspaceList');" data-mini="true" data-role="button">File</a>
+				<a onclick="createItem('images','#','Image'); refreshListview('#workspaceList');" data-mini="true" data-role="button">Image</a>
+				<a onclick="createItem('document','#','Document'); refreshListview('#workspaceList');" data-mini="true" data-role="button">Document</a>
 			</div>
 			
 			</br>
@@ -138,7 +135,7 @@
 				
 			</div>
 			<div data-id="test" data-position="fixed" data-role="footer">
-				<div class="monitter" id="tweets" title="facetmeeting321" lang="en"></div>
+				<div class="monitter" id="tweets" title="" lang="en"></div>
 			</div>
 		</div>
 <!-- ----------------------------------------------------------------------------------------------------------------------------------- -->
@@ -170,7 +167,7 @@
 			
 			</div>
 			<div data-id="test" data-position="fixed" data-role="footer">
-				<div class="monitter" id="tweets" title="facetmeeting321" lang="en"></div>
+				<div class="monitter" id="tweets" title="" lang="en"></div>
 			</div>
 		</div>
 <!-- ----------------------------------------------------------------------------------------------------------------------------------- -->
@@ -197,7 +194,7 @@
 				<div id="map_canvas" style="height:400px;"></div>
 			</div>
 			<div data-id="test" data-position="fixed" data-role="footer">
-				<div class="monitter" id="tweets" title="facetmeeting321" lang="en"></div>
+				<div class="monitter" id="tweets" title="" lang="en"></div>
 			</div>
 		</div>
 <!-- ----------------------------------------------------------------------------------------------------------------------------------- -->
@@ -225,7 +222,7 @@
 
 			</div>
 			<div data-id="test" data-position="fixed" data-role="footer">
-				<div class="monitter" id="tweets" title="facetmeeting321" lang="en"></div>
+				<div class="monitter" id="tweets" title="" lang="en"></div>
 			</div>
 		</div>
 <!-- ----------------------------------------------------------------------------------------------------------------------------------- -->
@@ -252,7 +249,7 @@
 			<div data-role="content">
 				<label for="createGroupLabel" class="ui-hidden-accessible">Group Name:</label>
 				<input type="text" name="name" id="createGroupLabel" placeholder="Group Name"/>
-				<a onclick="newGroup( $('#createGroupLabel').val() )" data-icon="check" data-role="button">Create</a>
+				<a onclick="newGroup( $('#createGroupLabel').val() ); $('#newgroupDialog').dialog('close'); " data-icon="check" data-role="button">Create</a>
 			</div>
 		</div>
 <!-- ----------------------------------------------------------------------------------------------------------------------------------- -->

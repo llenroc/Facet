@@ -262,13 +262,6 @@ PS.ajax.index = function(indexType, callback, errorCallback) {
 
 // Project
 PS.ajax.projectIndex = function(callback, errorCallback) {
-	/*$.ajax({
-		type: "GET",
-		url: PS.ajax.getServerPrefix() + "services-xml/project",
-		success: callback,
-		error: errorCallback,
-	});	*/
-	
 	PS.ajax.index("project", callback, errorCallback);
 }
 
@@ -295,13 +288,6 @@ PS.ajax.projectDelete = PS.ajax.nodeDelete;
 // Meeting
 
 PS.ajax.meetingIndex = function(callback, errorCallback) {
-	/*$.ajax({
-		type: "GET",
-		url: PS.ajax.getServerPrefix() + "services-xml/meeting",
-		success: callback,
-		error: errorCallback,
-	});	*/
-	
 	PS.ajax.index("meeting", callback, errorCallback);
 }
 
@@ -336,13 +322,6 @@ PS.ajax.meetingDelete = PS.ajax.nodeDelete;
 // Group
 
 PS.ajax.groupIndex = function(callback, errorCallback) {
-/* 	$.ajax({
-		type: "GET",
-		url: PS.ajax.getServerPrefix() + "services-xml/group",
-		success: callback,
-		error: errorCallback,
-	});	 */	
-	
 	PS.ajax.index("group", callback, errorCallback);
 }
 
@@ -371,13 +350,6 @@ PS.ajax.groupDelete = PS.ajax.nodeDelete;
 // Item
 
 PS.ajax.itemIndex = function(callback, errorCallback) {
-/* 	$.ajax({
-		type: "GET",
-		url: PS.ajax.getServerPrefix() + "services-xml/item",
-		success: callback,
-		error: errorCallback,
-	});	 */	
-	
 	PS.ajax.index("item", callback, errorCallback);
 }
 
@@ -409,49 +381,6 @@ PS.ajax.itemRetrieve = PS.ajax.nodeRetrieve;
 PS.ajax.itemDelete = PS.ajax.nodeDelete;
 
 
-// User Node 
-
-
-// PS.ajax.userNodeIndex = function(callback, errorCallback) {
-// /* 	$.ajax({
-		// type: "GET",
-		// url: PS.ajax.getServerPrefix() + "services-xml/user",
-		// success: callback,
-		// error: errorCallback,
-	// });	 */
-
-	// PS.ajax.index("user", callback, errorCallback);	
-// }
-
-
-
-// //name: user's full name
-// //userName: must be the username of an existing user. 
-// PS.ajax.userNodeCreate = function(callback, errorCallback, name, userName) {
-	// $.ajax({
-		// type: "POST",
-		// url: PS.ajax.getServerPrefix() + "restfacet/node/",
-		// dataType: "json",
-		// success: callback,
-        // error: errorCallback,
-		// data: {	name: name, 
-				// type: 'user',
-				// 'field_user_name[und][0][nid]': PS.ajax.wrapNodeId(userNodeId),
-				// 'field_user_username[und][0][nid]': PS.ajax.wrapNodeId(userNodeId),
-				// 'field_user_logged_in[und][0][value]': 'absent', // 4abyte specs say this should be 'present' or 'absent'. don't know if there is any logic hooked up to it on their end.
-		// }
-	// });			
-// }
-// PS.ajax.userNodeRetrieve = PS.ajax.nodeRetrieve;
-// //PS.ajax.userNodeUpdate = PS.ajax.nodeUpdate;
-// PS.ajax.userNodeDelete = PS.ajax.nodeDelete;
-
-
-
-
-
-
-
 /***** PublicSquare Relationships *****/
 // 'REST' methods available for each relationship: create, delete, one-way index.
 // create/delete are implemented by an update to the object in the relation that 'owns' the relation: the an update to hte object having the field that refers to the other object.
@@ -465,13 +394,6 @@ PS.ajax.itemDelete = PS.ajax.nodeDelete;
 //user_project_member
 // Given a userNodeId, returns an xml document containing the projects the user is a member of
 PS.ajax.indexUserProjects = function(callback, errorCallback, userNodeId) {
-/* 	$.ajax({
-		type: "GET",
-		url: PS.ajax.getServerPrefix() + "services-xml/project/user/" + userNodeId,
-		success: callback,
-		error: errorCallback,
-	});	 */	
-	
 	PS.ajax.index("project/user/" + userNodeId, callback, errorCallback);
 }
 PS.ajax.addProjectUser = function(callback, errorCallback, userNodeId, projectId) {	
@@ -522,13 +444,6 @@ PS.ajax.indexUserItems = function(callback, errorCallback, userNodeId) {
 
 //user_meeting_member
 PS.ajax.indexUserMeetings = function(callback, errorCallback, userNodeId) {
-/* 	$.ajax({
-		type: "GET",
-		url: PS.ajax.getServerPrefix() + "services-xml/meeting/user/" + userNodeId,
-		success: callback,
-		error: errorCallback,
-	});		 */
-	
 	PS.ajax.index("meeting/user/" + userNodeId, callback, errorCallback);
 }
 PS.ajax.addMeetingUser = function(callback, errorCallback, userNodeId, meetingId) {	

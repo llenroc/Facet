@@ -14,8 +14,20 @@ $(function() {
 	// Checks if the user is logged in. If the user is not logged in, it redirects the user to the login page
 	checkLogIn();
 	
-	// Then performs a ajax call to get the JSON object from the server
+	
+	// AJAX call to first get user id from cookie, and then to retrieve the json object from server
+	// Once AJAX call is completed then accountJSON will be the user account of the person currently logged in
 	getUser();
+	
+	// Performs a node retrieve on the meeting. After it is retrieved, it populates the UI with all meeting related fields (users, meeting items)
+	getMeeting();
+	
+	// Performs a node retrieve on the project. After it is retrieved, it populates the UI with all project related fields (groups, group users)
+	getProject();
+	
+	// Performs a node retrieve on the user items. After it is retrieved, it populates the UI with all the user items
+	getUserItems();
+	
 	
 	$(".logout").fastClick(function() {
 		window.location = "default.html";
@@ -26,7 +38,6 @@ $(function() {
 			console.log($(this).html());
 		
 		});
-	
 	});
 	
 	// Detects if user presses enter in the new group group box.
@@ -41,11 +52,8 @@ $(function() {
 // Everything to do with elements in the workspace goes here
 $("#workspace").live('pageinit', function() {
 	console.log("Workspace");
-
-	// Populate the workspace with some sample items
-	populateSampleWorkspace();
 		
-	$('#workspaceList').listview('refresh', true);
+	refreshListview('#workspaceList');
 	
 });
 
@@ -53,8 +61,8 @@ $("#workspace").live('pageinit', function() {
 $("#workspace").live('pagebeforeshow', function() {
 
 	// Adds the Loading item and refreshes it so we can see it while loading
-	$("#workspaceList").append("<li id='loadingWorkspace'><a>Loading Items...</a></li>");
-	$('#workspaceList').listview('refresh');
+	//$("#workspaceList").append("<li id='loadingWorkspace'><a>Loading Items...</a></li>");
+	refreshListview('#workspaceList');
 	
 	PS.ajax.surveyIndex(refreshSurveys);
 });
@@ -64,7 +72,7 @@ $("#workspace").live('pagebeforeshow', function() {
 $("#queue").live('pageinit', function() {
 	console.log("Queue");
 	populateSampleQueue();
-	$('#queueList').listview('refresh');
+	refreshListview('#queueList');
 	
 });
 
@@ -111,7 +119,7 @@ $("#sharedScreen").live("swipeleft", function () {
 
 
 $("#queue").live("pageshow", function() {
-	$('#queueList').listview('refresh');
+	refreshListview('#queueList');
 });
 	
 // Everything to do with elements in the workspace goes here
@@ -131,16 +139,12 @@ $("#map").live('pageinit', function() {
 // Everything to do with elements in the workspace goes here
 $("#sharedScreen").live('pageinit', function() {
 	console.log("Shared Screen");
-	
 });
 	
 // Everything to do with elements in the workspace goes here
 $("#participants").live('pageinit', function() {
 	console.log("Participants");
-						
-	$("#participantList").append("<li id='loading'><a>Loading Users...</a></li>");
-	$('#participantList').listview('refresh', true);
-	PS.ajax.userIndex(populateParticipants, populateFailed);		
+	refreshListview('#participantList');
 });
 
 // When the new group dialog is shown, it automagically focuses the textbox
@@ -182,6 +186,7 @@ $('#addToGroupDialog').live('pagecreate pagebeforeshow', function (event) {
 // A fix to an error I was having if I tried to refresh the dialog list
 $('#addToGroupDialog').live('pageshow', function (event) {
 	$('.groupListPop').listview("refresh");
+	refreshListview('.groupListPop');
 });
 
 // Hiding function
@@ -197,23 +202,34 @@ $(".group").live("click", function() {
 	$(this).nextUntil(".ui-li-divider").toggle();
 });
 
-function getUserCallback() {
+// Callback for when the account logged in has been retrieved. accountJSON stores this information
+function getUserCallback() {	
 
+}
+
+// Callback for when the account that is logged in item's have been retrieved. xml stores this information
+function getUserItemsCallback(xml) {
+
+}
+
+// Callback for when the project has been retrieved. projectJSON stores this information
+function getProjectCallback() {
+
+}
+
+// Callback for when the meeting has been retrieved. meetingJSON stores this information
+function getMeetingCallback() {
 
 }
 
 function createUser(name, id) {
 	$("#participantList").append("<li uid='" + id + "'><a data-rel='dialog' data-transition='pop' href='#participantDialog'>" + name + "</a></li>");
+	refreshListview('#participantList');
 }
 
 // Ajax call passed and adding recieved users
-function populateParticipants(json, textStatus, jqXHR) {
-
+function populateParticipants(json) {
 	loadParticipants(json);
-	
-	// Removes loading animation item
-	$("#loading").remove();
-	$('#participantList').listview('refresh', true);
 }
 
 // Not administrator and so populating with default users
@@ -222,10 +238,18 @@ function populateFailed() {
 	
 	// Removes loading animation item
 	$("#loading").remove();
-	$('#participantList').listview('refresh', true);
+	refreshListview('#participantList');
 
 }
+
+function refreshListview(object) {
+	if ($(object).hasClass('ui-listview')) {
+		// This listview has already been initialized, so refresh it
+		$(object).listview('refresh');
+	}
+}
  
+function newGroup1(groupName) { newGroup(groupName); }
 function newGroup(groupName) {
 
 	// Does not add group if name is blank
@@ -236,11 +260,8 @@ function newGroup(groupName) {
 		$(".groupListPop").append("<li><a>"+ groupName + "</a></li>");
 		
 		// jQuery Mobile - Added proper CSS to newly added item
-		$('#groupList').listview('refresh', true);
-		
-		// Close dialog
-		$('#newgroupDialog').dialog('close');
-		
+		refreshListview('#groupList');
+				
 		// Clear text field
 		$("#createGroupLabel").val("");
 	}
@@ -254,7 +275,7 @@ function deleteUser() {
 	$('.ui-dialog').dialog('close');
 	
 	// Refresh styling
-	$('#participantList').listview('refresh');
+	refreshListview('#participantList');
 };
 
 function deleteItem() {
@@ -288,7 +309,7 @@ function addUserToGroup(name, groupName) {
 			$(this).parent().find(".ui-li-count").text(count);
 			
 			// Refreshes list
-			$('#groupList').listview('refresh', true);
+			refreshListview('#groupList');
 		}
 	});	
 };
@@ -296,6 +317,7 @@ function addUserToGroup(name, groupName) {
 function createItem(type, link, name) {
 	// data-filtertext = when using the filter bar, it filters by this text. Currently it filters by type (survey, image, document, etc ...) and the item name.
     $("#workspaceList").append("<li data-filtertext='"+ name + " " + type + "' type=" + type + " title = '" + name + "'><a data-rel='dialog' data-transition='pop' href='#workspaceDialog' linkURL='" + link + "'>" + name + "</a></li>");
+	refreshListview('#workspaceList');
 };
 
 function changeOpenFile(url) {
@@ -306,7 +328,7 @@ function refreshSurveys(json, textStatus, jqXHR) {
 	
 	// Does the callback in model.js and then refreshes
 	PS.model.getSurveysCallback(json,textStatus,jqXHR);
-	$('#workspaceList').listview('refresh');
+	refreshListview('#workspaceList');
 }
 
 function addToQueue() {
