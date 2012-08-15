@@ -469,15 +469,20 @@ function makeFilesDroppable() {
 	$(".appleCube").sortable({
 		handle: "img.dragHandle2",
 		appendTo: "body",
-		//helper: "clone",
+		helper: "clone",
 		scroll: false,
 		forcePlaceholderSize: true, 
 		start: function(event,ui) {
 			iFrameFix();
-			$(ui.helper).addClass("workspaceItem");
+			$(ui.item).addClass("workspaceItem");
 			
-			$(ui.helper).attr("href",$(ui.item).find("a").attr("href"));
-			$(ui.helper).attr("type",$(ui.item).attr("type"));
+						$(ui.helper).css("list-style-type","none");
+			$(ui.helper).css("font-weight","bold");
+			$(ui.helper).css("font-size","17px");
+			$(ui.helper).css("font-family","Helvetica");
+			
+			$(ui.item).attr("href",$(ui.item).find("a").attr("href"));
+			$(ui.item).attr("type",$(ui.item).attr("type"));
 		},	
 
 		stop: function(event,ui) {stopiFrameFix();},		
