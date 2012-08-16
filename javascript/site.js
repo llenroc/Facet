@@ -38,6 +38,9 @@ $(function() {
 	// Performs a node retrieve on the user items. After it is retrieved, it populates the UI with all the user items
 	getUserItems();
 	
+	// Performs a node retrieve on the user items. After it is retrieved, it populates the UI with all the user items
+	getGroupItems();
+	
 	// Makes everything draggable
 	makeQueueDroppable();
 	makeParticipantsDroppable();
@@ -153,6 +156,10 @@ function getProjectCallback() {
 
 // Callback for when the meeting has been retrieved. meetingJSON stores this information
 function getMeetingCallback() {
+
+}
+
+function getGroupItemsCallback() {
 
 }
 
@@ -502,6 +509,10 @@ function createItem(type, link, name, target) {
 function changeTab(number) {
 	$( '#tabs' ).tabs( 'option', 'selected', number );
 };
+
+function createWorkspaceAccordion(name, className) {
+	$("#accordion").append("<h3><a href='#'>" + name + "'s Items</a></h3><div><ul class = '" + className + " appleCube'></ul></div>").accordion('destroy').accordion({ autoHeight: false });
+}
 
 
 

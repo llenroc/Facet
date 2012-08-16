@@ -446,6 +446,11 @@ PS.ajax.indexUserItems = function(callback, errorCallback, userNodeId) {
 PS.ajax.indexUserMeetings = function(callback, errorCallback, userNodeId) {
 	PS.ajax.index("meeting/user/" + userNodeId, callback, errorCallback);
 }
+
+PS.ajax.indexUserGroups = function(callback, errorCallback, userNodeId) {
+	PS.ajax.index("group/user/" + userNodeId, callback, errorCallback);
+}
+
 PS.ajax.addMeetingUser = function(callback, errorCallback, userNodeId, meetingId) {	
 	PS.ajax.nodeRetrieve(
 		function(json, textStatus, jqXHR) {					

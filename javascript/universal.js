@@ -98,6 +98,39 @@ function getMeeting() {
 		}, populateFailed, getCookie("meetingID"));
 }
 
+function getGroupItems() {
+	PS.ajax.indexUserGroups( function (xml) { 
+		//-------------------------Adding Specific Group Items----------------------------//
+		// Iterates through each item that a user owns and adds them to the workspace
+		$(xml).find("node").slice(1).each(function() {
+			var cssName = makeSafeForCSS($(this).find("Name").text());
+			createWorkspaceAccordion($(this).find("Name").text(), cssName);
+			
+			var items = $(this).find("Items").text().split(", ");
+			for(var i = 0; i < items.length; i++) {
+				var nid = items[i];
+				if(nid != "") {
+					PS.ajax.nodeRetrieve(function(json2) {					
+						var type, name;
+						if(json2.field_item_name.length == 0) { name = "Unknown Name"; }
+						else { name = json2.field_item_name.und[0].value; }
+						
+						if(json2.field_item_type.length == 0) { type = "unknown"; }
+						else { type = json2.field_item_type.und[0].value; }
+						
+						createItem(type, "empty.html", name, "."+cssName);
+									
+					}, function() { console.log("Failed to Load Project Items with nid " + nid); }, nid);
+				}
+			}
+		});
+		//--------------------------------------------------------------------------------// 
+		
+		getGroupItemsCallback();
+	}, function() { console.log("Failed to load Group Items"); }, getCookie("id"));
+
+}
+
 // This function is called only once at login time to store the project information in a JSON object.
 function getProject() {
 	PS.ajax.nodeRetrieve(function(json) {
@@ -130,6 +163,7 @@ function getProject() {
 							}, function() { });
 						}
 					}
+					
 		
 					// Failed Callback
 					}, function () {
@@ -187,6 +221,16 @@ function getUserItems() {
 	}, function () { 
 		console.log("Failed to Load User Items"); 
 	}, getCookie("id"));
+}
+
+// http://stackoverflow.com/questions/7627000/javascript-convert-string-to-safe-class-name-for-css
+function makeSafeForCSS(name) {
+    return name.replace(/[^a-z0-9]/g, function(s) {
+        var c = s.charCodeAt(0);
+        if (c == 32) return '-';
+        if (c >= 65 && c <= 90) return '_' + s.toLowerCase();
+        return '__' + ('000' + c.toString(16)).slice(-4);
+    });
 }
 
 
