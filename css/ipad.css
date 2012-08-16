@@ -20,6 +20,7 @@
 	-webkit-overflow-scrolling: touch;
 }
 
+
 #upArrow {
 	visibility: hidden;
 }
@@ -52,7 +53,9 @@ ul.appleCube > li {
 }
 
 body {
-	width:100%;
+	width:1024px;
+	height:748px;
+	overflow:hidden;
 }
 
 .files-area {
