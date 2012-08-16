@@ -66,7 +66,12 @@ function getMeeting() {
 		}
 		
 		// Update the monitor to search for that hashtag
-		$(".monitter").attr("title", hashtag);
+		$(".twitterfeed").append("<div class='monitter' id='tweets' title='" + hashtag + "' lang='en'></div>");
+		
+		// Taken from monitter.min.js to update dynamically added twitter hashtags.
+		window.monitter={};
+		$('.monitter').each(function(e){rrp=6;fetch_tweets(this);});
+		
 		console.log("Hashtag: " + hashtag);
 		//-------------------------------------------------------------------//
 		
