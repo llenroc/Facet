@@ -14,18 +14,17 @@ $(function () {
         document.getElementById("username").style.width = "95%";
         document.getElementById("password").style.width = "95%";
     }
-	
-	$(".meeting").live("click" , function() {
-
-		PS.ajax.setCookieData("meetingID", $(this).attr("meetingID"), 365);
-		PS.ajax.setCookieData("projectID", $(this).parent().parent().attr("projectID"), 365);
-		if( screen.width <= 720 ) {
-			window.location = 'iphone.html';
-		} else {
-			window.location = "main.html";
-		}
-	});
 });
+
+function joinMeeting(element) {
+	PS.ajax.setCookieData("meetingID", $(element).attr("meetingID"), 365);
+	PS.ajax.setCookieData("projectID", $(element).parent().parent().attr("projectID"), 365);
+	if( screen.width <= 720 ) {
+		window.location = 'iphone.html';
+	} else {
+		window.location = "main.html";
+	}
+}
 
 function login() {
 	$("#error").css("display", "none");
@@ -108,7 +107,7 @@ function newProject(name, id) {
 
 // Creates a new meeting with the given name in the UI as a child of projectIndex, 0 based index
 function newMeeting(name, meetingID, projectIndex) {
-	$("#projectList").children().eq(projectIndex).find("ul").append("<li meetingID='" + meetingID + "' class='icon meeting'>" + name + "</li>");
+	$("#projectList").children().eq(projectIndex).find("ul").append("<li onclick='joinMeeting(this)' meetingID='" + meetingID + "' class='icon meeting'>" + name + "</li>");
 }
 
 // Creates a new meeting with the given name in the UI as a child of the LAST project.
