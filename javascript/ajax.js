@@ -333,7 +333,10 @@ PS.ajax.groupCreate = function(callback, errorCallback, name, userNodeId, projec
 		type: "POST",
 		url: PS.ajax.getServerPrefix() + "restfacet/node/",
 		dataType: "json",
-		success: callback,
+		success: function(json, textStatus, jqXHR) { 
+			// After creating the group, we must also update the project as well
+			PS.ajax.addGroupToProject(callback, errorCallback, json.nid, projectId);
+		},
         error: errorCallback,
 		data: {	title: name, 
 				type: 'group',
@@ -345,7 +348,18 @@ PS.ajax.groupCreate = function(callback, errorCallback, name, userNodeId, projec
 }
 PS.ajax.groupRetrieve = PS.ajax.nodeRetrieve;
 //PS.ajax.groupUpdate = PS.ajax.nodeUpdate;
-PS.ajax.groupDelete = PS.ajax.nodeDelete;
+PS.ajax.groupDelete = function(callback, errorCallback, groupId, projectId) {
+	$.ajax({
+		type: "DELETE",
+		url: PS.ajax.getServerPrefix() + "restfacet/node/" + groupId,
+		dataType: "json",
+		success: function(json, textStatus, jqXHR) {
+			PS.ajax.removeGroupFromProject(callback, errorCallback, groupId, projectId);
+		},
+		error: errorCallback,
+	});
+
+}
 
 // Item
 
@@ -493,6 +507,48 @@ PS.ajax.removeMeetingUser = function(callback, errorCallback, userNodeId, meetin
 		errorCallback,
 		meetingId
 	);	
+}
+
+PS.ajax.addGroupToProject = function(callback, errorCallback, groupNodeId, projectNodeId) {
+	PS.ajax.nodeRetrieve( function(json) {
+		var data = {};
+		data.type = "project";
+		
+		
+		if (json.field_project_groups.und === undefined) {
+			data['field_project_groups[und][0][nid]'] = PS.ajax.wrapNodeId(groupNodeId);
+		}
+		else {
+			data['field_project_groups[und][' + String(json.field_project_groups.und.length) + '][nid]'] = PS.ajax.wrapNodeId(groupNodeId);
+		}
+		
+		
+		PS.ajax.nodeUpdate(callback, errorCallback, projectNodeId, data);	
+	
+	}, errorCallback, projectNodeId);
+}
+
+PS.ajax.removeGroupFromProject = function(callback, errorCallback, groupNodeId, projectNodeId) {
+	PS.ajax.nodeRetrieve(
+		function(json, textStatus, jqXHR) {			
+			//get the list of groupNodeIds, buried in the response object
+			var groups = json.field_project_groups.und;
+		
+			//search for one matching the userNodeId to be removed
+			for(var i = 0; i < groups.length; i += 1) { 
+				if(Number(groups[i].nid) == groupNodeId) {
+					var data = {};
+					data.type = "project";
+					data['field_project_groups[und][' + String(i) + '][nid]'] = "";
+					PS.ajax.nodeUpdate(callback, errorCallback, projectNodeId, data);
+					break;
+				}
+			}
+		},
+		errorCallback,
+		projectNodeId
+	);	
+
 }
 
 //user_group_member

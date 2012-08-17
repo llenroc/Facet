@@ -308,28 +308,32 @@ function makeQueueDroppable() {
 var editing = false;
 /* If we are currently renaming, then we make an group with the textarea, else if just create regular text*/
 
-function newGroup() {
+function newGroup(nid) {
 	return newGroup1("New Group");
 };
 
-function newGroup1(name) {
-	return newGroup2(name, "");
-}
-
-function newGroup2(name, users) {
-	var groupData="";
-	for(var i = 0; i < users.length; i++) {
-		groupData += "<li class='icon user'><a href='#'>" + users[i] + "</a><img alt='Drag Handle' src='icons/handle.png' class='dragHandle2'></li>";
-	}
-	
+function newGroup1(name, nid) {
 	if(editing == true) {
-        $("#groupList").append("<li class = 'icon group'><img onclick='$(this).parent().remove();' class='delete' src='icons/delete.png'></img><div onclick='$(this).next().toggle();'><textarea>" + name + "</textarea></div><ul class = 'apple'>" + groupData + "</ul></li>");
+        $("#groupList").append("<li nid='"+nid+"' class = 'icon group'><img onclick='ajaxDeleteGroup(this)' class='delete' src='icons/delete.png'></img><div onclick='$(this).next().toggle();'><textarea>" + name + "</textarea></div><ul class = 'apple'></ul></li>");
     } else {
-        $("#groupList").append("<li class = 'icon group'><div onclick='$(this).next().toggle();'>" + name + "</div><ul class = 'apple' style='display:none'>" + groupData + "</ul></li>");	
+        $("#groupList").append("<li nid='"+nid+"' class = 'icon group'><div onclick='$(this).next().toggle();'>" + name + "</div><ul class = 'apple' style='display:none'></ul></li>");	
     }
     makeParticipantsDroppable(); /* Makes new group droppable */
 
 	return $("#groupList").children().length-1;
+}
+
+function ajaxDeleteGroup(object) {
+	PS.ajax.groupDelete(function () { 
+		$(object).parent().remove();
+	}, function () { console.log("Delete Group Failed!"); }, $(object).parent().attr("nid"), projectJSON.nid);
+}
+
+function ajaxNewGroup() {
+	PS.ajax.groupCreate(function () {
+		newGroup();
+	}, function() { console.log("Failed to Create New Group"); }, "New Group", accountJSON.uid, projectJSON.nid);
+
 }
 
 function addUserToGroup(name, groupName) {
@@ -360,7 +364,7 @@ function rename() {
                                               
             /*Deleting*/
             var oldHtml = $(this).html();
-            $(this).html("<img onclick='$(this).parent().remove();' class='delete' src='icons/delete.png'></img>" + oldHtml);
+            $(this).html("<img onclick='ajaxDeleteGroup(this)' class='delete' src='icons/delete.png'></img>" + oldHtml);
         });
 		editing = true;
 		$("#renameButton").html("Done");
@@ -483,7 +487,7 @@ function makeFilesDroppable() {
 			iFrameFix();
 			$(ui.item).addClass("workspaceItem");
 			
-						$(ui.helper).css("list-style-type","none");
+			$(ui.helper).css("list-style-type","none");
 			$(ui.helper).css("font-weight","bold");
 			$(ui.helper).css("font-size","17px");
 			$(ui.helper).css("font-family","Helvetica");

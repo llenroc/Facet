@@ -154,7 +154,7 @@ function getProject() {
 						groupName = json2.field_group_name.und[0].value;
 					}
 					
-					newGroup1(groupName);
+					newGroup1(groupName, json2.nid);
 								
 					if(json2.field_group_users.length == 0) {
 					} else {
