@@ -335,7 +335,7 @@ PS.ajax.groupCreate = function(callback, errorCallback, name, userNodeId, projec
 		dataType: "json",
 		success: function(json, textStatus, jqXHR) { 
 			// After creating the group, we must also update the project as well
-			PS.ajax.addGroupToProject(callback, errorCallback, json.nid, projectId);
+			PS.ajax.addGroupToProject(callback, errorCallback, json.nid, projectId, json);
 		},
         error: errorCallback,
 		data: {	title: name, 
@@ -509,7 +509,7 @@ PS.ajax.removeMeetingUser = function(callback, errorCallback, userNodeId, meetin
 	);	
 }
 
-PS.ajax.addGroupToProject = function(callback, errorCallback, groupNodeId, projectNodeId) {
+PS.ajax.addGroupToProject = function(callback, errorCallback, groupNodeId, projectNodeId, json2) {
 	PS.ajax.nodeRetrieve( function(json) {
 		var data = {};
 		data.type = "project";
@@ -521,9 +521,8 @@ PS.ajax.addGroupToProject = function(callback, errorCallback, groupNodeId, proje
 		else {
 			data['field_project_groups[und][' + String(json.field_project_groups.und.length) + '][nid]'] = PS.ajax.wrapNodeId(groupNodeId);
 		}
-		
-		
-		PS.ajax.nodeUpdate(callback, errorCallback, projectNodeId, data);	
+			
+		PS.ajax.nodeUpdate(callback(json2), errorCallback, projectNodeId, data);	
 	
 	}, errorCallback, projectNodeId);
 }

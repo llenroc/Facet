@@ -309,7 +309,7 @@ var editing = false;
 /* If we are currently renaming, then we make an group with the textarea, else if just create regular text*/
 
 function newGroup(nid) {
-	return newGroup1("New Group");
+	return newGroup1("New Group", nid);
 };
 
 function newGroup1(name, nid) {
@@ -330,8 +330,8 @@ function ajaxDeleteGroup(object) {
 }
 
 function ajaxNewGroup() {
-	PS.ajax.groupCreate(function () {
-		newGroup();
+	PS.ajax.groupCreate(function (json) {
+		newGroup(json.nid);
 	}, function() { console.log("Failed to Create New Group"); }, "New Group", accountJSON.uid, projectJSON.nid);
 
 }
