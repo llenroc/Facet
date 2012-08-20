@@ -13,8 +13,7 @@ $(function() {
 
 	// Checks if the user is logged in. If the user is not logged in, it redirects the user to the login page
 	checkLogIn();
-	
-	
+		
 	// AJAX call to first get user id from cookie, and then to retrieve the json object from server
 	// Once AJAX call is completed then accountJSON will be the user account of the person currently logged in
 	getUser();
@@ -49,8 +48,9 @@ $(function() {
             newGroup($('#createGroupLabel').val());
         }
     });
-	
+
 });
+
 
 // Everything to do with elements in the workspace goes here
 $("#workspace").live('pageinit', function() {

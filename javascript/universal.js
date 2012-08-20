@@ -55,7 +55,6 @@ function getMeeting() {
 		// populateParticipants is present in iphone.js or site.js . It allows for some custom behavior between iPhone and the main version
 		populateParticipants(json.field_meeting_users.und);
 		
-		
 		//------------------------Hashtag Updating---------------------------//
 		// If there is no hashtag, set it to default 'facetmeeting123'
 		if(json.field_meeting_hashtag.length == 0) {
