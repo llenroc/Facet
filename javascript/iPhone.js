@@ -28,6 +28,9 @@ $(function() {
 	// Performs a node retrieve on the user items. After it is retrieved, it populates the UI with all the user items
 	getUserItems();
 	
+		// Performs a node retrieve on the user items. After it is retrieved, it populates the UI with all the user items
+	getGroupItems();
+	
 	
 	$(".logout").fastClick(function() {
 		window.location = "default.html";
@@ -198,13 +201,16 @@ $(".group").live("click", function() {
 		$(this).addClass("hidden");
 	}
 	
+});
+
+$(".ui-li-divider").live("click", function() {
 	// Goes from the item clicked up until the next divider and toggles visibility
 	$(this).nextUntil(".ui-li-divider").toggle();
 });
 
 // Callback for when the account logged in has been retrieved. accountJSON stores this information
 function getUserCallback() {	
-
+	$(".htext").text(accountJSON.name +"'s Items");
 }
 
 // Callback for when the account that is logged in item's have been retrieved. xml stores this information
@@ -220,6 +226,16 @@ function getProjectCallback() {
 // Callback for when the meeting has been retrieved. meetingJSON stores this information
 function getMeetingCallback() {
 
+}
+
+//Callback for when the group items have been retrieved and added
+function getGroupItemsCallback() {
+
+}
+
+function createWorkspaceAccordion(name, className) {
+	$("#workspaceList").append("<li data-role='list-divider' class='" + className + "'>" + name + "'s Items<div class='ui-li-count'>0</div></li>");
+	refreshListview('#workspaceList');
 }
 
 function createUser(name, id) {
@@ -316,8 +332,15 @@ function addUserToGroup(name, groupName) {
 
 // TODO, add items to different lists
 function createItem(type, link, name, target) {
+
+	// Increases the count of the group by 1
+	var count = parseInt($(target).find(".ui-li-count").text()) + 1;
+	
+	// Updates html
+	$(target).find(".ui-li-count").text(count);
+	
 	// data-filtertext = when using the filter bar, it filters by this text. Currently it filters by type (survey, image, document, etc ...) and the item name.
-    $("#workspaceList").append("<li data-filtertext='"+ name + " " + type + "' type=" + type + " title = '" + name + "'><a data-rel='dialog' data-transition='pop' href='#workspaceDialog' linkURL='" + link + "'>" + name + "</a></li>");
+    $(target).after("<li data-filtertext='"+ name + " " + type + "' type=" + type + " title = '" + name + "'><a data-rel='dialog' data-transition='pop' href='#workspaceDialog' linkURL='" + link + "'>" + name + "</a></li>");
 	refreshListview('#workspaceList');
 };
 

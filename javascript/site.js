@@ -159,6 +159,7 @@ function getMeetingCallback() {
 
 }
 
+//Callback for when the group items have been retrieved and added
 function getGroupItemsCallback() {
 
 }
