@@ -330,9 +330,15 @@ function ajaxDeleteGroup(object) {
 }
 
 function ajaxNewGroup() {
-	PS.ajax.groupCreate(function (json) {
-		newGroup(json.nid);
-	}, function() { console.log("Failed to Create New Group"); }, "New Group", accountJSON.uid, projectJSON.nid);
+
+	var name = prompt("Please enter the new group name: ","New Group");
+	
+	if (name != null && name != "") {
+		PS.ajax.groupCreate(function (json) {
+			newGroup1(name, json.nid);
+		}, function() { console.log("Failed to Create group '"+ name + "'"); }, name , accountJSON.uid, projectJSON.nid);
+	}
+
 
 }
 
