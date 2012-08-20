@@ -265,14 +265,21 @@ function refreshListview(object) {
 	}
 }
  
-function newGroup1(groupName) { newGroup(groupName); }
-function newGroup(groupName) {
+function newGroupAjax(groupName) {
 
 	// Does not add group if name is blank
 	if(groupName != "") {
-	
+		PS.ajax.groupCreate(function (json) {
+			newGroup1(groupName, json.nid);
+		}, function() { console.log("Failed to create group '"+ groupName + "'"); }, groupName , accountJSON.uid, projectJSON.nid);
+	}
+}
+ 
+function newGroup1(groupName, id) { newGroup(groupName, id); }
+function newGroup(groupName, id) {
+
 		// Append new group to both the visible group list, as well as the dialog box when adding user to group
-		$("#groupList").append("<li class='group' data-role='list-divider'><div class='name'>"+ groupName + "</div><div class='ui-li-count'>0</div></li>");
+		$("#groupList").append("<li nid='" + id + "' class='group' data-role='list-divider'><div class='name'>"+ groupName + "</div><div class='ui-li-count'>0</div></li>");
 		$(".groupListPop").append("<li><a>"+ groupName + "</a></li>");
 		
 		// jQuery Mobile - Added proper CSS to newly added item
@@ -280,7 +287,6 @@ function newGroup(groupName) {
 				
 		// Clear text field
 		$("#createGroupLabel").val("");
-	}
 };
 
 function deleteUser() {
