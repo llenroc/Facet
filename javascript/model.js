@@ -6,17 +6,17 @@ PS.model = {};
 PS.model.surveysList = {};
 
 PS.model.getSurveysCallback = function(json, textStatus, jqXHR) {
-	for (var x in json.nodes) {	
+
+	for (var x in json.nodes) {
+		var idsurvey = json.nodes[x].node.URL.split("/").pop();
 	
-		if (PS.model.surveysList[json.nodes[x].node.idsurvey] === undefined) {
-			PS.model.surveysList[json.nodes[x].node.idsurvey] = json.nodes[x].node;
+		if (PS.model.surveysList[idsurvey] === undefined) {
+			PS.model.surveysList[idsurvey] = json.nodes[x].node;
 			
-			createItem('survey', json.nodes[x].node.urlResponse, json.nodes[x].node.question);
-			createItem('results', "http://facetsurvey.4abyte.com/surveymaps/" + json.nodes[x].node.idsurvey, json.nodes[x].node.question + " " + "Results");
+			createItem('survey', json.nodes[x].node.URL, json.nodes[x].node.Name, ".surveyItems");
+			createItem('results', json.nodes[x].node.URL_report, json.nodes[x].node.Name + " " + "Results", ".surveyItems");
 			
 		}
-		
-
 	}
 	
 	$("#loadingWorkspace").remove();
