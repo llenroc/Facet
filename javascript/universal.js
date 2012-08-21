@@ -151,7 +151,6 @@ function getProject() {
 			for(var x = 0; x < json.field_project_groups.und.length; x++) {
 				// Performs a retrieve to get information about the group			
 				PS.ajax.retrieve("group", json.field_project_groups.und[x].nid, function(xml) {
-					console.log(xml);
 					var nid = $(xml).find("Nid").text();
 					var groupName = $(xml).find("Name").text();
 					groupName = (groupName.length != 0) ? groupName : "Group";
