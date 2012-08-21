@@ -19,7 +19,6 @@ PS.model.getSurveysCallback = function(json, textStatus, jqXHR) {
 		else { surveyURLType = "surveyreport"; }
 		
 		var urlreport = "http://facetsurvey.4abyte.com/" + surveyURLType + "/" + idsurvey;
-		console.log(urlreport);
 	
 		if (PS.model.surveysList[idsurvey] === undefined) {
 			PS.model.surveysList[idsurvey] = json.nodes[x].node;
