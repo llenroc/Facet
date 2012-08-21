@@ -8,13 +8,24 @@ PS.model.surveysList = {};
 PS.model.getSurveysCallback = function(json, textStatus, jqXHR) {
 
 	for (var x in json.nodes) {
-		var idsurvey = json.nodes[x].node.URL.split("/").pop();
+		//var idsurvey = json.nodes[x].node.URL.split("/").pop();
+		var idsurvey = json.nodes[x].node.nodeID;
+		var url = "http://facetsurvey.4abyte.com/facetsurvey/" + idsurvey;
+		var surveyURLType;
+		var surveyType = json.nodes[x].node.Type;
+		
+		if(surveyType == "Map Poll") { surveyURLType = "surveymaps"; }
+		else if(surveyType == "Location Poll") { surveyURLType = "surveymapswindowsl"; }
+		else { surveyURLType = "surveyreport"; }
+		
+		var urlreport = "http://facetsurvey.4abyte.com/" + surveyURLType + "/" + idsurvey;
+		console.log(urlreport);
 	
 		if (PS.model.surveysList[idsurvey] === undefined) {
 			PS.model.surveysList[idsurvey] = json.nodes[x].node;
 			
-			createItem('survey', json.nodes[x].node.URL, json.nodes[x].node.Name, ".surveyItems");
-			createItem('results', json.nodes[x].node.URL_report, json.nodes[x].node.Name + " " + "Results", ".surveyItems");
+			createItem('survey', url, json.nodes[x].node.Name, ".surveyItems");
+			createItem('results', urlreport, json.nodes[x].node.Name + " " + "Results", ".surveyItems");
 			
 		}
 	}
