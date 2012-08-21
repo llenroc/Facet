@@ -41,51 +41,7 @@
     
     
             /********** new 'rest' services **********/
-        
-        //NB: dataType is ignored by these calls
-		
-		//Daniel - I had to remove dataType: "json" to get it to work in chrome
-        
-/*        function index_project() {
-            $.ajax({
-                type: "GET",
-                url: PS.ajax.getServerPrefix() + "services-xml/project",
-                success: callback,
-            });
-        }
-        
-        function index_item() {
-            $.ajax({
-                type: "GET",
-                url: PS.ajax.getServerPrefix() + "services-xml/item",
-                success: callback,
-            });
-            }       
-        
-        function index_group() {
-            $.ajax({
-                type: "GET",
-                url: PS.ajax.getServerPrefix() + "services-xml/group",
-                success: callback,
-            });
-            }       
-        
-        function index_meeting() {
-            $.ajax({
-                type: "GET",
-                url: PS.ajax.getServerPrefix() + "services-xml/meeting",
-                success: callback,
-            });
-            }       
-        
-        function index_user() {
-            $.ajax({
-                type: "GET",
-                url: PS.ajax.getServerPrefix() + "services-xml/user",
-                success: callback,
-            });
-            }    */
-    
+            
 
     
         function foo() {
@@ -100,16 +56,14 @@
 			}
 		}
 		
-		function oldRetrieve() {
-			
-		
+		function request() {
+			$.ajax({
+				type: "POST",
+				url: "https://api.dropbox.com/1/oauth/request_token",
+				success: callback,
+				error: errorcallback,
+			});
 		}
-		
-		function newRetrieve() {
-			
-		
-		}
-   
     
     </script>
 
@@ -184,8 +138,7 @@
 		
 		</br>
 		<button onclick="massiveDelete()">MASSIVE DELETE</button>
-		<button onclick="oldRetrieve()">Old Retrieve</button>
-		<button onclick="newRetrieve()">New Retrieve</button>
+		<button onclick="request()">Request Token</button>
 
 
         

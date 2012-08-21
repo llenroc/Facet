@@ -260,6 +260,15 @@ PS.ajax.index = function(indexType, callback, errorCallback) {
 	});	
 }
 
+PS.ajax.retrieve = function(retrieveType, nid, callback, errorCallback) {
+	$.ajax({
+	type: "GET",
+	url: PS.ajax.getServerPrefix() + "services-xml/" + retrieveType + "/" + nid,
+	success: callback,
+	error: errorCallback,
+	});
+}
+
 // Project
 PS.ajax.projectIndex = function(callback, errorCallback) {
 	PS.ajax.index("project", callback, errorCallback);

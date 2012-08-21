@@ -27,14 +27,14 @@ function getCookie(c_name)
 }
 
 // 
-function loadParticipants(json) {
-	$(json).each(function() {
-		PS.ajax.userRetrieve(this.uid, function(json,textStatus, jqXHR) { 
-			createUser(json.name, this.uid); 			
-		}, function() { console.log("Error loading uid: "+ this.uid );		
-		
-		});
-	});
+function loadParticipants(xml) {
+	
+	var split = xml.split("; ");
+	for(var i = 0; i < split.length; i ++) {
+		var split2 = split[i].split(", ");
+		createUser(split2[1],split2[0]);
+	}
+
 }
 
 // This function is called only once at login time to store the current user's information in a JSON object.
@@ -50,30 +50,34 @@ function getUser() {
 // This function is called only once at login time to store the meeting information in a JSON object.
 // It then populates users based on the participants of the meeting.
 function getMeeting() {
-	PS.ajax.nodeRetrieve(function(json) {
+
+	// TODO - transition everything from nodeRetrieve to retrieve
+	PS.ajax.retrieve("meeting", getCookie("meetingID"), function(xml) {
+		$(xml).find("node").slice(1).each(function() {
+			
+			// populateParticipants is present in iphone.js or site.js . It allows for some custom behavior between iPhone and the main version
+			populateParticipants($(this).find("Users_data").text());
+			
+			//------------------------Hashtag Updating---------------------------//
+			// Gets hashtag. If it isn't present, a default facetmeeting123 is set
+			hashtag = $(this).find("Hashtag").text();
+			hashtag = (hashtag.length != 0) ? hashtag : "facetmeeting123";
+			
+			// Update the monitor to search for that hashtag
+			$(".twitterfeed").append("<div class='monitter' id='tweets' title='" + hashtag + "' lang='en'></div>");
+			
+			// Taken from monitter.min.js to update dynamically added twitter hashtags.
+			window.monitter={};
+			$('.monitter').each(function(e){rrp=6;fetch_tweets(this);});
+			
+			console.log("Hashtag: " + hashtag);
+			//-------------------------------------------------------------------//
+						
+		});
 	
-		// populateParticipants is present in iphone.js or site.js . It allows for some custom behavior between iPhone and the main version
-		populateParticipants(json.field_meeting_users.und);
-		
-		//------------------------Hashtag Updating---------------------------//
-		// If there is no hashtag, set it to default 'facetmeeting123'
-		if(json.field_meeting_hashtag.length == 0) {
-			hashtag = "facetmeeting123";
-		} else {	
-			// Else, set it to what the server has
-			hashtag = json.field_meeting_hashtag.und[0].value;
-		}
-		
-		// Update the monitor to search for that hashtag
-		$(".twitterfeed").append("<div class='monitter' id='tweets' title='" + hashtag + "' lang='en'></div>");
-		
-		// Taken from monitter.min.js to update dynamically added twitter hashtags.
-		window.monitter={};
-		$('.monitter').each(function(e){rrp=6;fetch_tweets(this);});
-		
-		console.log("Hashtag: " + hashtag);
-		//-------------------------------------------------------------------//
-		
+	}, function() { console.log("Meeting Retrieve Failed");});
+	
+	PS.ajax.nodeRetrieve(function(json) {
 		
 		//-----------------------Updating Meeting Items----------------------//
 		// Populate the meeting items. If there are none, do nothing, else, add them
@@ -137,6 +141,7 @@ function getGroupItems() {
 
 // This function is called only once at login time to store the project information in a JSON object.
 function getProject() {
+
 	PS.ajax.nodeRetrieve(function(json) {
 		
 		//-------------------Adding Groups and their Users-----------------------//
@@ -144,35 +149,21 @@ function getProject() {
 		if(json.field_project_groups.length == 0) { } 
 		else {	
 			for(var x = 0; x < json.field_project_groups.und.length; x++) {
-				// Performs a retrieve to get information about the group
-				PS.ajax.nodeRetrieve(function (json2) {
-					var groupName;
-					if(json2.field_group_name.length == 0) {
-						groupName = "Unknown Group";
-					} else {
-						groupName = json2.field_group_name.und[0].value;
+				// Performs a retrieve to get information about the group			
+				PS.ajax.retrieve("group", json.field_project_groups.und[x].nid, function(xml) {
+					console.log(xml);
+					var nid = $(xml).find("Nid").text();
+					var groupName = $(xml).find("Name").text();
+					groupName = (groupName.length != 0) ? groupName : "Group";
+					newGroup1(groupName, nid);
+					
+					var userData = $(xml).find("User_data").text().split("; ");
+					for(var i = 0; i < userData.length; i++) {
+						var split = userData[i].split(", ");
+						addUserToGroup(split[1],groupName);
 					}
-					
-					newGroup1(groupName, json2.nid);
-								
-					if(json2.field_group_users.length == 0) {
-					} else {
-						for(var i = 0; i<json2.field_group_users.und.length; i++) {
-							
-							// Perform a retrieve to get the name of each user in the group
-							PS.ajax.userRetrieve(json2.field_group_users.und[i].uid, function (json3) {
-								addUserToGroup(json3.name,groupName);
-								
-							
-							}, function() { });
-						}
-					}
-					
-		
-					// Failed Callback
-					}, function () {
-					
-					}, json.field_project_groups.und[x].nid);	
+						
+				}, function() { console.log("Failed to Load Group") });
 			}
 		}
 		//-----------------------------------------------------------------------//
