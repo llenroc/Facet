@@ -267,10 +267,9 @@ function makeQueueDroppable() {
 	$(".queue").droppable({
 		accept: ".workspaceItem",	
 		drop: function(event,ui) {
-			var type = $(ui.helper).attr("type");
+			var type = $(ui.draggable).attr("type");
 			var text = $(ui.helper).text();
-			var link = $(ui.helper).attr("href");
-			
+			var link = $(ui.draggable).attr("href");
 			createQueueItem(text,link, type);
 			
 			makeQueueDroppable();
@@ -498,7 +497,6 @@ function makeFilesDroppable() {
 			$(ui.helper).css("font-weight","bold");
 			$(ui.helper).css("font-size","17px");
 			$(ui.helper).css("font-family","Helvetica");
-			
 			$(ui.item).attr("href",$(ui.item).find("a").attr("href"));
 			$(ui.item).attr("type",$(ui.item).attr("type"));
 		},	
