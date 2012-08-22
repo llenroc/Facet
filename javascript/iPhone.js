@@ -166,9 +166,16 @@ $("#participantList li, #workspaceList li, #queueList li").live("click", functio
 // When clicking on an item from the group dialog that isn't a header, this gets called. It formats the string to get rid of trailing spaces and then adds the user to the selected group.
 $(".groupListPop li:not([data-role='list-divider'])").live("click", function() {
 	selectedGroup = $(this);
-	var text = selectedGroup.text();
-	var text2 = text.substring(0,text.length-1);
-	addUserToGroup(selectedItem.text(),text2);
+
+	var userID = $(selectedItem).attr("uid")
+	var groupID = $(selectedGroup).attr("nid")
+
+	PS.ajax.addUserToGroup(function () {
+		var text = selectedGroup.text();
+		var text2 = text.substring(0,text.length-1);
+		addUserToGroup(selectedItem.text(),text2);
+	
+	}, function() { console.log("Failed to Add User to Group"); }, userID, groupID);
 	
 	// Go back 2 dialog boxes (to the main screen)
 	window.history.go(-2);
@@ -280,7 +287,7 @@ function newGroup(groupName, id) {
 
 		// Append new group to both the visible group list, as well as the dialog box when adding user to group
 		$("#groupList").append("<li nid='" + id + "' class='group' data-role='list-divider'><div class='name'>"+ groupName + "</div><div class='ui-li-count'>0</div></li>");
-		$(".groupListPop").append("<li><a>"+ groupName + "</a></li>");
+		$(".groupListPop").append("<li nid='" + id + "' ><a>"+ groupName + "</a></li>");
 		
 		// jQuery Mobile - Added proper CSS to newly added item
 		refreshListview('#groupList');
@@ -310,7 +317,7 @@ function deleteQueueItem() {
 	$("#queueList").children().slice(selectedItem.index(),selectedItem.index()+1).remove();
 };
 
-function addUserToGroup(name, groupName) {
+function addUserToGroup(name, groupName, id) {
 	// Goes through all the .name in #groupList and checks to see if it matches the groupName parameter. If it does, then it adds the user to the group
 	$("#groupList li .name").each(function(index) {
 		if(groupName == $(this).text()) {
@@ -322,7 +329,7 @@ function addUserToGroup(name, groupName) {
 			}
 			
 			// Appends the user after the header
-			$(this).parent().after("<li " + style +">"+name+"</li>");
+			$(this).parent().after("<li uid='" + id + "'" + style +">"+name+"</li>");
 			
 			// Increases the count of the group by 1
 			var count = parseInt($(this).parent().find(".ui-li-count").text()) + 1;

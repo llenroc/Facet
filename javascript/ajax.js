@@ -556,7 +556,49 @@ PS.ajax.removeGroupFromProject = function(callback, errorCallback, groupNodeId, 
 		errorCallback,
 		projectNodeId
 	);	
+}
 
+PS.ajax.removeUserFromGroup = function(callback, errorCallback, groupNodeId, userID) {
+	PS.ajax.nodeRetrieve(
+		function(json, textStatus, jqXHR) {			
+			//get the list of userIds, buried in the response object
+			var users = json.field_group_users.und;
+		
+			//search for one matching the userNodeId to be removed
+			for(var i = 0; i < users.length; i += 1) { 
+				if(Number(users[i].uid) == userID) {
+					var data = {};
+					data.type = "group";
+					data['field_group_users[und][' + String(i) + '][uid]'] = "";
+					PS.ajax.nodeUpdate(callback, errorCallback, groupNodeId, data);
+					break;
+				}
+			}
+		},
+		errorCallback,
+		groupNodeId
+	);	
+}
+
+PS.ajax.addUserToGroup = function(callback, errorCallback, userNodeId, groupID) {
+	PS.ajax.nodeRetrieve(
+		function(json, textStatus, jqXHR) {					
+			var data = {};
+			data.type = "group";
+			
+			if (json.field_group_users.und === undefined) {
+				data['field_group_users[und][0][uid]'] = PS.ajax.wrapUserId(userNodeId);
+			}
+			else {
+				data['field_group_users[und][' + String(json.field_group_users.und.length) + '][uid]'] = PS.ajax.wrapUserId(userNodeId);
+			}
+			
+			
+			PS.ajax.nodeUpdate(callback, errorCallback, groupID, data);
+		},
+		errorCallback,
+		groupID
+	);
 }
 
 //user_group_member

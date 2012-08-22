@@ -164,7 +164,7 @@ function getProject() {
 					if (userData[0] != "") {
 						for(var i = 0; i < userData.length; i++) {
 							var split = userData[i].split(", ");
-							addUserToGroup(split[1],groupName);
+							addUserToGroup(split[1],groupName, split[0]);
 						}
 					}
 						

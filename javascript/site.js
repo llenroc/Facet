@@ -1,6 +1,7 @@
 "use strict";
 
 var slideOpen = true;
+var selectedGroup;
 //var accountJSON;
 
 // http://www.w3schools.com/js/js_cookies.asp
@@ -342,10 +343,10 @@ function ajaxNewGroup() {
 
 }
 
-function addUserToGroup(name, groupName) {
+function addUserToGroup(name, groupName, id) {
 	$("#groupList").children().each(function () { 
 		if($(this).find("div").text() == groupName) {
-			$(this).find("ul").append("<li class='icon user'><a href='#'>" + name + "</a><img alt='Drag Handle' src='icons/handle.png' class='dragHandle2'></li>");
+			$(this).find("ul").append("<li uid='" + id + "' class='icon user'><a href='#'>" + name + "</a><img alt='Drag Handle' src='icons/handle.png' class='dragHandle2'></li>");
 		}	
 	});
 }
@@ -407,8 +408,9 @@ function makeParticipantsDroppable() {
 		over: function(event,ui) { $(this).addClass("hover-border"); },		
 		out: function(event,ui) { $(this).removeClass("hover-border"); },
         drop: function( event, ui ) {
+				
 			var isQueueItem = $(ui.helper).hasClass("queueItem");
-			var isWorkspaceItem = $(ui.helper).hasClass("workspaceItem");
+			var isWorkspaceItem = $(ui.draggable).hasClass("workspaceItem");
 			var isDupe = $(ui.helper).hasClass("groupDupe");
 			
 			if(isQueueItem || isWorkspaceItem) {				
@@ -418,9 +420,16 @@ function makeParticipantsDroppable() {
 					console.log("Sending " + item + " to '" + $(this).text() + "'");					
 				});
 			
-			} else if (isDupe) {/*Ignore Duplicates from sortable*/} else {
-				$( this ).find(".apple").show(); /* When a new item is added, the group is expanded */
-				$( "<li class='icon user'></li>" ).html( ui.draggable.html() ).appendTo( jQuery(".apple",this));
+			} else if (isDupe) {/*Ignore Duplicates from sortable*/
+			} else {
+				var groupID = $(this).attr("nid");
+				var userID = $(ui.draggable).attr("uid");
+				selectedGroup = this;
+				
+				PS.ajax.addUserToGroup(function() {				
+					$( selectedGroup ).find(".apple").show(); /* When a new item is added, the group is expanded */
+					addUserToGroup($(ui.draggable).find("a").text(), $(selectedGroup).find("div").text(), userID);
+				}, function() { console.log("Error Adding user to group"); }, userID, groupID);
 			}
 			
 			$(this).removeClass("hover-border");
@@ -457,7 +466,30 @@ function makeParticipantsDroppable() {
 			$(ui.helper).css("font-family","Helvetica");
 			$(ui.helper).addClass("groupDupe");
 		},
-		stop: function(event,ui) { stopiFrameFix(); },
+		stop: function(event,ui) { 
+			stopiFrameFix();
+		
+		},
+		receive: function(event,ui) {
+
+			var groupID = $(this).attr("nid");
+			var userID = $(ui.item).attr("uid");
+			
+			PS.ajax.addUserToGroup(function() {				
+				$( selectedGroup ).find(".apple").show(); /* When a new item is added, the group is expanded */
+			}, function() { console.log("Error Adding user to group"); }, userID, groupID);
+		},
+		
+		remove: function(event,ui) {
+			var groupID = $(this).attr("nid");
+			var userID = $(ui.item).attr("uid");
+			
+			console.log("here");
+						
+			PS.ajax.removeUserFromGroup(function() {
+			
+			}, function() { console.log("Failed to Remove User from Group"); }, groupID, userID);
+		},
 		handle: "img.dragHandle2",
 		distance: 15,
     }).disableSelection();
