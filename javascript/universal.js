@@ -30,11 +30,13 @@ function getCookie(c_name)
 function loadParticipants(xml) {
 	
 	var split = xml.split("; ");
-	for(var i = 0; i < split.length; i ++) {
-		var split2 = split[i].split(", ");
-		createUser(split2[1],split2[0]);
+	
+	if(split[0] != "") {
+		for(var i = 0; i < split.length; i ++) {
+			var split2 = split[i].split(", ");
+			createUser(split2[1],split2[0]);
+		}
 	}
-
 }
 
 // This function is called only once at login time to store the current user's information in a JSON object.
@@ -157,9 +159,13 @@ function getProject() {
 					newGroup1(groupName, nid);
 					
 					var userData = $(xml).find("User_data").text().split("; ");
-					for(var i = 0; i < userData.length; i++) {
-						var split = userData[i].split(", ");
-						addUserToGroup(split[1],groupName);
+					
+					// If there are no users in the group, this will fail, otherwise it adds the users
+					if (userData[0] != "") {
+						for(var i = 0; i < userData.length; i++) {
+							var split = userData[i].split(", ");
+							addUserToGroup(split[1],groupName);
+						}
 					}
 						
 				}, function() { console.log("Failed to Load Group") });
