@@ -10,8 +10,8 @@ In collaboration with Facet Decision Systems, our goal in this project is to bui
 
 
 # Branches
-- master - This is the stable branch. Bugs will be present, but hopefully not many. This branch can be found [here](http://asebeast2.cpsc.ucalgary.ca:81/facet-prototyping/default.html)
-- testing - This is the testing branch. This is where we test new features and debug them before merging to master . This branch can be found [here](http://asebeast2.cpsc.ucalgary.ca:81/testing/facet-prototyping/default.html)
+- `master` - This is the stable branch. Bugs will be present, but hopefully not many. This branch can be found [here](http://asebeast2.cpsc.ucalgary.ca:81/facet-prototyping/default.html)
+- `testing` - This is the testing branch. This is where we test new features and debug them before merging to master . This branch can be found [here](http://asebeast2.cpsc.ucalgary.ca:81/testing/facet-prototyping/default.html)
 
 # Contributing to Facet Public Square
 1. Before contributing. Make sure be working on the `testing` branch by executing the following git function: `git checkout testing`
