@@ -26,6 +26,10 @@ $(function() {
 	
 	console.log(document.cookie);
 	
+	// The list of all users is populated, so this is a loading icon
+	$("#participantList").append("<li class='icon loading' id='loadingParticipants'>Loading Users...</li>");
+	$("#groupList").append("<li class='icon loading' id='loadingGroups'>Loading Groups...</li>");
+	
 	// AJAX call to first get user id from cookie, and then to retrieve the json object from server
 	// Once AJAX call is completed then accountJSON will be the user account of the person currently logged in
 	getUser();
@@ -70,48 +74,29 @@ $(function() {
 	// Updates the scrolling arrows that show when user scrolls the participantList.
 	$("#participantList").scroll(function(){
 		if($(this)[0].scrollHeight - $(this).scrollTop()-5 <= $(this).outerHeight())
-		{
-			// At bottom
-			$("#downArrow").css("visibility", "hidden");		
-		} else 
-		{
-			// Not at bottom
-			$("#downArrow").css("visibility", "visible");		
-		}
+			$("#downArrow").css("visibility", "hidden"); 	// At bottom	
+		else 
+			$("#downArrow").css("visibility", "visible"); 	// Not at bottom		
 		
 		if($(this).scrollTop() >= 5)
-		{
-			// Not at top
-			$("#upArrow").css("visibility", "visible");
-		} else 
-		{
-			// At top
-			$("#upArrow").css("visibility", "hidden");
-		}
+			$("#upArrow").css("visibility", "visible"); 	// Not at top
+		else 
+			$("#upArrow").css("visibility", "hidden"); 		// At top
 	});
 	
 	// Updates the scrolling arrows that show when user scrolls the queue
 	$(".queue").scroll(function() {
 	    if($(this)[0].scrollWidth - $(this).scrollLeft()-500 <= $(this).outerWidth())
-		{
-			// At right
-			$("#rightArrow").css("visibility", "hidden");
-		} else 
-		{
-			// Not at right
-			$("#rightArrow").css("visibility", "visible");	
-		}
+			$("#rightArrow").css("visibility", "hidden"); 	// At right
+		else 
+			$("#rightArrow").css("visibility", "visible"); 	// Not at right	
 	
 		if($(this).scrollLeft() >= 5)
-		{
-			// Not at left
-			$("#leftArrow").css("visibility", "visible");
-		} else 
-		{
-			// At left
-			$("#leftArrow").css("visibility", "hidden");
-		}
+			$("#leftArrow").css("visibility", "visible"); 	// Not at left
+		else 
+			$("#leftArrow").css("visibility", "hidden"); 	// At left
 	});
+	
 	
 	//Placeholder to populate queue
 	populateSampleQueue()
@@ -131,10 +116,7 @@ $(function() {
 	
 	// Disables selection
 	$("body").disableSelection();
-	
-	// If an administrator is logged in, then the list of all users is populated
-	$("#participantList").append("<li class='icon' id='loading'>Loading Users...</li>");
-			
+				
 	// Unblocks UI when ajax calls stop
 	$(document).ajaxStop($.unblockUI);
 	
@@ -152,7 +134,8 @@ function getUserItemsCallback(xml) {
 
 // Callback for when the project has been retrieved. projectJSON stores this information
 function getProjectCallback() {
-
+	// Removes loading animation item
+	$("#loadingGroups").remove();
 }
 
 // Callback for when the meeting has been retrieved. meetingJSON stores this information
@@ -171,7 +154,7 @@ function populateParticipants(json,textStatus,jqXHR) {
 	loadParticipants(json);
 	
 	// Removes loading animation item
-	$("#loading").remove();
+	$("#loadingParticipants").remove();
 	makeParticipantsDroppable(); /* Makes new group droppable */
 }
 
@@ -181,7 +164,7 @@ function populateFailed() {
 	populateSampleUsers();
 	
 	// Removes loading animation item
-	$("#loading").remove();
+	$("#loadingParticipants").remove();
 	makeParticipantsDroppable(); /* Makes new group droppable */
 }
 
@@ -426,10 +409,12 @@ function makeParticipantsDroppable() {
 				var userID = $(ui.draggable).attr("uid");
 				selectedGroup = this;
 				
-				PS.ajax.addUserToGroup(function() {				
-					$( selectedGroup ).find(".apple").show(); /* When a new item is added, the group is expanded */
-					addUserToGroup($(ui.draggable).find("a").text(), $(selectedGroup).find("div").text(), userID);
-				}, function() { console.log("Error Adding user to group"); }, userID, groupID);
+				if(!duplicate(userID, selectedGroup)) {			
+					PS.ajax.addUserToGroup(function() {				
+						$( selectedGroup ).find(".apple").show(); /* When a new item is added, the group is expanded */
+						addUserToGroup($(ui.draggable).find("a").text(), $(selectedGroup).find("div").text(), userID);
+					}, function() { console.log("Error Adding user to group"); }, userID, groupID);
+				}
 			}
 			
 			$(this).removeClass("hover-border");
@@ -474,17 +459,29 @@ function makeParticipantsDroppable() {
 
 			var groupID = $(this).attr("nid");
 			var userID = $(ui.item).attr("uid");
+
+			// Removes the glitch where an element that is sorted into an empty group is formatted incorrectly
+			var wronglyPlaced = $(this).children(".user");	
+			if(wronglyPlaced.length != 0) {
+				$(wronglyPlaced).remove();				
+				$(this).find(".apple").append(wronglyPlaced);		
+			}
 			
-			PS.ajax.addUserToGroup(function() {				
-				$( selectedGroup ).find(".apple").show(); /* When a new item is added, the group is expanded */
-			}, function() { console.log("Error Adding user to group"); }, userID, groupID);
+			$(this).find(".apple").show();
+			
+			if(!duplicateSortable(userID, this)) {
+				PS.ajax.addUserToGroup(function() {				
+					$( selectedGroup ).find(".apple").show(); /* When a new item is added, the group is expanded */
+				}, function() { console.log("Error Adding user to group"); }, userID, groupID);
+			} else {
+				// This user is a duplicate of a user that is already in this group. Sortable has already placed the user in this group, so we're removing it now.
+				$(ui.item).remove();			
+			}
 		},
 		
 		remove: function(event,ui) {
 			var groupID = $(this).attr("nid");
 			var userID = $(ui.item).attr("uid");
-			
-			console.log("here");
 						
 			PS.ajax.removeUserFromGroup(function() {
 			
@@ -502,6 +499,25 @@ function makeParticipantsDroppable() {
 		distance: 15,
 	}).disableSelection();
 };
+
+function duplicate(userID, group) {	
+	var status = 0;
+
+	$(group).find("ul").children().each(function () {
+		if($(this).attr("uid") == userID) {
+			status++;		
+		}
+	});
+	
+	return status;
+}
+
+function duplicateSortable(userID, group) {
+	if(duplicate(userID,group) > 1)
+		return true;
+	else
+		return false;
+}
 
 function deleteUIItem(ui) {
 	$(".trash").removeClass("hover-border-red");
