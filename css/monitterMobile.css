@@ -1,21 +1,21 @@
 .tweet
 {
 	display: block;
-	background: white;
+
 	clear: both;
 	padding: .6em;
 	margin: .3em;
-	margin-left:0px;
 	overflow: hidden;
 	border: 1px solid #999999;
 	border-radius: 8px;
 }
 .tweet img
 {
+	display: none;
+	height: 0px;
+	width: 0px;
 	float: left;
-	border: 1px solid #999999;
 	margin-right: 1em;
-	border-radius: 8px;
 	
 }
 .tweet p.text
@@ -23,13 +23,17 @@
 	margin: 0;
 	padding: 0;
 }
+
+.tweet p a:link {
+	color: #87CEEB;
+}
+
+.tweet p a:visited {
+	color: #ed490a;
+}
 .monitter 
 {
-	margin-top:-10px;
-	float: left;
-	width: 100%;
-	height: 75px;
-	border-radius: 8px;
-	overflow-y: scroll;
-	font-size: 15px;
+	height: 65px;
+	overflow-y: hidden;
+	font-size: 12px;
 }

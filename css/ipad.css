@@ -20,6 +20,7 @@
 	-webkit-overflow-scrolling: touch;
 }
 
+
 #upArrow {
 	visibility: hidden;
 }
@@ -52,7 +53,9 @@ ul.appleCube > li {
 }
 
 body {
-	width:100%;
+	width:1024px;
+	height:748px;
+	overflow:hidden;
 }
 
 .files-area {
@@ -71,7 +74,7 @@ body {
 }
 
 #columns {
-	width: 1270px;
+	width: 460px;
 
 }
 
@@ -103,14 +106,6 @@ body {
 
 }
 
-.hover-border2 {
-	box-shadow: 0 0 0px DodgerBlue;
-}
-
 .hover-border {
 	box-shadow: 0 0 15px DodgerBlue;
-}
-
-.hover-border2:hover {
-	box-shadow: 0 0 0px DodgerBlue;
 }

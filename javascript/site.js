@@ -1,32 +1,61 @@
 "use strict";
 
 var slideOpen = true;
-var accountJSON;
+var selectedGroup;
+//var accountJSON;
 
 // http://www.w3schools.com/js/js_cookies.asp
+// http://malsup.com/jquery/block/
 
 $(function() {
-
-	// Checks if the user is logged in. If the user is not logged in, it redirects the user to the login page
-	var status = getCookie("loggedIn");
-	if(status == null || status == "") {
-		console.log("User not logged in...redirecting!");	
-		window.location = "default.html";
-	}
+	// Checks if user is logged in. If they are not, redirect them to login page
+	checkLogIn();
 	
-	// Gets id from cookie
-	var accountID = getCookie("id");
+	// Blocks UI until ajax callback is completed
+	$.blockUI({
+		css: { 
+			border: 'none', 
+			padding: '15px', 
+			backgroundColor: '#000', 
+			'-webkit-border-radius': '10px', 
+			'-moz-border-radius': '10px', 
+			'border-radius': '10px',
+			opacity: .5, 
+			color: '#fff' },
+	});
 	
-	// Then performs a ajax call to get the JSON object from the server
-	PS.ajax.userRetrieve(accountID, function(json, textStatus, jqXHR) { accountJSON = json; console.log("Welcome " + accountJSON.name); });
-
+	console.log(document.cookie);
+	
+	// The list of all users is populated, so this is a loading icon
+	$("#participantList").append("<li class='icon loading' id='loadingParticipants'>Loading Users...</li>");
+	$("#groupList").append("<li class='icon loading' id='loadingGroups'>Loading Groups...</li>");
+	
+	// AJAX call to first get user id from cookie, and then to retrieve the json object from server
+	// Once AJAX call is completed then accountJSON will be the user account of the person currently logged in
+	getUser();
+	
+	// Performs a node retrieve on the meeting. After it is retrieved, it populates the UI with all meeting related fields (users, meeting items)
+	getMeeting();
+	
+	// Performs a node retrieve on the project. After it is retrieved, it populates the UI with all project related fields (groups, group users)
+	getProject();
+	
+	// Performs a node retrieve on the user items. After it is retrieved, it populates the UI with all the user items
+	getUserItems();
+	
+	// Performs a node retrieve on the user items. After it is retrieved, it populates the UI with all the user items
+	getGroupItems();
+	
 	// Makes everything draggable
-	$(this).makeQueueDroppable();
-	$(this).makeParticipantsDroppable();
-	$(this).makeFilesDroppable();
+	makeQueueDroppable();
+	makeParticipantsDroppable();
+	makeFilesDroppable();
 	
 	// Initializes the tabs
 	$( "#tabs" ).tabs();
+	
+	// Initialize the workspace accordian
+	$( "#accordion" ).accordion( { autoHeight: false } );
 	
 	// Populates the surveys from the server
 	PS.ajax.surveyIndex(PS.model.getSurveysCallback);
@@ -45,78 +74,36 @@ $(function() {
 	// Updates the scrolling arrows that show when user scrolls the participantList.
 	$("#participantList").scroll(function(){
 		if($(this)[0].scrollHeight - $(this).scrollTop()-5 <= $(this).outerHeight())
-		{
-			// At bottom
-			$("#downArrow").css("visibility", "hidden");		
-		} else 
-		{
-			// Not at bottom
-			$("#downArrow").css("visibility", "visible");		
-		}
+			$("#downArrow").css("visibility", "hidden"); 	// At bottom	
+		else 
+			$("#downArrow").css("visibility", "visible"); 	// Not at bottom		
 		
 		if($(this).scrollTop() >= 5)
-		{
-			// Not at top
-			$("#upArrow").css("visibility", "visible");
-		} else 
-		{
-			// At top
-			$("#upArrow").css("visibility", "hidden");
-		}
+			$("#upArrow").css("visibility", "visible"); 	// Not at top
+		else 
+			$("#upArrow").css("visibility", "hidden"); 		// At top
 	});
 	
 	// Updates the scrolling arrows that show when user scrolls the queue
 	$(".queue").scroll(function() {
 	    if($(this)[0].scrollWidth - $(this).scrollLeft()-500 <= $(this).outerWidth())
-		{
-			// At right
-			$("#rightArrow").css("visibility", "hidden");
-		} else 
-		{
-			// Not at right
-			$("#rightArrow").css("visibility", "visible");	
-		}
+			$("#rightArrow").css("visibility", "hidden"); 	// At right
+		else 
+			$("#rightArrow").css("visibility", "visible"); 	// Not at right	
 	
 		if($(this).scrollLeft() >= 5)
-		{
-			// Not at left
-			$("#leftArrow").css("visibility", "visible");
-		} else 
-		{
-			// At left
-			$("#leftArrow").css("visibility", "hidden");
-		}
+			$("#leftArrow").css("visibility", "visible"); 	// Not at left
+		else 
+			$("#leftArrow").css("visibility", "hidden"); 	// At left
 	});
-		
-	//Placeholder to populate workspace	
-	$(this).createItem('audio', "empty.html", "Audio");
-	$(this).createItem('file', "empty.html", "File");
-	$(this).createItem('images', "empty.html", "Image");
-	$(this).createItem('document', "empty.html", "Document");
-	$(this).createItem('file', "empty.html", "File");
-	$(this).createItem('file', "empty.html", "File");
-	$(this).createItem('audio', "empty.html", "Audio");
-	$(this).createItem('images', "empty.html", "Image");
-	$(this).createItem('document', "empty.html", "Document");
-	$(this).createItem('images', "empty.html", "Image");
-	$(this).createItem('file', "empty.html", "File");
-	$(this).createItem('audio', "empty.html", "Audio");
-	$(this).createItem('images', "empty.html", "Image");
-	$(this).createItem('document', "empty.html", "Document");
-	$(this).createItem('file', "empty.html", "File");
-	$(this).createItem('file', "empty.html", "File");
-	$(this).createItem('audio', "empty.html", "Audio");
+	
 	
 	//Placeholder to populate queue
-	createQueueItem("Comment","empty.html");
-	createQueueItem("Comment","empty.html");
-	createQueueItem("Survey","empty.html");
-	createQueueItem("Question","empty.html");
-	createQueueItem("Video","empty.html");
+	populateSampleQueue()
 	
 	// Event handling for the slide button
 	$("#toggleSlide").click(function() {	
-		$(this).slideItems();
+		slideItems();
 	});
 				
 	// Initializes the Google Map
@@ -129,71 +116,72 @@ $(function() {
 	
 	// Disables selection
 	$("body").disableSelection();
+				
+	// Unblocks UI when ajax calls stop
+	$(document).ajaxStop($.unblockUI);
 	
-	// If an administrator is logged in, then the list of all users is populated
-	$("#participantList").append("<li class='icon' id='loading'>Loading Users...</li>");
-	PS.ajax.userIndex(populateParticipants, populateFailed);
 });
 
-// Used to see if user is logged in
-function getCookie(c_name)
-{
-	var i,x,y,ARRcookies=document.cookie.split(";");
-	for (i=0;i<ARRcookies.length;i++)
-	{
-		x=ARRcookies[i].substr(0,ARRcookies[i].indexOf("="));
-		y=ARRcookies[i].substr(ARRcookies[i].indexOf("=")+1);
-		x=x.replace(/^\s+|\s+$/g,"");
-		if (x==c_name)
-		{
-			return unescape(y);
-		}
-	}
+// Callback for when the account logged in has been retrieved. accountJSON stores this information
+function getUserCallback() {	
+	$("#myItemsHeader").text(accountJSON.name +"'s Items");
 }
 
-// Ajax call passed and adding recieved users
-function populateParticipants(json, textStatus, jqXHR) {
-	$(json).each(function() {
-		var name = this.name;
-		if(name != "")
-			createUser(name, this.uid);
-	});
+// Callback for when the account that is logged in item's have been retrieved. xml stores this information
+function getUserItemsCallback(xml) {
+
+}
+
+// Callback for when the project has been retrieved. projectJSON stores this information
+function getProjectCallback() {
+	// Removes loading animation item
+	$("#loadingGroups").remove();
+}
+
+// Callback for when the meeting has been retrieved. meetingJSON stores this information
+function getMeetingCallback() {
+
+}
+
+//Callback for when the group items have been retrieved and added
+function getGroupItemsCallback() {
+
+}
+
+
+function populateParticipants(json,textStatus,jqXHR) {
+
+	loadParticipants(json);
 	
 	// Removes loading animation item
-	$("#loading").remove();
-	$(this).makeParticipantsDroppable(); /* Makes new group droppable */
+	$("#loadingParticipants").remove();
+	makeParticipantsDroppable(); /* Makes new group droppable */
 }
 
 // Not administrator and so populating with default users
 function populateFailed() {
-	createUser("Byron",0);
-	createUser("Charles",0);
-	createUser("Christopher",0);
-	createUser("Daniel",0);
-	createUser("David",0);
-	createUser("Patrick",0);
-	createUser("Robert",0);
-	createUser("Roseline",0);
-	createUser("Yaser",0);
+
+	populateSampleUsers();
 	
 	// Removes loading animation item
-	$("#loading").remove();
-	$(this).makeParticipantsDroppable(); /* Makes new group droppable */
+	$("#loadingParticipants").remove();
+	makeParticipantsDroppable(); /* Makes new group droppable */
 }
 
 // Adds user to the participant list with the given name
 function createUser(name, id) {
 	$("#participantList").append("<li uid='" + id + "' class='user icon'><a href='#'>" + name + "</a><img alt='Drag Handle' src='icons/handle.png' class='dragHandle2'></li>");
+	makeParticipantsDroppable();
 }
 
 // Creates Queue item with a given name and link
-function createQueueItem(name, link) {
+function createQueueItem(name, link, type) {
 	$("#columns").css("width", "+=162px");
-	$("#columns").append("<li class='column'><header><h1><a onclick='$(this).changeTab(3);' href='"+ link + "' target='openFile'>" + name + "</a><img alt='List Item' src='icons/handle.png' class='dragHandle2'></h1></header></li>");
+	$("#columns").append("<li type='" + type + "' class='column'><header><h1><a onclick='changeTab(3)' href='"+ link + "' target='openFile'>" + name + "</a><img alt='List Item' src='icons/handle.png' class='dragHandle2'></h1></header></li>");
 }
 
 // Animates divs to slide in and out
-$.fn.slideItems = function() {
+function slideItems() {
 	if(slideOpen) {
 	/*	$(".queue").animate({width: '+=240'}, {duration:"slow", queue: false});
 		$(".monitter").animate({width: '+=240'}, {duration:"slow", queue: false});
@@ -235,7 +223,7 @@ $.fn.slideItems = function() {
 	}
 };
 
-$.fn.makeQueueDroppable = function() {	
+function makeQueueDroppable() {	
 	$("#columns").sortable({
 		appendTo: "body",
 		handle: "img.dragHandle2",
@@ -251,7 +239,7 @@ $.fn.makeQueueDroppable = function() {
 			$(ui.helper).addClass("queueItem");
 			$(ui.helper).attr("href",$(ui.item).find("a").attr("href"));
 			$(ui.helper).attr("type",$(ui.item).attr("type"));
-			
+					
 			$(ui.helper).css("white-space", "nowrap");
 			$(ui.helper).css("text-overflow", "ellipsis");
 			$(ui.helper).css("overflow", "hidden");			
@@ -263,16 +251,15 @@ $.fn.makeQueueDroppable = function() {
 	$(".queue").droppable({
 		accept: ".workspaceItem",	
 		drop: function(event,ui) {
-			var type = $(ui.helper).attr("type");
+			var type = $(ui.draggable).attr("type");
 			var text = $(ui.helper).text();
-			var link = $(ui.helper).attr("href");
+			var link = $(ui.draggable).attr("href");
+			createQueueItem(text,link, type);
 			
-			createQueueItem(text,link);
-			
-			$(this).makeQueueDroppable();
+			makeQueueDroppable();
 			$(this).removeClass("hover-border");
 			
-			PS.ajax.tweet("facetmeeting321","queue",accountJSON.name,type, text );
+			PS.ajax.tweet(hashtag,"queue",accountJSON.name,type, text );
 		},
 		
 		over: function(event,ui) { $(".queue").addClass("hover-border"); },		
@@ -291,8 +278,8 @@ $.fn.makeQueueDroppable = function() {
 			var href = $(ui.helper).attr("href");
 			$("#sharedScreen").attr("src",href);
 						
-			PS.ajax.tweet("facetmeeting321","shared screen",accountJSON.name,type, ui.helper.text() );
-			$(this).changeTab(4);
+			PS.ajax.tweet(hashtag,"shared screen",accountJSON.name,type, ui.helper.text() );
+			changeTab(4);
 			
 			$("#tabs").removeClass("hover-border");
 		},
@@ -304,14 +291,48 @@ $.fn.makeQueueDroppable = function() {
 
 var editing = false;
 /* If we are currently renaming, then we make an group with the textarea, else if just create regular text*/
-$.fn.newGroup = function() {
-    if(editing == true) {
-        $("#groupList").append("<li class = 'icon group'><img onclick='$(this).parent().remove();' class='delete' src='icons/delete.png'></img><div onclick='$(this).next().toggle();'><textarea>New Group</textarea></div><ul class = 'apple'></ul></li>");
-    } else {
-        $("#groupList").append("<li class = 'icon group'><div onclick='$(this).next().toggle();'>New Group</div><ul class = 'apple' style='display:none'></ul></li>");	
-    }
-    $(this).makeParticipantsDroppable(); /* Makes new group droppable */
+
+function newGroup(nid) {
+	return newGroup1("New Group", nid);
 };
+
+function newGroup1(name, nid) {
+	if(editing == true) {
+        $("#groupList").append("<li nid='"+nid+"' class = 'icon group'><img onclick='ajaxDeleteGroup(this)' class='delete' src='icons/delete.png'></img><div onclick='$(this).next().toggle();'><textarea>" + name + "</textarea></div><ul class = 'apple'></ul></li>");
+    } else {
+        $("#groupList").append("<li nid='"+nid+"' class = 'icon group'><div onclick='$(this).next().toggle();'>" + name + "</div><ul class = 'apple' style='display:none'></ul></li>");	
+    }
+    makeParticipantsDroppable(); /* Makes new group droppable */
+
+	return $("#groupList").children().length-1;
+}
+
+function ajaxDeleteGroup(object) {
+	PS.ajax.groupDelete(function () { 
+		$(object).parent().remove();
+	}, function () { console.log("Delete Group Failed!"); }, $(object).parent().attr("nid"), projectJSON.nid);
+}
+
+function ajaxNewGroup() {
+
+	var name = prompt("Please enter the new group name: ","New Group");
+	
+	if (name != null && name != "") {
+		PS.ajax.groupCreate(function (json) {
+			newGroup1(name, json.nid);
+		}, function() { console.log("Failed to Create group '"+ name + "'"); }, name , accountJSON.uid, projectJSON.nid);
+	}
+
+
+}
+
+function addUserToGroup(name, groupName, id) {
+	$("#groupList").children().each(function () { 
+		if($(this).find("div").text() == groupName) {
+			$(this).find("ul").append("<li uid='" + id + "' class='icon user'><a href='#'>" + name + "</a><img alt='Drag Handle' src='icons/handle.png' class='dragHandle2'></li>");
+		}	
+	});
+}
 
 // jQuery has built in iFrameFix for draggable, but not for sortable. Essentially what it does is it adds an invisible div overtop to prevent mousecapture
 function iFrameFix() {
@@ -324,21 +345,21 @@ function stopiFrameFix() {
 }
 
 /* Converts the name to a textarea to start renaming. Converts text area to text when finished */
-$.fn.rename = function() {
+function rename() {
     if(editing == false) {
-        $("#groupList li").not(".trash").each(function(index) {
+        $("#groupList li").each(function(index) {
             /*Renaming*/
             var name = $(this).find("div").html();
             $(this).find("div").html("<textarea>" + name + "</textarea>");
                                               
             /*Deleting*/
             var oldHtml = $(this).html();
-            $(this).html("<img onclick='$(this).parent().remove();' class='delete' src='icons/delete.png'></img>" + oldHtml);
+            $(this).html("<img onclick='ajaxDeleteGroup(this)' class='delete' src='icons/delete.png'></img>" + oldHtml);
         });
 		editing = true;
 		$("#renameButton").html("Done");
     } else {
-        $("#groupList li").not(".trash").each(function(index) {
+        $("#groupList li").each(function(index) {
             var name = $(this).find("textarea").val();
             if(name == "") {
                 name = "New Group";
@@ -352,7 +373,7 @@ $.fn.rename = function() {
     }
 };
 
-$.fn.makeParticipantsDroppable = function() {
+function makeParticipantsDroppable() {
     $( "#participantList li" ).draggable({
 		appendTo: "body",
         helper: function() {
@@ -370,8 +391,9 @@ $.fn.makeParticipantsDroppable = function() {
 		over: function(event,ui) { $(this).addClass("hover-border"); },		
 		out: function(event,ui) { $(this).removeClass("hover-border"); },
         drop: function( event, ui ) {
+				
 			var isQueueItem = $(ui.helper).hasClass("queueItem");
-			var isWorkspaceItem = $(ui.helper).hasClass("workspaceItem");
+			var isWorkspaceItem = $(ui.draggable).hasClass("workspaceItem");
 			var isDupe = $(ui.helper).hasClass("groupDupe");
 			
 			if(isQueueItem || isWorkspaceItem) {				
@@ -381,9 +403,18 @@ $.fn.makeParticipantsDroppable = function() {
 					console.log("Sending " + item + " to '" + $(this).text() + "'");					
 				});
 			
-			} else if (isDupe) {/*Ignore Duplicates from sortable*/} else {
-				$( this ).find(".apple").show(); /* When a new item is added, the group is expanded */
-				$( "<li class='icon user'></li>" ).html( ui.draggable.html() ).appendTo( jQuery(".apple",this));
+			} else if (isDupe) {/*Ignore Duplicates from sortable*/
+			} else {
+				var groupID = $(this).attr("nid");
+				var userID = $(ui.draggable).attr("uid");
+				selectedGroup = this;
+				
+				if(!duplicate(userID, selectedGroup)) {			
+					PS.ajax.addUserToGroup(function() {				
+						$( selectedGroup ).find(".apple").show(); /* When a new item is added, the group is expanded */
+						addUserToGroup($(ui.draggable).find("a").text(), $(selectedGroup).find("div").text(), userID);
+					}, function() { console.log("Error Adding user to group"); }, userID, groupID);
+				}
 			}
 			
 			$(this).removeClass("hover-border");
@@ -420,7 +451,42 @@ $.fn.makeParticipantsDroppable = function() {
 			$(ui.helper).css("font-family","Helvetica");
 			$(ui.helper).addClass("groupDupe");
 		},
-		stop: function(event,ui) { stopiFrameFix(); },
+		stop: function(event,ui) { 
+			stopiFrameFix();
+		
+		},
+		receive: function(event,ui) {
+
+			var groupID = $(this).attr("nid");
+			var userID = $(ui.item).attr("uid");
+
+			// Removes the glitch where an element that is sorted into an empty group is formatted incorrectly
+			var wronglyPlaced = $(this).children(".user");	
+			if(wronglyPlaced.length != 0) {
+				$(wronglyPlaced).remove();				
+				$(this).find(".apple").append(wronglyPlaced);		
+			}
+			
+			$(this).find(".apple").show();
+			
+			if(!duplicateSortable(userID, this)) {
+				PS.ajax.addUserToGroup(function() {				
+					$( selectedGroup ).find(".apple").show(); /* When a new item is added, the group is expanded */
+				}, function() { console.log("Error Adding user to group"); }, userID, groupID);
+			} else {
+				// This user is a duplicate of a user that is already in this group. Sortable has already placed the user in this group, so we're removing it now.
+				$(ui.item).remove();			
+			}
+		},
+		
+		remove: function(event,ui) {
+			var groupID = $(this).attr("nid");
+			var userID = $(ui.item).attr("uid");
+						
+			PS.ajax.removeUserFromGroup(function() {
+			
+			}, function() { console.log("Failed to Remove User from Group"); }, groupID, userID);
+		},
 		handle: "img.dragHandle2",
 		distance: 15,
     }).disableSelection();
@@ -434,6 +500,25 @@ $.fn.makeParticipantsDroppable = function() {
 	}).disableSelection();
 };
 
+function duplicate(userID, group) {	
+	var status = 0;
+
+	$(group).find("ul").children().each(function () {
+		if($(this).attr("uid") == userID) {
+			status++;		
+		}
+	});
+	
+	return status;
+}
+
+function duplicateSortable(userID, group) {
+	if(duplicate(userID,group) > 1)
+		return true;
+	else
+		return false;
+}
+
 function deleteUIItem(ui) {
 	$(".trash").removeClass("hover-border-red");
 	var message = "Are you sure you wish to delete?";
@@ -445,17 +530,23 @@ function deleteUIItem(ui) {
 	}
 }
 
-$.fn.makeFilesDroppable = function() {
+function makeFilesDroppable() {
 	$(".appleCube").sortable({
 		handle: "img.dragHandle2",
 		appendTo: "body",
+		helper: "clone",
+		scroll: false,
 		forcePlaceholderSize: true, 
 		start: function(event,ui) {
 			iFrameFix();
-			$(ui.helper).addClass("workspaceItem");
+			$(ui.item).addClass("workspaceItem");
 			
-			$(ui.helper).attr("href",$(ui.item).find("a").attr("href"));
-			$(ui.helper).attr("type",$(ui.item).attr("type"));
+			$(ui.helper).css("list-style-type","none");
+			$(ui.helper).css("font-weight","bold");
+			$(ui.helper).css("font-size","17px");
+			$(ui.helper).css("font-family","Helvetica");
+			$(ui.item).attr("href",$(ui.item).find("a").attr("href"));
+			$(ui.item).attr("type",$(ui.item).attr("type"));
 		},	
 
 		stop: function(event,ui) {stopiFrameFix();},		
@@ -467,14 +558,18 @@ $.fn.makeFilesDroppable = function() {
 
 /* 	type = Type of file it is (what icon will be displayed). Can choose file, image, document, survey, audio
 	link = What the text links to */
-$.fn.createItem = function(type, link, name) {
-    $(".appleCube").append("<li type=" + type + " title = '" + name + "' class = 'icon "+ type +"'><a onclick='$(this).changeTab(3);' href='" + link + "' target='openFile'>" + name + "</a><img src='icons/handle.png' class='dragHandle2'></li>");
-	$(this).makeFilesDroppable();
+function createItem(type, link, name, target) {
+    $(target).append("<li type=" + type + " title = '" + name + "' class = 'icon "+ type +"'><a onclick='changeTab(3)' href='" + link + "' target='openFile'>" + name + "</a><img src='icons/handle.png' class='dragHandle2'></li>");
+	makeFilesDroppable();
 };
 
-$.fn.changeTab = function(number) {
+function changeTab(number) {
 	$( '#tabs' ).tabs( 'option', 'selected', number );
 };
+
+function createWorkspaceAccordion(name, className) {
+	$("#accordion").append("<h3><a href='#'>" + name + "'s Items</a></h3><div><ul class = '" + className + " appleCube'></ul></div>").accordion('destroy').accordion({ autoHeight: false });
+}
 
 
 

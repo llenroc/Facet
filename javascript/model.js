@@ -6,17 +6,30 @@ PS.model = {};
 PS.model.surveysList = {};
 
 PS.model.getSurveysCallback = function(json, textStatus, jqXHR) {
+
 	for (var x in json.nodes) {
-		//console.log(x + " " + json.nodes[x].node.question);
+		//var idsurvey = json.nodes[x].node.URL.split("/").pop();
+		var idsurvey = json.nodes[x].node.nodeID;
+		var url = "http://facetsurvey.4abyte.com/facetsurvey/" + idsurvey;
+		var surveyURLType;
+		var surveyType = json.nodes[x].node.Type;
 		
-		if (PS.model.surveysList[json.nodes[x].node.idsurvey] === undefined) {
-			PS.model.surveysList[json.nodes[x].node.idsurvey] = json.nodes[x].node;
-			$(this).createItem('survey', json.nodes[x].node.urlResponse, json.nodes[x].node.question);
-			$(this).createItem('results', "http://facetsurvey.4abyte.com/surveymaps/" + json.nodes[x].node.idsurvey, json.nodes[x].node.question + " " + "Results");
+		if(surveyType == "Map Poll") { surveyURLType = "surveymaps"; }
+		else if(surveyType == "Location Poll") { surveyURLType = "surveymapswindowsl"; }
+		else { surveyURLType = "surveyreport"; }
+		
+		var urlreport = "http://facetsurvey.4abyte.com/" + surveyURLType + "/" + idsurvey;
+	
+		if (PS.model.surveysList[idsurvey] === undefined) {
+			PS.model.surveysList[idsurvey] = json.nodes[x].node;
+			
+			createItem('survey', url, json.nodes[x].node.Name, ".surveyItems");
+			createItem('results', urlreport, json.nodes[x].node.Name + " " + "Results", ".surveyItems");
 			
 		}
-		
-
 	}
+	
+	$("#loadingWorkspace").remove();
+	
 }
 

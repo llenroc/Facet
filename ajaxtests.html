@@ -6,6 +6,7 @@
 
     <script src="javascript/publicsquare.js"> </script>
     <script src="javascript/jquery/jquery-1.7.2.min.js"> </script>
+
     <script src="javascript/ajax.js"> </script>
     
 
@@ -20,7 +21,7 @@
             }
     
         function userretrieve(event) {
-            PS.ajax.userRetrieve(7, callback);
+            PS.ajax.userRetrieve(1, callback);
         }
 
         function usercreate(event) {
@@ -48,8 +49,10 @@
             //PS.ajax.userLogin("uofctest", "", callback);
             //PS.ajax.userLogin("PatrickKing2", "baz", callback);
             //PS.ajax.userLogin("PatrickKing", "baz", callback);
-            PS.ajax.userLogin("admin", "112114", callback);
             
+            PS.ajax.userLogin("admin", "112114", callback);
+            //PS.ajax.userLogin("nmakh", "jasper", callback);
+            //PS.ajax.userLogin("uofctest3", "testahoy", callback);
         }
 
 
@@ -65,10 +68,422 @@
                     var cookieParts = cookies[i].split("=");
                     document.cookie = cookieParts[0] + "=;expires=Thu, 01-Jan-1970 00:00:01 GMT";
                 }                
+        }
+
+        
+        
+        
+        function index_nodes() {
+            	$.ajax({
+                    type: "GET", // or PUT or DELETE, oddly enough
+                    url: PS.ajax.getServerPrefix() + "restfacet/node/",
+                    dataType: "json",
+                    success: callback,
+                    data: {pagesize : 100} 
+                });
+        }
+        
+  /*      
+        $node_data['title'] = 'Project Example Services';
+$node_data['type'] = 'project';
+$node_data['language'] = 'und';
+$node_data['field_project_name']['und']['0']['value'] = 'Project XX'; 
+$node_data['field_project_users']['und']['0']['nid'] = '[nid:744]';
+$node_data['field_project_observers']['und']['0']['nid'] = '[nid:744]';
+$node_data['field_owners']['und']['0']['nid'] = '[nid:745]';
+$node_data['field_project_item']['und']['0']['nid'] = '[nid:746]';
+$node_data['field_project_meetings']['und']['0']['nid'] = '[nid:747]';
+$node_data['field_project_groups']['und']['0']['nid'] = '[nid:748]';
+     */
+     
+        function create_project() {
+            $.ajax({
+                type: "POST",
+                url: PS.ajax.getServerPrefix() + "restfacet/node/",
+                dataType: "json",
+                success: callback ,
+                data: {
+                    title: "Patrick's 4th Project", 
+                    type: "project", 
+                    'field_project_name[und][0][value]': "Project X",
+                    'field_owners[und][0][nid]': "[nid:745]",
+                    'field_owners[und][1][nid]': "[nid:744]",
+                }, 
+            });
+        }
+        
+
+             
+        function update_project() {
+        
+        	$.ajax({
+                type: "PUT",
+                url: PS.ajax.getServerPrefix() + "restfacet/node/" + '832',
+                dataType: "json",
+                success: function () {callback; retreive_project();},
+                data: { type: "project",
+                        'field_owners[und][1][nid]': "",
+                        'field_owners[und][2][nid]': "[nid:744]"
+                        } 
+//                type: 'project', 'field_project_name[und][1][value]': "Project M"},
+//                data: {type: 'project', 'field_owners[und][0][nid]': "nid:745"},
+            });
+        //field_owners[und][0][nid]=[nid:745]&
         
             
+        }
+        
+        function retreive_project() {
+            $.ajax({
+                type: "GET",
+                url: PS.ajax.getServerPrefix() + "restfacet/node/" + '832',
+                dataType: "json",
+                success: callback,
+            });
+        }
+        
+        
+        function create_meeting() {
+            $.ajax({
+                type: "POST",
+                url: PS.ajax.getServerPrefix() + "restfacet/node/",
+                dataType: "json",
+                success: callback ,
+                data: {
+                    title: "Everybody, get in here", 
+                    type: "meeting", 
+                    'field_meeting_name[und][0][value]': "Meeting X",
+                    'field_meeting_owners[und][0][nid]': "[nid:745]",
+                    'field_meeting_owning_project[und][0][nid]': '[nid:820]',
+                    }, 
+            });
+        }
+        function index_meeting() {
+                $.ajax({
+                    type: "GET", // or PUT or DELETE, oddly enough
+                    url: PS.ajax.getServerPrefix() + "restfacet/node/",
+                    dataType: "json",
+                    success: callback,
+                    data: {pagesize : 100, type: "meeting"} 
+                });
+        }
+        
+        
+        function retrieve_meeting() {
+            $.ajax({
+                type: "GET",
+                url: PS.ajax.getServerPrefix() + "restfacet/node/" + '841',
+                dataType: "json",
+                success: callback,
+            });
+        }
+        
+        
+        function create_group() {
+            $.ajax({
+                type: "POST",
+                url: PS.ajax.getServerPrefix() + "restfacet/node/",
+                dataType: "json",
+                success: callback ,
+                data: {
+                    title: "Fellowship of the Ring", 
+                    type: "group", 
+                    'field_group_name[und][0][value]': "Fellowship of the Ring",
+
+                    'field_group_owners[und][0][nid]': "[nid:745]",
+                    'field_group_users[und][0][nid]': "[nid:745]",
+                    'field_group_observers[und][0][nid]': "[nid:745]",
+                    'field_group_owners[und][1][nid]': "[nid:744]",
+                    'field_group_users[und][1][nid]': "[nid:744]",
+                    'field_group_observers[und][1][nid]': "[nid:744]",
+                    
+                    'field_group_owning_project[und][0][nid]': '[nid:820]',
+                    'field_group_items[und][0][nid]': '[nid:842]',
+                    
+                    }, 
+            });
+        }
+        function retrieve_group() {
+            $.ajax({
+                type: "GET",
+                url: PS.ajax.getServerPrefix() + "restfacet/node/" + '843',
+                dataType: "json",
+                success: callback,
+            });
+        }
+        
+        
+        
+        function create_item() {
+            $.ajax({
+                type: "POST",
+                url: PS.ajax.getServerPrefix() + "restfacet/node/",
+                dataType: "json",
+                success: callback ,
+                data: {
+                    title: "The One Ring", 
+                    type: "item", 
+                    'field_item_name[und][0][value]': "The One Ring",
+                    'field_item_id_creator[und][0][nid]': "[nid:745]",
+                    'field_item_id_owner[und][0][nid]': '[nid:745]',
+                    }, 
+            });
+        }
+        function retrieve_item() {
+            $.ajax({
+                type: "GET",
+                url: PS.ajax.getServerPrefix() + "restfacet/node/" + '842',
+                dataType: "json",
+                success: callback,
+            });
+        }
+        
+        
+        
+        /********** new 'rest' services **********/
+        
+        //NB: dataType is ignored by these calls
+        
+        function index_project() {
+            $.ajax({
+                type: "GET",
+                url: PS.ajax.getServerPrefix() + "services-xml/project",
+                dataType: "json",
+                success: callback,
+            });
+        }
+        
+        function index_item() {
+            $.ajax({
+                type: "GET",
+                url: PS.ajax.getServerPrefix() + "services-xml/item",
+                dataType: "json",
+                success: callback,
+            });
+            }       
+        
+        function index_group() {
+            $.ajax({
+                type: "GET",
+                url: PS.ajax.getServerPrefix() + "services-xml/group",
+                dataType: "json",
+                success: callback,
+            });
+            }       
+        
+        function index_meeting() {
+            $.ajax({
+                type: "GET",
+                url: PS.ajax.getServerPrefix() + "services-xml/meeting",
+                dataType: "json",
+                success: callback,
+            });
+            }       
+        
+        function index_user() {
+            $.ajax({
+                type: "GET",
+                url: PS.ajax.getServerPrefix() + "services-xml/user",
+                dataType: "json",
+                success: callback,
+            });
+            }       
+        
+        
+        
+        //test of in development drupal rest services
+        
+        
+        function rest_test_c() {
+            $.ajax({
+                type: "POST",
+                url: "http://localhost:81/drupal-7.14-4/page/meeting",
+                dataType: "json",
+                success: callback,
+                //data: {name:"Shiny Great Meeting", starttime:"1000", endtime:"2000", hashtag:"#Meeting!"},
+            });
+        }
+        
+        function rest_test_r() {
+            $.ajax({
+                type: "GET",
+                url: "http://localhost:81/drupal-7.14-4/page/meeting/9",
+                dataType: "json",
+                success: callback,
+            });
+        }
+        
+        function rest_test_u() {
+            $.ajax({
+                type: "PUT",
+                url: "http://localhost:81/drupal-7.14-4/page/meeting/9",
+                dataType: "json",
+                success: callback,
+                data: {hashtag:"#longweekend"},
+           });
+        }
+        
+        function rest_test_d() {
+            $.ajax({
+                type: "DELETE",
+                url: "http://localhost:81/drupal-7.14-4/page/meeting/2",
+                dataType: "json",
+                success: callback,
+            });
+        }
+        
+        function rest_test_i() {
+            $.ajax({
+                type: "GET",
+                url: "http://localhost:81/drupal-7.14-4/page/meeting",
+                dataType: "json",
+                success: callback,
+            });
+        }
+        
+
+        
+        // services-xml calls 2nd generation
+        
+        
+        function project_users() {
+            $.ajax({
+                type: "DELETE",
+                url: PS.ajax.getServerPrefix() + "services-xml/project/user/744",
+                dataType: "json",
+                success: callback,
+            });
+        }
+        function project_owners() {
+            $.ajax({
+                type: "GET",
+                url: PS.ajax.getServerPrefix() + "services-xml/project/owner/744",
+                dataType: "json",
+                success: callback,
+            });
+        
+        }
+
+        function  project_observers() {
+            $.ajax({
+                type: "GET",
+                url: PS.ajax.getServerPrefix() + "services-xml/project/observer/744",
+                dataType: "json",
+                success: callback,
+            });
 
         }
+
+        
+        
+        
+        function meeting_users() {
+            $.ajax({
+                type: "GET",
+                url: PS.ajax.getServerPrefix() + "services-xml/meeting/user/744",
+                dataType: "json",
+                success: callback,
+            });
+        
+        }
+
+        function meeting_owners() {
+            $.ajax({
+                type: "GET",
+                url: PS.ajax.getServerPrefix() + "services-xml/meeting/owner/744",
+                dataType: "json",
+                success: callback,
+            });
+        
+        }
+
+        function meeting_observers()  {
+             $.ajax({
+                type: "GET",
+                url: PS.ajax.getServerPrefix() + "services-xml/meeting/observer/744",
+                dataType: "json",
+                success: callback,
+            });
+       
+        }
+
+        
+        
+        function group_users() {
+            $.ajax({
+                type: "GET",
+                url: PS.ajax.getServerPrefix() + "services-xml/group/user/744",
+                dataType: "json",
+                success: callback,
+            });
+        
+        }
+
+        function group_owners() {
+            $.ajax({
+                type: "GET",
+                url: PS.ajax.getServerPrefix() + "services-xml/group/owner/744",
+                dataType: "json",
+                success: callback,
+            });
+        
+        }
+
+        function group_observers() {
+            $.ajax({
+                type: "GET",
+                url: PS.ajax.getServerPrefix() + "services-xml/group/observer/744",
+                dataType: "json",
+                success: callback,
+            });
+        
+        }
+
+        
+        
+        
+        function item_user() {
+            $.ajax({
+                type: "GET",
+                url: PS.ajax.getServerPrefix() + "services-xml/item/user/744",
+                dataType: "json",
+                success: callback,
+            });
+       
+        }
+
+        function item_owner() {
+            $.ajax({
+                type: "GET",
+                url: PS.ajax.getServerPrefix() + "services-xml/item/owner/744",
+                dataType: "json",
+                success: callback,
+            });
+       
+        }
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
     </script>
 
@@ -76,6 +491,9 @@
 
     <body>
 
+        <p>restfacet functions using ajax.js</p>
+    
+        <p>
         <button onClick="useractionlogin(event);"> useractionlogin </button>
         <button onClick="useractionlogout(event);"> useractionlogout </button>
         <button onClick="userindex(event);"> userindex </button>
@@ -84,8 +502,80 @@
         <button onClick="usercreate(event);"> usercreate </button>
         <button onClick="userupdate(event);"> userupdate </button>
         <button onClick="userdelete(event);"> userdelete </button>
+        </p>
+        
+        <p>restfacet functions without ajax.js</p>
 
+        
+        <p>
+        <button onClick="index_nodes();"> index nodes </button>
+        <button onClick="create_project();"> create project </button>
+        <button onClick="update_project();"> update project </button>
+        <button onClick="retreive_project();"> retrieve project </button>
+        </p>
 
+        
+        
+        <p>publicsquare module tests:</p>
+        
+        <p>
+        <button onClick="rest_test_c();"> meeting create test </button>
+        <button onClick="rest_test_r();"> meeting retrieve test </button>
+        <button onClick="rest_test_u();"> meeting update test </button>
+        <button onClick="rest_test_d();"> meeting delete test </button>
+        <button onClick="rest_test_i();"> meeting index test </button>
+        </p>
+        
+        <p>services-xml functions, 1st gen</p>
+        
+        <p>
+        <button onClick="create_meeting();"> create meeting </button>
+        <button onClick="retrieve_meeting();"> retrieve meeting </button>
+        </p>
+
+        <p>
+        <button onClick="create_group();"> create group </button>
+        <button onClick="retrieve_group();"> retrieve group </button>
+        </p>
+
+        <p>
+        <button onClick="create_item();"> create item </button>
+        <button onClick="retrieve_item();"> retrieve item </button>
+        </p>
+        
+        <p>
+        <button onClick="index_project();"> project index </button>
+        <button onClick="index_user();"> user index </button>
+        <button onClick="index_meeting();"> meeting index </button>
+        <button onClick="index_group();"> group index </button>
+        <button onClick="index_item();"> item index </button>
+        </p>
+        
+        <p>services-xml functions, 2nd gen</p>
+        <p>
+        <button onClick="project_users();">project users</button>
+        <button onClick="project_owners();">project owners</button>
+        <button onClick="project_observers();">project observers</button>
+        </p>
+
+        <p>
+        <button onClick="meeting_users();">meeting users</button>
+        <button onClick="meeting_owners();">meeting owners</button>
+        <button onClick="meeting_observers();">meeting observers</button>
+        </p>
+        <p>
+        <button onClick="group_users();">group users</button>
+        <button onClick="group_owners();">group owners</button>
+        <button onClick="group_observers();">group observers</button>
+        </p>
+
+        <p>
+        <button onClick="item_user();">item users</button>
+        <button onClick="item_owner();">item owners</button>
+        </p>
+
+        
+        
     </body>
 
 </html>

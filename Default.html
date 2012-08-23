@@ -3,7 +3,7 @@
 
 <head>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
-<meta name="viewport" content="user-scalable=no, width=device-width" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=0" />
 
 <meta name="apple-mobile-web-app-capable" content="yes">
 	
@@ -17,12 +17,15 @@
 <title>Login Page</title>
 
 <link rel="stylesheet" href="css/login.css" />
+<link rel="stylesheet" type="text/css" href="css/main.css" />
+<link rel="stylesheet" type="text/css" href="css/button.css" />
 
 <script src="javascript/jquery/jquery-1.7.2.min.js"></script>
 <script type="text/javascript" src="javascript/publicsquare.js"> </script>
 <script type="text/javascript" src="javascript/ajax.js"> </script>
 <script type="text/javascript" src="javascript/login.js"></script>
 <script type="text/javascript" src="javascript/pageloaded.js"></script>
+<script src="javascript/xml2json.js"> </script>
 <script type="text/javascript" language="javascript">
     window.onload = WindowLoadedHanlder;
 </script>
@@ -35,11 +38,12 @@
 <div id="container">     
     <div id="layout">  
 		<center>   
-        <div id="content">
-        	<h1>
+        <div style="max-width:700px" id="content">
+        	<h1 id="pageHeader">
         		Login:
         	</h1> <br />
-            <table align="center" style="width:auto">
+			<div class="hideMe">
+            <table id="tcontent" align="center">
             <tr>
 				<td>Username: </td>
                 <td><input id="username" type="text" name="username" /></td>
@@ -51,14 +55,26 @@
             </table>
 
 			<p id="error" style="display:none;color:red;">Wrong Username or Password</p>
-			<input onclick="$(this).login();" type="submit" value="Submit"/>
-            <p>New Users <a href="SignUp.html" style="color:Blue">Sign Up Here</a></p>
+			<button style="margin-top:5px;" class="button blue" onclick="login()"/>Submit</button>
+            <a class = "button blue" href="SignUp.html">Sign Up</a></p>
+			</div>
+			<center>
+			
+			<div id="projectDiv" style="display:none;">
+			<b>Please select the meeting to join. These meetings are associated to your account:</b>
+			<ul id="projectList" class="apple">
+						
+			</ul>
+			<button class = "button blue" onclick="$('#nothing').trigger('click');">No Meeting</button>
+			</div>
+			</center>
+			
         </div>  
 		</center>    
     </div>    
 </div> 
 
-
+<a class="meeting" onclick='joinMeeting(this)' id="nothing" style="display:none">9001</a>
 
 
 

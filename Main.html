@@ -12,6 +12,8 @@
 		<link rel="apple-touch-startup-image" media="(min-device-width: 768px) and (orientation: landscape)" href="splash-1024.png" />
 		<link rel="apple-touch-icon" href="apple-touch-icon.png" />
 		
+		<link rel="apple-touch-startup-image" href="ipad-landscape-retina.png" media="screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:landscape) and (-webkit-min-device-pixel-ratio: 2)" />
+		
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=0" />
 		
 
@@ -23,29 +25,25 @@
 		<link rel="stylesheet" type="text/css" href="css/style.css" />
         <link rel="stylesheet" type="text/css" href="css/main.css" />		
 		<link rel="stylesheet" type="text/css" href="css/monitter.css" />
+		<link rel="stylesheet" type="text/css" href="css/button.css" />
 				
 		<link rel="stylesheet" media="only screen and (max-device-width: 1024px)" href="css/ipad.css" type="text/css" />
 
         
         <!-- *** scripts *** -->       
         
-        <script src="javascript/jquery/jquery-1.7.2.min.js"></script>
-        <script src="javascript/jquery/jquery.ui.core.min.js"></script>
-        <script src="javascript/jquery/jquery.ui.widget.min.js"></script>
-        <script src="javascript/jquery/jquery.ui.mouse.min.js"></script>
-        <script src="javascript/jquery/jquery.ui.sortable.min.js"></script>
-        <script src="javascript/jquery/jquery.ui.draggable.min.js"></script>
-        <script src="javascript/jquery/jquery.ui.droppable.min.js"></script>
-        <script src="javascript/jquery/jquery.ui.tabs.min.js"></script>		
+        <script src="javascript/jquery/jquery-1.7.2.min.js"></script>	
 		<script src="javascript/jquery/jquery.bgiframe-2.1.2.min.js"></script>
-		<script src="javascript/jquery/jquery.ui.button.min.js"></script>
-		<script src="javascript/jquery/jquery.ui.position.min.js"></script>
+		<script src="javascript/jquery/jquery-ui-1.8.23.custom.min.js"></script>
         
+		
+		<script type="text/javascript" src="javascript/site.js"></script>
+		
+        <script type="text/javascript" src="javascript/jquery.blockUI.js"> </script>		
         <script type="text/javascript" src="javascript/publicsquare.js"> </script>
         <script type="text/javascript" src="javascript/ajax.js"> </script>
         <script type="text/javascript" src="javascript/model.js"> </script>
-
-        <script type="text/javascript" src="javascript/site.js"></script>
+		<script type="text/javascript" src="javascript/universal.js"> </script>
 		
 		<script type="text/javascript" src="javascript/scrollfix.min.js"></script>
 		<script type="text/javascript" src="javascript/monitter.min.js"></script>
@@ -65,10 +63,10 @@
     
     <body>
 	
-		<img alt="Toggle Participants View" style="z-index:9999;" src="icons/left.png" id="toggleSlide" />
+		<img alt="Toggle Participants View" style="z-index:999;" src="icons/left.png" id="toggleSlide" />
+		<button class="button blue" onclick="window.location = 'default.html';" style="position:absolute; right:5px;top:5px; z-index:999;">Log out</button>
 		
         <div class="participants"> 
-			<button onclick="PS.ajax.userLogout(function() {window.location = 'default.html';});" style="position:absolute; left:5px;top:10px; z-index:9999;">Log out</button>
             <h1>Participants</h1>
 				<img alt="Up Arrow" src="icons/upS.png" id="upArrow" />
 				<img alt="Down Arrow" src="icons/downS.png" id="downArrow" />
@@ -79,9 +77,9 @@
 			
             <h1>Groups</h1>
             
-            <div id="editButtonGroup">
-                <div class="iPhoneButton" onclick="$(this).newGroup();">New</div>
-                <div class="iPhoneButton" id="renameButton" onclick="$(this).rename();">Edit</div>                
+            <div id="editButtonGroup" style="text-align:center; margin-top:5px;">
+                <div class="button blue" onclick="ajaxNewGroup()">New</div>
+                <div class="button blue" id="renameButton" onclick="rename()">Edit</div>                
             </div>
             		
             <ul class="apple" id = "groupList"></ul>
@@ -115,13 +113,23 @@
                         <div class="files-area" style="width: 100%;">
 
 							<div style="margin-bottom:10px">
-								<button class="iPhoneButton" onclick="$(this).createItem('audio','#' ,'Audio');">Audio</button>
-								<button class="iPhoneButton" onclick="$(this).changeTab(1);">Survey</button>
-								<button class="iPhoneButton" onclick="$(this).createItem('file','#', 'File');">File</button>
-								<button class="iPhoneButton" onclick="$(this).createItem('images','tree.png', 'Image');">Image</button>
-								<button class="iPhoneButton" onclick="$(this).createItem('document','https://docs.google.com/document/d/1CI6nWiu_Z1-pFmAcR8qPTK7S_rOfghr03tMd6aLW6rA/edit', 'Document');">Document</button>
+								<button class="button blue" onclick="createItem('audio','#' ,'Audio', '.myItems');">Audio</button>
+								<button class="button blue" onclick="changeTab(1)">Survey</button>
+								<button class="button blue" onclick="createItem('file','#', 'File', '.myItems');">File</button>
+								<button class="button blue" onclick="createItem('image','tree.png', 'Image', '.myItems');">Image</button>
+								<button class="button blue" onclick="createItem('document','https://docs.google.com/document/d/1CI6nWiu_Z1-pFmAcR8qPTK7S_rOfghr03tMd6aLW6rA/edit', 'Document', '.myItems');">Document</button>
 							</div>
-                            <ul class = "appleCube"></ul>
+							
+							<div id="accordion">
+								<h3><a id="myItemsHeader" href="#">My Items</a></h3>
+								<div><ul class = "myItems appleCube"></ul></div>
+								<h3><a href="#">Project Items</a></h3>
+								<div><ul class = "projectItems appleCube"></ul></div>
+								<h3><a href="#">Meeting Items</a></h3>
+								<div><ul class = "meetingItems appleCube"></ul></div>
+								<h3><a href="#">Surveys</a></h3>
+								<div><ul class = "surveyItems appleCube"></ul></div>
+							</div>
 
                         </div>						
                     </div>
@@ -136,7 +144,6 @@
             </div> 
                        
             <div class="twitterfeed">
-				<div class="monitter" id="tweets" title="facetmeeting321" lang="en"></div>
             </div>
                        
         </div>
