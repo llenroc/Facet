@@ -40,7 +40,7 @@ function logoutPassed(json, textStatus, jqXHR) {
 function loginPassed(json, textStatus, jqXHR) {
 	console.log("Login Passed");
 	
-	$("#projectList").append("<li class='icon' id='loading'>Loading Projects...</li>");
+	$("#projectList").append("<li class='icon loading' id='loadingProjects'>Loading Projects...</li>");
 	
 	$("#projectDiv").show();
 	$(".hideMe").hide();
@@ -72,7 +72,7 @@ function loginPassed(json, textStatus, jqXHR) {
 		});
 		
 		// Removes loading animation item
-		$("#loading").remove();
+		$("#loadingProjects").remove();
 		}, function() {
 		
 		console.log("failed");
