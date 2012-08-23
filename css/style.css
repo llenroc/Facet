@@ -15,7 +15,7 @@
 }
 
 #participantList {
-	height: 46%;
+	height: 40%;
 	position:relative;
 	overflow-y:auto;
 	-webkit-overflow-scrolling: touch;
@@ -24,24 +24,19 @@
 
 #groupList
 {
-	height: 29%;
+	height: 35%;
 	position:relative;
 	overflow-y:auto;
 	-webkit-overflow-scrolling: touch;
 }
 
-.twitterfeed 
-{
-    padding-left:12px;
-}
-
 .workspace 
 {
     position:absolute;
-    top:45px;
     left:250px;
     width:1000px;
-    height:800px;
+    height:850px;
+	padding-left:3px;
 }
 
 .queue
@@ -60,7 +55,7 @@
 
 
 #map_canvas {
-	height: 650px;
+	height: 730px;
 }
 
 
@@ -76,8 +71,6 @@
     text-align: center;
 	position:relative;
 	-webkit-transform: translate3d(0,0,0);
-	
-
 }
 
 #columns {
@@ -109,12 +102,7 @@
     font-size:125%;
 }
 
-#tabs-3
-{
-	overflow-y:scroll;
-}
+.tab {
+	height:93%;
 
-.minHeightTab
-{
-	height:700px;
 }

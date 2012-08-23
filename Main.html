@@ -88,60 +88,57 @@
 		<img alt="Left Arrow" src="icons/leftS.png" id="leftArrow"/>
 		<img alt="Right Arrow" src="icons/rightS.png" id="rightArrow"/>
 
-		<div class="queue" style="height:auto; white-space:nowrap; overflow-x:scroll; overflow-y:hidden; position:relative; top:0px; margin-left:-5px; margin-top:-6px;">
-        
-            <ul id="columns"></ul>
-               
+		<div class="queue" style="height:auto; white-space:nowrap; overflow-x:scroll; overflow-y:hidden; position:relative; top:0px; margin-left:-5px; margin-top:-6px;">    
+            <ul id="columns"></ul>              
         </div>
-        <div class="workspace" style="position:relative; top:-10px; margin-left:-17px; margin-top:0px;">
-            <div class="demo">
-                <div id="tabs">
-                    <ul>
-                        <li><a href="#tabs-1">Map</a></li>
-                        <li><a href="#tabs-2">Survey</a></li>
-                        <li><a href="#tabs-3" onclick="PS.ajax.surveyIndex(PS.model.getSurveysCallback);">Workspace</a></li>
-						<li><a href="#tabs-4">File</a></li>
-						<li><a href="#tabs-5">Shared Screen</a></li>
-                    </ul>
-                    <div id="tabs-1">
-						<div id="map_canvas"></div>
-                    </div>
-                    <div id="tabs-2" class="minHeightTab">
-                        <object id="survey_canvas" width="100%" height="100%" class="facetsurvey" type="text/html" data="http://facetsurvey.4abyte.com"></object>
-                    </div>	
-                    <div id="tabs-3">
-                        <div class="files-area" style="width: 100%;">
+		
+        <div class="workspace">
+			<div class="tab" id="tabs">
+				<ul>
+					<li><a href="#tabs-1">Map</a></li>
+					<li><a href="#tabs-2">Survey</a></li>
+					<li><a href="#tabs-3" onclick="PS.ajax.surveyIndex(PS.model.getSurveysCallback);">Workspace</a></li>
+					<li><a href="#tabs-4">File</a></li>
+					<li><a href="#tabs-5">Shared Screen</a></li>
+				</ul>
+				<div class="tab" id="tabs-1">
+					<div id="map_canvas"></div>
+				</div>
+				<div class="tab" id="tabs-2">
+					<object id="survey_canvas" width="100%" height="100%" class="facetsurvey" type="text/html" data="http://facetsurvey.4abyte.com"></object>
+				</div>	
+				<div class="tab" id="tabs-3">
+					<div class="files-area">
 
-							<div style="margin-bottom:10px">
-								<button class="button blue" onclick="createItem('audio','#' ,'Audio', '.myItems');">Audio</button>
-								<button class="button blue" onclick="changeTab(1)">Survey</button>
-								<button class="button blue" onclick="createItem('file','#', 'File', '.myItems');">File</button>
-								<button class="button blue" onclick="createItem('image','tree.png', 'Image', '.myItems');">Image</button>
-								<button class="button blue" onclick="createItem('document','https://docs.google.com/document/d/1CI6nWiu_Z1-pFmAcR8qPTK7S_rOfghr03tMd6aLW6rA/edit', 'Document', '.myItems');">Document</button>
-							</div>
-							
-							<div id="accordion">
-								<h3><a id="myItemsHeader" href="#">My Items</a></h3>
-								<div><ul class = "myItems appleCube"></ul></div>
-								<h3><a href="#">Project Items</a></h3>
-								<div><ul class = "projectItems appleCube"></ul></div>
-								<h3><a href="#">Meeting Items</a></h3>
-								<div><ul class = "meetingItems appleCube"></ul></div>
-								<h3><a href="#">Surveys</a></h3>
-								<div><ul class = "surveyItems appleCube"></ul></div>
-							</div>
+						<div style="margin-bottom:10px">
+							<button class="button blue" onclick="createItem('audio','#' ,'Audio', '.myItems');">Audio</button>
+							<button class="button blue" onclick="changeTab(1)">Survey</button>
+							<button class="button blue" onclick="createItem('file','#', 'File', '.myItems');">File</button>
+							<button class="button blue" onclick="createItem('image','tree.png', 'Image', '.myItems');">Image</button>
+							<button class="button blue" onclick="createItem('document','https://docs.google.com/document/d/1CI6nWiu_Z1-pFmAcR8qPTK7S_rOfghr03tMd6aLW6rA/edit', 'Document', '.myItems');">Document</button>
+						</div>
+						
+						<div style="height:700px; overflow-y:auto;" id="accordion">
+							<h3><a id="myItemsHeader" href="#">My Items</a></h3>
+							<div><ul class = "myItems appleCube"></ul></div>
+							<h3><a href="#">Project Items</a></h3>
+							<div><ul class = "projectItems appleCube"></ul></div>
+							<h3><a href="#">Meeting Items</a></h3>
+							<div><ul class = "meetingItems appleCube"></ul></div>
+							<h3><a href="#">Surveys</a></h3>
+							<div><ul class = "surveyItems appleCube"></ul></div>
+						</div>
 
-                        </div>						
-                    </div>
-					<div id="tabs-4" class="minHeightTab">
-						<iframe id="open_canvas" name="openFile" width="100%" height="100%" frameborder="0" marginheight="0" marginwidth="0"></iframe>
-					</div>
-					
-					<div id="tabs-5">
-						<iframe id="sharedScreen" width="100%" height="100%" frameborder="0" marginheight="0" marginwidth="0"></iframe>
-					</div>
-                </div>
-            </div> 
+					</div>						
+				</div>
+				<div class="tab" id="tabs-4">
+					<iframe id="open_canvas" name="openFile" width="100%" height="100%" frameborder="0" marginheight="0" marginwidth="0"></iframe>
+				</div>
+				
+				<div class="tab" id="tabs-5">
+					<iframe id="sharedScreen" width="100%" height="100%" frameborder="0" marginheight="0" marginwidth="0"></iframe>
+				</div>
+			</div>
                        
             <div class="twitterfeed">
             </div>
