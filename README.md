@@ -7,10 +7,7 @@ In collaboration with Facet Decision Systems, our goal in this project is to bui
 1. Gain access to the private Bitbucket Repository (if you are reading this on bitbucket, then you have access to it)  
 2. Download a git program (A basic command prompt client is found [here](http://git-scm.com/))  
 3. Open the git program and navigate to the directory that you want to clone into use `cd`
-4. Clone the repository using this command:  
-
-`git clone git@bitbucket.org:<bitbucket username>/facet-prototyping.git`  
-
+4. Clone the repository using this command: `git clone git@bitbucket.org:<bitbucket username>/facet-prototyping.git`
 5. Enter your bitbucket password
 
 
