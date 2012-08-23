@@ -8,5 +8,3 @@ Getting Started with Facet Public Square
 Branches
 - master - This is the stable branch. Bugs will be present, but hopefully not many
 - testing - This is the testing branch. This is where we test new features and debug them before merging to master 
-
-Just a test
