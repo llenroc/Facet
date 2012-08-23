@@ -1,4 +1,4 @@
-Getting Started with Facet Public Square
+Getting Started with <b>Facet Public Square</b>
 
 1) Gain access to the private Bitbucket Repository (if you are reading this on bitbucket, then you have access to it)
 2) Download a git program (A good one is http://git-scm.com/)
