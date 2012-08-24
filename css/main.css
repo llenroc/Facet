@@ -39,7 +39,10 @@ ul.apple {
 }
 
 img.delete {
-	margin-left: -40px;
+//	margin-left: -45px;
+	position:relative;
+	left:-45px;
+	top:-10px;
 }
 
 ul.appleCube {
@@ -204,6 +207,7 @@ textarea {
 	overflow: auto;
 	position: relative;
 	top: -40px;
+	left:-3px;
 	font-family: Helvetica;
   	font-size: 17px;
 	font-weight: bold;
@@ -264,30 +268,6 @@ img.dragHandle2 {
 	top:73px;
 	left:1226px;
 	display:none;
-}
-
-/* edit buttons */
-
-.iPhoneButton {
-    font-weight: bold;
-    cursor:pointer;
-    text-align: center;
-    line-height: 28px;
-    color: white;
-    text-shadow: rgba(0,0,0,0.6) 0px -1px 0px;
-	white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    border-width: 0 8px 0 14px;
-    border-image:url(../icons/button.png) 0 8 0 14 stretch stretch;
-    -moz-border-image:url(../icons/button.png) 0 8 0 14 stretch stretch;
-    -o-border-image:url(../icons/button.png) 0 8 0 14 stretch stretch;
-    -webkit-border-image: url(../icons/button.png) 0 8 0 14;
-    -webkit-tap-highlight-color: rgba(0,0,0,0);
-	
-	
-    
-    margin:5px;
 }
 
 .queue #columns .column header h1 a {
