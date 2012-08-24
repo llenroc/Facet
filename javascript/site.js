@@ -182,12 +182,7 @@ function createQueueItem(name, link, type) {
 
 // Animates divs to slide in and out
 function slideItems() {
-	if(slideOpen) {
-	/*	$(".queue").animate({width: '+=240'}, {duration:"slow", queue: false});
-		$(".monitter").animate({width: '+=240'}, {duration:"slow", queue: false});
-		$(".workspace").animate({width: '+=240'}, {duration:"slow", queue: false});
-		$("#columns").animate({width: '+=240'}, {duration:"slow", queue: false});*/
-		
+	if(slideOpen) {		
 		$(".queue").css("width", '+=240' );
 		$(".monitter").css("width", '+=240' );
 		$(".workspace").css("width", '+=240' );
@@ -201,12 +196,7 @@ function slideItems() {
 		
 		$("#toggleSlide").attr("src","icons/right.png");
 		slideOpen = false;
-	} else {
-	/*	$(".queue").animate({width: '-=240'}, {duration:"slow", queue: false});
-		$(".monitter").animate({width: '-=240'}, {duration:"slow", queue: false});
-		$(".workspace").animate({width: '-=240'}, {duration:"slow", queue: false});
-		$("#columns").animate({width: '-=240'}, {duration:"slow", queue: false});*/
-		
+	} else {		
 		$(".participants").animate({left: '+=240'}, {duration:"slow", queue: false});
 		$(".queue").animate({left: '+=240'}, {duration:"slow", queue: false});
 		$(".workspace").animate({left: '+=240'}, {duration:"slow", queue: false});
@@ -292,15 +282,16 @@ function makeQueueDroppable() {
 var editing = false;
 /* If we are currently renaming, then we make an group with the textarea, else if just create regular text*/
 
+// Creates a new group with a default "New Group" name with the nid attached.
 function newGroup(nid) {
 	return newGroup1("New Group", nid);
 };
 
 function newGroup1(name, nid) {
 	if(editing == true) {
-        $("#groupList").append("<li nid='"+nid+"' class = 'icon group'><img onclick='ajaxDeleteGroup(this)' class='delete' src='icons/delete.png'></img><div onclick='$(this).next().toggle();'><textarea>" + name + "</textarea></div><ul class = 'apple'></ul></li>");
+        $("#groupList").append("<li nid='"+nid+"' class = 'icon group'><img onclick='ajaxDeleteGroup(this)' class='delete' src='icons/delete.png'></img><textarea class='groupText'>" + name + "</textarea><div onclick='$(this).next().toggle();'></div><ul class = 'apple'></ul></li>");
     } else {
-        $("#groupList").append("<li nid='"+nid+"' class = 'icon group'><div onclick='$(this).next().toggle();'>" + name + "</div><ul class = 'apple' style='display:none'></ul></li>");	
+        $("#groupList").append("<li nid='"+nid+"' class = 'icon group'><img style='display:none;' onclick='ajaxDeleteGroup(this)' class='delete' src='icons/delete.png'><textarea class='groupText' style='display:none;'>" + name + "</textarea><div onclick='$(this).next().toggle();'>" + name + "</div><ul class = 'apple' style='display:none'></ul></li>");	
     }
     makeParticipantsDroppable(); /* Makes new group droppable */
 
@@ -314,7 +305,6 @@ function ajaxDeleteGroup(object) {
 }
 
 function ajaxNewGroup() {
-
 	var name = prompt("Please enter the new group name: ","New Group");
 	
 	if (name != null && name != "") {
@@ -347,29 +337,42 @@ function stopiFrameFix() {
 /* Converts the name to a textarea to start renaming. Converts text area to text when finished */
 function rename() {
     if(editing == false) {
-        $("#groupList li").each(function(index) {
+        $("#groupList").children().each(function(index) {
             /*Renaming*/
-            var name = $(this).find("div").html();
-            $(this).find("div").html("<textarea>" + name + "</textarea>");
-                                              
-            /*Deleting*/
-            var oldHtml = $(this).html();
-            $(this).html("<img onclick='ajaxDeleteGroup(this)' class='delete' src='icons/delete.png'></img>" + oldHtml);
+					
+            $(this).find("div").hide();
+			$(this).find("ul").hide();
+			$(".groupText").show();
+			
+			$(".group").css("height","20px");
+			               
+			// Shows the delete button
+			$(".delete").show();
+		
         });
+		
 		editing = true;
-		$("#renameButton").html("Done");
+		$("#renameButton").text("Done");
+		
     } else {
-        $("#groupList li").each(function(index) {
+        $("#groupList").children().each(function(index) {
             var name = $(this).find("textarea").val();
             if(name == "") {
                 name = "New Group";
             }
-            $(this).find("div").html(name);		
+			
+			$(this).find("div").text(name);
+			
+			$(this).find("div").show();
         });
+		
+		$(".groupText").hide(); 
+        $(".delete").hide();
+		$(".group").css("height","auto");
         
-        $(".delete").remove();
+		
         editing = false;
-        $("#renameButton").html("Edit");
+        $("#renameButton").text("Edit");
     }
 };
 
