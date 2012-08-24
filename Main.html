@@ -63,16 +63,25 @@
     
     <body>
 	
+		<!-- Toggle button for sliding Participants Panel -->
 		<img alt="Toggle Participants View" style="z-index:999;" src="icons/left.png" id="toggleSlide" />
+		
+		<!-- Log out button -->
 		<button class="button blue" onclick="window.location = 'default.html';" style="position:absolute; right:5px;top:5px; z-index:999;">Log out</button>
 		
+		<!-- Participants Panel -->
         <div class="participants"> 
             <h1>Participants</h1>
+			
+				<!-- Up and down informational arrows on iPad -->
 				<img alt="Up Arrow" src="icons/upS.png" id="upArrow" />
 				<img alt="Down Arrow" src="icons/downS.png" id="downArrow" />
+				
+				<!-- List that contains participants-->
                 <ul class = "apple" id="participantList">
                 </ul>
 				
+			<!-- Trash Bin -->
 			<ul class="apple"><li class = 'icon trash connectedSortable'>Trash</li></ul>
 			
             <h1>Groups</h1>
