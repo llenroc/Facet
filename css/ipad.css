@@ -1,6 +1,6 @@
 #participantList
 {
-	height: 301px;
+	height: 270px;
 	position:relative;
 	overflow-y:scroll;
 	-webkit-overflow-scrolling: touch;
@@ -14,7 +14,7 @@
 
 #groupList
 {
-	height: 180px;
+	height: 211px;
 	position:relative;
 	overflow-y:scroll;
 	-webkit-overflow-scrolling: touch;
@@ -44,8 +44,8 @@
 }
 
 .workspace {
-	width: 789px;
-	height: 550px;
+	width: 769px;
+	height: 650px;
 }
 
 ul.appleCube > li {
@@ -102,7 +102,7 @@ body {
 }
 
 .monitter {
-	width: 754px;
+	width: 769px;
 
 }
 
