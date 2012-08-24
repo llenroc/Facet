@@ -1,6 +1,6 @@
 #participantList
 {
-	height: 290px;
+	height: 270px;
 	position:relative;
 	overflow-y:scroll;
 	-webkit-overflow-scrolling: touch;
@@ -14,7 +14,7 @@
 
 #groupList
 {
-	height: 191px;
+	height: 211px;
 	position:relative;
 	overflow-y:scroll;
 	-webkit-overflow-scrolling: touch;
@@ -102,7 +102,7 @@ body {
 }
 
 .monitter {
-	width: 754px;
+	width: 769px;
 
 }
 
