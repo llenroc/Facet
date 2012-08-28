@@ -107,12 +107,7 @@ $(function() {
 	});
 				
 	// Initializes the Google Map
-	var myOptions = {
-		center: new google.maps.LatLng(49.891235,-97.15369),
-		zoom: 4,
-		mapTypeId: google.maps.MapTypeId.ROADMAP
-	};
-	var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);						
+	initializeGoogleMap();
 	
 	// Disables selection
 	$("body").disableSelection();
