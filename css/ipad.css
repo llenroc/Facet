@@ -14,7 +14,7 @@
 
 #groupList
 {
-	height: 211px;
+	height: 241px;
 	position:relative;
 	overflow-y:scroll;
 	-webkit-overflow-scrolling: touch;
@@ -44,7 +44,7 @@
 }
 
 .workspace {
-	width: 769px;
+	width: 789px;
 	height: 650px;
 }
 

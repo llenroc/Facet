@@ -30,13 +30,19 @@
 	-webkit-overflow-scrolling: touch;
 }
 
+.twitterfeed {
+	margin-top: -12px;
+	margin-left: 12px;
+	margin-right:12px;
+}
+
 .workspace 
 {
     position:absolute;
     left:250px;
     width:1000px;
     height:850px;
-	padding-left:3px;
+	//padding-left:3px;
 }
 
 .queue
