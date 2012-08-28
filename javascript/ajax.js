@@ -395,7 +395,7 @@ PS.ajax.itemCreate = function(callback, errorCallback, name, type ,userNodeId, c
 				'field_item_shared_timestamp[und][0][value]': '',
 				'field_item_type[und][0][value]': type,
 				
-				//'field_item_type[und][0][nid]': 'survey',
+				//'field_item_type[und][0][value]': 'survey',
 		}
 	});		
 }
@@ -406,7 +406,7 @@ PS.ajax.itemDelete = PS.ajax.nodeDelete;
 
 /***** PublicSquare Relationships *****/
 // 'REST' methods available for each relationship: create, delete, one-way index.
-// create/delete are implemented by an update to the object in the relation that 'owns' the relation: the an update to hte object having the field that refers to the other object.
+// create/delete are implemented by an update to the object in the relation that 'owns' the relation: the update to the object having the field that refers to the other object.
 // NB / TODO: Because relations are implemented as arrays, and creation/deletion is done with array indices, these operations are NOT safe for concurrent operations. 
 // NB: services-xml calls are not handled by drupal services, they ignore dataType and return only xml
 
