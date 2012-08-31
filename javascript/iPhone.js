@@ -126,18 +126,7 @@ $("#queue").live("pageshow", function() {
 });
 	
 // Everything to do with elements in the workspace goes here
-$("#map").live('pageinit', function() {
-	console.log("Map");
-	
-	// Initialize the Google Map to be zoomed in on the lat/long
-	var myOptions = {
-		center: new google.maps.LatLng(49.891235,-97.15369),
-		zoom: 4,
-		mapTypeId: google.maps.MapTypeId.ROADMAP
-	};
-	var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);	
-	
-});
+$("#map").live('pageinit', initializeGoogleMap);
 
 // Everything to do with elements in the workspace goes here
 $("#sharedScreen").live('pageinit', function() {

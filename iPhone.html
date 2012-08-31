@@ -21,20 +21,24 @@
 		<script type="text/javascript" src="javascript/google.fastbutton.js"> </script>
 		<script type="text/javascript" src="javascript/jquery.google.fastbutton.js"> </script>
 		
+        <!-- Javascript for Google Maps -->
+		<script type="text/javascript"
+			src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBpiByGBcI98q-wB0U95uWlddFbYQ6qSmU&sensor=false">
+		</script>
+		<script src="javascript/LayerControl.js" type="text/javascript"> </script>
+        <script src="javascript/mapLegendSetup.js" type="text/javascript"> </script>
+        
 		<script type="text/javascript" src="javascript/publicsquare.js"> </script>
+		<script type="text/javascript" src="javascript/universal.js"> </script>
 		<script type="text/javascript" src="javascript/iPhone.js"></script>
 		<script type="text/javascript" src="javascript/ajax.js"> </script>
         <script type="text/javascript" src="javascript/model.js"> </script>
-		<script type="text/javascript" src="javascript/universal.js"> </script>
 		
 		<script type="text/javascript" src="javascript/monitter.min.js"></script>
 
 		
-		<!-- Javascript for Google Maps -->
-		<script type="text/javascript"
-			src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBpiByGBcI98q-wB0U95uWlddFbYQ6qSmU&sensor=false">
-		</script>
-				
+
+        
 	</head>
 	
 	<!--
@@ -196,6 +200,14 @@
 				</div>
 			</div>
 			
+            
+            <div style="position:relative;">
+                <div style="float:right; max-width:30%; margin-right:30%;">
+                    <div id="map_canvas-legend" style="position:absolute; z-index:2000; float:right;"></div>
+                </div>
+            </div>            
+            
+            
 			<div data-role="content" style="padding: 0px;">
 				<div id="map_canvas" style="height:400px;"></div>
 			</div>

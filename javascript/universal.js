@@ -270,3 +270,36 @@ function populateSampleQueue() {
 	createQueueItem("Question","empty.html", "question");
 	createQueueItem("Video","empty.html", "video");
 }
+
+
+function initializeGoogleMap() {
+
+	// Initialize the Google Map to be zoomed in on the lat/long
+	/*var myOptions = {
+		center: new google.maps.LatLng(49.891235,-97.15369),
+		zoom: 4,
+		mapTypeId: google.maps.MapTypeId.ROADMAP
+	};
+	var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);	*/
+	
+	googleMapFacetLegendSetup("map_canvas");
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
