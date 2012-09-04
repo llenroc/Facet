@@ -52,11 +52,8 @@ function getUser() {
 // This function is called only once at login time to store the meeting information in a JSON object.
 // It then populates users based on the participants of the meeting.
 function getMeeting() {
-
-	// TODO - transition everything from nodeRetrieve to retrieve
 	PS.ajax.retrieve("meeting", getCookie("meetingID"), function(xml) {
 		$(xml).find("node").slice(1).each(function() {
-			
 			// populateParticipants is present in iphone.js or site.js . It allows for some custom behavior between iPhone and the main version
 			populateParticipants($(this).find("Users_data").text());
 			
@@ -74,38 +71,28 @@ function getMeeting() {
 			
 			console.log("Hashtag: " + hashtag);
 			//-------------------------------------------------------------------//
-						
+			
+			addItemFromItemData($(this).find("Items_data").text(), ".meetingItems");
+			
+			meetingJSON = xml;
+			getMeetingCallback();						
 		});
 	
 	}, function() { console.log("Meeting Retrieve Failed");});
-	
-	PS.ajax.nodeRetrieve(function(json) {
-		
-		//-----------------------Updating Meeting Items----------------------//
-		// Populate the meeting items. If there are none, do nothing, else, add them
-		if(json.field_meeting_items.length == 0) { }
-		else {
-			for(var x = 0; x < json.field_meeting_items.und.length; x++) {
-				var nid = json.field_meeting_items.und[x].nid;
-				PS.ajax.nodeRetrieve(function(json2) {					
-					var type, name;
-					if(json2.field_item_name.length == 0) { name = "Unknown Name"; }
-					else { name = json2.field_item_name.und[0].value; }
-					
-					if(json2.field_item_type.length == 0) { type = "unknown"; }
-					else { type = json2.field_item_type.und[0].value; }
-				
-					createItem(type, "empty.html", name, ".meetingItems");
-					
-				
-				}, function() { console.log("Failed to Load Meeting Items with nid " + nid); }, nid);
-			}
-		}
-		//-------------------------------------------------------------------------//
-		
-		meetingJSON = json;
-		getMeetingCallback();
-		}, populateFailed, getCookie("meetingID"));
+}
+
+
+// data - string in the form of "<item1 nid>, <item1 Name>, <item1 type>, <item1 URL>; <item2 nid>, <item2 Name>, <item2 type>, <item2 URL>; ..."
+// Adds all the items from this data string
+// targetClass - The class of the item you want to add it to
+function addItemFromItemData(data, targetClass) {
+	var itemData = data.split("; ");
+	for(var i = 0; i < itemData.length; i++) {
+		if(itemData[i] != "") {
+			split = itemData[i].split(", ");
+			createItem(split[2], split[3], split[1], targetClass);
+		}			
+	}
 }
 
 function getGroupItems() {
@@ -116,23 +103,8 @@ function getGroupItems() {
 			var cssName = makeSafeForCSS($(this).find("Name").text());
 			createWorkspaceAccordion($(this).find("Name").text(), cssName);
 			
-			var items = $(this).find("Items").text().split(", ");
-			for(var i = 0; i < items.length; i++) {
-				var nid = items[i];
-				if(nid != "") {
-					PS.ajax.nodeRetrieve(function(json2) {					
-						var type, name;
-						if(json2.field_item_name.length == 0) { name = "Unknown Name"; }
-						else { name = json2.field_item_name.und[0].value; }
-						
-						if(json2.field_item_type.length == 0) { type = "unknown"; }
-						else { type = json2.field_item_type.und[0].value; }
-						
-						createItem(type, "empty.html", name, "."+cssName);
-									
-					}, function() { console.log("Failed to Load Project Items with nid " + nid); }, nid);
-				}
-			}
+			addItemFromItemData($(this).find("Items_data").text(), "." + cssName);
+			
 		});
 		//--------------------------------------------------------------------------------// 
 		
@@ -144,83 +116,64 @@ function getGroupItems() {
 // This function is called only once at login time to store the project information in a JSON object.
 function getProject() {
 
-	PS.ajax.nodeRetrieve(function(json) {
+	PS.ajax.retrieve("project", getCookie("projectID"), function(xml) {
+		$(xml).find("node").slice(1).each(function() {
 		
-		//-------------------Adding Groups and their Users-----------------------//
-		// If there are no groups, do nothing...else add them to the groupList
-		if(json.field_project_groups.length == 0) { } 
-		else {	
-			for(var x = 0; x < json.field_project_groups.und.length; x++) {
-				// Performs a retrieve to get information about the group			
-				PS.ajax.retrieve("group", json.field_project_groups.und[x].nid, function(xml) {
-					var nid = $(xml).find("Nid").text();
-					var groupName = $(xml).find("Name").text();
-					groupName = (groupName.length != 0) ? groupName : "Group";
-					newGroup1(groupName, nid);
-					
-					var userData = $(xml).find("User_data").text().split("; ");
-					
-					// If there are no users in the group, this will fail, otherwise it adds the users
-					if (userData[0] != "") {
-						for(var i = 0; i < userData.length; i++) {
-							var split = userData[i].split(", ");
-							addUserToGroup(split[1],groupName, split[0]);
-						}
-					}
+			addItemFromItemData($(this).find("Items_data").text(), ".projectItems");
+			
+			//----------------------Adding Groups and Users-------------------------------//
+			var groupSplit = $(this).find("Groups").text().split(", ");
+			for(var i = 0; i < groupSplit.length; i++) {
+				if(groupSplit[i] != "") {
+					// Performs a retrieve to get information about the group			
+					PS.ajax.retrieve("group", groupSplit[i], function(xml) {
+						var nid = $(xml).find("Nid").text();
+						var groupName = $(xml).find("Name").text();
+						groupName = (groupName.length != 0) ? groupName : "Group";
+						newGroup1(groupName, nid);
 						
-				}, function() { console.log("Failed to Load Group") });
+						var userData = $(xml).find("User_data").text().split("; ");
+						
+						// If there are no users in the group, this will fail, otherwise it adds the users
+						if (userData[0] != "") {
+							for(var i = 0; i < userData.length; i++) {
+								var split = userData[i].split(", ");
+								addUserToGroup(split[1],groupName, split[0]);
+							}
+						}
+						
+					}, function() { console.log("Failed to Load Group") });					
+				}		
 			}
-		}
-		//-----------------------------------------------------------------------//
+			//-------------------------------------------------------------------------//
+			
+			projectJSON = xml;
+			getProjectCallback();
+			
+		});
+	}, function() { console.log("Project Retrieve Failed"); });
 		
-		
-		//-------------------------Add Project Items-----------------------------//
-		if(json.field_project_item.length == 0) { }
-		else {
-			for(var x = 0; x < json.field_project_item.und.length; x++) {
-				var nid = json.field_project_item.und[x].nid;
-				PS.ajax.nodeRetrieve(function(json2) {					
-					var type, name;
-					if(json2.field_item_name.length == 0) { name = "Unknown Name"; }
-					else { name = json2.field_item_name.und[0].value; }
-					
-					if(json2.field_item_type.length == 0) { type = "unknown"; }
-					else { type = json2.field_item_type.und[0].value; }
-				
-					createItem(type, "empty.html", name, ".projectItems");
-					
-				
-				}, function() { console.log("Failed to Load Project Items with nid " + nid); }, nid);
-			}
-		}
-		//----------------------------------------------------------------------//
-	
-		projectJSON = json;
-		getProjectCallback();
-	
-	}, function() { console.log("Failed to Load Project"); }, getCookie("projectID"));
-
 }
 
 // This function is called only once at login time to get the items belonging to a user. 
 function getUserItems() {
 	PS.ajax.indexUserItems( function (xml) {
-	
 		//-------------------------Adding Specific User Items----------------------------//
 		// Iterates through each item that a user owns and adds them to the workspace
 		$(xml).find("node").slice(1).each(function() {
 			var type = $(this).find("Type").text();
-			
+			var url = $(this).find("Url").text();
+						
 			// if type == "", then type = "unknown", else, type == type
 			type = (type == "") ? "unknown" : type;
-			createItem(type, "empty.html", $(this).find("Name").text(), ".myItems");
+			url = (url == "") ? "empty.html" : url;
+			
+			createItem(type, url, $(this).find("Name").text(), ".myItems");
 		});
 		//--------------------------------------------------------------------------------//
 		
 		getUserItemsCallback(xml);	
-	}, function () { 
-		console.log("Failed to Load User Items"); 
-	}, getCookie("id"));
+	}, function () { console.log("Failed to Load User Items"); }, getCookie("id"));
 }
 
 // http://stackoverflow.com/questions/7627000/javascript-convert-string-to-safe-class-name-for-css

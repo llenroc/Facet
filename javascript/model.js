@@ -31,5 +31,8 @@ PS.model.getSurveysCallback = function(json, textStatus, jqXHR) {
 	
 	$("#loadingWorkspace").remove();
 	
+	// Used in mobile to hide long survey lists because of small screen size
+	$(".surveyItems").nextUntil(".ui-li-divider").toggle();
+	
 }
 
