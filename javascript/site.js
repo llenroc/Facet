@@ -617,9 +617,6 @@ function createItemAjax() {
 		// Unblock UI
 		$.unblockUI();
 	}
-	
-
-
 }
 
 

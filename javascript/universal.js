@@ -76,6 +76,8 @@ function getMeeting() {
 			
 			changeSharedScreenFromID($(xml).find("Active_item").text());
 			
+			addQueueItemsFromString($(xml).find("Queue").text());
+			
 			
 			meetingJSON = xml;
 			getMeetingCallback();	
@@ -98,6 +100,7 @@ function addItemFromItemData(data, targetClass) {
 	}
 }
 
+// Takes an item nid and performs a retrieve on it. It then updates the shared screen with the URL
 function changeSharedScreenFromID(nid) {
 	PS.ajax.retrieve("item", nid, function(xml) {
 		$(xml).find("node").slice(1).each(function() {
@@ -106,6 +109,23 @@ function changeSharedScreenFromID(nid) {
 		});
 	
 	}, function() { console.log("Failed to Load Shared Screen Item"); });
+}
+
+
+//
+function addQueueItemsFromString(string) {
+	console.log("Queue: " + string);
+	
+	var itemData = string.split(", ");
+	for(var i = 0; i < itemData.length; i++) {
+		if(itemData[i] != "") {
+			console.log(itemData[i]);
+			
+			// TODO - Add to Queue
+			// createQueueItem(itemData[i], "link", "type")
+		}			
+	}
+
 }
 
 function getGroupItems() {
