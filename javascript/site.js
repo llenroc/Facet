@@ -261,7 +261,7 @@ function makeQueueDroppable() {
 			
 			var type = $(ui.helper).attr("type");
 			var href = $(ui.helper).attr("href");
-			$("#sharedScreen").attr("src",href);
+			$("#shared_canvas").attr("src",href);
 						
 			PS.ajax.tweet(hashtag,"shared screen",accountJSON.name,type, ui.helper.text() );
 			changeTab(4);

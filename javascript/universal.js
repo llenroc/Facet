@@ -74,8 +74,11 @@ function getMeeting() {
 			
 			addItemFromItemData($(this).find("Items_data").text(), ".meetingItems");
 			
+			changeSharedScreenFromID($(xml).find("Active_item").text());
+			
+			
 			meetingJSON = xml;
-			getMeetingCallback();						
+			getMeetingCallback();	
 		});
 	
 	}, function() { console.log("Meeting Retrieve Failed");});
@@ -93,6 +96,16 @@ function addItemFromItemData(data, targetClass) {
 			createItem(split[2], split[3], split[1], targetClass);
 		}			
 	}
+}
+
+function changeSharedScreenFromID(nid) {
+	PS.ajax.retrieve("item", nid, function(xml) {
+		$(xml).find("node").slice(1).each(function() {
+			$("#shared_canvas").attr("src",$(this).find("Url").text());
+			$("#shared_canvas").attr("data",$(this).find("Url").text());
+		});
+	
+	}, function() { console.log("Failed to Load Shared Screen Item"); });
 }
 
 function getGroupItems() {
