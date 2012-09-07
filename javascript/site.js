@@ -569,6 +569,59 @@ function createWorkspaceAccordion(name, className) {
 	$("#accordion").append("<h3><a href='#'>" + name + "'s Items</a></h3><div><ul class = '" + className + " appleCube'></ul></div>").accordion('destroy').accordion({ autoHeight: false });
 }
 
+function promptCreate() {
+$.blockUI({ 
+	message: $('#createItemPrompt'),
+	css: { 
+		border: 'none', 
+		padding: '15px',
+		'font-size': '15px',
+		backgroundColor: '#000', 
+		'-webkit-border-radius': '10px', 
+		'-moz-border-radius': '10px', 
+		'border-radius': '10px',
+		'cursor': 'auto',
+	//	opacity: .5, 
+		color: '#fff' },
+	}); 
+}
+
+function createItemAjax() {	
+
+	// Type is used for css styling
+	// String is first made lowercase, and then remove all spaces
+	var type = $("#filetype").val().toLowerCase().split(" ").join("");
+	var name = $("#filename").val();
+	var url = $("#url").val();
+	var createdTime = new Date().getTime();
+	
+	if(name == "" || name == null || url == "" || url == null) {
+		$("#itemCreateErrorMessage").show();
+	} else {
+	
+		if(type == "googlemap") {
+			url = url + "&output=embed";	
+		}
+		
+		$("#itemCreateErrorMessage").hide();
+		
+		PS.ajax.itemCreate( function() { 
+			createItem(type, url, name, ".myItems");
+		
+		} , function() { console.log("Error Creating Item: " + name); }, name, type ,accountJSON.uid, createdTime, url)
+		
+		// Clear fields for next item
+		$("#url").val("");
+		$("#filename").val("");
+		
+		// Unblock UI
+		$.unblockUI();
+	}
+	
+
+
+}
+
 
 
 

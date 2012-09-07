@@ -18,7 +18,8 @@
 		
 
         <title>Facet Testing</title>
-                   
+            
+			
         <link rel="stylesheet" href="css/jquery.ui.all.css" />
 		<link rel="stylesheet" href="css/demos.css" />
 	
@@ -26,6 +27,8 @@
         <link rel="stylesheet" type="text/css" href="css/main.css" />		
 		<link rel="stylesheet" type="text/css" href="css/monitter.css" />
 		<link rel="stylesheet" type="text/css" href="css/button.css" />
+		
+
 				
 		<link rel="stylesheet" media="only screen and (max-device-width: 1024px)" href="css/ipad.css" type="text/css" />
 
@@ -54,7 +57,7 @@
 		<script type="text/javascript" src="javascript/scrollfix.min.js"></script>
 		<script type="text/javascript" src="javascript/monitter.min.js"></script>
 		
-
+		
         
         <!-- https://github.com/furf/jquery-ui-touch-punch
          Hack to get drag and drop to work on touch devices-->
@@ -65,7 +68,6 @@
     </head>
     
     <body>
-	
 		<!-- Toggle button for sliding Participants Panel -->
 		<img alt="Toggle Participants View" style="z-index:999;" src="icons/left.png" id="toggleSlide" />
 		
@@ -129,12 +131,13 @@
                         <div class="files-area" style="width: 100%;">
 
 						<div style="margin-bottom:10px">
-							<button class="button blue" onclick="createItem('audio','#' ,'Audio', '.myItems');">Audio</button>
+							<button class="button blue" onclick="promptCreate();">Create Item</button>
+							<!--<button class="button blue" onclick="createItem('audio','#' ,'Audio', '.myItems');">Audio</button>-->
 							<button class="button blue" onclick="changeTab(1)">Survey</button>
-							<button class="button blue" onclick="createItem('file','#', 'File', '.myItems');">File</button>
+							<!--<button class="button blue" onclick="createItem('file','#', 'File', '.myItems');">File</button>
 							<button class="button blue" onclick="createItem('image','tree.png', 'Image', '.myItems');">Image</button>
 							<button class="button blue" onclick="createItem('document','https://docs.google.com/document/d/1CI6nWiu_Z1-pFmAcR8qPTK7S_rOfghr03tMd6aLW6rA/edit', 'Document', '.myItems');">Document</button>
-						</div>
+						--></div>
 						
 						<div style="height:700px; overflow-y:auto;" id="accordion">
 							<h3><a id="myItemsHeader" href="#">My Items</a></h3>
@@ -163,6 +166,43 @@
             </div>
                        
         </div>
+	
+<!-- The popup box that appears for creating an item -->	
+		<div style="display:none" id="createItemPrompt">
+		
+			<div>Create an Item:</div> </br>
+			
+			<table id="tscontent" align="center">
+            <tr>
+                <td align="left">Item Name: </td>
+                <td><input style="width:150px" id="filename" type="text" name="filename"/></td>
+            </tr>
+            <tr>
+                <td align="left">Item Type: </td>
+                <td><select style="width:154px" id="filetype">
+						<option>YouTube</option>
+						<option>Audio</option>  
+						<option>Image</option>
+						<option>Document</option>
+						<option>PDF</option>
+						<option>Google Map</option>
+					</select></td>
+            </tr>
+            <tr>
+                <td align="left">URL: </td>
+                <td><input style="width:150px" id="url" type="text" name="url"/></td>
+            </tr>
+				
+            </table>
+			
+			</br>
+			<button onclick="createItemAjax()" class="button blue">Create Item</button>
+            <button class="button blue" onclick="$.unblockUI(); $('#itemCreateErrorMessage').hide();">Cancel</button>
+			
+			
+			<div id="itemCreateErrorMessage" style="margin-top:10px;color:red;display:none">Please Enter a item name and URL</div>
+		
+		</div>
         
 
     </body>  

@@ -50,9 +50,9 @@
         }
 		
 		function massiveDelete() {
-			var array = [1199,1198];
+			var array = [1409];
 			for (var i = 0; i < array.length; i++) {
-				PS.ajax.groupDelete( function(json) { console.log(json.nid + " deleted")} , function() { console.log(array[i] + " error")} , array[i]);
+				PS.ajax.itemDelete( function(json) { console.log(json.nid + " deleted")} , function() { console.log(array[i] + " error")} , array[i]);
 			}
 		}
 		
@@ -106,7 +106,7 @@
 		<p>
 		Item
         <button onclick="PS.ajax.itemIndex(callback, errorcallback)"> item index </button>
-		<button onclick="PS.ajax.itemCreate(callback, errorcallback, 'Fruit Ninja Screenshot', 'image' , 0, 'Never!')"> item create </button>
+		<button onclick="PS.ajax.itemCreate(callback, errorcallback, 'Fruit Ninja Screenshot', 'image' , 0, 'Never!', 'google.ca')"> item create </button>
 		<button onclick="PS.ajax.itemRetrieve(callback, errorcallback, 843)"> item retrieve </button>
 		<button onclick="PS.ajax.itemDelete(callback, errorcallback, 842)"> item delete </button>
 
