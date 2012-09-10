@@ -50,7 +50,7 @@
         }
 		
 		function massiveDelete() {
-			var array = [1420];
+			var array = [1430,1427,1426,1425,1424,1422];
 			for (var i = 0; i < array.length; i++) {
 				PS.ajax.itemDelete( function(json) { console.log(json.nid + " deleted")} , function() { console.log(array[i] + " error")} , array[i]);
 			}

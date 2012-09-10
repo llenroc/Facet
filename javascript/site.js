@@ -16,11 +16,11 @@ $(function() {
 		css: { 
 			border: 'none', 
 			padding: '15px', 
-			backgroundColor: '#000', 
+			backgroundColor: '#222', 
 			'-webkit-border-radius': '10px', 
 			'-moz-border-radius': '10px', 
 			'border-radius': '10px',
-			opacity: .5, 
+			opacity: .8, 
 			color: '#fff' },
 	});
 	
@@ -587,11 +587,13 @@ $.blockUI({
 		border: 'none', 
 		padding: '15px',
 		'font-size': '15px',
-		backgroundColor: '#000', 
+		backgroundColor: '#222', 
 		'-webkit-border-radius': '10px', 
 		'-moz-border-radius': '10px', 
 		'border-radius': '10px',
 		'min-width' : '475px',
+		'margin-top' : '-200px',
+		'margin-left' : '-50px',
 		'cursor': 'auto',
 	//	opacity: .5, 
 		color: '#fff' },
