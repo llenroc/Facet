@@ -333,7 +333,7 @@ function addUserToGroup(name, groupName, id) {
 };
 
 // TODO, add items to different lists
-function createItem(type, link, name, target) {
+function createItem(type, link, name, target, nid) {
 
 	// Increases the count of the group by 1
 	var count = parseInt($(target).find(".ui-li-count").text()) + 1;
@@ -342,7 +342,7 @@ function createItem(type, link, name, target) {
 	$(target).find(".ui-li-count").text(count);
 	
 	// data-filtertext = when using the filter bar, it filters by this text. Currently it filters by type (survey, image, document, etc ...) and the item name.
-    $(target).after("<li data-filtertext='"+ name + " " + type + "' type=" + type + " title = '" + name + "'><a data-rel='dialog' data-transition='pop' href='#workspaceDialog' linkURL='" + link + "'>" + name + "</a></li>");
+    $(target).after("<li nid='" + nid + "' data-filtertext='"+ name + " " + type + "' type=" + type + " title = '" + name + "'><a data-rel='dialog' data-transition='pop' href='#workspaceDialog' linkURL='" + link + "'>" + name + "</a></li>");
 	refreshListview('#workspaceList');
 };
 
@@ -359,7 +359,7 @@ function refreshSurveys(json, textStatus, jqXHR) {
 
 function addToQueue() {
 	// Creates queue item based off the text and link
-	createQueueItem(selectedItem.text(),$(selectedItem).find("a").attr("linkurl"), $(selectedItem).attr("type"));
+	createQueueItem(selectedItem.text(),$(selectedItem).find("a").attr("linkurl"), $(selectedItem).attr("type"), $(selectedItem).attr("nid"));
 	
 	// Tweets
 	PS.ajax.tweet("facetmeeting321","queue",accountJSON.name,$(selectedItem).attr("type"), selectedItem.text() );
@@ -372,8 +372,8 @@ function addToQueue() {
 
 }
 
-function createQueueItem(name, link, type) {
-	$("#queueList").append("<li linkurl='" + link + "' type='"+ type +"'><a data-rel='dialog' data-transition='pop' href='#queueDialog' linkURL='" + link + "'>" + name + "</a></li>");
+function createQueueItem(name, link, type, nid) {
+	$("#queueList").append("<li nid = '" + nid + "' linkurl='" + link + "' type='"+ type +"'><a data-rel='dialog' data-transition='pop' href='#queueDialog' linkURL='" + link + "'>" + name + "</a></li>");
 }
 
 function sendToSharedScreen() {

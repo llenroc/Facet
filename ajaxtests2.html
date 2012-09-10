@@ -50,21 +50,12 @@
         }
 		
 		function massiveDelete() {
-			var array = [1409];
+			var array = [1420];
 			for (var i = 0; i < array.length; i++) {
 				PS.ajax.itemDelete( function(json) { console.log(json.nid + " deleted")} , function() { console.log(array[i] + " error")} , array[i]);
 			}
 		}
-		
-		function request() {
-			$.ajax({
-				type: "POST",
-				url: "https://api.dropbox.com/1/oauth/request_token",
-				success: callback,
-				error: errorcallback,
-			});
-		}
-    
+		    
     </script>
 
     </head>
@@ -138,8 +129,9 @@
 		
 		</br>
 		<button onclick="massiveDelete()">MASSIVE DELETE</button>
-		<button onclick="request()">Request Token</button>       
-        
+		
+		<button onclick="PS.ajax.updateSharedScreen(callback, errorcallback, 841, 1170)">Update Shared Screen</button>
+     
         
     </body>
 

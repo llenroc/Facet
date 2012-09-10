@@ -6,7 +6,7 @@ function checkLogIn() {
 	if(status == null || status == "") {
 		console.log("User not logged in...redirecting!");	
 		window.location = "default.html";
-	}
+	}	
 }
 
 // c_name - key that you want to retrieve from the cookie
@@ -76,7 +76,7 @@ function getMeeting() {
 			
 			changeSharedScreenFromID($(xml).find("Active_item").text());
 			
-			addQueueItemsFromString($(xml).find("Queue").text());
+			addQueueItemsFromString($(xml).find("Queue_data").text());
 			
 			
 			meetingJSON = xml;
@@ -95,7 +95,7 @@ function addItemFromItemData(data, targetClass) {
 	for(var i = 0; i < itemData.length; i++) {
 		if(itemData[i] != "") {
 			split = itemData[i].split(", ");
-			createItem(split[2], split[3], split[1], targetClass);
+			createItem(split[2], split[3], split[1], targetClass, split[0]);
 		}			
 	}
 }
@@ -114,18 +114,14 @@ function changeSharedScreenFromID(nid) {
 
 //
 function addQueueItemsFromString(string) {
-	console.log("Queue: " + string);
-	
-	var itemData = string.split(", ");
+	var itemData = string.split("; ");
 	for(var i = 0; i < itemData.length; i++) {
 		if(itemData[i] != "") {
-			console.log(itemData[i]);
+			var split = itemData[i].split(", ");
 			
-			// TODO - Add to Queue
-			// createQueueItem(itemData[i], "link", "type")
+			createQueueItem(split[1], split[3], split[2]);
 		}			
 	}
-
 }
 
 function getGroupItems() {
@@ -188,6 +184,17 @@ function getProject() {
 		
 }
 
+//Based of regex found here http://stackoverflow.com/a/8260383
+function youtube_parser(url){
+    var regExp = /.*(?:youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=)([^#\&\?]*).*/;
+    var match = url.match(regExp);
+    if (match&&match[1].length==11){
+        return match[1];
+    }else{
+        alert("Incorrect URL");
+    }
+}
+
 // This function is called only once at login time to get the items belonging to a user. 
 function getUserItems() {
 	PS.ajax.indexUserItems( function (xml) {
@@ -196,12 +203,13 @@ function getUserItems() {
 		$(xml).find("node").slice(1).each(function() {
 			var type = $(this).find("Type").text();
 			var url = $(this).find("Url").text();
+			var nid = $(this).find("Nid").text();
 						
 			// if type == "", then type = "unknown", else, type == type
 			type = (type == "") ? "unknown" : type;
 			url = (url == "") ? "empty.html" : url;
 			
-			createItem(type, url, $(this).find("Name").text(), ".myItems");
+			createItem(type, url, $(this).find("Name").text(), ".myItems", nid);
 		});
 		//--------------------------------------------------------------------------------//
 		
@@ -250,11 +258,11 @@ function populateSampleUsers() {
 
 // Temporary function that populates queue with sample items
 function populateSampleQueue() {
-	createQueueItem("Comment","empty.html", "comment");
-	createQueueItem("Comment","empty.html", "comment");
-	createQueueItem("Survey","empty.html", "survey");
-	createQueueItem("Question","empty.html", "question");
-	createQueueItem("Video","empty.html", "video");
+	createQueueItem("Comment","empty.html", "comment",1427);
+	createQueueItem("Comment","empty.html", "comment",1427);
+	createQueueItem("Survey","empty.html", "survey",1427);
+	createQueueItem("Question","empty.html", "question",1427);
+	createQueueItem("Video","empty.html", "video",1427);
 }
 
 

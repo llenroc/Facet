@@ -168,9 +168,9 @@
         </div>
 	
 <!-- The popup box that appears for creating an item -->	
-		<div style="display:none" id="createItemPrompt">
+		<div style="display:none;" id="createItemPrompt">
 		
-			<div>Create an Item:</div> </br>
+			<h2>Create an Item:</h2>
 			
 			<table id="tscontent" align="center">
             <tr>
@@ -179,7 +179,7 @@
             </tr>
             <tr>
                 <td align="left">Item Type: </td>
-                <td><select style="width:154px" id="filetype">
+                <td><select onchange="$('#urlhelp').attr('src', 'resources/' + $('#filetype').val() + '.png');" style="width:154px" id="filetype">
 						<option>YouTube</option>
 						<option>Audio</option>  
 						<option>Image</option>
@@ -201,6 +201,8 @@
 			
 			
 			<div id="itemCreateErrorMessage" style="margin-top:10px;color:red;display:none">Please Enter a item name and URL</div>
+			
+			<img alt="URL Help" id="urlhelp" height="200px" width="450px" style="margin-top:20px; border-radius:8px;" src="resources/YouTube.png"></img>
 		
 		</div>
         

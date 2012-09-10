@@ -23,8 +23,8 @@ PS.model.getSurveysCallback = function(json, textStatus, jqXHR) {
 		if (PS.model.surveysList[idsurvey] === undefined) {
 			PS.model.surveysList[idsurvey] = json.nodes[x].node;
 			
-			createItem('survey', url, json.nodes[x].node.Name, ".surveyItems");
-			createItem('results', urlreport, json.nodes[x].node.Name + " " + "Results", ".surveyItems");
+			createItem('survey', url, json.nodes[x].node.Name, ".surveyItems", idsurvey);
+			createItem('results', urlreport, json.nodes[x].node.Name + " " + "Results", ".surveyItems", idsurvey);
 			
 		}
 	}

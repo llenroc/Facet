@@ -602,6 +602,21 @@ PS.ajax.addUserToGroup = function(callback, errorCallback, userNodeId, groupID) 
 	);
 }
 
+PS.ajax.updateSharedScreen = function(callback, errorCallback, meetingID, SSnid) {
+	PS.ajax.nodeRetrieve(
+		function(json, textStatus, jqXHR) {
+			var data = {};
+			data.type = "meeting";
+			
+			data['field_meeting_active_item[und][0][nid]'] = PS.ajax.wrapNodeId(SSnid);
+		
+			PS.ajax.nodeUpdate(callback, errorCallback, meetingID, data);
+		
+		}, errorCallback,
+		meetingID
+	);
+}
+
 //user_group_member
 
 //user_project_owner // field_owners
