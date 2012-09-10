@@ -220,15 +220,42 @@ PS.ajax.nodeDelete = function(callback, errorCallback, id) {
 /***** Twitter *****/
 
 PS.ajax.tweet = function(hashtag,location,name,type,filename) {
+	
+	switch(type) {
+		case 'youtube':
+			type = "a YouTube video";
+			console.log("youtube");
+			break;
+		case 'googlemap':
+			type = "a Google Map";
+			break;
+		case 'image':
+			type = "an image";
+			break;
+		case 'pdf':
+			type = "a PDF file";
+			break;
+		case 'audio':
+			type = "an audio file";
+			break;
+		case 'image':
+			type = "an image";
+			break;
+		case 'results':
+			type = "survey results";
+			break;
+		default:
+			type = "a " + type;
+	}
+	
 	$.ajax({
 		type: "POST",
 		url:  "tweetMessage.php?hashtag="+hashtag+"&location="+location+"&name="+name+"&type="+type+"&filename="+filename,
 		success: function(){
-
+			console.log("Twitter Call Passed!");
 		},
 		error: function(){
-			// code
-			console.log("Twitter call failed!");
+			console.log("Twitter Call Failed!");
 		}
     });
 }

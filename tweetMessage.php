@@ -32,7 +32,7 @@ $filename = $_GET['filename'];
 if($hashtag != '' && $location != '' && $name != '' && $type != '' && $filename != '')
 {
 	// Set status message appending on the action and hashtag
-	$tweetMessage = "Action: ".$name." added a ".$type." (".$filename.") to the ".$location." #".$hashtag;
+	$tweetMessage = "Action: ".$name." added ".$type." (".$filename.") to the ".$location." #".$hashtag;
 	 
 	// Check for 140 characters tweet limit
 	if(strlen($tweetMessage) <= 140)
