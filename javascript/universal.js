@@ -191,7 +191,7 @@ function youtube_parser(url){
     if (match&&match[1].length==11){
         return match[1];
     }else{
-        alert("Incorrect URL");
+        return false;
     }
 }
 

@@ -608,29 +608,42 @@ function createItemAjax() {
 	var createdTime = new Date().getTime();
 	
 	if(name == "" || name == null || url == "" || url == null) {
+		$("#itemCreateErrorMessage").text("Please Enter a item name and URL");
 		$("#itemCreateErrorMessage").show();
 	} else {
+		
+		var valid = true;
+		var reason = "";
 	
 		// This is needed to embedd Google Maps
 		if(type == "googlemap") {
 			url = url + "&output=embed";	
 		} else if(type == "youtube") {
 			url = "http://www.youtube.com/embed/" + youtube_parser(url);
+			
+			if(youtube_parser(url) == false) { valid = false; reason = "Invalid YouTube Link"; }
 		}
 		
-		$("#itemCreateErrorMessage").hide();
+		if(valid) { 
+			$("#itemCreateErrorMessage").hide();
 		
-		PS.ajax.itemCreate( function(json) { 
-			createItem(type, url, name, ".myItems", json.nid);
+			PS.ajax.itemCreate( function(json) { 
+				createItem(type, url, name, ".myItems", json.nid);
+			
+			} , function() { console.log("Error Creating Item: " + name); }, name, type ,accountJSON.uid, createdTime, url)
+			
+			// Clear fields for next item
+			$("#url").val("");
+			$("#filename").val("");
+			
+			// Unblock UI
+			$.unblockUI();	
+		} else {
+			$("#itemCreateErrorMessage").text(reason);
+			$("#itemCreateErrorMessage").show();
+		}
 		
-		} , function() { console.log("Error Creating Item: " + name); }, name, type ,accountJSON.uid, createdTime, url)
-		
-		// Clear fields for next item
-		$("#url").val("");
-		$("#filename").val("");
-		
-		// Unblock UI
-		$.unblockUI();
+
 	}
 }
 
