@@ -122,6 +122,18 @@ ul.apple ul.apple {
 	background-image: url(../icons/audio.png);
 }
 
+.youtube {
+	background-image: url(../icons/youtube.png);
+}
+
+.pdf {
+	background-image: url(../icons/pdf.png);
+}
+
+.googlemap {
+	background-image: url(../icons/googlemap.png);
+}
+
 .nomeeting {
 
 	background-image: url(../icons/nomeeting.png);

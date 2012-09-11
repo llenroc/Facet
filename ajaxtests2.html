@@ -50,21 +50,12 @@
         }
 		
 		function massiveDelete() {
-			var array = [1199,1198];
+			var array = [1433];
 			for (var i = 0; i < array.length; i++) {
-				PS.ajax.groupDelete( function(json) { console.log(json.nid + " deleted")} , function() { console.log(array[i] + " error")} , array[i]);
+				PS.ajax.itemDelete( function(json) { console.log(json.nid + " deleted")} , function() { console.log(array[i] + " error")} , array[i]);
 			}
 		}
-		
-		function request() {
-			$.ajax({
-				type: "POST",
-				url: "https://api.dropbox.com/1/oauth/request_token",
-				success: callback,
-				error: errorcallback,
-			});
-		}
-    
+		    
     </script>
 
     </head>
@@ -98,7 +89,7 @@
 		Group
         <button onclick="PS.ajax.groupIndex(callback, errorcallback)"> group index </button>
 		<button onclick="PS.ajax.groupCreate(callback, errorcallback, 'New Group', 1, 1126)"> group create </button>
-		<button onclick="PS.ajax.groupRetrieve(callback, errorcallback, 1129)"> group retrieve </button>
+		<button onclick="PS.ajax.groupRetrieve(callback, errorcallback, 1174)"> group retrieve </button>
 		<button onclick="PS.ajax.groupDelete(callback, errorcallback, 1202, 1126)"> group delete </button>
 
         </p>
@@ -106,8 +97,8 @@
 		<p>
 		Item
         <button onclick="PS.ajax.itemIndex(callback, errorcallback)"> item index </button>
-		<button onclick="PS.ajax.itemCreate(callback, errorcallback, 'Fruit Ninja Screenshot', 'image' , 0, 'Never!')"> item create </button>
-		<button onclick="PS.ajax.itemRetrieve(callback, errorcallback, 843)"> item retrieve </button>
+		<button onclick="PS.ajax.itemCreate(callback, errorcallback, 'Google', 'image' , 0, 'google.ca')"> item create </button>
+		<button onclick="PS.ajax.itemRetrieve(callback, errorcallback, 1439)"> item retrieve </button>
 		<button onclick="PS.ajax.itemDelete(callback, errorcallback, 842)"> item delete </button>
 
         </p>
@@ -138,8 +129,9 @@
 		
 		</br>
 		<button onclick="massiveDelete()">MASSIVE DELETE</button>
-		<button onclick="request()">Request Token</button>       
-        
+		
+		<button onclick="PS.ajax.updateSharedScreen(callback, errorcallback, 841, 1170)">Update Shared Screen</button>
+     
         
     </body>
 

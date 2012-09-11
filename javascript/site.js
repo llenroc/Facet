@@ -16,11 +16,11 @@ $(function() {
 		css: { 
 			border: 'none', 
 			padding: '15px', 
-			backgroundColor: '#000', 
+			backgroundColor: '#222', 
 			'-webkit-border-radius': '10px', 
 			'-moz-border-radius': '10px', 
 			'border-radius': '10px',
-			opacity: .5, 
+			opacity: .8, 
 			color: '#fff' },
 	});
 	
@@ -114,7 +114,7 @@ $(function() {
 				
 	// Unblocks UI when ajax calls stop
 	$(document).ajaxStop($.unblockUI);
-	
+		
 });
 
 // Callback for when the account logged in has been retrieved. accountJSON stores this information
@@ -170,9 +170,9 @@ function createUser(name, id) {
 }
 
 // Creates Queue item with a given name and link
-function createQueueItem(name, link, type) {
+function createQueueItem(name, link, type, nid) {
 	$("#columns").css("width", "+=162px");
-	$("#columns").append("<li type='" + type + "' class='column'><header><h1><a onclick='changeTab(3)' href='"+ link + "' target='openFile'>" + name + "</a><img alt='List Item' src='icons/handle.png' class='dragHandle2'></h1></header></li>");
+	$("#columns").append("<li nid='" + nid + "' type='" + type + "' class='column'><header><h1><a onclick='changeTab(3)' href='"+ link + "' target='openFile'>" + name + "</a><img alt='List Item' src='icons/handle.png' class='dragHandle2'></h1></header></li>");
 }
 
 // Animates divs to slide in and out
@@ -224,6 +224,8 @@ function makeQueueDroppable() {
 			$(ui.helper).addClass("queueItem");
 			$(ui.helper).attr("href",$(ui.item).find("a").attr("href"));
 			$(ui.helper).attr("type",$(ui.item).attr("type"));
+			$(ui.helper).attr("nid",$(ui.item).attr("nid"));
+			
 					
 			$(ui.helper).css("white-space", "nowrap");
 			$(ui.helper).css("text-overflow", "ellipsis");
@@ -239,7 +241,8 @@ function makeQueueDroppable() {
 			var type = $(ui.draggable).attr("type");
 			var text = $(ui.helper).text();
 			var link = $(ui.draggable).attr("href");
-			createQueueItem(text,link, type);
+			var nid = $(ui.draggable).attr("nid");
+			createQueueItem(text,link, type, nid);
 			
 			makeQueueDroppable();
 			$(this).removeClass("hover-border");
@@ -261,9 +264,16 @@ function makeQueueDroppable() {
 			
 			var type = $(ui.helper).attr("type");
 			var href = $(ui.helper).attr("href");
-			$("#sharedScreen").attr("src",href);
-						
+			var nid = $(ui.helper).attr("nid");
+			
+			$("#shared_canvas").attr("src",href);
+					
+			// Updates shared screen based on the nid of what was dragged to it
+			PS.ajax.updateSharedScreen(function() {}, function() { console.log("Error updating shared screen")} , $(meetingJSON).find("Nid").text(), nid);	
+
+			// Tweets about the newly added shared screen item
 			PS.ajax.tweet(hashtag,"shared screen",accountJSON.name,type, ui.helper.text() );
+			
 			changeTab(4);
 			
 			$("#tabs").removeClass("hover-border");
@@ -296,7 +306,7 @@ function newGroup1(name, nid) {
 function ajaxDeleteGroup(object) {
 	PS.ajax.groupDelete(function () { 
 		$(object).parent().remove();
-	}, function () { console.log("Delete Group Failed!"); }, $(object).parent().attr("nid"), projectJSON.nid);
+	}, function () { console.log("Delete Group Failed!"); }, $(object).parent().attr("nid"), $(projectJSON).find("Nid").text());
 }
 
 function ajaxNewGroup() {
@@ -305,10 +315,8 @@ function ajaxNewGroup() {
 	if (name != null && name != "") {
 		PS.ajax.groupCreate(function (json) {
 			newGroup1(name, json.nid);
-		}, function() { console.log("Failed to Create group '"+ name + "'"); }, name , accountJSON.uid, projectJSON.nid);
+		}, function() { console.log("Failed to Create group '"+ name + "'"); }, name , accountJSON.uid, $(projectJSON).find("Nid").text());
 	}
-
-
 }
 
 function addUserToGroup(name, groupName, id) {
@@ -545,6 +553,9 @@ function makeFilesDroppable() {
 			$(ui.helper).css("font-family","Helvetica");
 			$(ui.item).attr("href",$(ui.item).find("a").attr("href"));
 			$(ui.item).attr("type",$(ui.item).attr("type"));
+			
+			$(ui.item).attr("nid",$(ui.item).attr("nid"));
+			
 		},	
 
 		stop: function(event,ui) {stopiFrameFix();},		
@@ -556,8 +567,8 @@ function makeFilesDroppable() {
 
 /* 	type = Type of file it is (what icon will be displayed). Can choose file, image, document, survey, audio
 	link = What the text links to */
-function createItem(type, link, name, target) {
-    $(target).append("<li type=" + type + " title = '" + name + "' class = 'icon "+ type +"'><a onclick='changeTab(3)' href='" + link + "' target='openFile'>" + name + "</a><img src='icons/handle.png' class='dragHandle2'></li>");
+function createItem(type, link, name, target, nid) {
+    $(target).append("<li nid='" + nid + "' type=" + type + " title = '" + name + "' class = 'icon "+ type +"'><a onclick='changeTab(3)' href='" + link + "' target='openFile'>" + name + "</a><img src='icons/handle.png' class='dragHandle2'></li>");
 	makeFilesDroppable();
 };
 
@@ -567,6 +578,74 @@ function changeTab(number) {
 
 function createWorkspaceAccordion(name, className) {
 	$("#accordion").append("<h3><a href='#'>" + name + "'s Items</a></h3><div><ul class = '" + className + " appleCube'></ul></div>").accordion('destroy').accordion({ autoHeight: false });
+}
+
+function promptCreate() {
+$.blockUI({ 
+	message: $('#createItemPrompt'),
+	css: { 
+		border: 'none', 
+		padding: '15px',
+		'font-size': '15px',
+		backgroundColor: '#222', 
+		'-webkit-border-radius': '10px', 
+		'-moz-border-radius': '10px', 
+		'border-radius': '10px',
+		'min-width' : '475px',
+		'margin-top' : '-200px',
+		'margin-left' : '-50px',
+		'cursor': 'auto',
+	//	opacity: .5, 
+		color: '#fff' },
+	}); 
+}
+
+function createItemAjax() {	
+
+	// Type is used for css styling
+	// String is first made lowercase, and then remove all spaces
+	var type = $("#filetype").val().toLowerCase().split(" ").join("");
+	var name = $("#filename").val();
+	var url = $("#url").val();
+	
+	if(name == "" || name == null || url == "" || url == null) {
+		$("#itemCreateErrorMessage").text("Please Enter a item name and URL");
+		$("#itemCreateErrorMessage").show();
+	} else {
+		
+		var valid = true;
+		var reason = "";
+	
+		// This is needed to embedd Google Maps
+		if(type == "googlemap") {
+			url = url + "&output=embed";	
+		} else if(type == "youtube") {
+			url = "http://www.youtube.com/embed/" + youtube_parser(url);
+			
+			if(youtube_parser(url) == false) { valid = false; reason = "Invalid YouTube Link"; }
+		}
+		
+		if(valid) { 
+			$("#itemCreateErrorMessage").hide();
+		
+			PS.ajax.itemCreate( function(json) { 
+				createItem(type, url, name, ".myItems", json.nid);
+			
+			} , function() { console.log("Error Creating Item: " + name); }, name, type ,accountJSON.uid, url)
+			
+			// Clear fields for next item
+			$("#url").val("");
+			$("#filename").val("");
+			
+			// Unblock UI
+			$.unblockUI();	
+		} else {
+			$("#itemCreateErrorMessage").text(reason);
+			$("#itemCreateErrorMessage").show();
+		}
+		
+
+	}
 }
 
 

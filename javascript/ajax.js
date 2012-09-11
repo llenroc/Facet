@@ -220,15 +220,42 @@ PS.ajax.nodeDelete = function(callback, errorCallback, id) {
 /***** Twitter *****/
 
 PS.ajax.tweet = function(hashtag,location,name,type,filename) {
+	
+	switch(type) {
+		case 'youtube':
+			type = "a YouTube video";
+			console.log("youtube");
+			break;
+		case 'googlemap':
+			type = "a Google Map";
+			break;
+		case 'image':
+			type = "an image";
+			break;
+		case 'pdf':
+			type = "a PDF file";
+			break;
+		case 'audio':
+			type = "an audio file";
+			break;
+		case 'image':
+			type = "an image";
+			break;
+		case 'results':
+			type = "survey results";
+			break;
+		default:
+			type = "a " + type;
+	}
+	
 	$.ajax({
 		type: "POST",
 		url:  "tweetMessage.php?hashtag="+hashtag+"&location="+location+"&name="+name+"&type="+type+"&filename="+filename,
 		success: function(){
-
+			console.log("Twitter Call Passed!");
 		},
 		error: function(){
-			// code
-			console.log("Twitter call failed!");
+			console.log("Twitter Call Failed!");
 		}
     });
 }
@@ -377,9 +404,8 @@ PS.ajax.itemIndex = function(callback, errorCallback) {
 }
 
 //userNodeId: node id for the user that created and initially owns the item
-//createdTime: a string
 //TODO: Add support for item type. item may need to have a new node reference field added to refer to arbitrary external nodes ... as well as additional fields for the text item types (comment, question, note/annotation)
-PS.ajax.itemCreate = function(callback, errorCallback, name, type ,userNodeId, createdTime) {
+PS.ajax.itemCreate = function(callback, errorCallback, name, type ,userNodeId, url) {
 	$.ajax({
 		type: "POST",
 		url: PS.ajax.getServerPrefix() + "restfacet/node/",
@@ -391,11 +417,11 @@ PS.ajax.itemCreate = function(callback, errorCallback, name, type ,userNodeId, c
 				'field_item_name[und][0][value]': name ,
 				'field_item_id_owner[und][0][uid]': PS.ajax.wrapUserId(userNodeId),
 				'field_item_id_creator[und][0][uid]': PS.ajax.wrapUserId(userNodeId),
-				'field_item_creation_timestamp[und][0][value]': createdTime,
+				'field_item_creation_timestamp[und][0][value]': new Date().getTime(),
 				'field_item_shared_timestamp[und][0][value]': '',
 				'field_item_type[und][0][value]': type,
+				'field_item_url[und][0][value]': url,
 				
-				//'field_item_type[und][0][value]': 'survey',
 		}
 	});		
 }
@@ -598,6 +624,21 @@ PS.ajax.addUserToGroup = function(callback, errorCallback, userNodeId, groupID) 
 		},
 		errorCallback,
 		groupID
+	);
+}
+
+PS.ajax.updateSharedScreen = function(callback, errorCallback, meetingID, SSnid) {
+	PS.ajax.nodeRetrieve(
+		function(json, textStatus, jqXHR) {
+			var data = {};
+			data.type = "meeting";
+			
+			data['field_meeting_active_item[und][0][nid]'] = PS.ajax.wrapNodeId(SSnid);
+		
+			PS.ajax.nodeUpdate(callback, errorCallback, meetingID, data);
+		
+		}, errorCallback,
+		meetingID
 	);
 }
 
