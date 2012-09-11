@@ -306,7 +306,7 @@ function newGroup1(name, nid) {
 function ajaxDeleteGroup(object) {
 	PS.ajax.groupDelete(function () { 
 		$(object).parent().remove();
-	}, function () { console.log("Delete Group Failed!"); }, $(object).parent().attr("nid"), projectJSON.nid);
+	}, function () { console.log("Delete Group Failed!"); }, $(object).parent().attr("nid"), $(projectJSON).find("Nid").text());
 }
 
 function ajaxNewGroup() {
@@ -315,7 +315,7 @@ function ajaxNewGroup() {
 	if (name != null && name != "") {
 		PS.ajax.groupCreate(function (json) {
 			newGroup1(name, json.nid);
-		}, function() { console.log("Failed to Create group '"+ name + "'"); }, name , accountJSON.uid, projectJSON.nid);
+		}, function() { console.log("Failed to Create group '"+ name + "'"); }, name , accountJSON.uid, $(projectJSON).find("Nid").text());
 	}
 }
 
@@ -607,7 +607,6 @@ function createItemAjax() {
 	var type = $("#filetype").val().toLowerCase().split(" ").join("");
 	var name = $("#filename").val();
 	var url = $("#url").val();
-	var createdTime = new Date().getTime();
 	
 	if(name == "" || name == null || url == "" || url == null) {
 		$("#itemCreateErrorMessage").text("Please Enter a item name and URL");
@@ -632,7 +631,7 @@ function createItemAjax() {
 			PS.ajax.itemCreate( function(json) { 
 				createItem(type, url, name, ".myItems", json.nid);
 			
-			} , function() { console.log("Error Creating Item: " + name); }, name, type ,accountJSON.uid, createdTime, url)
+			} , function() { console.log("Error Creating Item: " + name); }, name, type ,accountJSON.uid, url)
 			
 			// Clear fields for next item
 			$("#url").val("");

@@ -119,7 +119,7 @@ function addQueueItemsFromString(string) {
 		if(itemData[i] != "") {
 			var split = itemData[i].split(", ");
 			
-			createQueueItem(split[1], split[3], split[2]);
+			createQueueItem(split[1], split[3], split[2], split[0]);
 		}			
 	}
 }

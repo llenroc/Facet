@@ -404,9 +404,8 @@ PS.ajax.itemIndex = function(callback, errorCallback) {
 }
 
 //userNodeId: node id for the user that created and initially owns the item
-//createdTime: a string
 //TODO: Add support for item type. item may need to have a new node reference field added to refer to arbitrary external nodes ... as well as additional fields for the text item types (comment, question, note/annotation)
-PS.ajax.itemCreate = function(callback, errorCallback, name, type ,userNodeId, createdTime, url) {
+PS.ajax.itemCreate = function(callback, errorCallback, name, type ,userNodeId, url) {
 	$.ajax({
 		type: "POST",
 		url: PS.ajax.getServerPrefix() + "restfacet/node/",
@@ -418,12 +417,11 @@ PS.ajax.itemCreate = function(callback, errorCallback, name, type ,userNodeId, c
 				'field_item_name[und][0][value]': name ,
 				'field_item_id_owner[und][0][uid]': PS.ajax.wrapUserId(userNodeId),
 				'field_item_id_creator[und][0][uid]': PS.ajax.wrapUserId(userNodeId),
-				'field_item_creation_timestamp[und][0][value]': createdTime,
+				'field_item_creation_timestamp[und][0][value]': new Date().getTime(),
 				'field_item_shared_timestamp[und][0][value]': '',
 				'field_item_type[und][0][value]': type,
 				'field_item_url[und][0][value]': url,
 				
-				//'field_item_type[und][0][nid]': 'survey',
 		}
 	});		
 }
