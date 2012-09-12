@@ -71,9 +71,6 @@
 		<!-- Toggle button for sliding Participants Panel -->
 		<img alt="Toggle Participants View" style="z-index:999;" src="icons/left.png" id="toggleSlide" />
 		
-		<!-- Log out button -->
-		<button class="button blue" onclick="window.location = 'default.html';" style="position:absolute; right:5px;top:5px; z-index:999;">Log out</button>
-		
 		<!-- Participants Panel -->
         <div class="participants"> 
             <h1>Participants</h1>
@@ -203,6 +200,20 @@
 			<div id="itemCreateErrorMessage" style="margin-top:10px;color:red;display:none">Please Enter a item name and URL</div>
 			
 			<img alt="URL Help" id="urlhelp" height="200px" width="450px" style="margin-top:20px; border-radius:8px;" src="resources/YouTube.png"></img>
+		
+		</div>
+		
+		<img id="settingsImage" status="hidden" onclick="toggleSettingsMenu();" style="position:absolute; top:10px; right:10px" alt="Settings" src="icons/gear.png"></img>
+		
+		<div id="settingsMenu" style="min-width:200px; padding:10px; color: white; background-color:#222222; border-radius:8px; display:none; position:absolute; top:50px; right:5px">
+			
+			<div style="font-weight:bold; font-size:16px">User:	 </div>	<div style="font-size:12px; margin-bottom:5px" id="settingsUser"> 	</div>
+			<div style="font-weight:bold; font-size:16px">Meeting: </div><div style="font-size:12px; margin-bottom:5px" id="settingsMeeting"> 	</div>
+			<div style="font-weight:bold; font-size:16px">Project: </div><div style="font-size:12px; " id="settingsProject">	</div>
+			
+			
+			<!-- Log out button -->
+			<button style="margin-top:5px; margin-left:0px" class="button blue" onclick="window.location = 'default.html';">Log out</button>
 		
 		</div>
         

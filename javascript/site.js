@@ -120,6 +120,7 @@ $(function() {
 // Callback for when the account logged in has been retrieved. accountJSON stores this information
 function getUserCallback() {	
 	$("#myItemsHeader").text(accountJSON.name +"'s Items");
+	$("#settingsUser").text(accountJSON.name);
 }
 
 // Callback for when the account that is logged in item's have been retrieved. xml stores this information
@@ -131,11 +132,12 @@ function getUserItemsCallback(xml) {
 function getProjectCallback() {
 	// Removes loading animation item
 	$("#loadingGroups").remove();
+	$("#settingsProject").text($(projectJSON).find("Name").text());
 }
 
 // Callback for when the meeting has been retrieved. meetingJSON stores this information
 function getMeetingCallback() {
-
+	$("#settingsMeeting").text($(meetingJSON).find("Name").text());
 }
 
 //Callback for when the group items have been retrieved and added
@@ -643,10 +645,43 @@ function createItemAjax() {
 			$("#itemCreateErrorMessage").text(reason);
 			$("#itemCreateErrorMessage").show();
 		}
-		
-
 	}
 }
+
+function toggleSettingsMenu() {
+	var animationDuration = 300;
+	var animationDegrees = 90;
+
+	if($("#settingsImage").attr("status") == "hidden") {
+		$("#settingsImage").attr("status", "visible");
+		$("#settingsImage").animate({rotate:'-='+animationDegrees},{duration:animationDuration});
+	} else {
+		$("#settingsImage").attr("status", "hidden");
+		$("#settingsImage").animate({rotate:'+='+animationDegrees},{duration:animationDuration});
+	}
+
+	$('#settingsMenu').toggle(animationDuration);
+}
+
+//http://javascriptisawesome.blogspot.ca/2011/09/jquery-css-rotate-and-animate-rotation.html
+// Animate with rotation. Used on settings gear
+(function($){
+	var _e = document.createElement("canvas").width
+	$.fn.cssrotate = function(d) {  
+	return this.css({
+	'-moz-transform':'rotate('+d+'deg)',
+	'-webkit-transform':'rotate('+d+'deg)',
+	'-o-transform':'rotate('+d+'deg)',
+	'-ms-transform':'rotate('+d+'deg)'
+	}).prop("rotate", _e ? d : null)
+	}; 
+	var $_fx_step_default = $.fx.step._default;
+	$.fx.step._default = function (fx) {
+	if(fx.prop != "rotate")return $_fx_step_default(fx);
+	if(typeof fx.elem.rotate == "undefined")fx.start = fx.elem.rotate = 0;
+	$(fx.elem).cssrotate(fx.now)
+	}; 
+})(jQuery);
 
 
 
