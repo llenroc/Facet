@@ -173,7 +173,7 @@ function createUser(name, id) {
 
 // Creates Queue item with a given name and link
 function createQueueItem(name, link, type, nid) {
-	$("#columns").css("width", "+=162px");
+	$("#columns").css("width", "+=182px");
 	$("#columns").append("<li nid='" + nid + "' type='" + type + "' class='column'><header><h1><a onclick='changeTab(3)' href='"+ link + "' target='openFile'>" + name + "</a><img alt='List Item' src='icons/handle.png' class='dragHandle2'></h1></header></li>");
 }
 

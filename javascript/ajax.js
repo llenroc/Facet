@@ -224,7 +224,6 @@ PS.ajax.tweet = function(hashtag,location,name,type,filename) {
 	switch(type) {
 		case 'youtube':
 			type = "a YouTube video";
-			console.log("youtube");
 			break;
 		case 'googlemap':
 			type = "a Google Map";
