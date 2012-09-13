@@ -224,7 +224,6 @@ PS.ajax.tweet = function(hashtag,location,name,type,filename) {
 	switch(type) {
 		case 'youtube':
 			type = "a YouTube video";
-			console.log("youtube");
 			break;
 		case 'googlemap':
 			type = "a Google Map";
@@ -618,8 +617,7 @@ PS.ajax.addUserToGroup = function(callback, errorCallback, userNodeId, groupID) 
 			else {
 				data['field_group_users[und][' + String(json.field_group_users.und.length) + '][uid]'] = PS.ajax.wrapUserId(userNodeId);
 			}
-			
-			
+						
 			PS.ajax.nodeUpdate(callback, errorCallback, groupID, data);
 		},
 		errorCallback,
@@ -628,18 +626,10 @@ PS.ajax.addUserToGroup = function(callback, errorCallback, userNodeId, groupID) 
 }
 
 PS.ajax.updateSharedScreen = function(callback, errorCallback, meetingID, SSnid) {
-	PS.ajax.nodeRetrieve(
-		function(json, textStatus, jqXHR) {
-			var data = {};
-			data.type = "meeting";
-			
-			data['field_meeting_active_item[und][0][nid]'] = PS.ajax.wrapNodeId(SSnid);
-		
-			PS.ajax.nodeUpdate(callback, errorCallback, meetingID, data);
-		
-		}, errorCallback,
-		meetingID
-	);
+	var data = {};
+	data.type = "meeting";
+	data['field_meeting_active_item[und][0][nid]'] = PS.ajax.wrapNodeId(SSnid);
+	PS.ajax.nodeUpdate(callback, errorCallback, meetingID, data);
 }
 
 //user_group_member

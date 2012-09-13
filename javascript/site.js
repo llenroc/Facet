@@ -120,6 +120,7 @@ $(function() {
 // Callback for when the account logged in has been retrieved. accountJSON stores this information
 function getUserCallback() {	
 	$("#myItemsHeader").text(accountJSON.name +"'s Items");
+	$("#settingsUser").text(accountJSON.name);
 }
 
 // Callback for when the account that is logged in item's have been retrieved. xml stores this information
@@ -131,11 +132,12 @@ function getUserItemsCallback(xml) {
 function getProjectCallback() {
 	// Removes loading animation item
 	$("#loadingGroups").remove();
+	$("#settingsProject").text($(projectJSON).find("Name").text());
 }
 
 // Callback for when the meeting has been retrieved. meetingJSON stores this information
 function getMeetingCallback() {
-
+	$("#settingsMeeting").text($(meetingJSON).find("Name").text());
 }
 
 //Callback for when the group items have been retrieved and added
@@ -165,14 +167,14 @@ function populateFailed() {
 
 // Adds user to the participant list with the given name
 function createUser(name, id) {
-	$("#participantList").append("<li uid='" + id + "' class='user icon'><a href='#'>" + name + "</a><img alt='Drag Handle' src='icons/handle.png' class='dragHandle2'></li>");
+	$("#participantList").append("<li uid='" + id + "' class='user icon'><a href='#'>" + name + "</a><img alt='Drag Handle' src='icons/handleL.png' class='dragHandle2'></li>");
 	makeParticipantsDroppable();
 }
 
 // Creates Queue item with a given name and link
 function createQueueItem(name, link, type, nid) {
-	$("#columns").css("width", "+=162px");
-	$("#columns").append("<li nid='" + nid + "' type='" + type + "' class='column'><header><h1><a onclick='changeTab(3)' href='"+ link + "' target='openFile'>" + name + "</a><img alt='List Item' src='icons/handle.png' class='dragHandle2'></h1></header></li>");
+	$("#columns").css("width", "+=182px");
+	$("#columns").append("<li nid='" + nid + "' type='" + type + "' class='column'><header><h1><a onclick='changeTab(3)' href='"+ link + "' target='openFile'>" + name + "</a><img alt='List Item' src='icons/handleL.png' class='dragHandle2'></h1></header></li>");
 }
 
 // Animates divs to slide in and out
@@ -267,7 +269,7 @@ function makeQueueDroppable() {
 			var nid = $(ui.helper).attr("nid");
 			
 			$("#shared_canvas").attr("src",href);
-					
+			
 			// Updates shared screen based on the nid of what was dragged to it
 			PS.ajax.updateSharedScreen(function() {}, function() { console.log("Error updating shared screen")} , $(meetingJSON).find("Nid").text(), nid);	
 
@@ -294,9 +296,9 @@ function newGroup(nid) {
 
 function newGroup1(name, nid) {
 	if(editing == true) {
-        $("#groupList").append("<li nid='"+nid+"' class = 'icon group'><img onclick='ajaxDeleteGroup(this)' class='delete' src='icons/delete.png'></img><textarea class='groupText'>" + name + "</textarea><div onclick='$(this).next().toggle();'></div><ul class = 'apple'></ul></li>");
+        $("#groupList").append("<li nid='"+nid+"' class = 'icon group'><img onclick='ajaxDeleteGroup(this)' class='delete' height='32px' width='32px' src='icons/deleteL.png'></img><textarea class='groupText'>" + name + "</textarea><div onclick='$(this).next().toggle();'></div><ul class = 'apple'></ul></li>");
     } else {
-        $("#groupList").append("<li nid='"+nid+"' class = 'icon group'><img style='display:none;' onclick='ajaxDeleteGroup(this)' class='delete' src='icons/delete.png'><textarea class='groupText' style='display:none;'>" + name + "</textarea><div onclick='$(this).next().toggle();'>" + name + "</div><ul class = 'apple' style='display:none'></ul></li>");	
+        $("#groupList").append("<li nid='"+nid+"' class = 'icon group'><img style='display:none;' onclick='ajaxDeleteGroup(this)' class='delete' height='32px' width='32px' src='icons/deleteL.png'><textarea class='groupText' style='display:none;'>" + name + "</textarea><div onclick='$(this).next().toggle();'>" + name + "</div><ul class = 'apple' style='display:none'></ul></li>");	
     }
     makeParticipantsDroppable(); /* Makes new group droppable */
 
@@ -322,7 +324,7 @@ function ajaxNewGroup() {
 function addUserToGroup(name, groupName, id) {
 	$("#groupList").children().each(function () { 
 		if($(this).find("div").text() == groupName) {
-			$(this).find("ul").append("<li uid='" + id + "' class='icon user'><a href='#'>" + name + "</a><img alt='Drag Handle' src='icons/handle.png' class='dragHandle2'></li>");
+			$(this).find("ul").append("<li uid='" + id + "' class='icon user'><a href='#'>" + name + "</a><img alt='Drag Handle' src='icons/handleL.png' class='dragHandle2'></li>");
 		}	
 	});
 }
@@ -568,7 +570,7 @@ function makeFilesDroppable() {
 /* 	type = Type of file it is (what icon will be displayed). Can choose file, image, document, survey, audio
 	link = What the text links to */
 function createItem(type, link, name, target, nid) {
-    $(target).append("<li nid='" + nid + "' type=" + type + " title = '" + name + "' class = 'icon "+ type +"'><a onclick='changeTab(3)' href='" + link + "' target='openFile'>" + name + "</a><img src='icons/handle.png' class='dragHandle2'></li>");
+    $(target).append("<li nid='" + nid + "' type=" + type + " title = '" + name + "' class = 'icon "+ type +"'><a onclick='changeTab(3)' href='" + link + "' target='openFile'>" + name + "</a><img src='icons/handleL.png' class='dragHandle2'></li>");
 	makeFilesDroppable();
 };
 
@@ -643,10 +645,43 @@ function createItemAjax() {
 			$("#itemCreateErrorMessage").text(reason);
 			$("#itemCreateErrorMessage").show();
 		}
-		
-
 	}
 }
+
+function toggleSettingsMenu() {
+	var animationDuration = 300;
+	var animationDegrees = 90;
+
+	if($("#settingsImage").attr("status") == "hidden") {
+		$("#settingsImage").attr("status", "visible");
+		$("#settingsImage").animate({rotate:'-='+animationDegrees},{duration:animationDuration});
+	} else {
+		$("#settingsImage").attr("status", "hidden");
+		$("#settingsImage").animate({rotate:'+='+animationDegrees},{duration:animationDuration});
+	}
+
+	$('#settingsMenu').toggle(animationDuration);
+}
+
+//http://javascriptisawesome.blogspot.ca/2011/09/jquery-css-rotate-and-animate-rotation.html
+// Animate with rotation. Used on settings gear
+(function($){
+	var _e = document.createElement("canvas").width
+	$.fn.cssrotate = function(d) {  
+	return this.css({
+	'-moz-transform':'rotate('+d+'deg)',
+	'-webkit-transform':'rotate('+d+'deg)',
+	'-o-transform':'rotate('+d+'deg)',
+	'-ms-transform':'rotate('+d+'deg)'
+	}).prop("rotate", _e ? d : null)
+	}; 
+	var $_fx_step_default = $.fx.step._default;
+	$.fx.step._default = function (fx) {
+	if(fx.prop != "rotate")return $_fx_step_default(fx);
+	if(typeof fx.elem.rotate == "undefined")fx.start = fx.elem.rotate = 0;
+	$(fx.elem).cssrotate(fx.now)
+	}; 
+})(jQuery);
 
 
 

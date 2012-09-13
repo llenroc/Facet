@@ -33,7 +33,7 @@
 #rightArrow {
 	visibility: visible;
 	top:50px;
-	left:1005px;
+	left:965px;
 	display:inline;
 }
 
@@ -93,12 +93,12 @@ body {
 
 .queue
 {
-	width:765px;
+	width:725px;
 	-webkit-overflow-scrolling: touch;
 }
 
 .column  {
-	width:145px;
+	width:177px;
 }
 
 .monitter {

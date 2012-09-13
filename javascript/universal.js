@@ -103,11 +103,16 @@ function addItemFromItemData(data, targetClass) {
 // Takes an item nid and performs a retrieve on it. It then updates the shared screen with the URL
 function changeSharedScreenFromID(nid) {
 	PS.ajax.retrieve("item", nid, function(xml) {
+		// First updates shared screen pretending it's a survey
+		$("#shared_canvas").attr("src","http://facetsurvey.4abyte.com/facetsurvey/" + nid);
+		$("#shared_canvas").attr("data","http://facetsurvey.4abyte.com/facetsurvey/" + nid);
+	
+		// Then, if it finds a URL, it updates shared screen with the URL it finds
 		$(xml).find("node").slice(1).each(function() {
 			$("#shared_canvas").attr("src",$(this).find("Url").text());
-			$("#shared_canvas").attr("data",$(this).find("Url").text());
+			$("#shared_canvas").attr("data",$(this).find("Url").text());		
 		});
-	
+			
 	}, function() { console.log("Failed to Load Shared Screen Item"); });
 }
 
@@ -258,11 +263,11 @@ function populateSampleUsers() {
 
 // Temporary function that populates queue with sample items
 function populateSampleQueue() {
-	createQueueItem("Comment","empty.html", "comment",1427);
-	createQueueItem("Comment","empty.html", "comment",1427);
-	createQueueItem("Survey","empty.html", "survey",1427);
-	createQueueItem("Question","empty.html", "question",1427);
-	createQueueItem("Video","empty.html", "video",1427);
+	createQueueItem("Comment","empty.html", "comment",1464);
+	createQueueItem("Comment","empty.html", "comment",1464);
+	createQueueItem("Survey","empty.html", "survey",1464);
+	createQueueItem("Question","empty.html", "question",1464);
+	createQueueItem("Video","empty.html", "video",1464);
 }
 
 
