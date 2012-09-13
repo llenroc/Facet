@@ -5,7 +5,7 @@
 		<!-- Mobile tag to disable zooming and also set the viewport -->
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=0" />
 		
-		<title>Facet Testing</title>
+		<title>Facet Public Square</title>
 		
 		<link rel="stylesheet" href="css/jquery.mobile-1.1.1.css" />
 		<link rel="stylesheet" type="text/css" href="css/monitterMobile.css" />
@@ -70,7 +70,7 @@
 			<div data-role="header" data-position="fixed" data-tap-toggle="false">
 				<a href="index.html" data-rel="back" data-icon="arrow-l">Back</a>
 				<h1>Facet</h1>
-				<a class="logout" data-icon="back">Logout</a>
+				<a data-rel='dialog' data-icon='gear' data-iconpos="notext" data-transition='pop' href='#settingsDialog'>Settings</a>
 				
 				<div data-role="navbar">
 					<ul>
@@ -112,7 +112,7 @@
 			<div data-role="header" data-position="fixed" data-tap-toggle="false">
 				<a href="index.html" data-rel="back" data-icon="arrow-l">Back</a>
 				<h1>Workspace</h1>
-				<a class="logout" data-icon="back">Logout</a>
+				<a data-rel='dialog' data-icon='gear' data-iconpos="notext" data-transition='pop' href='#settingsDialog'>Settings</a>
 				<div data-role="navbar">
 					<ul>
 						<li><a class="fastnav" data-transition="slide" href="#participants">Users</a></li>
@@ -156,7 +156,7 @@
 			<div data-role="header" data-position="fixed" data-tap-toggle="false">
 				<a href="index.html" data-rel="back" data-icon="arrow-l">Back</a>
 				<h1>Queue</h1>
-				<a class="logout" data-icon="back">Logout</a>	
+				<a data-rel='dialog' data-icon='gear' data-iconpos="notext" data-transition='pop' href='#settingsDialog'>Settings</a>
 				<div data-role="navbar">
 					<ul>
 						<li><a class="fastnav" data-transition="slide" href="#participants">Users</a></li>
@@ -188,7 +188,7 @@
 			<div data-role="header" data-position="fixed" data-tap-toggle="false">
 				<a href="index.html" data-rel="back" data-icon="arrow-l">Back</a>
 				<h1>Map</h1>
-				<a class="logout" data-icon="back">Logout</a>
+				<a data-rel='dialog' data-icon='gear' data-iconpos="notext" data-transition='pop' href='#settingsDialog'>Settings</a>
 				<div data-role="navbar">
 					<ul>
 						<li><a class="fastnav" data-transition="slide" href="#participants">Users</a></li>
@@ -223,7 +223,7 @@
 			<div data-role="header" data-position="fixed" data-tap-toggle="false">
 				<a href="index.html" data-rel="back" data-icon="arrow-l">Back</a>
 				<h1 id="sharedScreenHeader">Shared Screen</h1>
-				<a class="logout" data-icon="back">Logout</a>
+				<a data-rel='dialog' data-icon='gear' data-iconpos="notext" data-transition='pop' href='#settingsDialog'>Settings</a>
 				<div data-role="navbar">
 					<ul>
 						<li><a class="fastnav" data-transition="slide" href="#participants">Users</a></li>
@@ -335,6 +335,33 @@
 			</div>
 			<div data-role="content">
 				<object style="border-radius: 8px;" id="open_canvas" width="100%" height="75%" type="text/html" data=""></object>
+			</div>
+		</div>
+<!-- ----------------------------------------------------------------------------------------------------------------------------------- -->
+
+<!-- -----------------------------------------SETTINGS DIALOG--------------------------------------------------------------------------- -->
+		<div data-role="page" id="settingsDialog">
+			<div data-role="header" data-position="inline">
+			<h1 class="dialogHeader">Settings</h1>
+			</div>
+			<div data-role="content">
+			
+				<ul data-inset="true" data-role="listview">
+					<li data-role='list-divider'>User</li>
+					<li><div id="settingsUser"></div></li>
+				</ul>
+				
+				<ul data-inset="true" data-role="listview">
+					<li data-role='list-divider'>Meeting</li>
+					<li><div id="settingsMeeting"></div></li>
+				</ul>
+				
+				<ul data-inset="true" data-role="listview">
+					<li data-role='list-divider'>Project</li>
+					<li><div id="settingsProject"></div></li>
+				</ul>
+			
+				<a data-icon="back" data-role="button" class="logout">Logout</a>
 			</div>
 		</div>
 <!-- ----------------------------------------------------------------------------------------------------------------------------------- -->

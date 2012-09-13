@@ -120,7 +120,6 @@ $(function() {
 // Callback for when the account logged in has been retrieved. accountJSON stores this information
 function getUserCallback() {	
 	$("#myItemsHeader").text(accountJSON.name +"'s Items");
-	$("#settingsUser").text(accountJSON.name);
 }
 
 // Callback for when the account that is logged in item's have been retrieved. xml stores this information
@@ -132,12 +131,11 @@ function getUserItemsCallback(xml) {
 function getProjectCallback() {
 	// Removes loading animation item
 	$("#loadingGroups").remove();
-	$("#settingsProject").text($(projectJSON).find("Name").text());
 }
 
 // Callback for when the meeting has been retrieved. meetingJSON stores this information
 function getMeetingCallback() {
-	$("#settingsMeeting").text($(meetingJSON).find("Name").text());
+	
 }
 
 //Callback for when the group items have been retrieved and added

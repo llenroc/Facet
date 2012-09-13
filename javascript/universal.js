@@ -45,6 +45,7 @@ function getUser() {
 	PS.ajax.userRetrieve(getCookie("id"), function(json, textStatus, jqXHR) {
 		console.log("User: " + json.name); 
 		accountJSON = json; 
+		$("#settingsUser").text(json.name);
 		getUserCallback();
 	}, function() { console.log("Error getting current user account"); } );
 }
@@ -80,6 +81,9 @@ function getMeeting() {
 			
 			
 			meetingJSON = xml;
+			
+			$("#settingsMeeting").text($(xml).find("Name").text());
+			
 			getMeetingCallback();	
 		});
 	
@@ -182,6 +186,7 @@ function getProject() {
 			//-------------------------------------------------------------------------//
 			
 			projectJSON = xml;
+			$("#settingsProject").text($(xml).find("Name").text());
 			getProjectCallback();
 			
 		});
