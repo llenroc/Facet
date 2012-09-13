@@ -123,7 +123,8 @@ ul.apple ul.apple {
 }
 
 .youtube {
-	background-image: url(../icons/youtube.png);
+	background-image: url(../icons/youtubeL.png);
+	background-size:48px 48px;
 }
 
 .pdf {

@@ -269,7 +269,7 @@ function makeQueueDroppable() {
 			var nid = $(ui.helper).attr("nid");
 			
 			$("#shared_canvas").attr("src",href);
-					
+			
 			// Updates shared screen based on the nid of what was dragged to it
 			PS.ajax.updateSharedScreen(function() {}, function() { console.log("Error updating shared screen")} , $(meetingJSON).find("Nid").text(), nid);	
 
