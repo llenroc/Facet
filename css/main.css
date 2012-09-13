@@ -111,7 +111,7 @@ ul.apple ul.apple {
 }
 
 .icon {
-	background-image: url(../icons/questionmark.png);
+	background-image: url(../icons/questionmarkL.png);
 	background-repeat: no-repeat;
 	background-position: 5px 5px;
 	background-size:48px 48px;
@@ -146,10 +146,6 @@ ul.apple ul.apple {
 	background-position: 15px 12px;
 	background-size:32px 32px;
 	background-image: url(../icons/loadingL.gif);
-}
-
-.delete {
-	background-image: url(../icons/delete.png);
 }
 
 .meeting {
@@ -239,8 +235,8 @@ img.dragHandle2 {
 	top: 0px;
 	z-index:9999;
 
-	width:25px; 
-	height:25px;
+	width:24px; 
+	height:24px;
 	border:0px;	
 	
 }

@@ -167,14 +167,14 @@ function populateFailed() {
 
 // Adds user to the participant list with the given name
 function createUser(name, id) {
-	$("#participantList").append("<li uid='" + id + "' class='user icon'><a href='#'>" + name + "</a><img alt='Drag Handle' src='icons/handle.png' class='dragHandle2'></li>");
+	$("#participantList").append("<li uid='" + id + "' class='user icon'><a href='#'>" + name + "</a><img alt='Drag Handle' src='icons/handleL.png' class='dragHandle2'></li>");
 	makeParticipantsDroppable();
 }
 
 // Creates Queue item with a given name and link
 function createQueueItem(name, link, type, nid) {
 	$("#columns").css("width", "+=182px");
-	$("#columns").append("<li nid='" + nid + "' type='" + type + "' class='column'><header><h1><a onclick='changeTab(3)' href='"+ link + "' target='openFile'>" + name + "</a><img alt='List Item' src='icons/handle.png' class='dragHandle2'></h1></header></li>");
+	$("#columns").append("<li nid='" + nid + "' type='" + type + "' class='column'><header><h1><a onclick='changeTab(3)' href='"+ link + "' target='openFile'>" + name + "</a><img alt='List Item' src='icons/handleL.png' class='dragHandle2'></h1></header></li>");
 }
 
 // Animates divs to slide in and out
@@ -296,9 +296,9 @@ function newGroup(nid) {
 
 function newGroup1(name, nid) {
 	if(editing == true) {
-        $("#groupList").append("<li nid='"+nid+"' class = 'icon group'><img onclick='ajaxDeleteGroup(this)' class='delete' src='icons/delete.png'></img><textarea class='groupText'>" + name + "</textarea><div onclick='$(this).next().toggle();'></div><ul class = 'apple'></ul></li>");
+        $("#groupList").append("<li nid='"+nid+"' class = 'icon group'><img onclick='ajaxDeleteGroup(this)' class='delete' height='32px' width='32px' src='icons/deleteL.png'></img><textarea class='groupText'>" + name + "</textarea><div onclick='$(this).next().toggle();'></div><ul class = 'apple'></ul></li>");
     } else {
-        $("#groupList").append("<li nid='"+nid+"' class = 'icon group'><img style='display:none;' onclick='ajaxDeleteGroup(this)' class='delete' src='icons/delete.png'><textarea class='groupText' style='display:none;'>" + name + "</textarea><div onclick='$(this).next().toggle();'>" + name + "</div><ul class = 'apple' style='display:none'></ul></li>");	
+        $("#groupList").append("<li nid='"+nid+"' class = 'icon group'><img style='display:none;' onclick='ajaxDeleteGroup(this)' class='delete' height='32px' width='32px' src='icons/deleteL.png'><textarea class='groupText' style='display:none;'>" + name + "</textarea><div onclick='$(this).next().toggle();'>" + name + "</div><ul class = 'apple' style='display:none'></ul></li>");	
     }
     makeParticipantsDroppable(); /* Makes new group droppable */
 
@@ -324,7 +324,7 @@ function ajaxNewGroup() {
 function addUserToGroup(name, groupName, id) {
 	$("#groupList").children().each(function () { 
 		if($(this).find("div").text() == groupName) {
-			$(this).find("ul").append("<li uid='" + id + "' class='icon user'><a href='#'>" + name + "</a><img alt='Drag Handle' src='icons/handle.png' class='dragHandle2'></li>");
+			$(this).find("ul").append("<li uid='" + id + "' class='icon user'><a href='#'>" + name + "</a><img alt='Drag Handle' src='icons/handleL.png' class='dragHandle2'></li>");
 		}	
 	});
 }
@@ -570,7 +570,7 @@ function makeFilesDroppable() {
 /* 	type = Type of file it is (what icon will be displayed). Can choose file, image, document, survey, audio
 	link = What the text links to */
 function createItem(type, link, name, target, nid) {
-    $(target).append("<li nid='" + nid + "' type=" + type + " title = '" + name + "' class = 'icon "+ type +"'><a onclick='changeTab(3)' href='" + link + "' target='openFile'>" + name + "</a><img src='icons/handle.png' class='dragHandle2'></li>");
+    $(target).append("<li nid='" + nid + "' type=" + type + " title = '" + name + "' class = 'icon "+ type +"'><a onclick='changeTab(3)' href='" + link + "' target='openFile'>" + name + "</a><img src='icons/handleL.png' class='dragHandle2'></li>");
 	makeFilesDroppable();
 };
 
