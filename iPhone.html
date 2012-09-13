@@ -87,7 +87,7 @@
                 <li style="font-size:110%;" data-role="list-divider" id="participantsHeader">Users</li>
             </ul>
 			
-			<div style="text-align:center;" data-type="horizontal" data-role="controlgroup">
+			<div data-type="horizontal" data-role="controlgroup">
 				<a data-rel="dialog" data-transition="pop" href="#newgroupDialog" data-icon="plus" data-role="button">New Group</a>
 				<a id="editGroupButton" data-icon="gear" data-role="button">Edit Group</a>
 			</div>
@@ -126,11 +126,8 @@
 			
 			<div data-role="content">
 			<div style="text-align:center;" data-role="controlgroup" data-type="horizontal">
-				<a onclick="createItem('audio','#','Audio'); refreshListview('#workspaceList');" data-mini="true" data-role="button">Audio</a>
+				<a data-mini="true" data-rel='dialog' data-transition='pop' href='#createItemDialog' data-role="button">Create Item</a>
 				<a data-mini="true" data-rel="dialog" data-transition="pop" href="#surveyDialog" data-role="button">Survey</a>
-				<a onclick="createItem('file','#','File'); refreshListview('#workspaceList');" data-mini="true" data-role="button">File</a>
-				<a onclick="createItem('images','#','Image'); refreshListview('#workspaceList');" data-mini="true" data-role="button">Image</a>
-				<a onclick="createItem('document','#','Document'); refreshListview('#workspaceList');" data-mini="true" data-role="button">Document</a>
 			</div>
 			
 			</br>
@@ -366,7 +363,43 @@
 		</div>
 <!-- ----------------------------------------------------------------------------------------------------------------------------------- -->
 		
-		
+<!-- -----------------------------------------OPEN FILE DIALOG--------------------------------------------------------------------------- -->
+		<div data-role="page" id="createItemDialog">
+			<div data-role="header" data-position="inline">
+			<h1 class="dialogHeader">Create Item</h1>
+			</div>
+			<div data-role="content">
+			
+				<div data-role="fieldcontain">
+					<label for="filename">Item Name:</label>
+					<input type="text" name="name" id="filename" value=""  />
+				</div>
+				
+				<div data-role="fieldcontain">
+				<label for="filetype" class="select">Shipping method:</label>
+				<select onchange="$('#urlhelp').attr('src', 'resources/' + $('#filetype').val() + '.png');" name="filetype" id="filetype">
+						<option>YouTube</option>
+						<option>Audio</option>  
+						<option>Image</option>
+						<option>Document</option>
+						<option>PDF</option>
+						<option>Google Map</option>
+				</select>
+				</div>
+				
+				<div data-role="fieldcontain">
+					<label for="url">URL: </label>
+					<input type="text" name="url" id="url" value=""  />
+				</div>
+			
+				<a data-icon="check" data-role="button">Create Item</a>
+				
+				<div id="itemCreateErrorMessage" style="margin-top:10px;color:red;display:none">Please Enter a item name and URL</div>
+			
+			<img alt="URL Help" id="urlhelp" height="200px" width="450px" style="margin-top:20px; border-radius:8px;" src="resources/YouTube.png"></img>
+			</div>
+		</div>
+<!-- ----------------------------------------------------------------------------------------------------------------------------------- -->
 		
 	</body>
 </html>
