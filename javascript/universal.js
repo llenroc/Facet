@@ -35,6 +35,7 @@ function loadParticipants(xml) {
 		for(var i = 0; i < split.length; i ++) {
 			var split2 = split[i].split(", ");
 			createUser(split2[1],split2[0]);
+			PS.model.meetingParticipants[split2[0]] = split[i];
 		}
 	}
 }
@@ -51,7 +52,7 @@ function getUser() {
 }
 
 // This function is called only once at login time to store the meeting information in a JSON object.
-// It then populates users based on the participants of the meeting.
+// It then populates users based on the participants of the meeting.+
 function getMeeting() {
 	PS.ajax.retrieve("meeting", getCookie("meetingID"), function(xml) {
 		$(xml).find("node").slice(1).each(function() {
@@ -70,19 +71,11 @@ function getMeeting() {
 			window.monitter={};
 			$('.monitter').each(function(e){rrp=6;fetch_tweets(this);});
 			
+			PS.model.hashtag = hashtag;
 			console.log("Hashtag: " + hashtag);
 			//-------------------------------------------------------------------//
-			
-			addItemFromItemData($(this).find("Items_data").text(), ".meetingItems");
-			
-			changeSharedScreenFromID($(xml).find("Active_item").text());
-			
-			addQueueItemsFromString($(xml).find("Queue_data").text());
-			
-			
+				
 			meetingJSON = xml;
-			
-			$("#settingsMeeting").text($(xml).find("Name").text());
 			
 			getMeetingCallback();	
 		});
@@ -296,11 +289,15 @@ function refresh() {
 	PS.ajax.retrieve("meeting", getCookie("meetingID"), function(xml) {
 		$(xml).find("node").slice(1).each(function() {
 		
-			PS.model.checkActiveItem($(xml).find("Active_item").text());		
+			PS.model.checkActiveItem($(xml).find("Active_item").text());
+			PS.model.checkHashTag($(xml).find("Hashtag").text());			
+			PS.model.checkMeetingItems($(this).find("Items_data").text());			
+			PS.model.checkMeetingParticipants($(this).find("Users_data").text());
+			PS.model.checkQueue($(xml).find("Queue_data").text());
+
 			
-			
-			$("#settingsMeeting").text($(xml).find("Name").text());
-			
+			$("#settingsMeeting").text($(xml).find("Name").text());			
+			meetingJSON = xml;		
 		});
 	
 	}, function() { console.log("Meeting Retrieve Failed");});

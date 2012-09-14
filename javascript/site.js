@@ -115,6 +115,7 @@ $(function() {
 	// Unblocks UI when ajax calls stop
 	$(document).ajaxStop($.unblockUI);
 	
+	// Set timer for refresh
 	setInterval(refresh, 5000);
 		
 });

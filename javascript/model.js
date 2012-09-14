@@ -5,11 +5,59 @@ PS.model = {};
 
 PS.model.surveysList = {};
 PS.model.userItems = {};
+PS.model.meetingParticipants = {};
+PS.model.meetingItems = {};
+PS.model.queue = {};
 PS.model.activeItem;
+PS.model.hashtag;
+
 
 PS.model.checkUserItems = function(nid) {
 	
 
+}
+
+PS.model.checkQueue = function(data) {
+	if(data.length != 0) {
+		var items = data.split("; ");
+		for(var i = 0; i < items.length; i++) {
+			var data = items[i].split(", ");
+			
+			if(PS.model.queue[data[0]] === undefined) {	
+				createQueueItem(data[1], data[3], data[2], data[0]);		
+				PS.model.queue[data[0]] = items[i];
+			}
+		}
+	}
+}
+
+PS.model.checkMeetingItems = function(data) {
+	if(data.length != 0) {
+		var items = data.split("; ");
+		for(var i = 0; i < items.length; i++) {
+			var data = items[i].split(", ");
+			
+			if(PS.model.meetingItems[data[0]] === undefined) {			
+				createItem(data[2], data[3], data[1], ".meetingItems", data[0]);
+				PS.model.meetingItems[data[0]] = items[i];
+			}
+		}
+	}
+}
+
+PS.model.checkMeetingParticipants = function(data) {
+	if(data.length != 0) {
+		var items = data.split("; ");
+		for(var i = 0; i < items.length; i++) {
+			var data = items[i].split(", ");
+			
+			if(PS.model.meetingParticipants[data[0]] === undefined) {			
+				
+				createUser(data[1],data[0]);
+				PS.model.meetingParticipants[data[0]] = items[i];
+			}
+		}
+	}
 }
 
 PS.model.checkActiveItem = function(nid) {
@@ -17,6 +65,28 @@ PS.model.checkActiveItem = function(nid) {
 	if(PS.model.activeItem != nid) {
 		changeSharedScreenFromID(nid);
 	}	
+}
+
+PS.model.checkHashTag = function(hashtag) {
+
+	// Gets hashtag. If it isn't present, a default facetmeeting123 is set
+	hashtag = (hashtag.length != 0) ? hashtag : "facetmeeting123";
+
+	if(PS.model.hashtag != hashtag) {
+	
+		// Removes old monitter
+		$(".monitter").remove();
+	
+		// Adds the monitor to search for that hashtag
+		$(".twitterfeed").append("<div class='monitter' id='tweets' title='" + hashtag + "' lang='en'></div>");
+		
+		// Taken from monitter.min.js to update dynamically added twitter hashtags.
+		window.monitter={};
+		$('.monitter').each(function(e){rrp=6;fetch_tweets(this);});
+		
+		console.log("Hashtag: " + hashtag);
+		PS.model.hashtag = hashtag;
+	}
 }
 
 PS.model.getSurveysCallback = function(json, textStatus, jqXHR) {
