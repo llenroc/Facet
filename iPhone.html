@@ -358,6 +358,8 @@
 					<li><div id="settingsProject"></div></li>
 				</ul>
 			
+			
+				<a data-icon="back" data-role="button" onclick="window.location = 'main.html';">View Desktop</a>
 				<a data-icon="back" data-role="button" class="logout">Logout</a>
 			</div>
 		</div>
@@ -376,8 +378,8 @@
 				</div>
 				
 				<div data-role="fieldcontain">
-				<label for="filetype" class="select">Shipping method:</label>
-				<select onchange="$('#urlhelp').attr('src', 'resources/' + $('#filetype').val() + '.png');" name="filetype" id="filetype">
+				<label for="filetype" class="select">Item Type:</label>
+				<select name="filetype" id="filetype">
 						<option>YouTube</option>
 						<option>Audio</option>  
 						<option>Image</option>
@@ -395,8 +397,6 @@
 				<a data-icon="check" data-role="button" onclick="createItemAjax()">Create Item</a>
 				
 				<div id="itemCreateErrorMessage" style="margin-top:10px;color:red;display:none">Please Enter a item name and URL</div>
-			
-			<img alt="URL Help" id="urlhelp" height="200px" width="450px" style="margin-top:20px; border-radius:8px;" src="resources/YouTube.png"></img>
 			</div>
 		</div>
 <!-- ----------------------------------------------------------------------------------------------------------------------------------- -->
