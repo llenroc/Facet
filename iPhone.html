@@ -366,7 +366,7 @@
 <!-- -----------------------------------------OPEN FILE DIALOG--------------------------------------------------------------------------- -->
 		<div data-role="page" id="createItemDialog">
 			<div data-role="header" data-position="inline">
-			<h1 class="dialogHeader">Create Item</h1>
+			<h1>Create Item</h1>
 			</div>
 			<div data-role="content">
 			
@@ -392,7 +392,7 @@
 					<input type="text" name="url" id="url" value=""  />
 				</div>
 			
-				<a data-icon="check" data-role="button">Create Item</a>
+				<a data-icon="check" data-role="button" onclick="createItemAjax()">Create Item</a>
 				
 				<div id="itemCreateErrorMessage" style="margin-top:10px;color:red;display:none">Please Enter a item name and URL</div>
 			
