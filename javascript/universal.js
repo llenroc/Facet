@@ -110,12 +110,10 @@ function changeSharedScreenFromID(nid) {
 	PS.ajax.retrieve("item", nid, function(xml) {
 		// First updates shared screen pretending it's a survey
 		$("#shared_canvas").attr("src","http://facetsurvey.4abyte.com/facetsurvey/" + nid);
-		$("#shared_canvas").attr("data","http://facetsurvey.4abyte.com/facetsurvey/" + nid);
 	
 		// Then, if it finds a URL, it updates shared screen with the URL it finds
 		$(xml).find("node").slice(1).each(function() {
-			$("#shared_canvas").attr("src",$(this).find("Url").text());
-			$("#shared_canvas").attr("data",$(this).find("Url").text());		
+			$("#shared_canvas").attr("src",$(this).find("Url").text());	
 		});
 			
 	}, function() { console.log("Failed to Load Shared Screen Item"); });

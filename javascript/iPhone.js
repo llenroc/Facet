@@ -381,7 +381,7 @@ function createQueueItem(name, link, type, nid) {
 
 function sendToSharedScreen() {
 	// Grabs the linkURL from the selected item and sets it as the data of the shared_canvas object
-	$("#shared_canvas").attr("data", $(selectedItem).attr("linkURL"));	
+	$("#shared_canvas").attr("src", $(selectedItem).attr("linkURL"));	
 	
 	// Deletes the item from the queue
 	deleteQueueItem();
