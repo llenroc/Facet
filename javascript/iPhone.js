@@ -267,7 +267,7 @@ function newGroupAjax(groupName) {
 	if(groupName != "") {
 		PS.ajax.groupCreate(function (json) {
 			newGroup1(groupName, json.nid);
-		}, function() { console.log("Failed to create group '"+ groupName + "'"); }, groupName , accountJSON.uid, projectJSON.nid);
+		}, function() { console.log("Failed to create group '"+ groupName + "'"); }, groupName , accountJSON.uid, $(projectJSON).find("Nid").text());
 	}
 }
  
@@ -383,10 +383,14 @@ function sendToSharedScreen() {
 	// Deletes the item from the queue
 	deleteQueueItem();
 	
+	var nid = $(selectedItem).attr("nid");
+	
+	// Performs AJAX call
+	PS.ajax.updateSharedScreen(function() {}, function() { console.log("Error updating shared screen")} , $(meetingJSON).find("Nid").text(), nid);	
+	
 	// Changes page to the newly changed shared screen
 	$.mobile.changePage($("#sharedScreen"));
 	
 	// Tweets
-	PS.ajax.tweet("facetmeeting321","shared screen",accountJSON.name,$(selectedItem).attr("type"), selectedItem.text() );
-	
+	PS.ajax.tweet("facetmeeting321","shared screen",accountJSON.name,$(selectedItem).attr("type"), selectedItem.text() );	
 }
