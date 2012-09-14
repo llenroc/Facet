@@ -4,6 +4,20 @@
 PS.model = {};
 
 PS.model.surveysList = {};
+PS.model.userItems = {};
+PS.model.activeItem;
+
+PS.model.checkUserItems = function(nid) {
+	
+
+}
+
+PS.model.checkActiveItem = function(nid) {
+	// If the server active item is different than the currently displayed one
+	if(PS.model.activeItem != nid) {
+		changeSharedScreenFromID(nid);
+	}	
+}
 
 PS.model.getSurveysCallback = function(json, textStatus, jqXHR) {
 

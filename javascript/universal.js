@@ -106,6 +106,7 @@ function addItemFromItemData(data, targetClass) {
 
 // Takes an item nid and performs a retrieve on it. It then updates the shared screen with the URL
 function changeSharedScreenFromID(nid) {
+	PS.model.activeItem = nid;
 	PS.ajax.retrieve("item", nid, function(xml) {
 		// First updates shared screen pretending it's a survey
 		$("#shared_canvas").attr("src","http://facetsurvey.4abyte.com/facetsurvey/" + nid);
@@ -292,6 +293,20 @@ function createItemAjax() {
 	}
 }
 
+
+function refresh() {
+	PS.ajax.retrieve("meeting", getCookie("meetingID"), function(xml) {
+		$(xml).find("node").slice(1).each(function() {
+		
+			PS.model.checkActiveItem($(xml).find("Active_item").text());		
+			
+			
+			$("#settingsMeeting").text($(xml).find("Name").text());
+			
+		});
+	
+	}, function() { console.log("Meeting Retrieve Failed");});
+}
 
 
 

@@ -27,8 +27,11 @@ $(function() {
 	// Performs a node retrieve on the user items. After it is retrieved, it populates the UI with all the user items
 	getUserItems();
 	
-		// Performs a node retrieve on the user items. After it is retrieved, it populates the UI with all the user items
+	// Performs a node retrieve on the user items. After it is retrieved, it populates the UI with all the user items
 	getGroupItems();
+	
+	// Refreshing UI from server
+	setInterval(refresh, 5000);
 	
 	
 	$(".logout").fastClick(function() {
