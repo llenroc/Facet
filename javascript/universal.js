@@ -45,6 +45,7 @@ function getUser() {
 	PS.ajax.userRetrieve(getCookie("id"), function(json, textStatus, jqXHR) {
 		console.log("User: " + json.name); 
 		accountJSON = json; 
+		$("#settingsUser").text(json.name);
 		getUserCallback();
 	}, function() { console.log("Error getting current user account"); } );
 }
@@ -80,6 +81,9 @@ function getMeeting() {
 			
 			
 			meetingJSON = xml;
+			
+			$("#settingsMeeting").text($(xml).find("Name").text());
+			
 			getMeetingCallback();	
 		});
 	
@@ -182,6 +186,7 @@ function getProject() {
 			//-------------------------------------------------------------------------//
 			
 			projectJSON = xml;
+			$("#settingsProject").text($(xml).find("Name").text());
 			getProjectCallback();
 			
 		});
@@ -230,6 +235,61 @@ function makeSafeForCSS(name) {
         if (c >= 65 && c <= 90) return '_' + s.toLowerCase();
         return '__' + ('000' + c.toString(16)).slice(-4);
     });
+}
+
+function createItemAjax() {	
+
+	// Type is used for css styling
+	// String is first made lowercase, and then remove all spaces
+	var type = $("#filetype").val().toLowerCase().split(" ").join("");
+	var name = $("#filename").val();
+	var url = $("#url").val();
+	
+	if(name == "" || name == null || url == "" || url == null) {
+		$("#itemCreateErrorMessage").text("Please Enter a item name and URL");
+		$("#itemCreateErrorMessage").show();
+	} else {
+		
+		var valid = true;
+		var reason = "";
+	
+		// This is needed to embedd Google Maps
+		if(type == "googlemap") {
+			url = url + "&output=embed";	
+		} else if(type == "youtube") {
+			url = "http://www.youtube.com/embed/" + youtube_parser(url);
+			
+			if(youtube_parser(url) == false) { valid = false; reason = "Invalid YouTube Link"; }
+		}
+		
+		if(valid) { 
+			$("#itemCreateErrorMessage").hide();
+		
+			PS.ajax.itemCreate( function(json) { 
+				createItem(type, url, name, ".myItems", json.nid);
+				
+				// Clear fields for next item
+				$("#url").val("");
+				$("#filename").val("");
+				
+				// Unblock UI on Desktop and mobile
+				$.unblockUI();	
+				$('.ui-dialog').dialog('close');
+			
+			} , function(json, textStatus, jqXHR) { 
+				console.log("Error Creating Item: " + name); 
+				reason = jqXHR.split('<em class="placeholder">').join("").split("</em>").join("");
+				
+				$("#itemCreateErrorMessage").text(reason);
+				$("#itemCreateErrorMessage").show();
+			}, name, type ,accountJSON.uid, url);
+			
+
+		} else {
+			$("#itemCreateErrorMessage").text(reason);
+			$("#itemCreateErrorMessage").show();
+		}
+	}
 }
 
 

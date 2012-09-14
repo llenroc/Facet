@@ -137,7 +137,7 @@ function getProjectCallback() {
 
 // Callback for when the meeting has been retrieved. meetingJSON stores this information
 function getMeetingCallback() {
-	$("#settingsMeeting").text($(meetingJSON).find("Name").text());
+
 }
 
 //Callback for when the group items have been retrieved and added
@@ -600,52 +600,6 @@ $.blockUI({
 	//	opacity: .5, 
 		color: '#fff' },
 	}); 
-}
-
-function createItemAjax() {	
-
-	// Type is used for css styling
-	// String is first made lowercase, and then remove all spaces
-	var type = $("#filetype").val().toLowerCase().split(" ").join("");
-	var name = $("#filename").val();
-	var url = $("#url").val();
-	
-	if(name == "" || name == null || url == "" || url == null) {
-		$("#itemCreateErrorMessage").text("Please Enter a item name and URL");
-		$("#itemCreateErrorMessage").show();
-	} else {
-		
-		var valid = true;
-		var reason = "";
-	
-		// This is needed to embedd Google Maps
-		if(type == "googlemap") {
-			url = url + "&output=embed";	
-		} else if(type == "youtube") {
-			url = "http://www.youtube.com/embed/" + youtube_parser(url);
-			
-			if(youtube_parser(url) == false) { valid = false; reason = "Invalid YouTube Link"; }
-		}
-		
-		if(valid) { 
-			$("#itemCreateErrorMessage").hide();
-		
-			PS.ajax.itemCreate( function(json) { 
-				createItem(type, url, name, ".myItems", json.nid);
-			
-			} , function() { console.log("Error Creating Item: " + name); }, name, type ,accountJSON.uid, url)
-			
-			// Clear fields for next item
-			$("#url").val("");
-			$("#filename").val("");
-			
-			// Unblock UI
-			$.unblockUI();	
-		} else {
-			$("#itemCreateErrorMessage").text(reason);
-			$("#itemCreateErrorMessage").show();
-		}
-	}
 }
 
 function toggleSettingsMenu() {
