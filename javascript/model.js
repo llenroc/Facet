@@ -9,13 +9,34 @@ PS.model.meetingParticipants = {};
 PS.model.meetingItems = {};
 PS.model.groupItems = {};
 PS.model.queue = {};
+PS.model.projectItems = {};
 PS.model.activeItem;
 PS.model.hashtag;
 
 PS.model.queueString;
 PS.model.meetingItemsString;
+PS.model.projectItemsString;
 PS.model.meetingParticipantsString;
 
+
+PS.model.checkProjectItems = function(data) {
+	if(PS.model.projectItemsString != data) { 
+		if(data.length != 0) {
+			var items = data.split("; ");
+			for(var i = 0; i < items.length; i++) {
+				var data = items[i].split(", ");
+				
+				if(PS.model.projectItems[data[0]] === undefined) {			
+					createItem(data[2], data[3], data[1], ".projectItems", data[0]);
+					PS.model.projectItems[data[0]] = items[i];
+				}
+			}
+		}
+		
+		PS.model.projectItemsString = data;
+	}
+
+}
 
 PS.model.checkUserItems = function(xml) {
 	//-------------------------Adding Specific User Items----------------------------//

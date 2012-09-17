@@ -208,11 +208,6 @@ function getUserCallback() {
 
 }
 
-// Callback for when the project has been retrieved. projectJSON stores this information
-function getProjectCallback() {
-
-}
-
 function createWorkspaceAccordion(name, className) {
 	$("#workspaceList").append("<li data-role='list-divider' class='" + className + "'>" + name + "'s Items<div class='ui-li-count'>0</div></li>");
 	refreshListview('#workspaceList');

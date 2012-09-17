@@ -86,9 +86,7 @@ function getProject() {
 
 	PS.ajax.retrieve("project", getCookie("projectID"), function(xml) {
 		$(xml).find("node").slice(1).each(function() {
-		
-			addItemFromItemData($(this).find("Items_data").text(), ".projectItems");
-			
+					
 			//----------------------Adding Groups and Users-------------------------------//
 			var groupSplit = $(this).find("Groups").text().split(", ");
 			for(var i = 0; i < groupSplit.length; i++) {
@@ -114,11 +112,7 @@ function getProject() {
 				}		
 			}
 			//-------------------------------------------------------------------------//
-			
-			projectJSON = xml;
-			$("#settingsProject").text($(xml).find("Name").text());
-			getProjectCallback();
-			
+						
 		});
 	}, function() { console.log("Project Retrieve Failed"); });
 		
@@ -241,6 +235,18 @@ function refresh() {
 	PS.ajax.indexUserGroups( function (xml) { 
 		PS.model.checkGroupItems(xml);
 	}, function() { console.log("Failed to load Group Items"); }, getCookie("id"));
+	
+	PS.ajax.retrieve("project", getCookie("projectID"), function(xml) {
+		$(xml).find("node").slice(1).each(function() {
+		
+			PS.model.checkProjectItems($(this).find("Items_data").text());
+			
+			
+			projectJSON = xml;
+			$("#settingsProject").text($(xml).find("Name").text());
+			
+		});
+	}, function() { console.log("Project Retrieve Failed"); });
 	
 }
 

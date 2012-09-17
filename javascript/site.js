@@ -123,11 +123,6 @@ function getUserCallback() {
 
 }
 
-// Callback for when the project has been retrieved. projectJSON stores this information
-function getProjectCallback() {
-
-}
-
 // Not administrator and so populating with default users
 function populateFailed() {
 
