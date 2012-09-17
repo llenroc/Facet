@@ -28,26 +28,13 @@ $(function() {
 	refresh();
 	setInterval(refresh, 5000);
 	
-	// Blocks UI until ajax callback is completed
-	$.blockUI({
-		css: { 
-			border: 'none', 
-			padding: '15px', 
-			backgroundColor: '#222', 
-			'-webkit-border-radius': '10px', 
-			'-moz-border-radius': '10px', 
-			'border-radius': '10px',
-			opacity: .8, 
-			'font-size': '62.5%',
-			'font-family': '"Trebuchet MS", "Helvetica", "Arial", "Verdana", "sans-serif"',
-			color: '#fff' },
-	});
-	
+	$.mobile.showPageLoadingMsg();
 	// Unblocks UI when ajax calls stop
 	$(document).ajaxStop(function() {
 		refreshListview('#workspaceList');
 		refreshListview('#participantList');
-		$.unblockUI();
+		$.mobile.hidePageLoadingMsg();
+		
 	});
 	
 	
@@ -97,7 +84,7 @@ $("#queue").live('pageinit', function() {
 
 
 //Swiping to change pages code. Could be coded cleaner
-$("#participants").live("swiperight", function () {
+/*$("#participants").live("swiperight", function () {
 	$.mobile.changePage($("#sharedScreen"), {transition: "slide",reverse:true});
 });
 $("#participants").live("swipeleft", function () {
@@ -130,7 +117,7 @@ $("#sharedScreen").live("swiperight", function () {
 });
 $("#sharedScreen").live("swipeleft", function () {
 	$.mobile.changePage($("#participants") , {transition: "slide"});
-});
+});*/
 
 
 
