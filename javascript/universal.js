@@ -26,27 +26,16 @@ function getCookie(c_name)
 	}
 }
 
-// 
-function loadParticipants(xml) {
-	
-	var split = xml.split("; ");
-	
-	if(split[0] != "") {
-		for(var i = 0; i < split.length; i ++) {
-			var split2 = split[i].split(", ");
-			createUser(split2[1],split2[0]);
-			PS.model.meetingParticipants[split2[0]] = split[i];
-		}
-	}
-}
-
 // This function is called only once at login time to store the current user's information in a JSON object.
 function getUser() {
 	// Then performs a ajax call to get the JSON object from the server
 	PS.ajax.userRetrieve(getCookie("id"), function(json, textStatus, jqXHR) {
 		console.log("User: " + json.name); 
 		accountJSON = json; 
+		
 		$("#settingsUser").text(json.name);
+		$("#myItemsHeader").text(json.name +"'s Items");
+		
 		getUserCallback();
 	}, function() { console.log("Error getting current user account"); } );
 }
@@ -59,21 +48,7 @@ function getMeeting() {
 			// populateParticipants is present in iphone.js or site.js . It allows for some custom behavior between iPhone and the main version
 			populateParticipants($(this).find("Users_data").text());
 			
-			//------------------------Hashtag Updating---------------------------//
-			// Gets hashtag. If it isn't present, a default facetmeeting123 is set
-			hashtag = $(this).find("Hashtag").text();
-			hashtag = (hashtag.length != 0) ? hashtag : "facetmeeting123";
-			
-			// Update the monitor to search for that hashtag
-			$(".twitterfeed").append("<div class='monitter' id='tweets' title='" + hashtag + "' lang='en'></div>");
-			
-			// Taken from monitter.min.js to update dynamically added twitter hashtags.
-			window.monitter={};
-			$('.monitter').each(function(e){rrp=6;fetch_tweets(this);});
-			
-			PS.model.hashtag = hashtag;
-			console.log("Hashtag: " + hashtag);
-			//-------------------------------------------------------------------//
+			PS.model.checkHashTag($(xml).find("Hashtag").text());
 				
 			meetingJSON = xml;
 			
@@ -197,27 +172,6 @@ function youtube_parser(url){
     }
 }
 
-// This function is called only once at login time to get the items belonging to a user. 
-function getUserItems() {
-	PS.ajax.indexUserItems( function (xml) {
-		//-------------------------Adding Specific User Items----------------------------//
-		// Iterates through each item that a user owns and adds them to the workspace
-		$(xml).find("node").slice(1).each(function() {
-			var type = $(this).find("Type").text();
-			var url = $(this).find("Url").text();
-			var nid = $(this).find("Nid").text();
-						
-			// if type == "", then type = "unknown", else, type == type
-			type = (type == "") ? "unknown" : type;
-			url = (url == "") ? "empty.html" : url;
-			
-			createItem(type, url, $(this).find("Name").text(), ".myItems", nid);
-		});
-		//--------------------------------------------------------------------------------//
-		
-		getUserItemsCallback(xml);	
-	}, function () { console.log("Failed to Load User Items"); }, getCookie("id"));
-}
 
 // http://stackoverflow.com/questions/7627000/javascript-convert-string-to-safe-class-name-for-css
 function makeSafeForCSS(name) {
@@ -284,6 +238,21 @@ function createItemAjax() {
 	}
 }
 
+function changeHashtag(hashtag) {
+	// Removes old monitter
+	$(".monitter").remove();
+
+	// Adds the monitor to search for that hashtag
+	$(".twitterfeed").append("<div class='monitter' id='tweets' title='" + hashtag + "' lang='en'></div>");
+	
+	// Taken from monitter.min.js to update dynamically added twitter hashtags.
+	window.monitter={};
+	$('.monitter').each(function(e){rrp=6;fetch_tweets(this);});
+	
+	console.log("Hashtag: " + hashtag);
+	PS.model.hashtag = hashtag;
+}
+
 
 function refresh() {
 	PS.ajax.retrieve("meeting", getCookie("meetingID"), function(xml) {
@@ -301,6 +270,12 @@ function refresh() {
 		});
 	
 	}, function() { console.log("Meeting Retrieve Failed");});
+	
+	PS.ajax.indexUserItems( function (xml) {
+		PS.model.checkUserItems(xml);
+	}, function () { console.log("Failed to Load User Items"); }, getCookie("id"));	
+	
+	
 }
 
 

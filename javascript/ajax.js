@@ -251,7 +251,7 @@ PS.ajax.tweet = function(hashtag,location,name,type,filename) {
 		type: "POST",
 		url:  "tweetMessage.php?hashtag="+hashtag+"&location="+location+"&name="+name+"&type="+type+"&filename="+filename,
 		success: function(){
-			console.log("Twitter Call Passed!");
+
 		},
 		error: function(){
 			console.log("Twitter Call Failed!");

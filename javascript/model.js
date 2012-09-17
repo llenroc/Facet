@@ -11,52 +11,85 @@ PS.model.queue = {};
 PS.model.activeItem;
 PS.model.hashtag;
 
+PS.model.queueString;
+PS.model.meetingItemsString;
+PS.model.meetingParticipantsString;
 
-PS.model.checkUserItems = function(nid) {
-	
 
+PS.model.checkUserItems = function(xml) {
+	//-------------------------Adding Specific User Items----------------------------//
+	// Iterates through each item that a user owns and adds them to the workspace
+	$(xml).find("node").slice(1).each(function() {
+		var nid = $(this).find("Nid").text();
+		if(PS.model.userItems[nid] === undefined) {
+			var type = $(this).find("Type").text();
+			var url = $(this).find("Url").text();
+			var name = $(this).find("Name").text();
+						
+			// if type == "", then type = "unknown", else, type == type
+			type = (type == "") ? "unknown" : type;
+			url = (url == "") ? "empty.html" : url;
+			
+			createItem(type, url, name, ".myItems", nid);
+			
+			PS.model.userItems[nid] = nid + ", " + name + ", " + type + ", " + url;
+		}
+	});
+	//--------------------------------------------------------------------------------//
 }
 
 PS.model.checkQueue = function(data) {
-	if(data.length != 0) {
-		var items = data.split("; ");
-		for(var i = 0; i < items.length; i++) {
-			var data = items[i].split(", ");
-			
-			if(PS.model.queue[data[0]] === undefined) {	
-				createQueueItem(data[1], data[3], data[2], data[0]);		
-				PS.model.queue[data[0]] = items[i];
+	if(PS.model.queueString != data) {
+		if(data.length != 0) {
+			var items = data.split("; ");
+			for(var i = 0; i < items.length; i++) {
+				var data = items[i].split(", ");
+				
+				if(PS.model.queue[data[0]] === undefined) {	
+					createQueueItem(data[1], data[3], data[2], data[0]);		
+					PS.model.queue[data[0]] = items[i];
+				}
 			}
 		}
+		
+		PS.model.queueString = data;
 	}
 }
 
 PS.model.checkMeetingItems = function(data) {
-	if(data.length != 0) {
-		var items = data.split("; ");
-		for(var i = 0; i < items.length; i++) {
-			var data = items[i].split(", ");
-			
-			if(PS.model.meetingItems[data[0]] === undefined) {			
-				createItem(data[2], data[3], data[1], ".meetingItems", data[0]);
-				PS.model.meetingItems[data[0]] = items[i];
+	if(PS.model.meetingItemsString != data) { 
+		if(data.length != 0) {
+			var items = data.split("; ");
+			for(var i = 0; i < items.length; i++) {
+				var data = items[i].split(", ");
+				
+				if(PS.model.meetingItems[data[0]] === undefined) {			
+					createItem(data[2], data[3], data[1], ".meetingItems", data[0]);
+					PS.model.meetingItems[data[0]] = items[i];
+				}
 			}
 		}
+		
+		PS.model.meetingItemsString = data;
 	}
 }
 
 PS.model.checkMeetingParticipants = function(data) {
-	if(data.length != 0) {
-		var items = data.split("; ");
-		for(var i = 0; i < items.length; i++) {
-			var data = items[i].split(", ");
-			
-			if(PS.model.meetingParticipants[data[0]] === undefined) {			
+	if(PS.model.meetingParticipantsString != data) { 
+		if(data.length != 0) {
+			var items = data.split("; ");
+			for(var i = 0; i < items.length; i++) {
+				var data = items[i].split(", ");
 				
-				createUser(data[1],data[0]);
-				PS.model.meetingParticipants[data[0]] = items[i];
+				if(PS.model.meetingParticipants[data[0]] === undefined) {			
+					
+					createUser(data[1],data[0]);
+					PS.model.meetingParticipants[data[0]] = items[i];
+				}
 			}
 		}
+		
+		PS.model.meetingParticipantsString = data;
 	}
 }
 
@@ -68,24 +101,11 @@ PS.model.checkActiveItem = function(nid) {
 }
 
 PS.model.checkHashTag = function(hashtag) {
-
 	// Gets hashtag. If it isn't present, a default facetmeeting123 is set
 	hashtag = (hashtag.length != 0) ? hashtag : "facetmeeting123";
 
 	if(PS.model.hashtag != hashtag) {
-	
-		// Removes old monitter
-		$(".monitter").remove();
-	
-		// Adds the monitor to search for that hashtag
-		$(".twitterfeed").append("<div class='monitter' id='tweets' title='" + hashtag + "' lang='en'></div>");
-		
-		// Taken from monitter.min.js to update dynamically added twitter hashtags.
-		window.monitter={};
-		$('.monitter').each(function(e){rrp=6;fetch_tweets(this);});
-		
-		console.log("Hashtag: " + hashtag);
-		PS.model.hashtag = hashtag;
+		changeHashtag(hashtag);
 	}
 }
 

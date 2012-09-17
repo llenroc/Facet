@@ -33,15 +33,9 @@ $(function() {
 	// AJAX call to first get user id from cookie, and then to retrieve the json object from server
 	// Once AJAX call is completed then accountJSON will be the user account of the person currently logged in
 	getUser();
-	
-	// Performs a node retrieve on the meeting. After it is retrieved, it populates the UI with all meeting related fields (users, meeting items)
-	getMeeting();
-	
+		
 	// Performs a node retrieve on the project. After it is retrieved, it populates the UI with all project related fields (groups, group users)
 	getProject();
-	
-	// Performs a node retrieve on the user items. After it is retrieved, it populates the UI with all the user items
-	getUserItems();
 	
 	// Performs a node retrieve on the user items. After it is retrieved, it populates the UI with all the user items
 	getGroupItems();
@@ -99,7 +93,7 @@ $(function() {
 	
 	
 	//Placeholder to populate queue
-	populateSampleQueue()
+	populateSampleQueue();
 	
 	// Event handling for the slide button
 	$("#toggleSlide").click(function() {	
@@ -113,9 +107,16 @@ $(function() {
 	$("body").disableSelection();
 				
 	// Unblocks UI when ajax calls stop
-	$(document).ajaxStop($.unblockUI);
+	$(document).ajaxStop(function() {
+		$.unblockUI();
+		$("#loadingGroups").remove();
+		$("#loadingParticipants").remove();
+		
+	});
+	
 	
 	// Set timer for refresh
+	refresh();
 	setInterval(refresh, 5000);
 		
 });
@@ -126,36 +127,15 @@ function getUserCallback() {
 	$("#settingsUser").text(accountJSON.name);
 }
 
-// Callback for when the account that is logged in item's have been retrieved. xml stores this information
-function getUserItemsCallback(xml) {
-
-}
-
 // Callback for when the project has been retrieved. projectJSON stores this information
 function getProjectCallback() {
-	// Removes loading animation item
-	$("#loadingGroups").remove();
-	$("#settingsProject").text($(projectJSON).find("Name").text());
-}
-
-// Callback for when the meeting has been retrieved. meetingJSON stores this information
-function getMeetingCallback() {
 
 }
+
 
 //Callback for when the group items have been retrieved and added
 function getGroupItemsCallback() {
 
-}
-
-
-function populateParticipants(json,textStatus,jqXHR) {
-
-	loadParticipants(json);
-	
-	// Removes loading animation item
-	$("#loadingParticipants").remove();
-	makeParticipantsDroppable(); /* Makes new group droppable */
 }
 
 // Not administrator and so populating with default users
@@ -178,6 +158,7 @@ function createUser(name, id) {
 function createQueueItem(name, link, type, nid) {
 	$("#columns").css("width", "+=182px");
 	$("#columns").append("<li nid='" + nid + "' type='" + type + "' class='column'><header><h1><a onclick='changeTab(3)' href='"+ link + "' target='openFile'>" + name + "</a><img alt='List Item' src='icons/handleL.png' class='dragHandle2'></h1></header></li>");
+	makeQueueDroppable();
 }
 
 // Animates divs to slide in and out
@@ -369,8 +350,7 @@ function rename() {
                 name = "New Group";
             }
 			
-			$(this).find("div").text(name);
-			
+			$(this).find("div").text(name);		
 			$(this).find("div").show();
         });
 		
@@ -639,9 +619,3 @@ function toggleSettingsMenu() {
 	$(fx.elem).cssrotate(fx.now)
 	}; 
 })(jQuery);
-
-
-
-
-
-

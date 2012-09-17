@@ -17,20 +17,15 @@ $(function() {
 	// AJAX call to first get user id from cookie, and then to retrieve the json object from server
 	// Once AJAX call is completed then accountJSON will be the user account of the person currently logged in
 	getUser();
-	
-	// Performs a node retrieve on the meeting. After it is retrieved, it populates the UI with all meeting related fields (users, meeting items)
-	getMeeting();
-	
+		
 	// Performs a node retrieve on the project. After it is retrieved, it populates the UI with all project related fields (groups, group users)
 	getProject();
-	
-	// Performs a node retrieve on the user items. After it is retrieved, it populates the UI with all the user items
-	getUserItems();
 	
 	// Performs a node retrieve on the user items. After it is retrieved, it populates the UI with all the user items
 	getGroupItems();
 	
 	// Refreshing UI from server
+	refresh();
 	setInterval(refresh, 5000);
 	
 	
@@ -51,7 +46,6 @@ $(function() {
             newGroup($('#createGroupLabel').val());
         }
     });
-
 });
 
 
@@ -84,7 +78,6 @@ $("#queue").live('pageinit', function() {
 
 
 //Swiping to change pages code. Could be coded cleaner
-
 $("#participants").live("swiperight", function () {
 	$.mobile.changePage($("#sharedScreen"), {transition: "slide",reverse:true});
 });
@@ -208,22 +201,12 @@ $(".ui-li-divider").live("click", function() {
 });
 
 // Callback for when the account logged in has been retrieved. accountJSON stores this information
-function getUserCallback() {	
-	$(".htext").text(accountJSON.name +"'s Items");
-}
-
-// Callback for when the account that is logged in item's have been retrieved. xml stores this information
-function getUserItemsCallback(xml) {
+function getUserCallback() {
 
 }
 
 // Callback for when the project has been retrieved. projectJSON stores this information
 function getProjectCallback() {
-
-}
-
-// Callback for when the meeting has been retrieved. meetingJSON stores this information
-function getMeetingCallback() {
 
 }
 
