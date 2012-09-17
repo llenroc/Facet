@@ -123,8 +123,7 @@ $(function() {
 
 // Callback for when the account logged in has been retrieved. accountJSON stores this information
 function getUserCallback() {	
-	$("#myItemsHeader").text(accountJSON.name +"'s Items");
-	$("#settingsUser").text(accountJSON.name);
+
 }
 
 // Callback for when the project has been retrieved. projectJSON stores this information
