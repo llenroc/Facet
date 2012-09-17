@@ -40,25 +40,6 @@ function getUser() {
 	}, function() { console.log("Error getting current user account"); } );
 }
 
-// This function is called only once at login time to store the meeting information in a JSON object.
-// It then populates users based on the participants of the meeting.+
-function getMeeting() {
-	PS.ajax.retrieve("meeting", getCookie("meetingID"), function(xml) {
-		$(xml).find("node").slice(1).each(function() {
-			// populateParticipants is present in iphone.js or site.js . It allows for some custom behavior between iPhone and the main version
-			populateParticipants($(this).find("Users_data").text());
-			
-			PS.model.checkHashTag($(xml).find("Hashtag").text());
-				
-			meetingJSON = xml;
-			
-			getMeetingCallback();	
-		});
-	
-	}, function() { console.log("Meeting Retrieve Failed");});
-}
-
-
 // data - string in the form of "<item1 nid>, <item1 Name>, <item1 type>, <item1 URL>; <item2 nid>, <item2 Name>, <item2 type>, <item2 URL>; ..."
 // Adds all the items from this data string
 // targetClass - The class of the item you want to add it to
@@ -98,24 +79,6 @@ function addQueueItemsFromString(string) {
 			createQueueItem(split[1], split[3], split[2], split[0]);
 		}			
 	}
-}
-
-function getGroupItems() {
-	PS.ajax.indexUserGroups( function (xml) { 
-		//-------------------------Adding Specific Group Items----------------------------//
-		// Iterates through each item that a user owns and adds them to the workspace
-		$(xml).find("node").slice(1).each(function() {
-			var cssName = makeSafeForCSS($(this).find("Name").text());
-			createWorkspaceAccordion($(this).find("Name").text(), cssName);
-			
-			addItemFromItemData($(this).find("Items_data").text(), "." + cssName);
-			
-		});
-		//--------------------------------------------------------------------------------// 
-		
-		getGroupItemsCallback();
-	}, function() { console.log("Failed to load Group Items"); }, getCookie("id"));
-
 }
 
 // This function is called only once at login time to store the project information in a JSON object.
@@ -224,7 +187,7 @@ function createItemAjax() {
 			
 			} , function(json, textStatus, jqXHR) { 
 				console.log("Error Creating Item: " + name); 
-				reason = jqXHR.split('<em class="placeholder">').join("").split("</em>").join("");
+				reason = jqXHR.split('<em class="placeholder">').join("").split("</em>").join(""); // Removes HTML from AJAX return message
 				
 				$("#itemCreateErrorMessage").text(reason);
 				$("#itemCreateErrorMessage").show();
@@ -238,6 +201,7 @@ function createItemAjax() {
 	}
 }
 
+// This function removes the old monittor, and then adds a new one. It is in universal.js rather than model.js because there was errors with rrp for some reason when it was in model.js
 function changeHashtag(hashtag) {
 	// Removes old monitter
 	$(".monitter").remove();
@@ -263,18 +227,20 @@ function refresh() {
 			PS.model.checkMeetingItems($(this).find("Items_data").text());			
 			PS.model.checkMeetingParticipants($(this).find("Users_data").text());
 			PS.model.checkQueue($(xml).find("Queue_data").text());
-
-			
+		
 			$("#settingsMeeting").text($(xml).find("Name").text());			
-			meetingJSON = xml;		
+			meetingJSON = xml;	
+			
 		});
-	
 	}, function() { console.log("Meeting Retrieve Failed");});
 	
 	PS.ajax.indexUserItems( function (xml) {
 		PS.model.checkUserItems(xml);
 	}, function () { console.log("Failed to Load User Items"); }, getCookie("id"));	
 	
+	PS.ajax.indexUserGroups( function (xml) { 
+		PS.model.checkGroupItems(xml);
+	}, function() { console.log("Failed to load Group Items"); }, getCookie("id"));
 	
 }
 

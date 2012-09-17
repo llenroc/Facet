@@ -7,6 +7,7 @@ PS.model.surveysList = {};
 PS.model.userItems = {};
 PS.model.meetingParticipants = {};
 PS.model.meetingItems = {};
+PS.model.groupItems = {};
 PS.model.queue = {};
 PS.model.activeItem;
 PS.model.hashtag;
@@ -36,6 +37,38 @@ PS.model.checkUserItems = function(xml) {
 		}
 	});
 	//--------------------------------------------------------------------------------//
+}
+
+PS.model.checkGroupItems = function(xml) {
+	// Iterates through each item that a user owns and adds them to the workspace
+	$(xml).find("node").slice(1).each(function() {
+		var nid = $(this).find("Nid").text();
+		var cssName = makeSafeForCSS($(this).find("Name").text()+nid);
+		var data = $(this).find("Items_data").text();
+		
+		// Group is not being displayed on UI, so we make it so
+		if(PS.model.groupItems[nid] === undefined) {			
+			createWorkspaceAccordion($(this).find("Name").text(), cssName);
+			PS.model.groupItems[nid] = {};
+		}
+			
+		// One or more items in this group has changed
+		if(PS.model.groupItems[nid][0] != data) {			
+			PS.model.groupItems[nid][0] = data;
+			
+			if(data.length != 0) {
+				var items = data.split("; ");
+				for(var i = 0; i < items.length; i++) {
+					var data = items[i].split(", ");
+					
+					if(PS.model.groupItems[nid][data[0]] === undefined) {	
+						createItem(data[2], data[3], data[1], "." + cssName, data[0]);
+						PS.model.groupItems[nid][data[0]] = items[i];
+					}
+				}
+			}	
+		}
+	});
 }
 
 PS.model.checkQueue = function(data) {

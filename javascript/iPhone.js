@@ -20,10 +20,7 @@ $(function() {
 		
 	// Performs a node retrieve on the project. After it is retrieved, it populates the UI with all project related fields (groups, group users)
 	getProject();
-	
-	// Performs a node retrieve on the user items. After it is retrieved, it populates the UI with all the user items
-	getGroupItems();
-	
+		
 	// Refreshing UI from server
 	refresh();
 	setInterval(refresh, 5000);
@@ -213,11 +210,6 @@ function getUserCallback() {
 
 // Callback for when the project has been retrieved. projectJSON stores this information
 function getProjectCallback() {
-
-}
-
-//Callback for when the group items have been retrieved and added
-function getGroupItemsCallback() {
 
 }
 
