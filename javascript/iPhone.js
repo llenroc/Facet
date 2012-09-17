@@ -28,6 +28,28 @@ $(function() {
 	refresh();
 	setInterval(refresh, 5000);
 	
+	// Blocks UI until ajax callback is completed
+	$.blockUI({
+		css: { 
+			border: 'none', 
+			padding: '15px', 
+			backgroundColor: '#222', 
+			'-webkit-border-radius': '10px', 
+			'-moz-border-radius': '10px', 
+			'border-radius': '10px',
+			opacity: .8, 
+			'font-size': '62.5%',
+			'font-family': '"Trebuchet MS", "Helvetica", "Arial", "Verdana", "sans-serif"',
+			color: '#fff' },
+	});
+	
+	// Unblocks UI when ajax calls stop
+	$(document).ajaxStop(function() {
+		refreshListview('#workspaceList');
+		refreshListview('#participantList');
+		$.unblockUI();
+	});
+	
 	
 	$(".logout").fastClick(function() {
 		window.location = "default.html";
@@ -59,9 +81,6 @@ $("#workspace").live('pageinit', function() {
 
 // Will ensure the surveys are refreshed everytime the workspace page
 $("#workspace").live('pagebeforeshow', function() {
-
-	// Adds the Loading item and refreshes it so we can see it while loading
-	//$("#workspaceList").append("<li id='loadingWorkspace'><a>Loading Items...</a></li>");
 	refreshListview('#workspaceList');
 	
 	PS.ajax.surveyIndex(refreshSurveys);
@@ -222,20 +241,13 @@ function createWorkspaceAccordion(name, className) {
 
 function createUser(name, id) {
 	$("#participantList").append("<li uid='" + id + "'><a data-rel='dialog' data-transition='pop' href='#participantDialog'>" + name + "</a></li>");
-	refreshListview('#participantList');
-}
-
-// Ajax call passed and adding recieved users
-function populateParticipants(json) {
-	loadParticipants(json);
+	//refreshListview('#participantList');
 }
 
 // Not administrator and so populating with default users
 function populateFailed() {
 	populateSampleUsers();
 	
-	// Removes loading animation item
-	$("#loading").remove();
 	refreshListview('#participantList');
 
 }
