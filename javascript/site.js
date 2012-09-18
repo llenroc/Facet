@@ -374,10 +374,9 @@ function makeParticipantsDroppable() {
 			
 			if(isQueueItem || isWorkspaceItem) {				
 				console.log("Sending item to all members of '" + $(this).find("div").text()+"'");
-				var item = ui.draggable.text();	
-				$(this).find("ul li").each(function() {		
-					console.log("Sending " + item + " to '" + $(this).text() + "'");					
-				});
+				var itemNID = $(ui.draggable).attr("nid");
+				var groupNID = $(this).attr("nid");
+				PS.ajax.shareWithGroup(function() {}, function() { console.log("Error Sharing Item with Group")}, itemNID, groupNID);
 			
 			} else if (isDupe) {/*Ignore Duplicates from sortable*/
 			} else {
@@ -405,7 +404,11 @@ function makeParticipantsDroppable() {
 			$(this).removeClass("hover-border");
 			var name = $(this).text();
 			var item = ui.draggable.text();
+			var uid = $(this).attr("uid");
+			var itemID = $(ui.draggable).attr("nid");
+			
 			console.log("Sending " + item + " to '" + name + "'");
+			PS.ajax.shareWithUser(function() {}, function() { console.log("Error sharing Item");} , itemID, uid);
         }
     }).disableSelection();
       

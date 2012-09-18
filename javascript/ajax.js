@@ -632,6 +632,67 @@ PS.ajax.updateSharedScreen = function(callback, errorCallback, meetingID, SSnid)
 	PS.ajax.nodeUpdate(callback, errorCallback, meetingID, data);
 }
 
+PS.ajax.shareWith = function(callback, errorCallback, itemID, shareToID, shareToType) {
+	PS.ajax.nodeRetrieve(function(json, textStatus, jqXHR) {
+
+		var data = {};
+		data.type = shareToType;
+		
+		var items;
+		var s = "s";
+		
+		switch(shareToType) {
+			case 'group': items = json.field_group_items.und; break;
+			case 'project': items = json.field_project_item.und; s = ""; break; // Called item instead of items in project, so we must account for it later
+			case 'meeting': items = json.field_meeting_items.und; break;			
+		}
+		
+		if (items === undefined) {
+			data['field_' + shareToType + '_item' + s + '[und][0][nid]'] = PS.ajax.wrapNodeId(itemID);
+		}
+		else {
+			data['field_' + shareToType + '_item' + s + '[und][' + String(items.length) + '][nid]'] = PS.ajax.wrapNodeId(itemID);
+		}	
+		PS.ajax.nodeUpdate(callback, errorCallback, shareToID, data);
+			
+		},
+	errorCallback,
+	shareToID
+	);	
+
+}
+
+PS.ajax.shareWithGroup = function(callback, errorCallback, itemID, groupID) {
+	PS.ajax.shareWith(callback, errorCallback, itemID, groupID, "group");
+}
+
+PS.ajax.shareWithProject = function(callback, errorCallback, itemID, projectID) {
+	PS.ajax.shareWith(callback, errorCallback, itemID, projectID, "project");
+}
+
+PS.ajax.shareWithMeeting = function(callback, errorCallback, itemID, meetingID) {
+	PS.ajax.shareWith(callback, errorCallback, itemID, meetingID, "meeting");
+}
+
+PS.ajax.shareWithUser = function(callback, errorCallback, itemID, userID) {
+	PS.ajax.nodeRetrieve(function(json, textStatus, jqXHR) {
+		var data = {}; 
+		data.type = "item";
+		var users = json.field_item_id_owner.und;
+		
+		if (users === undefined) {
+			data['field_item_id_owner[und][0][uid]'] = PS.ajax.wrapUserId(userID);
+		}
+		else {
+			data['field_item_id_owner[und][' + String(users.length) + '][uid]'] = PS.ajax.wrapUserId(userID);
+		}	
+		
+		PS.ajax.nodeUpdate(callback, errorCallback, itemID, data);
+		console.log(data);
+			
+	}, errorCallback, itemID);
+}
+
 //user_group_member
 
 //user_project_owner // field_owners
