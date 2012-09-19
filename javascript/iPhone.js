@@ -23,7 +23,7 @@ $(function() {
 		
 	// Refreshing UI from server
 	refresh();
-	setInterval(refresh, 5000);
+	setInterval(refresh, 10000);
 	
 	$.mobile.showPageLoadingMsg();
 	// Unblocks UI when ajax calls stop

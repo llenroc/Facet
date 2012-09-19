@@ -114,7 +114,7 @@ $(function() {
 	
 	// Set timer for refresh
 	refresh();
-	setInterval(refresh, 5000);
+	setInterval(refresh, 10000);
 		
 });
 
