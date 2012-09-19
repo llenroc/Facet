@@ -254,7 +254,7 @@ PS.ajax.tweet = function(hashtag,location,name,type,filename) {
 
 		},
 		error: function(){
-			console.log("Twitter Call Failed!");
+			alert("Twitter Call Failed!");
 		}
     });
 }
@@ -688,7 +688,6 @@ PS.ajax.shareWithUser = function(callback, errorCallback, itemID, userID) {
 		}	
 		
 		PS.ajax.nodeUpdate(callback, errorCallback, itemID, data);
-		console.log(data);
 			
 	}, errorCallback, itemID);
 }

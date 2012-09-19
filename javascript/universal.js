@@ -37,7 +37,7 @@ function getUser() {
 		$("#myItemsHeader").text(json.name +"'s Items");
 		
 		getUserCallback();
-	}, function() { alert("Error getting current user account"); } );
+	}, function(json,textstatus, jqXHR) { alert(jqXHR +" Error getting current user account"); } );
 }
 
 // data - string in the form of "<item1 nid>, <item1 Name>, <item1 type>, <item1 URL>; <item2 nid>, <item2 Name>, <item2 type>, <item2 URL>; ..."
@@ -65,7 +65,7 @@ function changeSharedScreenFromID(nid) {
 			$("#shared_canvas").attr("src",$(this).find("Url").text());	
 		});
 			
-	}, function() { alert("Failed to Load Shared Screen Item"); });
+	}, function(json,textstatus, jqXHR) { alert(jqXHR +" Failed to Load Shared Screen Item"); });
 }
 
 
@@ -108,13 +108,13 @@ function getProject() {
 							}
 						}
 						
-					}, function() { alert("Failed to Load Group") });					
+					}, function(json,textstatus, jqXHR) { alert(jqXHR +" Failed to Load Group") });					
 				}		
 			}
 			//-------------------------------------------------------------------------//
 						
 		});
-	}, function() { alert("Project Retrieve Failed"); });*/
+	}, function(json,textstatus, jqXHR) { alert(jqXHR +" Project Retrieve Failed"); });*/
 		
 }
 
@@ -226,15 +226,15 @@ function refresh() {
 			meetingJSON = xml;	
 			
 		});
-	}, function() { alert("Meeting Retrieve Failed");});
+	}, function(json,textstatus, jqXHR) { alert(jqXHR +" Meeting Retrieve Failed");});
 	
 	PS.ajax.indexUserItems( function (xml) {
 		PS.model.checkUserItems(xml);
-	}, function () { alert("Failed to Load User Items"); }, getCookie("id"));	
+	}, function(json,textstatus, jqXHR) { alert(jqXHR +" Failed to Load User Items"); }, getCookie("id"));	
 	
 	PS.ajax.indexUserGroups( function (xml) { 
 		PS.model.checkGroupItems(xml);
-	}, function() { alert("Failed to load Group Items"); }, getCookie("id"));
+	}, function(json,textstatus, jqXHR) { alert(jqXHR +" Failed to load Group Items"); }, getCookie("id"));
 	
 	PS.ajax.retrieve("project", getCookie("projectID"), function(xml) {
 		$(xml).find("node").slice(1).each(function() {
@@ -247,7 +247,7 @@ function refresh() {
 			$("#settingsProject").text($(xml).find("Name").text());
 			
 		});
-	}, function() { alert("Project Retrieve Failed"); });
+	}, function(json,textstatus, jqXHR) { alert(jqXHR +" Project Retrieve Failed"); });
 	
 }
 

@@ -163,7 +163,7 @@ $(".groupListPop li:not([data-role='list-divider'])").live("click", function() {
 		var text2 = text.substring(0,text.length-1);
 		addUserToGroup(selectedItem.text(),text2);
 	
-	}, function() { console.log("Failed to Add User to Group"); }, userID, groupID);
+	}, function(json, textstatus, jqXHR) { alert(jqXHR +" Failed to Add User to Group"); }, userID, groupID);
 	
 	// Go back 2 dialog boxes (to the main screen)
 	window.history.go(-2);
@@ -240,7 +240,7 @@ function newGroupAjax(groupName) {
 		PS.ajax.groupCreate(function (json) {
 			newGroup1(groupName, json.nid);
 			PS.model.registerGroup(json.nid, "");
-		}, function() { console.log("Failed to create group '"+ groupName + "'"); }, groupName , accountJSON.uid, $(projectJSON).find("Nid").text());
+		}, function(json, textstatus, jqXHR) { alert(jqXHR +" Failed to create group '"+ groupName + "'"); }, groupName , accountJSON.uid, $(projectJSON).find("Nid").text());
 	}
 }
  
@@ -360,7 +360,7 @@ function sendToSharedScreen() {
 	var nid = $(selectedItem).attr("nid");
 	
 	// Performs AJAX call
-	PS.ajax.updateSharedScreen(function() {}, function() { console.log("Error updating shared screen")} , $(meetingJSON).find("Nid").text(), nid);	
+	PS.ajax.updateSharedScreen(function() {}, function() { function(json, textstatus, jqXHR) { alert(jqXHR +" Error updating shared screen")} , $(meetingJSON).find("Nid").text(), nid);	
 	
 	// Changes page to the newly changed shared screen
 	$.mobile.changePage($("#sharedScreen"));
