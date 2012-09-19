@@ -37,7 +37,7 @@ function getUser() {
 		$("#myItemsHeader").text(json.name +"'s Items");
 		
 		getUserCallback();
-	}, function() { console.log("Error getting current user account"); } );
+	}, function() { alert("Error getting current user account"); } );
 }
 
 // data - string in the form of "<item1 nid>, <item1 Name>, <item1 type>, <item1 URL>; <item2 nid>, <item2 Name>, <item2 type>, <item2 URL>; ..."
@@ -65,7 +65,7 @@ function changeSharedScreenFromID(nid) {
 			$("#shared_canvas").attr("src",$(this).find("Url").text());	
 		});
 			
-	}, function() { console.log("Failed to Load Shared Screen Item"); });
+	}, function() { alert("Failed to Load Shared Screen Item"); });
 }
 
 
@@ -108,13 +108,13 @@ function getProject() {
 							}
 						}
 						
-					}, function() { console.log("Failed to Load Group") });					
+					}, function() { alert("Failed to Load Group") });					
 				}		
 			}
 			//-------------------------------------------------------------------------//
 						
 		});
-	}, function() { console.log("Project Retrieve Failed"); });*/
+	}, function() { alert("Project Retrieve Failed"); });*/
 		
 }
 
@@ -180,7 +180,7 @@ function createItemAjax() {
 				$('.ui-dialog').dialog('close');
 			
 			} , function(json, textStatus, jqXHR) { 
-				console.log("Error Creating Item: " + name); 
+				alert("Error Creating Item: " + name); 
 				reason = jqXHR.split('<em class="placeholder">').join("").split("</em>").join(""); // Removes HTML from AJAX return message
 				
 				$("#itemCreateErrorMessage").text(reason);
@@ -226,15 +226,15 @@ function refresh() {
 			meetingJSON = xml;	
 			
 		});
-	}, function() { console.log("Meeting Retrieve Failed");});
+	}, function() { alert("Meeting Retrieve Failed");});
 	
 	PS.ajax.indexUserItems( function (xml) {
 		PS.model.checkUserItems(xml);
-	}, function () { console.log("Failed to Load User Items"); }, getCookie("id"));	
+	}, function () { alert("Failed to Load User Items"); }, getCookie("id"));	
 	
 	PS.ajax.indexUserGroups( function (xml) { 
 		PS.model.checkGroupItems(xml);
-	}, function() { console.log("Failed to load Group Items"); }, getCookie("id"));
+	}, function() { alert("Failed to load Group Items"); }, getCookie("id"));
 	
 	PS.ajax.retrieve("project", getCookie("projectID"), function(xml) {
 		$(xml).find("node").slice(1).each(function() {
@@ -247,7 +247,7 @@ function refresh() {
 			$("#settingsProject").text($(xml).find("Name").text());
 			
 		});
-	}, function() { console.log("Project Retrieve Failed"); });
+	}, function() { alert("Project Retrieve Failed"); });
 	
 }
 

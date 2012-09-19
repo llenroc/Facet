@@ -217,8 +217,7 @@ function makeQueueDroppable() {
 			
 			makeQueueDroppable();
 			$(this).removeClass("hover-border");
-			
-			PS.ajax.tweet(hashtag,"queue",accountJSON.name,type, text );
+			PS.ajax.tweet(PS.model.hashtag,"queue",accountJSON.name,type, text );
 		},
 		
 		over: function(event,ui) { $(".queue").addClass("hover-border"); },		
@@ -240,10 +239,10 @@ function makeQueueDroppable() {
 			$("#shared_canvas").attr("src",href);
 			
 			// Updates shared screen based on the nid of what was dragged to it
-			PS.ajax.updateSharedScreen(function() {}, function() { console.log("Error updating shared screen")} , $(meetingJSON).find("Nid").text(), nid);	
+			PS.ajax.updateSharedScreen(function() {}, function() { alert("Error updating shared screen")} , $(meetingJSON).find("Nid").text(), nid);	
 
 			// Tweets about the newly added shared screen item
-			PS.ajax.tweet(hashtag,"shared screen",accountJSON.name,type, ui.helper.text() );
+			PS.ajax.tweet(PS.model.hashtag,"shared screen",accountJSON.name,type, ui.helper.text() );
 			
 			changeTab(4);
 			
@@ -277,7 +276,7 @@ function newGroup1(name, nid) {
 function ajaxDeleteGroup(object) {
 	PS.ajax.groupDelete(function () { 
 		$(object).parent().remove();
-	}, function () { console.log("Delete Group Failed!"); }, $(object).parent().attr("nid"), $(projectJSON).find("Nid").text());
+	}, function () { alert("Delete Group Failed!"); }, $(object).parent().attr("nid"), $(projectJSON).find("Nid").text());
 }
 
 function ajaxNewGroup() {
@@ -287,7 +286,7 @@ function ajaxNewGroup() {
 		PS.ajax.groupCreate(function (json) {
 			newGroup1(name, json.nid);
 			PS.model.registerGroup(json.nid, "");
-		}, function() { console.log("Failed to Create group '"+ name + "'"); }, name , accountJSON.uid, $(projectJSON).find("Nid").text());
+		}, function() { alert("Failed to Create group '"+ name + "'"); }, name , accountJSON.uid, $(projectJSON).find("Nid").text());
 	}
 }
 
@@ -377,7 +376,7 @@ function makeParticipantsDroppable() {
 				console.log("Sending item to all members of '" + $(this).find("div").text()+"'");
 				var itemNID = $(ui.draggable).attr("nid");
 				var groupNID = $(this).attr("nid");
-				PS.ajax.shareWithGroup(function() {}, function() { console.log("Error Sharing Item with Group")}, itemNID, groupNID);
+				PS.ajax.shareWithGroup(function() {}, function() { alert("Error Sharing Item with Group")}, itemNID, groupNID);
 			
 			} else if (isDupe) {/*Ignore Duplicates from sortable*/
 			} else {
@@ -389,7 +388,7 @@ function makeParticipantsDroppable() {
 					PS.ajax.addUserToGroup(function() {				
 						$( selectedGroup ).find(".apple").show(); /* When a new item is added, the group is expanded */
 						addUserToGroup($(ui.draggable).find("a").text(), $(selectedGroup).find("div").text(), userID);
-					}, function() { console.log("Error Adding user to group"); }, userID, groupID);
+					}, function() { alert("Error Adding user to group"); }, userID, groupID);
 				}
 			}
 			
@@ -409,7 +408,7 @@ function makeParticipantsDroppable() {
 			var itemID = $(ui.draggable).attr("nid");
 			
 			console.log("Sending " + item + " to '" + name + "'");
-			PS.ajax.shareWithUser(function() {}, function() { console.log("Error sharing Item");} , itemID, uid);
+			PS.ajax.shareWithUser(function() {}, function() { alert("Error sharing Item");} , itemID, uid);
         }
     }).disableSelection();
       
@@ -452,7 +451,7 @@ function makeParticipantsDroppable() {
 			if(!duplicateSortable(userID, this)) {
 				PS.ajax.addUserToGroup(function() {				
 					$( selectedGroup ).find(".apple").show(); /* When a new item is added, the group is expanded */
-				}, function() { console.log("Error Adding user to group"); }, userID, groupID);
+				}, function() { alert("Error Adding user to group"); }, userID, groupID);
 			} else {
 				// This user is a duplicate of a user that is already in this group. Sortable has already placed the user in this group, so we're removing it now.
 				$(ui.item).remove();			
@@ -465,7 +464,7 @@ function makeParticipantsDroppable() {
 						
 			PS.ajax.removeUserFromGroup(function() {
 			
-			}, function() { console.log("Failed to Remove User from Group"); }, groupID, userID);
+			}, function() { alert("Failed to Remove User from Group"); }, groupID, userID);
 		},
 		handle: "img.dragHandle2",
 		distance: 15,
