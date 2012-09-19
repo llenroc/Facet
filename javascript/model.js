@@ -10,6 +10,7 @@ PS.model.meetingItems = {};
 PS.model.groupItems = {};
 PS.model.queue = {};
 PS.model.projectItems = {};
+PS.model.groups = {};
 PS.model.activeItem;
 PS.model.hashtag;
 
@@ -35,7 +36,47 @@ PS.model.checkProjectItems = function(data) {
 		
 		PS.model.projectItemsString = data;
 	}
+}
 
+PS.model.checkGroups = function(nids) {
+	var groupSplit = nids.split(", ");
+	for(var i = 0; i < groupSplit.length; i++) {
+		if(groupSplit[i] != "") {		
+
+			// Performs a retrieve to get information about the group			
+			PS.ajax.retrieve("group", groupSplit[i], function(xml) {
+				var nid = $(xml).find("Nid").text();
+				var groupName = $(xml).find("Name").text();
+				groupName = (groupName.length != 0) ? groupName : "Group";
+			
+				if(PS.model.groups[nid] === undefined) {
+					newGroup1(groupName, nid);
+				}
+			
+				var data = $(xml).find("User_data").text();
+				var userData = data.split("; ");
+				if(PS.model.groups[nid] != data) {
+					// There has been a change in the users for a group, detecting who got added and then add them to UI
+					// If there are no users in the group, this will fail, otherwise it adds the users
+					if (userData[0] != "") {
+						for(var x = 0; x < userData.length; x++) {
+							var split = userData[x].split(", ");
+							
+							if(PS.model.groups[nid] === undefined || PS.model.groups[nid].search(split[0]) == -1) {
+								addUserToGroup(split[1],groupName, split[0]);
+							}
+						}
+					}
+					PS.model.registerGroup(nid,data);
+				}
+			
+			}, function() { console.log("Failed to Load Group") });					
+		}		
+	}
+}
+
+PS.model.registerGroup = function(nid, data) {
+	PS.model.groups[nid] = data;
 }
 
 PS.model.checkUserItems = function(xml) {

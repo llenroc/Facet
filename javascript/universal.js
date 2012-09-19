@@ -83,7 +83,7 @@ function addQueueItemsFromString(string) {
 
 // This function is called only once at login time to store the project information in a JSON object.
 function getProject() {
-
+/*
 	PS.ajax.retrieve("project", getCookie("projectID"), function(xml) {
 		$(xml).find("node").slice(1).each(function() {
 					
@@ -114,7 +114,7 @@ function getProject() {
 			//-------------------------------------------------------------------------//
 						
 		});
-	}, function() { console.log("Project Retrieve Failed"); });
+	}, function() { console.log("Project Retrieve Failed"); });*/
 		
 }
 
@@ -239,7 +239,8 @@ function refresh() {
 	PS.ajax.retrieve("project", getCookie("projectID"), function(xml) {
 		$(xml).find("node").slice(1).each(function() {
 		
-			PS.model.checkProjectItems($(this).find("Items_data").text());
+			PS.model.checkProjectItems($(this).find("Items_data").text());		
+			PS.model.checkGroups($(this).find("Groups").text());
 			
 			
 			projectJSON = xml;

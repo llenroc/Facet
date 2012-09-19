@@ -239,6 +239,7 @@ function newGroupAjax(groupName) {
 	if(groupName != "") {
 		PS.ajax.groupCreate(function (json) {
 			newGroup1(groupName, json.nid);
+			PS.model.registerGroup(json.nid, "");
 		}, function() { console.log("Failed to create group '"+ groupName + "'"); }, groupName , accountJSON.uid, $(projectJSON).find("Nid").text());
 	}
 }
