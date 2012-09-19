@@ -351,16 +351,16 @@ function createQueueItem(name, link, type, nid) {
 }
 
 function sendToSharedScreen() {
-	// Grabs the linkURL from the selected item and sets it as the data of the shared_canvas object
-	$("#shared_canvas").attr("src", $(selectedItem).attr("linkURL"));	
+
+
 	
 	// Deletes the item from the queue
 	deleteQueueItem();
 	
 	var nid = $(selectedItem).attr("nid");
 	
-	// Performs AJAX call
-	PS.ajax.updateSharedScreen(function() {}, function() { function(json, textstatus, jqXHR) { alert(jqXHR +" Error updating shared screen")} , $(meetingJSON).find("Nid").text(), nid);	
+	// Performs AJAX call, Grabs the linkURL from the selected item and sets it as the data of the shared_canvas object
+	PS.ajax.updateSharedScreen(function() {	$("#shared_canvas").attr("src", $(selectedItem).attr("linkURL"));	}, function() { function(json, textstatus, jqXHR) { alert(jqXHR +" Error updating shared screen")} , $(meetingJSON).find("Nid").text(), nid);	
 	
 	// Changes page to the newly changed shared screen
 	$.mobile.changePage($("#sharedScreen"));

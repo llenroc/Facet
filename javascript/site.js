@@ -239,11 +239,9 @@ function makeQueueDroppable() {
 			var type = $(ui.helper).attr("type");
 			var href = $(ui.helper).attr("href");
 			var nid = $(ui.helper).attr("nid");
-			
-			$("#shared_canvas").attr("src",href);
-			
+						
 			// Updates shared screen based on the nid of what was dragged to it
-			PS.ajax.updateSharedScreen(function() {}, function(json,textstatus, jqXHR) { alert(jqXHR +" Error updating shared screen")} , $(meetingJSON).find("Nid").text(), nid);	
+			PS.ajax.updateSharedScreen(function() {$("#shared_canvas").attr("src",href);}, function(json,textstatus, jqXHR) { alert(jqXHR +" Error updating shared screen")} , $(meetingJSON).find("Nid").text(), nid);	
 
 			// Tweets about the newly added shared screen item
 			PS.ajax.tweet(PS.model.hashtag,"shared screen",accountJSON.name,type, ui.helper.text() );
