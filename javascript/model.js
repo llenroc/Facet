@@ -55,7 +55,7 @@ PS.model.checkGroups = function(nids) {
 			
 				var data = $(xml).find("User_data").text();
 				var userData = data.split("; ");
-				if(PS.model.groups[nid] != data) {
+				if(PS.model.groups[nid] != nid) {
 					// There has been a change in the users for a group, detecting who got added and then add them to UI
 					// If there are no users in the group, this will fail, otherwise it adds the users
 					if (userData[0] != "") {
@@ -67,7 +67,7 @@ PS.model.checkGroups = function(nids) {
 							}
 						}
 					}
-					PS.model.registerGroup(nid,data);
+					PS.model.registerGroup(nid,nid);
 				}
 			
 			}, function() { console.log("Failed to Load Group") });					

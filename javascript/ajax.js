@@ -513,7 +513,6 @@ PS.ajax.addMeetingUser = function(callback, errorCallback, userNodeId, meetingId
 				data['field_meeting_users[und][' + String(json.field_meeting_users.und.length) + '][uid]'] = PS.ajax.wrapUserId(userNodeId);
 			}
 			
-			
 			PS.ajax.nodeUpdate(callback, errorCallback, meetingId, data);	
 		},
 		errorCallback,
@@ -617,8 +616,9 @@ PS.ajax.addUserToGroup = function(callback, errorCallback, userNodeId, groupID) 
 			else {
 				data['field_group_users[und][' + String(json.field_group_users.und.length) + '][uid]'] = PS.ajax.wrapUserId(userNodeId);
 			}
+			
 						
-			PS.ajax.nodeUpdate(callback, errorCallback, groupID, data);
+			PS.ajax.nodeUpdate(function() {PS.model.groups[json.nid] = json.nid; callback(json,textStatus, jqXHR)}, errorCallback, groupID, data);
 		},
 		errorCallback,
 		groupID
