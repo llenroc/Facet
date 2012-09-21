@@ -70,14 +70,20 @@ function refreshItems(nid) {
 				if(meetings[i] == "") {
 					noMeeting2();
 				} else {
-					newMeeting2("Meeting #" + meetings[i], meetings[i]);
+					//newMeeting2("Meeting #" + meetings[i], meetings[i]);
 				}
 			}
 		});
 		
+		PS.ajax.indexUserMeetings(function(xml) {
+			$(xml).find("node").slice(1).each(function() {
+				newMeetingByProjectID($(this).find("Name").text(), $(this).find("Nid").text(), $(this).find("Owning_project").text());
+			});
+		}, function(json, textStatus, jqXHR) { alert(jqXHR); }, nid);
+		
 		// Removes loading animation item
 		$("#loadingProjects").remove();
-		}, function(json, textStatus, jqXHR) {alert(jqXHR);}, nid);
+		}, function(json, textStatus, jqXHR) { alert(jqXHR); }, nid);
 }
 
 
@@ -120,6 +126,10 @@ function noMeeting(projectIndex) {
 	$("#projectList").children().eq(projectIndex).find("ul").append("<li meetingID='nomeeting' class='icon nomeeting'>No Meetings for this Project</li>");
 }
 
+function newMeetingByProjectID(name, meetingID, projectID) {
+	$("[projectid='"+projectID+"']").find(".apple").append("<li onclick='joinMeeting(this)' meetingID='" + meetingID + "' class='icon meeting'>" + name + "</li>");
+}
+
 function noMeeting2() {
 	noMeeting($("#projectList").children().length -1);
 }
@@ -145,8 +155,8 @@ function joinMeetingFromCode(code) {
 				refreshItems(getCookie("id"));
 				$("#joincode").val("");
 				
-			}, function(json, textStatus, jqXHR) { alert(jqXHR) } , getCookie("id"), split[1])
-		} , function(json, textStatus, jqXHR) { alert(jqXHR) } , getCookie("id"), split[0])
+			}, function(json, textStatus, jqXHR) { alert(jqXHR); $("#loadingProjects").remove(); } , getCookie("id"), split[1])
+		} , function(json, textStatus, jqXHR) { alert(jqXHR); $("#loadingProjects").remove(); } , getCookie("id"), split[0])
 	}
 	
 
