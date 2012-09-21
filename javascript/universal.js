@@ -249,6 +249,11 @@ function refresh() {
 		});
 	}, function(json,textstatus, jqXHR) { alert(jqXHR +" Project Retrieve Failed"); });
 	
+	$("#settingsCode").text(createMeetingCode(getCookie("projectID"), getCookie("meetingID")));
+}
+
+function createMeetingCode(project, meeting) {
+	return project + "-" + meeting;
 }
 
 

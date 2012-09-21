@@ -360,7 +360,7 @@ function sendToSharedScreen() {
 	var nid = $(selectedItem).attr("nid");
 	
 	// Performs AJAX call, Grabs the linkURL from the selected item and sets it as the data of the shared_canvas object
-	PS.ajax.updateSharedScreen(function() {	$("#shared_canvas").attr("src", $(selectedItem).attr("linkURL"));	}, function() { function(json, textstatus, jqXHR) { alert(jqXHR +" Error updating shared screen")} , $(meetingJSON).find("Nid").text(), nid);	
+	PS.ajax.updateSharedScreen(function() {	$("#shared_canvas").attr("src", $(selectedItem).attr("linkURL"));	}, function(json, textstatus, jqXHR) { alert(jqXHR +" Error updating shared screen")} , $(meetingJSON).find("Nid").text(), nid);	
 	
 	// Changes page to the newly changed shared screen
 	$.mobile.changePage($("#sharedScreen"));
