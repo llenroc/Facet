@@ -40,11 +40,15 @@ function logoutPassed(json, textStatus, jqXHR) {
 function loginPassed(json, textStatus, jqXHR) {
 	console.log("Login Passed");
 	
-	$("#projectList").append("<li class='icon loading' id='loadingProjects'>Loading Projects...</li>");
-	
 	$("#projectDiv").show();
 	$(".hideMe").hide();
 	$("#pageHeader").text("Welcome back " + json.user.name);
+	
+	refreshItems(json.user.uid);
+}
+
+function refreshItems(nid) {
+	$("#projectList").append("<li class='icon loading' id='loadingProjects'>Loading Projects...</li>");
 	
 	// Returns all projects from the current user id
 	// I slice out the first element because the first element of find("node") is the node will all other nodes
@@ -73,12 +77,9 @@ function loginPassed(json, textStatus, jqXHR) {
 		
 		// Removes loading animation item
 		$("#loadingProjects").remove();
-		}, function() {
-		
-		console.log("failed");
-		
-		}, json.user.uid);
+		}, function(json, textStatus, jqXHR) {alert(jqXHR);}, nid);
 }
+
 
 function loginFailed(json, textStatus, jqXHR) {
 	console.log("Login Failed");
@@ -132,9 +133,20 @@ function joinMeetingFromCode(code) {
 	} else if(!isNumeric(split[0]) || !isNumeric(split[1])) {
 		$("#joincodeerror").show();
 	} else {
+	
 		$("#joincodeerror").hide();
-		
-		
+		$("#projectList").children().remove();
+		$("#projectList").append("<li class='icon loading' id='loadingProjects'>Adding Project...</li>");
+			
+		PS.ajax.addProjectUser(function(json) {
+			PS.ajax.addMeetingUser(function(json) {
+				$("#loadingProjects").remove();
+				console.log("Add successful");
+				refreshItems(getCookie("id"));
+				$("#joincode").val("");
+				
+			}, function(json, textStatus, jqXHR) { alert(jqXHR) } , getCookie("id"), split[1])
+		} , function(json, textStatus, jqXHR) { alert(jqXHR) } , getCookie("id"), split[0])
 	}
 	
 
