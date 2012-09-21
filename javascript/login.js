@@ -122,3 +122,25 @@ function noMeeting(projectIndex) {
 function noMeeting2() {
 	noMeeting($("#projectList").children().length -1);
 }
+
+function joinMeetingFromCode(code) {
+	var split = code.split("-");
+	
+	if(split.length != 2) { 
+		// Codes must be in the form x-y , where x and y are integers
+		$("#joincodeerror").show();
+	} else if(!isNumeric(split[0]) || !isNumeric(split[1])) {
+		$("#joincodeerror").show();
+	} else {
+		$("#joincodeerror").hide();
+		
+		
+	}
+	
+
+}
+
+// http://stackoverflow.com/a/5778071
+function isNumeric(n) {
+  return !isNaN(parseFloat(n)) && isFinite(n);
+}
