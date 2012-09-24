@@ -138,6 +138,7 @@ function newMeetingBlock(id) {
 		'-webkit-border-radius': '10px', 
 		'-moz-border-radius': '10px', 
 		'border-radius': '10px',
+		'font-family': '"Trebuchet MS", "Helvetica", "Arial", "Verdana", "sans-serif"',
 		'min-width' : '475px',
 		'margin-top' : '-200px',
 		'margin-left' : '-50px',
