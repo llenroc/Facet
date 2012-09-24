@@ -710,7 +710,11 @@ PS.ajax.addToQueue = function(callback, errorCallback, itemID, meetingID) {
 		
 		PS.ajax.nodeUpdate(callback, errorCallback, meetingID, data);
 	}, errorCallback, meetingID);
+}
 
+PS.ajax.removeQueueItem = function(callback, errorCallback, itemID, meetingID) {
+
+	console.log("removed");
 }
 
 //user_group_member

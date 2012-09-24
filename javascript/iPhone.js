@@ -273,6 +273,7 @@ function deleteItem() {
 
 function deleteQueueItem() {
 	// Slice out selected item and remove it
+	PS.ajax.removeQueueItem(function() {}, function(json,textstatus, jqXHR) { alert(jqXHR);}, $(selectedItem).attr("nid"), $(meetingJSON).find("Nid").text());
 	$("#queueList").children().slice(selectedItem.index(),selectedItem.index()+1).remove();
 };
 

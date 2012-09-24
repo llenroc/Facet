@@ -193,14 +193,18 @@ function makeQueueDroppable() {
 			$(ui.helper).attr("href",$(ui.item).find("a").attr("href"));
 			$(ui.helper).attr("type",$(ui.item).attr("type"));
 			$(ui.helper).attr("nid",$(ui.item).attr("nid"));
-			
+						
 					
 			$(ui.helper).css("white-space", "nowrap");
 			$(ui.helper).css("text-overflow", "ellipsis");
 			$(ui.helper).css("overflow", "hidden");			
 		},
 		stop: function(event,ui) { stopiFrameFix(); },
-		remove: function(event,ui) { $("#columns").css("width", "-=162px"); },
+		remove: function(event,ui) { 
+			var itemID = $(ui.item).attr("nid");
+			PS.ajax.removeQueueItem(function() {}, function(json,textstatus, jqXHR) { alert(jqXHR);}, itemID, $(meetingJSON).find("Nid").text())
+			$("#columns").css("width", "-=162px"); 		
+		},
 	}).disableSelection();
 	
 	$(".queue").droppable({
@@ -240,7 +244,7 @@ function makeQueueDroppable() {
 			// Tweets about the newly added shared screen item
 			PS.ajax.tweet(PS.model.hashtag,"shared screen",accountJSON.name,type, ui.helper.text() );
 			
-			changeTab(4);
+			changeTab(5);
 			
 			$("#tabs").removeClass("hover-border");
 		},
