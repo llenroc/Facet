@@ -123,6 +123,10 @@ ul.apple ul.apple {
 	background-image: url(../icons/audioL.png);
 }
 
+.new {
+	background-image: url(../icons/new.png);
+}
+
 .youtube {
 	background-image: url(../icons/youtubeL.png);
 	

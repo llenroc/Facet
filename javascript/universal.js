@@ -37,7 +37,7 @@ function getUser() {
 		$("#myItemsHeader").text(json.name +"'s Items");
 		
 		getUserCallback();
-	}, function(json,textstatus, jqXHR) { alert(jqXHR +" Error getting current user account"); } );
+	}, function(json,textstatus, jqXHR) { console.error(jqXHR +" Error getting current user account"); } );
 }
 
 // data - string in the form of "<item1 nid>, <item1 Name>, <item1 type>, <item1 URL>; <item2 nid>, <item2 Name>, <item2 type>, <item2 URL>; ..."
@@ -226,15 +226,15 @@ function refresh() {
 			meetingJSON = xml;	
 			
 		});
-	}, function(json,textstatus, jqXHR) { alert(jqXHR +" Meeting Retrieve Failed");});
+	}, function(json,textstatus, jqXHR) { console.error(jqXHR +" Meeting Retrieve Failed");});
 	
 	PS.ajax.indexUserItems( function (xml) {
 		PS.model.checkUserItems(xml);
-	}, function(json,textstatus, jqXHR) { alert(jqXHR +" Failed to Load User Items"); }, getCookie("id"));	
+	}, function(json,textstatus, jqXHR) { console.error(jqXHR +" Failed to Load User Items"); }, getCookie("id"));	
 	
 	PS.ajax.indexUserGroups( function (xml) { 
 		PS.model.checkGroupItems(xml);
-	}, function(json,textstatus, jqXHR) { alert(jqXHR +" Failed to load Group Items"); }, getCookie("id"));
+	}, function(json,textstatus, jqXHR) { console.error(jqXHR +" Failed to load Group Items"); }, getCookie("id"));
 	
 	PS.ajax.retrieve("project", getCookie("projectID"), function(xml) {
 		$(xml).find("node").slice(1).each(function() {
@@ -247,7 +247,7 @@ function refresh() {
 			$("#settingsProject").text($(xml).find("Name").text());
 			
 		});
-	}, function(json,textstatus, jqXHR) { alert(jqXHR +" Project Retrieve Failed"); });
+	}, function(json,textstatus, jqXHR) { console.error(jqXHR +" Project Retrieve Failed"); });
 	
 	$("#settingsCode").text(createMeetingCode(getCookie("projectID"), getCookie("meetingID")));
 }

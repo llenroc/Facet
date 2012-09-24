@@ -1,3 +1,5 @@
+var projectNID;
+
 $(function () {
     PS.ajax.userLogout(logoutPassed);
 
@@ -14,6 +16,20 @@ $(function () {
         document.getElementById("username").style.width = "95%";
         document.getElementById("password").style.width = "95%";
     }
+	
+	$("#newProject").click(function() {
+		var name = prompt("Please enter the new project name: ","New Project");
+		var nid = getCookie("id");
+	
+		if (name != null && name != "") {
+		
+			PS.ajax.projectCreate(function() {
+				$("#projectList").children().remove();
+				refreshItems(nid);		
+			}, function(json, textStatus, jqXHR) { alert(jqXHR); }, name, nid)
+		}
+	
+	});
 });
 
 function joinMeeting(element) {
@@ -66,13 +82,6 @@ function refreshItems(nid) {
 			
 			var meetings = $(this).find("Meetings").text().split(", ");	
 			
-			for(var i = 0; i < meetings.length ; i++) {
-				if(meetings[i] == "") {
-					noMeeting2();
-				} else {
-					//newMeeting2("Meeting #" + meetings[i], meetings[i]);
-				}
-			}
 		});
 		
 		PS.ajax.indexUserMeetings(function(xml) {
@@ -109,30 +118,49 @@ function loginFailed(json, textStatus, jqXHR) {
 
 // Creates a new project with the given name in the UI
 function newProject(name, id) {
-	$("#projectList").append("<li projectID='" + id + "' class = 'icon project'><div onclick='$(this).next().toggle();'>" + name + "</div><ul style='display:none; padding-top:10px;' class='apple'></ul></li>");
-}
-
-// Creates a new meeting with the given name in the UI as a child of projectIndex, 0 based index
-function newMeeting(name, meetingID, projectIndex) {
-	$("#projectList").children().eq(projectIndex).find("ul").append("<li onclick='joinMeeting(this)' meetingID='" + meetingID + "' class='icon meeting'>" + name + "</li>");
-}
-
-// Creates a new meeting with the given name in the UI as a child of the LAST project.
-function newMeeting2(name, meetingID) {
-	newMeeting(name, meetingID ,$("#projectList").children().length -1);
-}
-
-function noMeeting(projectIndex) {
-	$("#projectList").children().eq(projectIndex).find("ul").append("<li meetingID='nomeeting' class='icon nomeeting'>No Meetings for this Project</li>");
+	$("#projectList").append("<li projectID='" + id + "' class = 'icon project'><div onclick='$(this).nextAll().toggle();'>" + name + "</div><ul style='display:none; padding-top:0px;' class='apple appleProj'><li onclick='newMeetingBlock(" + id + ")'; class='icon new'>New Meeting</li></ul></li>");
 }
 
 function newMeetingByProjectID(name, meetingID, projectID) {
-	$("[projectid='"+projectID+"']").find(".apple").append("<li onclick='joinMeeting(this)' meetingID='" + meetingID + "' class='icon meeting'>" + name + "</li>");
+	$("[projectid='"+projectID+"']").find(".appleProj").prepend("<li onclick='joinMeeting(this)' meetingID='" + meetingID + "' class='icon meeting'>" + name + "</li>");
 }
 
-function noMeeting2() {
-	noMeeting($("#projectList").children().length -1);
+function newMeetingBlock(id) {
+	projectNID = id;
+	
+	$.blockUI({ 
+	message: $('#createMeetingPrompt'),
+	css: { 
+		border: 'none', 
+		padding: '15px',
+		'font-size': '15px',
+		backgroundColor: '#222', 
+		'-webkit-border-radius': '10px', 
+		'-moz-border-radius': '10px', 
+		'border-radius': '10px',
+		'min-width' : '475px',
+		'margin-top' : '-200px',
+		'margin-left' : '-50px',
+		'cursor': 'auto',
+	//	opacity: .5, 
+		color: '#fff' },
+	}); 
 }
+
+function createMeetingAjax() {
+	var uid = getCookie("id");
+	
+	var name = $("#meetingName").val();
+	var hashTag = $("#hashtag").val();
+	
+	PS.ajax.meetingCreate(function() {
+		$("#projectList").children().remove();
+		refreshItems(uid);
+		$.unblockUI();
+	
+	}, function(json, textStatus, jqXHR) { alert(jqXHR); }, name, uid , projectNID, hashTag);
+}
+
 
 function joinMeetingFromCode(code) {
 	var split = code.split("-");

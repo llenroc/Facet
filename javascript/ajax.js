@@ -313,6 +313,7 @@ PS.ajax.projectCreate = function(callback, errorCallback, name, userNodeId) {
 				type: 'project', 
 				'field_project_name[und][0][value]': name ,
 				'field_project_owners[und][0][uid]': PS.ajax.wrapUserId(userNodeId),
+				'field_project_users[und][0][uid]': PS.ajax.wrapUserId(userNodeId),
 			}
 	});
 }
@@ -330,7 +331,8 @@ PS.ajax.meetingIndex = function(callback, errorCallback) {
 // userNodeId: the userNode for a user who will own this meeting
 // projectId: id of the project node that owns the meeting
 // date, startTime, endTime, hashTag: strings
-PS.ajax.meetingCreate = function(callback, errorCallback, name, userNodeId, projectId, date, startTime, endTime, hashTag) {
+PS.ajax.meetingCreate = function(callback, errorCallback, name, userNodeId, projectId, hashTag) {
+	var date = new Date();	
 	$.ajax({
 		type: "POST",
 		url: PS.ajax.getServerPrefix() + "restfacet/node/",
@@ -341,10 +343,10 @@ PS.ajax.meetingCreate = function(callback, errorCallback, name, userNodeId, proj
 				type: 'meeting',
 				'field_meeting_name[und][0][value]': name ,
 				'field_meeting_owners[und][0][uid]': PS.ajax.wrapUserId(userNodeId),
+				'field_meeting_users[und][0][uid]': PS.ajax.wrapUserId(userNodeId),
                 'field_meeting_owning_project[und][0][nid]': PS.ajax.wrapNodeId(projectId),			
-				'field_meeting_date[und][0][value]': date,
-				'field_meeting_start_time[und][0][value]': startTime,
-				'field_meeting_end_time[und][0][value]': endTime,
+				'field_meeting_date[und][0][value]': date.toDateString(),
+				'field_meeting_start_time[und][0][value]': date.getTime(),
 				'field_meeting_hashtag[und][0][value]': hashTag,
 		}
 	});	 
