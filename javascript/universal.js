@@ -261,19 +261,6 @@ function createMeetingCode(project, meeting) {
 
 
 
-
-// Temporary function that populates workspace with sample items
-function populateSampleWorkspace() {
-	createItem('audio', "empty.html", "Audio", ".myItems");
-	createItem('file', "empty.html", "File", ".myItems");
-	createItem('image', "empty.html", "Image", ".myItems");
-	createItem('document', "empty.html", "Document", ".myItems");
-	createItem('file', "empty.html", "File", ".myItems");
-	createItem('file', "empty.html", "File", ".myItems");
-	createItem('audio', "empty.html", "Audio", ".myItems");
-	createItem('image', "empty.html", "Image", ".myItems");
-}
-
 // Temporary function that populates page with sample users
 function populateSampleUsers() {
 	createUser("Byron",0);

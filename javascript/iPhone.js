@@ -72,7 +72,6 @@ $("#workspace").live('pagebeforeshow', function() {
 // Everything to do with elements in the workspace goes here
 $("#queue").live('pageinit', function() {
 	console.log("Queue");
-	populateSampleQueue();
 	refreshListview('#queueList');
 	
 });

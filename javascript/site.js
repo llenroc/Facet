@@ -87,11 +87,7 @@ $(function() {
 		else 
 			$("#leftArrow").css("visibility", "hidden"); 	// At left
 	});
-	
-	
-	//Placeholder to populate queue
-	populateSampleQueue();
-	
+		
 	// Event handling for the slide button
 	$("#toggleSlide").click(function() {	
 		slideItems();
