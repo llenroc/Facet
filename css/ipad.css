@@ -94,6 +94,7 @@ body {
 .queue
 {
 	width:725px;
+	height:55px;
 	-webkit-overflow-scrolling: touch;
 }
 
