@@ -205,7 +205,6 @@ PS.model.checkHashTag = function(hashtag) {
 }
 
 PS.model.getSurveysCallback = function(json, textStatus, jqXHR) {
-
 	for (var x in json.nodes) {
 		//var idsurvey = json.nodes[x].node.URL.split("/").pop();
 		var idsurvey = json.nodes[x].node.nodeID;
@@ -231,7 +230,7 @@ PS.model.getSurveysCallback = function(json, textStatus, jqXHR) {
 	$("#loadingWorkspace").remove();
 	
 	// Used in mobile to hide long survey lists because of small screen size
-	$(".surveyItems").nextUntil(".ui-li-divider").toggle();
+	// $(".surveyItems").nextUntil(".ui-li-divider").toggle();
 	
 }
 

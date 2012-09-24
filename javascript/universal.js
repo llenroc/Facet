@@ -213,6 +213,7 @@ function changeHashtag(hashtag) {
 
 
 function refresh() {
+
 	PS.ajax.retrieve("meeting", getCookie("meetingID"), function(xml) {
 		$(xml).find("node").slice(1).each(function() {
 		
@@ -248,6 +249,8 @@ function refresh() {
 			
 		});
 	}, function(json,textstatus, jqXHR) { console.error(jqXHR +" Project Retrieve Failed"); });
+	
+	PS.ajax.surveyIndex(PS.model.getSurveysCallback);
 	
 	$("#settingsCode").text(createMeetingCode(getCookie("projectID"), getCookie("meetingID")));
 }

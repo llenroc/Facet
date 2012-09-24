@@ -66,8 +66,6 @@ $("#workspace").live('pageinit', function() {
 // Will ensure the surveys are refreshed everytime the workspace page
 $("#workspace").live('pagebeforeshow', function() {
 	refreshListview('#workspaceList');
-	
-	PS.ajax.surveyIndex(refreshSurveys);
 });
 
 

@@ -50,10 +50,7 @@ $(function() {
 	
 	// Initialize the workspace accordian
 	$( "#accordion" ).accordion( { autoHeight: false } );
-	
-	// Populates the surveys from the server
-	PS.ajax.surveyIndex(PS.model.getSurveysCallback);
-	
+		
 	var scrollable = document.getElementById("participantList");
 	new ScrollFix(scrollable);
 	var scrollable1 = document.getElementById("groupList");
