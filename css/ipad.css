@@ -32,14 +32,14 @@
 
 #rightArrow {
 	visibility: visible;
-	top:46px;
+	top:50px;
 	left:965px;
 	display:inline;
 }
 
 #leftArrow {
 	visibility: hidden;
-	top:46px;
+	top:50px;
 	display:inline;
 }
 
@@ -94,7 +94,7 @@ body {
 .queue
 {
 	width:725px;
-	height:45px;
+	height:55px;
 	-webkit-overflow-scrolling: touch;
 }
 
