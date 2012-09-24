@@ -211,6 +211,7 @@ function makeQueueDroppable() {
 			var link = $(ui.draggable).attr("href");
 			var nid = $(ui.draggable).attr("nid");
 			createQueueItem(text,link, type, nid);
+			PS.ajax.addToQueue(function() {}, function(json,textstatus, jqXHR) { alert(jqXHR);}, nid, $(meetingJSON).find("Nid").text());	
 			
 			makeQueueDroppable();
 			$(this).removeClass("hover-border");

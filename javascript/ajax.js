@@ -694,6 +694,25 @@ PS.ajax.shareWithUser = function(callback, errorCallback, itemID, userID) {
 	}, errorCallback, itemID);
 }
 
+PS.ajax.addToQueue = function(callback, errorCallback, itemID, meetingID) {
+	PS.ajax.nodeRetrieve(function(json,textStatus,jqXHR) {
+		var data = {};
+		data.type = "meeting";
+		
+		var queue = json.field_meeting_queue.und;
+		
+		if (queue === undefined) {
+			data['field_meeting_queue[und][0][nid]'] = PS.ajax.wrapNodeId(itemID);
+		}
+		else {
+			data['field_meeting_queue[und][' + String(queue.length) + '][nid]'] = PS.ajax.wrapNodeId(itemID);
+		}	
+		
+		PS.ajax.nodeUpdate(callback, errorCallback, meetingID, data);
+	}, errorCallback, meetingID);
+
+}
+
 //user_group_member
 
 //user_project_owner // field_owners

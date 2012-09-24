@@ -302,7 +302,6 @@ function addUserToGroup(name, groupName, id) {
 	});	
 };
 
-// TODO, add items to different lists
 function createItem(type, link, name, target, nid) {
 
 	// Increases the count of the group by 1
@@ -332,6 +331,8 @@ function addToQueue() {
 	// Creates queue item based off the text and link
 	createQueueItem(selectedItem.text(),$(selectedItem).find("a").attr("linkurl"), $(selectedItem).attr("type"), $(selectedItem).attr("nid"));
 	
+	PS.ajax.addToQueue(function() {}, function(json,textstatus, jqXHR) { alert(jqXHR);}, $(selectedItem).attr("nid"), $(meetingJSON).find("Nid").text());	
+
 	// Tweets
 	PS.ajax.tweet("facetmeeting321","queue",accountJSON.name,$(selectedItem).attr("type"), selectedItem.text() );
 	
