@@ -350,9 +350,6 @@ function createQueueItem(name, link, type, nid) {
 }
 
 function sendToSharedScreen() {
-
-
-	
 	// Deletes the item from the queue
 	deleteQueueItem();
 	
@@ -366,4 +363,8 @@ function sendToSharedScreen() {
 	
 	// Tweets
 	PS.ajax.tweet("facetmeeting321","shared screen",accountJSON.name,$(selectedItem).attr("type"), selectedItem.text() );	
+}
+
+function removeAllQueueItems() {
+	$("#queueList").children().not(".ui-li-divider").remove();
 }

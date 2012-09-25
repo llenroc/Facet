@@ -588,6 +588,11 @@ function toggleSettingsMenu() {
 	$('#settingsMenu').toggle(animationDuration);
 }
 
+function removeAllQueueItems() {
+	$("#columns").css("width", 690);
+	$(".column").remove();
+}
+
 //http://javascriptisawesome.blogspot.ca/2011/09/jquery-css-rotate-and-animate-rotation.html
 // Animate with rotation. Used on settings gear
 (function($){

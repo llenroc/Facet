@@ -133,16 +133,20 @@ PS.model.checkGroupItems = function(xml) {
 	});
 }
 
+// Since the Queue has adding, removing, and reordering, when a new item is detected, it completely redraws all queue items
 PS.model.checkQueue = function(data) {
 	if(PS.model.queueString != data) {
+		PS.model.queue = {};
+		removeAllQueueItems();
+		
 		if(data.length != 0) {
 			var items = data.split("; ");
 			for(var i = 0; i < items.length; i++) {
-				var data = items[i].split(", ");
+				var data2 = items[i].split(", ");
 				
-				if(PS.model.queue[data[0]] === undefined) {	
-					createQueueItem(data[1], data[3], data[2], data[0]);		
-					PS.model.queue[data[0]] = items[i];
+				if(PS.model.queue[data2[0]] === undefined) {	
+					createQueueItem(data2[1], data2[3], data2[2], data2[0]);		
+					PS.model.queue[data2[0]] = items[i];
 				}
 			}
 		}
