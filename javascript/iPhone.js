@@ -312,7 +312,7 @@ function createItem(type, link, name, target, nid) {
 	$(target).find(".ui-li-count").text(count);
 	
 	// data-filtertext = when using the filter bar, it filters by this text. Currently it filters by type (survey, image, document, etc ...) and the item name.
-    $(target).after("<li nid='" + nid + "' data-filtertext='"+ name + " " + type + "' type=" + type + " title = '" + name + "'><a data-rel='dialog' data-transition='pop' href='#workspaceDialog' linkURL='" + link + "'>" + name + "</a></li>");
+    $(target).after("<li nid='" + nid + "' data-filtertext='"+ name + " " + type + "' type='" + type + " ' title = '" + name + "'><a data-rel='dialog' data-transition='pop' href='#workspaceDialog' linkURL='" + link + "'>" + name + "</a></li>");
 	
 	//refreshListview('#workspaceList');
 };

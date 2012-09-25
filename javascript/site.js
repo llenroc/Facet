@@ -200,10 +200,24 @@ function makeQueueDroppable() {
 			$(ui.helper).css("overflow", "hidden");			
 		},
 		stop: function(event,ui) { stopiFrameFix(); },
+		update: function(event,ui) {
+			var data = {};
+			var i = 0;
+			$(".column").each(function() {
+				data[i] = $(this).attr('nid');
+				i++;
+			});
+			
+			data.length = i;
+			
+			PS.ajax.arrangeQueue(function() {}, function(json,textstatus, jqXHR) { alert(jqXHR);}, $(meetingJSON).find("Nid").text(), data);
+		},
 		remove: function(event,ui) { 
 			var itemID = $(ui.item).attr("nid");
-			PS.ajax.removeQueueItem(function() {}, function(json,textstatus, jqXHR) { alert(jqXHR);}, itemID, $(meetingJSON).find("Nid").text())
-			$("#columns").css("width", "-=162px"); 		
+			
+			// Should get handled now by the update function
+			//PS.ajax.removeQueueItem(function() {}, function(json,textstatus, jqXHR) { alert(jqXHR);}, itemID, $(meetingJSON).find("Nid").text())
+			$("#columns").css("width", "-=182px"); 		
 		},
 	}).disableSelection();
 	

@@ -726,10 +726,20 @@ PS.ajax.removeQueueItem = function(callback, errorCallback, itemID, meetingID) {
 	);	
 }
 
+PS.ajax.arrangeQueue = function(callback, errorCallback, meetingID, data2) {
+	var data = {};
+	data.type = "meeting";
+	
+	for(var i = 0; i < data2.length; i++) {
+		data['field_meeting_queue[und][' + String(i) + '][nid]'] = PS.ajax.wrapNodeId(data2[i]);
+	}
+	
+	PS.ajax.nodeUpdate(callback, errorCallback, meetingID, data);
+}
+
 // Error occured when updating shared screen. It was trying to both remove queue item and update active item in different calls
 // This caused issues so we're doing it in one call now.
 // Internal function
-// I haven't encountered the bug again, so I'm not sure what's the problem with it.
 function prepareQueueDataForRemoving(data, queue, itemID) {
 	//search for one matching the userNodeId to be removed
 	for(var i = 0; i < queue.length; i += 1) { 
@@ -741,6 +751,7 @@ function prepareQueueDataForRemoving(data, queue, itemID) {
 	
 	return data
 }
+
 
 
 //user_group_member
