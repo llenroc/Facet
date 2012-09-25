@@ -555,7 +555,7 @@ function makeFilesDroppable() {
 /* 	type = Type of file it is (what icon will be displayed). Can choose file, image, document, survey, audio
 	link = What the text links to */
 function createItem(type, link, name, target, nid) {
-    $(target).append("<li nid='" + nid + "' type=" + type + " title = '" + name + "' class = 'icon "+ type +"'><a onclick='changeTab(3)' href='" + link + "' target='openFile'>" + name + "</a><img src='icons/handleL.png' class='dragHandle2'></li>");
+    $(target).append("<li nid='" + nid + "' type=" + type + " title = '" + name + "' class = 'icon "+ type +"'><a onclick='changeTab(4)' href='" + link + "' target='openFile'>" + name + "</a><img src='icons/handleL.png' class='dragHandle2'></li>");
 	makeFilesDroppable();
 };
 
