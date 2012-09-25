@@ -727,14 +727,30 @@ PS.ajax.removeQueueItem = function(callback, errorCallback, itemID, meetingID) {
 }
 
 PS.ajax.arrangeQueue = function(callback, errorCallback, meetingID, data2) {
-	var data = {};
-	data.type = "meeting";
+	PS.ajax.nodeRetrieve(function(json,textStatus,jqXHR) {
+		var queue = json.field_meeting_queue.und;
+		var data = {};
+		data.type = "meeting";
+		
+		if(queue === undefined) {
+			data['field_meeting_queue[und][0][nid]'] = PS.ajax.wrapNodeId(data2[0]);
+		} else {
+			var x = queue.length;
+			var i;
+		
+			for(i = 0; i < data2.length; i++) {
+				data['field_meeting_queue[und][' + String(i) + '][nid]'] = PS.ajax.wrapNodeId(data2[i]);
+			}
+			
+			for(i=i; i<x; i++) {
+				data['field_meeting_queue[und][' + String(i) + '][nid]'] = "";		
+			}
+		}
 	
-	for(var i = 0; i < data2.length; i++) {
-		data['field_meeting_queue[und][' + String(i) + '][nid]'] = PS.ajax.wrapNodeId(data2[i]);
-	}
+		console.log(data);
+		PS.ajax.nodeUpdate(callback, errorCallback, meetingID, data);
 	
-	PS.ajax.nodeUpdate(callback, errorCallback, meetingID, data);
+	}, errorCallback, meetingID);
 }
 
 // Error occured when updating shared screen. It was trying to both remove queue item and update active item in different calls
@@ -748,7 +764,6 @@ function prepareQueueDataForRemoving(data, queue, itemID) {
 			break;
 		}
 	}
-	
 	return data
 }
 
