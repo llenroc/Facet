@@ -20,4 +20,4 @@ In collaboration with Facet Decision Systems, our goal in this project is to bui
 4. Test the [here](http://asebeast2.cpsc.ucalgary.ca:81/testing/facet-prototyping/default.html)
 5. Repeat steps 2-4 until it is bug free.
 6. Merge into master using: `git checkout master`, `git merge testing`, `git push`
-7. Ensure everything still works [here](http://asebeast2.cpsc.ucalgary.ca:81/facet-prototyping/default.html)
+7. Ensure everything still works [here](http://asebeast2.cpsc.ucalgary.ca:81/facet-prototyping/default.html), also test using various devices.
