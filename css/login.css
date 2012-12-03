@@ -13,6 +13,9 @@ body {
 
 }
 
+* {
+    -webkit-tap-highlight-color: rgba(0,0,0,0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
+}
 
 h1 {
 	border-radius: 8px 8px 0px 0px;

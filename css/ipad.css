@@ -12,6 +12,10 @@
 	overflow-y:hidden;
 }
 
+* {
+    -webkit-tap-highlight-color: rgba(0,0,0,0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
+}
+
 #groupList
 {
 	height: 241px;
