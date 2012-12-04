@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+     
+    <head>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+		
+        <title>Facet Public Square</title>
+            
+        <!-- *** scripts *** -->       
+        
+        <script src="javascript/jquery/jquery-1.7.2.min.js"></script>	
+		<script src="javascript/jquery/jquery.bgiframe-2.1.2.min.js"></script>
+		<script src="javascript/jquery/jquery-ui-1.8.23.custom.min.js"></script>
+		
+		<link rel="stylesheet" href="css/demos.css" />
+		<link rel="stylesheet" type="text/css" href="css/button.css" />
+		<link rel="stylesheet" type="text/css" href="css/main.css" />
+	
+		
+        <script type="text/javascript" src="javascript/jquery.blockUI.js"> </script>		
+        <script type="text/javascript" src="javascript/publicsquare.js"> </script>
+        <script type="text/javascript" src="javascript/ajax.js"> </script>
+        <script type="text/javascript" src="javascript/model.js"> </script>
+		
+		
+		<script type="text/javascript" src="javascript/new 3.js"> </script>
+	         
+    </head>
+    
+    <body>
+
+			
+
+<!-- The popup box that appears for creating an item -->	
+		<div style="display:none;" id="recievedItemPrompt">
+		
+			<h2>You recieved an item!</h2>
+						
+			<ul style = "margin-left:auto;margin-right:auto;width:50%" class = "apple" id = "recievedItemList"></ul>
+			
+			<button onclick="" class="button blue">Open Item</button>
+            <button class="button blue" onclick="$.unblockUI();">Cancel</button>
+		
+		</div>	        
+
+    </body>  
+</html>
