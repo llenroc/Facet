@@ -104,12 +104,12 @@ body {
 {
 	width:725px;
 	height:55px;
-	overflow-y: hidden;
-//	-webkit-overflow-scrolling: touch;
+	-webkit-overflow-scrolling: touch;
 }
 
 .column  {
 	width:177px;
+	height:100%;
 }
 
 .monitter {
