@@ -747,7 +747,6 @@ PS.ajax.arrangeQueue = function(callback, errorCallback, meetingID, data2) {
 			}
 		}
 	
-		console.log(data);
 		PS.ajax.nodeUpdate(callback, errorCallback, meetingID, data);
 	
 	}, errorCallback, meetingID);
