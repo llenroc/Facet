@@ -624,7 +624,7 @@ function removeAllQueueItems() {
 function refreshSurfaceList() {
 	addSurface("ASE Lab iPad 3", "tablet");
 	addSurface("ASE Lab iPhone", "mobile");
-	addSurface("Microsoft Surface 2", "surface");
+	addSurface("Microsoft Surface", "surface");
 	
 	makeParticipantsDroppable();
 }
