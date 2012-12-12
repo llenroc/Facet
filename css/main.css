@@ -129,7 +129,18 @@ ul.apple ul.apple {
 
 .youtube {
 	background-image: url(../icons/youtubeL.png);
-	
+}
+
+.mobile {
+	background-image: url(../icons/mobile.png);
+}
+
+.tablet {
+	background-image: url(../icons/tablet.png);
+}
+
+.surface {
+	background-image: url(../icons/surface.png);
 }
 
 .pdf {

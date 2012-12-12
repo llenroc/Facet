@@ -27,6 +27,8 @@ $(function() {
 			
 	});
 	
+	refreshSurfaceList();
+	
 	console.log(document.cookie);
 	
 	// The list of all users is populated, so this is a loading icon
@@ -606,6 +608,23 @@ function removeAllQueueItems() {
 	$("#columns").css("width", 690);
 	$(".column").remove();
 }
+
+
+// New code added for the iOS implementation
+function refreshSurfaceList() {
+
+
+	addSurface("ASE Lab iPad 3", "tablet");
+	addSurface("ASE Lab iPhone", "mobile");
+	addSurface("Microsoft Surface 2", "surface");
+}
+
+// name - The name to be displayed
+// type - 'surface', 'tablet', 'mobile'
+function addSurface(name, type) {
+	$("#surfaceList").append("<li class = 'icon " + type + "'>" + name + "</li>");
+}
+
 
 //http://javascriptisawesome.blogspot.ca/2011/09/jquery-css-rotate-and-animate-rotation.html
 // Animate with rotation. Used on settings gear
