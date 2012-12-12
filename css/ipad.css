@@ -35,14 +35,14 @@
 
 #rightArrow {
 	visibility: visible;
-	top:50px;
+	top:47px;
 	left:965px;
 	display:inline;
 }
 
 #leftArrow {
 	visibility: hidden;
-	top:50px;
+	top:47px;
 	display:inline;
 }
 
