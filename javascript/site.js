@@ -181,7 +181,7 @@ function slideItems() {
 function makeQueueDroppable() {	
 	$("#columns").sortable({
 		appendTo: "body",
-		handle: "img.dragHandle2",
+		handle: "img.dragHandle22",
 		helper: "clone",
 		zIndex: 9999,
 		scroll: false,
