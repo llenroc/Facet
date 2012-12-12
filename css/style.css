@@ -30,6 +30,14 @@
 	-webkit-overflow-scrolling: touch;
 }
 
+#surfaceList
+{
+	height: 35%;
+	position:relative;
+	overflow-y:auto;
+	-webkit-overflow-scrolling: touch;
+}
+
 .twitterfeed {
 	margin-top: -12px;
 	margin-left: 12px;

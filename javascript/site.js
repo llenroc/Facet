@@ -411,6 +411,16 @@ function makeParticipantsDroppable() {
 			$(this).removeClass("hover-border");
         }
     }).disableSelection();
+	
+	/* Everything with the .device class will be droppable */
+    $( ".device" ).droppable({
+		over: function(event,ui) { $(this).addClass("hover-border"); },		
+		out: function(event,ui) { $(this).removeClass("hover-border"); },
+        drop: function( event, ui ) {
+		
+			$(this).removeClass("hover-border");
+        }
+    }).disableSelection();
 		
 	$( "#participantList li" ).droppable({
 		accept: ".column, .workspaceItem",
@@ -612,17 +622,17 @@ function removeAllQueueItems() {
 
 // New code added for the iOS implementation
 function refreshSurfaceList() {
-
-
 	addSurface("ASE Lab iPad 3", "tablet");
 	addSurface("ASE Lab iPhone", "mobile");
 	addSurface("Microsoft Surface 2", "surface");
+	
+	makeParticipantsDroppable();
 }
 
 // name - The name to be displayed
 // type - 'surface', 'tablet', 'mobile'
 function addSurface(name, type) {
-	$("#surfaceList").append("<li class = 'icon " + type + "'>" + name + "</li>");
+	$("#surfaceList").append("<li class = 'device icon " + type + "'>" + name + "</li>");
 }
 
 

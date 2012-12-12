@@ -307,13 +307,16 @@ h1 {
 }
 
 .hover-border {
-	box-shadow: 0 0 15px DodgerBlue;
+	outline: solid DodgerBlue 2px;
+	outline-offset: -2px;
 }
 
 .hover-border2 {
-	box-shadow: 0 0 15px DodgerBlue;
+	outline: solid DodgerBlue 2px;
+	outline-offset: -2px;
 }
 
 .hover-border-red {
-	box-shadow: 0 0 15px red;
+	outline: solid red 2px;
+	outline-offset: -2px;
 }
