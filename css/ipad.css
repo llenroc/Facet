@@ -74,7 +74,7 @@ body {
 }
 
 #map_canvas {
-	height: 550px;
+	height: 565px;
 }
 
 #columns {
@@ -82,19 +82,19 @@ body {
 }
 
 #survey_canvas {
-	height: 550px;
+	height: 565px;
 }
 
 #factor_canvas {
-	height: 550px;
+	height: 565px;
 }
 
 #open_canvas {
-	height: 550px;
+	height: 565px;
 }
 
 #shared_canvas {
-	height: 550px;
+	height: 565px;
 }
 
 .queue
