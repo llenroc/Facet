@@ -79,19 +79,21 @@ body {
 
 #columns {
 	width: 460px;
-
 }
 
 #survey_canvas {
 	height: 550px;
-	
+}
+
+#factor_canvas {
+	height: 550px;
 }
 
 #open_canvas {
 	height: 550px;
 }
 
-#sharedScreen {
+#shared_canvas {
 	height: 550px;
 }
 
