@@ -8,7 +8,7 @@
 
 .participants
 {
-	height: 748px;
+	height: 768px;
 	overflow-y:hidden;
 }
 
@@ -57,8 +57,8 @@ ul.appleCube > li {
 }
 
 body {
-	width:1024px;
-	height:768px;
+	width:1004px;
+	height:748px;
 	overflow:hidden;
 }
 
