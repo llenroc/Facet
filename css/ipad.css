@@ -104,7 +104,8 @@ body {
 {
 	width:725px;
 	height:55px;
-	-webkit-overflow-scrolling: touch;
+	overflow-y: hidden;
+//	-webkit-overflow-scrolling: touch;
 }
 
 .column  {
