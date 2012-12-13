@@ -416,9 +416,21 @@ function makeParticipantsDroppable() {
     $( ".device" ).droppable({
 		over: function(event,ui) { $(this).addClass("hover-border"); },		
 		out: function(event,ui) { $(this).removeClass("hover-border"); },
+		accept: ".appleCube li, #columns li",
         drop: function( event, ui ) {
-		
 			$(this).removeClass("hover-border");
+			
+			var name = $(ui.draggable).text();
+			var URL = $(ui.helper).attr("href");
+			var type = $(ui.helper).attr("type");
+			
+			if(URL == undefined) {
+				URL = $(ui.draggable).attr("href");
+			}
+					
+			// Make Objective C call here
+			
+
         }
     }).disableSelection();
 		
