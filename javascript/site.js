@@ -432,7 +432,7 @@ function makeParticipantsDroppable() {
 			cordova.exec(function(winParam) {
 				alert(winParam);
 			}, function(error) {
-				alert("Failure");
+				alert(error);
 				
 			} , "Send", "send", ["params"]);
 
