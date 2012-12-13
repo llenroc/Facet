@@ -430,7 +430,7 @@ function makeParticipantsDroppable() {
 					
 			// Make Objective C call here
 			cordova.exec(function(winParam) {
-				alert("Success");
+				alert(winParam);
 			}, function(error) {
 				alert("Failure");
 				
