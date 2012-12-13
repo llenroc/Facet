@@ -106,10 +106,8 @@ $(function() {
 		//$.unblockUI();
 		$("#loadingBlock").remove();
 		$("#loadingGroups").remove();
-		$("#loadingParticipants").remove();
-		
+		$("#loadingParticipants").remove();		
 	});
-	
 	
 	// Set timer for refresh
 	refresh();
@@ -431,7 +429,7 @@ function makeParticipantsDroppable() {
 								
 			// Make Objective C call here
 			cordova.exec(function(winParam) {
-				alert(winParam);
+				displayRecievedItemPrompt(winParam[0], winParam[1], winParam[2]);
 			}, function(error) {
 				alert(error);
 				
