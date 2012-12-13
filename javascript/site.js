@@ -434,7 +434,7 @@ function makeParticipantsDroppable() {
 			}, function(error) {
 				alert("Failure");
 				
-			} , "Echo", "echo", ["params"]);
+			} , "Send", "send", ["params"]);
 
         }
     }).disableSelection();
