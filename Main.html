@@ -201,6 +201,22 @@
 		
 		</div>
 		
+		
+		
+		<!-- The popup box that appears for creating an item -->	
+		<div style="display:none;" id="recievedItemPrompt">
+		
+			<h2>You recieved an item!</h2>
+						
+			<ul style = "margin-left:auto;margin-right:auto;width:50%" class = "apple" id = "recievedItemList"></ul>
+			
+			<button onclick="" class="button blue">Open Item</button>
+            <button class="button blue" onclick="$.unblockUI();">Cancel</button>
+		
+		</div>
+		
+		
+		
 		<img title="Settings" id="settingsImage" status="hidden" onclick="toggleSettingsMenu();" style="position:absolute; top:7px; right:10px" alt="Settings" height='32px' width='32px' src="icons/gearL.png"></img>
 		
 		<div id="settingsMenu" style="z-index:99999; min-width:200px; padding:10px; color: white; background-color:#222222; border-radius:8px; display:none; position:absolute; top:50px; right:5px">

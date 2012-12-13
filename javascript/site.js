@@ -423,18 +423,19 @@ function makeParticipantsDroppable() {
 			var name = $(ui.draggable).text();
 			var URL = $(ui.helper).attr("href");
 			var type = $(ui.helper).attr("type");
+			var sender = $(this).text();
 			
 			if(URL == undefined) {
 				URL = $(ui.draggable).attr("href");
 			}
-					
+								
 			// Make Objective C call here
 			cordova.exec(function(winParam) {
 				alert(winParam);
 			}, function(error) {
 				alert(error);
 				
-			} , "Send", "send", [name,URL,type]);
+			} , "Send", "send", [name,URL,type,sender]);
 
         }
     }).disableSelection();
@@ -651,6 +652,29 @@ function refreshSurfaceList() {
 function addSurface(name, type) {
 	$("#surfaceList").append("<li class = 'device icon " + type + "'>" + name + "</li>");
 }
+
+function displayRecievedItemPrompt(name, URL, type) {
+	$("#recievedItemList").children().remove();
+	$("#recievedItemList").append("<li type=" + type + " title = '" + name + "' class = 'icon "+ type +"'>" +name + "</li>");
+	
+	$.blockUI({ 
+	message: $('#recievedItemPrompt'),
+	css: { 
+		border: 'none', 
+		padding: '15px',
+		'font-size': '15px',
+		backgroundColor: '#222', 
+		'-webkit-border-radius': '10px', 
+		'-moz-border-radius': '10px', 
+		'border-radius': '10px',
+		'min-width' : '475px',
+		'margin-top' : '-200px',
+		'margin-left' : '-50px',
+		'cursor': 'auto',
+		color: '#fff' },
+	}); 
+}
+
 
 
 //http://javascriptisawesome.blogspot.ca/2011/09/jquery-css-rotate-and-animate-rotation.html
