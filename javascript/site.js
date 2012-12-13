@@ -429,7 +429,12 @@ function makeParticipantsDroppable() {
 			}
 					
 			// Make Objective C call here
-			
+			cordova.exec(function(winParam) {
+				alert("Success");
+			}, function(error) {
+				alert("Failure");
+				
+			} , "Echo", "echo", ["params"]);
 
         }
     }).disableSelection();
