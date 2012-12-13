@@ -423,7 +423,7 @@ function makeParticipantsDroppable() {
 			var name = $(ui.draggable).text();
 			var URL = $(ui.helper).attr("href");
 			var type = $(ui.helper).attr("type");
-			var sender = $(this).text();
+			var sendTo = $(this).text();
 			
 			if(URL == undefined) {
 				URL = $(ui.draggable).attr("href");
@@ -435,7 +435,7 @@ function makeParticipantsDroppable() {
 			}, function(error) {
 				alert(error);
 				
-			} , "Send", "send", [name,URL,type,sender]);
+			} , "Send", "send", [name,URL,type,sendTo]);
 
         }
     }).disableSelection();
