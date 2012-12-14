@@ -26,9 +26,7 @@ $(function() {
 			}
 			
 	});
-	
-	refreshSurfaceList();
-	
+		
 	console.log(document.cookie);
 	
 	// The list of all users is populated, so this is a loading icon
@@ -637,11 +635,21 @@ function removeAllQueueItems() {
 
 
 // New code added for the iOS implementation
-function refreshSurfaceList() {
-	addSurface("ASE Lab iPad 3", "tablet");
-	addSurface("ASE Lab iPhone", "mobile");
-	addSurface("Microsoft Surface", "surface");
+// string - "devicename1, type1; devicename2, type2; devicename3, type3"
+// refreshSurfaceList("ASE Lab iPad 3, tablet; ASE Lab iPhone, mobile; Microsoft Surface,surface");
+function refreshSurfaceList(string) {
 	
+	$("#surfaceList").children().remove();
+	
+	var array = string.split(";");
+	for(var i = 0; i < array.length; i++) {
+		var split = array[i].split(",");
+		
+		if(split[0] != undefined && split[1] != undefined) {
+			addSurface(split[0], split[1]);
+		}
+	}
+
 	makeParticipantsDroppable();
 }
 
