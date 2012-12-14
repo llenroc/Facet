@@ -681,10 +681,10 @@ function changePairingState(color) {
 function recalibrate() {
 	// Make Objective C call here
 	cordova.exec(function(winParam) {
-		alert(winParam);
+		console.log("Orientation Reset Successful");
 	}, function(error) {
 		alert(error);	
-	} , "Send", "recalibrate", ["hey!"]);
+	} , "Send", "recalibrate", ["Reset orientation, dude"]);
 }
 
 
