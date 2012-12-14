@@ -10,7 +10,7 @@ var selectedGroup;
 $(function() {
 	// Checks if user is logged in. If they are not, redirect them to login page
 	checkLogIn();
-	
+		
 	// Blocks UI until ajax callback is completed
 	
 	$("<div style='position:fixed;top:0px;left:0px;width:100%;height:100%' id='loadingBlock'></div>").appendTo("body").block({
@@ -671,6 +671,20 @@ function displayRecievedItemPrompt(name, URL, type) {
 		'cursor': 'auto',
 		color: '#fff' },
 	}); 
+}
+
+// color - red, green, yellow
+function changePairingState(color) {
+	$("#pairingStateImage").attr("src", "icons/" + color + ".png");
+}
+
+function recalibrate() {
+	// Make Objective C call here
+	cordova.exec(function(winParam) {
+		alert(winParam);
+	}, function(error) {
+		alert(error);	
+	} , "Send", "recalibrate", ["hey!"]);
 }
 
 
