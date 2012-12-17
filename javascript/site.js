@@ -431,7 +431,7 @@ function makeParticipantsDroppable() {
 			// Make Objective C call here
 			cordova.exec(function(winParam) {
 				displayRecievedItemPrompt(winParam[0], winParam[1], winParam[2], winParam[4]);
-				PS.ajax.shareWithUser(function() {}, function(json,textstatus, jqXHR) { alert(jqXHR +" Error receiving Item");} , winParam[3], getCookie("id"));
+				PS.ajax.shareWithUser(function() {}, function(json,textstatus, jqXHR) { alert(jqXHR +" Error receiving Item");} , winParam[4], getCookie("id"));
 				
 			}, function(error) {
 				alert(error);
