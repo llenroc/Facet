@@ -38,6 +38,7 @@ PS.model.checkProjectItems = function(data) {
 	}
 }
 
+/*
 PS.model.checkGroups = function(nids) {
 	var groupSplit = nids.split(", ");
 	for(var i = 0; i < groupSplit.length; i++) {
@@ -73,7 +74,7 @@ PS.model.checkGroups = function(nids) {
 			}, function() { console.log("Failed to Load Group") });					
 		}		
 	}
-}
+}*/
 
 PS.model.registerGroup = function(nid, data) {
 	PS.model.groups[nid] = data;
@@ -101,6 +102,7 @@ PS.model.checkUserItems = function(xml) {
 	//--------------------------------------------------------------------------------//
 }
 
+/*
 PS.model.checkGroupItems = function(xml) {
 	// Iterates through each item that a user owns and adds them to the workspace
 	$(xml).find("node").slice(1).each(function() {
@@ -132,6 +134,7 @@ PS.model.checkGroupItems = function(xml) {
 		}
 	});
 }
+*/
 
 // Since the Queue has adding, removing, and reordering, when a new item is detected, it completely redraws all queue items
 PS.model.checkQueue = function(data) {

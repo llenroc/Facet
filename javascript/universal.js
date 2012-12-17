@@ -233,15 +233,18 @@ function refresh() {
 		PS.model.checkUserItems(xml);
 	}, function(json,textstatus, jqXHR) { console.error(jqXHR +" Failed to Load User Items"); }, getCookie("id"));	
 	
-	PS.ajax.indexUserGroups( function (xml) { 
+	// We are not using Groups in the MSE Version
+/*	PS.ajax.indexUserGroups( function (xml) { 
 		PS.model.checkGroupItems(xml);
-	}, function(json,textstatus, jqXHR) { console.error(jqXHR +" Failed to load Group Items"); }, getCookie("id"));
+	}, function(json,textstatus, jqXHR) { console.error(jqXHR +" Failed to load Group Items"); }, getCookie("id"));*/
 	
 	PS.ajax.retrieve("project", getCookie("projectID"), function(xml) {
 		$(xml).find("node").slice(1).each(function() {
 		
-			PS.model.checkProjectItems($(this).find("Items_data").text());		
-			PS.model.checkGroups($(this).find("Groups").text());
+			PS.model.checkProjectItems($(this).find("Items_data").text());	
+
+			// Not using Groups in MSE Version
+			//PS.model.checkGroups($(this).find("Groups").text());
 			
 			
 			projectJSON = xml;
