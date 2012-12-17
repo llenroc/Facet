@@ -10,7 +10,7 @@ $(function() {
 	// Checks if user is logged in. If they are not, redirect them to login page
 	checkLogIn();
 		
-	refreshSurfaceList("ASE Lab iPad 3, tablet; ASE Lab iPad mini, tablet; Microsoft Surface,surface");
+	refreshSurfaceList("ASE Lab iPad 3, tablet;ASE Lab iPad mini, tablet;Microsoft Surface,surface");
 	
 	// Blocks UI until ajax callback is completed
 
