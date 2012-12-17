@@ -430,8 +430,6 @@ function makeParticipantsDroppable() {
 								
 			// Make Objective C call here
 			cordova.exec(function(winParam) {
-				displayRecievedItemPrompt(winParam[0], winParam[1], winParam[2], winParam[4]);
-				PS.ajax.shareWithUser(function() {}, function(json,textstatus, jqXHR) { alert(jqXHR +" Error receiving Item");} , winParam[4], getCookie("id"));
 				
 			}, function(error) {
 				alert(error);
@@ -666,6 +664,8 @@ function addSurface(name, type) {
 }
 
 function displayRecievedItemPrompt(name, URL, type, nid) {
+	PS.ajax.shareWithUser(function() {}, function(json,textstatus, jqXHR) { alert(jqXHR +" Error receiving Item");} , nid, getCookie("id"));
+
 	$("#recievedItemList").children().remove();
 	$("#recievedItemList").append("<li type=" + type + " title = '" + name + "' class = 'icon "+ type +"'>" + name + "</li>");
 	$("#openFileButton").attr("href",URL);
