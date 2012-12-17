@@ -27,7 +27,7 @@ $(function() {
 	});
 		
 	console.log(document.cookie);
-	
+		
 	// The list of all users is populated, so this is a loading icon
 	$("#participantList").append("<li class='icon loading' id='loadingParticipants'>Loading Users...</li>");
 	$("#groupList").append("<li class='icon loading' id='loadingGroups'>Loading Groups...</li>");
@@ -420,6 +420,7 @@ function makeParticipantsDroppable() {
 			var URL = $(ui.helper).attr("href");
 			var type = $(ui.helper).attr("type");
 			var sendTo = $(this).text();
+			var nid = $(ui.helper).attr("nid");
 			
 			if(URL == undefined) {
 				URL = $(ui.draggable).attr("href");
@@ -427,11 +428,13 @@ function makeParticipantsDroppable() {
 								
 			// Make Objective C call here
 			cordova.exec(function(winParam) {
-				displayRecievedItemPrompt(winParam[0], winParam[1], winParam[2]);
+				displayRecievedItemPrompt(winParam[0], winParam[1], winParam[2], winParam[3]);
+				PS.ajax.shareWithUser(function() {}, function(json,textstatus, jqXHR) { alert(jqXHR +" Error receiving Item");} , winParam[3], getCookie("id"));
+				
 			}, function(error) {
 				alert(error);
 				
-			} , "Send", "send", [name,URL,type,sendTo]);
+			} , "Send", "send", [name,URL,type,sendTo, nid]);
 
         }
     }).disableSelection();
@@ -660,7 +663,7 @@ function addSurface(name, type) {
 	$("#surfaceList").append("<li class = 'device icon " + type + "'>" + name + "</li>");
 }
 
-function displayRecievedItemPrompt(name, URL, type) {
+function displayRecievedItemPrompt(name, URL, type, nid) {
 	$("#recievedItemList").children().remove();
 	$("#recievedItemList").append("<li type=" + type + " title = '" + name + "' class = 'icon "+ type +"'>" + name + "</li>");
 	$("#openFileButton").attr("href",URL);
