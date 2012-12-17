@@ -2,7 +2,6 @@
 
 var slideOpen = true;
 var selectedGroup;
-//var accountJSON;
 
 // http://www.w3schools.com/js/js_cookies.asp
 // http://malsup.com/jquery/block/
@@ -12,7 +11,7 @@ $(function() {
 	checkLogIn();
 		
 	// Blocks UI until ajax callback is completed
-	
+
 	$("<div style='position:fixed;top:0px;left:0px;width:100%;height:100%' id='loadingBlock'></div>").appendTo("body").block({
 		css: { 
 			border: 'none', 
@@ -110,6 +109,7 @@ $(function() {
 	// Set timer for refresh
 	refresh();
 	setInterval(refresh, 10000);
+	
 		
 });
 
@@ -137,7 +137,7 @@ function createUser(name, id) {
 // Creates Queue item with a given name and link
 function createQueueItem(name, link, type, nid) {
 	$("#columns").css("width", "+=182px");
-	$("#columns").append("<li nid='" + nid + "' type='" + type + "' class='column'><header><h1><a onclick='changeTab(3)' href='"+ link + "' target='openFile'>" + name + "</a><img alt='List Item' src='icons/handleL2.png' class='dragHandle22'></h1></header></li>");
+	$("#columns").append("<li nid='" + nid + "' type='" + type + "' class='column'><header><h1><a onclick='changeTab(4)' href='"+ link + "' target='openFile'>" + name + "</a><img alt='List Item' src='icons/handleL2.png' class='dragHandle22'></h1></header></li>");
 	makeQueueDroppable();
 }
 
@@ -586,6 +586,7 @@ function createItem(type, link, name, target, nid) {
 };
 
 function changeTab(number) {
+	
 	$( '#tabs' ).tabs( 'option', 'selected', number );
 };
 
@@ -661,7 +662,8 @@ function addSurface(name, type) {
 
 function displayRecievedItemPrompt(name, URL, type) {
 	$("#recievedItemList").children().remove();
-	$("#recievedItemList").append("<li type=" + type + " title = '" + name + "' class = 'icon "+ type +"'>" +name + "</li>");
+	$("#recievedItemList").append("<li type=" + type + " title = '" + name + "' class = 'icon "+ type +"'>" + name + "</li>");
+	$("#openFileButton").attr("href",URL);
 	
 	$.blockUI({ 
 	message: $('#recievedItemPrompt'),
