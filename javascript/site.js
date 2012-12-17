@@ -9,9 +9,7 @@ var selectedGroup;
 $(function() {
 	// Checks if user is logged in. If they are not, redirect them to login page
 	checkLogIn();
-		
-	refreshSurfaceList("ASE Lab iPad 3, tablet;ASE Lab iPad mini, tablet;Microsoft Surface,surface");
-	
+			
 	// Blocks UI until ajax callback is completed
 
 	$("<div style='position:fixed;top:0px;left:0px;width:100%;height:100%' id='loadingBlock'></div>").appendTo("body").block({
